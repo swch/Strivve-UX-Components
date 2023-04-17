@@ -4,7 +4,7 @@ import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
 import { customComponentToReact } from './parser';
-import { MountAccountLinkComponents } from './component';
+import { MountAccountLinkComponents } from '../types';
 
 export interface AccountLinkFormProps {
   fields: Field[]

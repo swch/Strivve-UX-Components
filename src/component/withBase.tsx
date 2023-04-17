@@ -1,18 +1,15 @@
 import React, { createContext, useContext } from 'react';
+import { BaseStyle } from '../types';
 
-import StrivveCore from '../core/core';
-import { BaseStyle } from './component';
 
 export const BaseContext = createContext<{ style: BaseStyle }>({ style: {} as BaseStyle });
 export const useBase = () => useContext(BaseContext);
 
 export interface BaseProps {
-  core: StrivveCore
   style: BaseStyle
 }
 
 interface WithBaseProps {
-  core: StrivveCore
   style: BaseStyle
 }
 

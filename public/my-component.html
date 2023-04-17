@@ -54,60 +54,55 @@
     }
 
     // mount select sites component
-    mountSelectSites(id, options) {
-      // initiate select site function
-      const selectSite = this.core.createSelectSite(options)
+    mountSelectSite(id, { state, selectSiteCore, options }) {
 
-      const handleSubscribeState = (state) => {
-        const parent = document.getElementById(id);
-        while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
-        }
-
-        if (state.loading) {
-          const item = document.createElement('div')
-          item.innerText = 'Loading...';
-          parent.appendChild(item);
-        }
-
-        // continue button
-        const button = document.createElement('button')
-        button.onclick = () => {
-          selectSite.submit();
-        }
-        button.innerText = 'Continue';
-        parent.appendChild(button)
-
-        // search input
-        const search = document.createElement('input')
-        search.style.display = 'block'
-        search.onchange = (e) => {
-          selectSite.changeSearch(e.target.value);
-        }
-        search.placeholder = 'Search';
-        parent.appendChild(search)
-
-        // sites
-        const selected = state.selected;
-        state.sites.map(site => {
-          const item = document.createElement('div')
-          item.addEventListener('click', () => {
-            selectSite.selectItem(site);
-          })
-          const active = Boolean(selected?.find(m => m.id === site.id));
-
-          item.innerHTML = `
-          <div style="padding: 10px;${active ? " background: lightgray;" : ''}">${site.name}</div>
-          `
-          parent.appendChild(item)
-        })
+      const parent = document.getElementById(id);
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
       }
 
-      selectSite.subscribe(handleSubscribeState);
+      if (state.loading) {
+        const item = document.createElement('div')
+        item.innerText = 'Loading...';
+        parent.appendChild(item);
+      }
+
+      // continue button
+      const button = document.createElement('button')
+      button.onclick = () => {
+        selectSiteCore.submit();
+      }
+      button.innerText = 'Continue';
+      parent.appendChild(button)
+
+      // search input
+      const search = document.createElement('input')
+      search.style.display = 'block'
+      search.onchange = (e) => {
+        selectSiteCore.changeSearch(e.target.value);
+      }
+      search.placeholder = 'Search';
+      parent.appendChild(search)
+
+      // sites
+      const selected = state.selected;
+      state.sites.map(site => {
+        const item = document.createElement('div')
+        item.addEventListener('click', () => {
+          selectSiteCore.selectItem(site);
+        })
+        const active = Boolean(selected?.find(m => m.id === site.id));
+
+        item.innerHTML = `
+          <div style="padding: 10px;${active ? " background: lightgray;" : ''}">${site.name}</div>
+          `
+        parent.appendChild(item)
+      })
+
     }
 
     // unmount select sites component
-    unmountSelectSites(id) {
+    unmountSelectSite(id) {
       const parent = document.getElementById(id);
       while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -115,57 +110,51 @@
     }
 
     // mount account link component
-    mountAccountLink(id, options) {
-      // initiate account link function
-      const accountLink = this.core.createAccountLink(options);
+    mountAccountLink(id, { options, accountLinkCore, state }) {
 
-      const handleSubscribeState = (state) => {
-        const parent = document.getElementById(id);
+      const parent = document.getElementById(id);
 
-        if (state.fields.length > 0) {
-          while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
-          }
-        }
-
-        // progress
-        if (state.message) {
-          const status = document.createElement('div');
-          status.innerText = state.message.status_message;
-          const progress = document.createElement('div');
-          progress.style.width = `${state.message.percent_complete}%`;
-          progress.style.height = '20px';
-          progress.style.background = 'gray';
-          status.appendChild(progress);
-          parent.appendChild(status);
-        }
-
-        // inputs
-        if (!state.linking && !state.success) {
-          state.fields.map(field => {
-            const item = document.createElement('input')
-            item.addEventListener('change', (e) => {
-              accountLink.change(field.name, e.target.value);
-            })
-            item.name = field.name;
-            item.placeholder = field.label;
-            item.value = state.values[field.name] || '';
-
-            parent.appendChild(item)
-          });
-
-
-          const button = document.createElement('button')
-          button.style.display = 'block'
-          button.onclick = () => {
-            accountLink.submit();
-          }
-          button.innerText = 'Link';
-          parent.appendChild(button)
+      if (state.fields.length > 0) {
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
         }
       }
 
-      accountLink.subscribe(handleSubscribeState);
+      // progress
+      if (state.message) {
+        const status = document.createElement('div');
+        status.innerText = state.message.status_message;
+        const progress = document.createElement('div');
+        progress.style.width = `${state.message.percent_complete}%`;
+        progress.style.height = '20px';
+        progress.style.background = 'gray';
+        status.appendChild(progress);
+        parent.appendChild(status);
+      }
+
+      // inputs
+      if (!state.linking && !state.success) {
+        state.fields.map(field => {
+          const item = document.createElement('input')
+          item.addEventListener('change', (e) => {
+            accountLinkCore.change(field.name, e.target.value);
+          })
+          item.name = field.name;
+          item.placeholder = field.label;
+          item.value = state.values[field.name] || '';
+
+          parent.appendChild(item)
+        });
+
+        const button = document.createElement('button')
+        button.style.display = 'block'
+        button.onclick = () => {
+          accountLinkCore.submit();
+        }
+        button.innerText = 'Link';
+        parent.appendChild(button)
+      }
+
     }
 
     // unmount account link component
@@ -178,8 +167,8 @@
   }
 
 
-  // full account linking
-  Strivve.createFullAccountLinking({
+  // full account link
+  Strivve.mountFullAccountLinking({
     Component: MyComponent,
     element_id: 'full',
     api_instance: 'customer-dev',
@@ -189,10 +178,7 @@
       expiration_month: '02',
       expiration_year: '24',
       name_on_card: 'Mvick',
-    },
-    select_sites: {
-      single: true
-    },
+    }
   });
 
 

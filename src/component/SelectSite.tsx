@@ -1,36 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import withBase, { BaseProps } from './withBase';
-import SelectSiteCore, { SelectSiteState, initialStateSelectSite } from '../core/selectSite';
+import React from 'react';
+import withBase from './withBase';
 import SelectSiteList from './SelectSiteList';
 import Loader from './Loader';
 import AccountInput from './AccountInput';
 import Button from './Button';
-import { MountSelectSitesOptions } from './component';
 import { customComponentToReact } from './parser';
 
-interface SelectSiteProps extends BaseProps {
-  options?: MountSelectSitesOptions
-}
-
-function SelectSite({ core, options }: SelectSiteProps) {
-  const [state, setState] = useState<SelectSiteState>({ ...initialStateSelectSite, loading: true });
-  const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>()
+function SelectSite({ options, state, selectSiteCore }: any) {
 
   const handleSubmit = () => {
     selectSiteCore?.submit?.();
   }
-
-  const init = () => {
-    const selectSite = core.createSelectSite({ filter: options?.filter, single: options?.single, onSubmit: options?.onSubmit })
-    setSelectSiteCore(selectSite);
-    selectSite.subscribe((state: any) => {
-      setState(state);
-    })
-  }
-
-  useEffect(() => {
-    init()
-  }, [])
 
   if (state?.loading) {
     return (

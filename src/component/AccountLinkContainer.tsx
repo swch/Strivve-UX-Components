@@ -1,6 +1,6 @@
 import React from 'react';
 import { useBase } from './withBase';
-import { MerchantSite } from '../service/types';
+import { MerchantSite } from '../types';
 
 export interface AccountLinkContainerProps {
   site?: MerchantSite
@@ -25,6 +25,7 @@ function AccountLinkContainer({ site, children, hide_title }: AccountLinkContain
         borderRadius: style?.border_radius,
         backgroundColor: style?.background_color,
         fontFamily: style?.font_family,
+        marginBottom: style.spacing_unit
       }}
     >
       <div

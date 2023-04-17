@@ -9,7 +9,7 @@
 <script src="{url}/strivve.min.js"></script>
 <script>
 
-  Strivve.createFullAccountLinking({
+  Strivve.mountFullAccountLinking({
     element_id: 'account-link',
     api_instance: 'customer-dev',
     card: {
@@ -44,7 +44,7 @@
 | card_id | string | optional |
 | style | StyleConfig | optional |
 | grant | string | optional |
-| select_site | [MountSelectSitesOptions](docs/component.md#mountselectsitescomponent) | optional |
+| select_site | [mountSelectSiteOptions](docs/component.md#mountSelectSitecomponent) | optional |
 | account_link | [MountAccountLinkOptions](docs/component.md#mountaccountlinkoptions) | optional |
 
 
@@ -79,8 +79,12 @@ We can use parts of the functions and components.
 
 ```js
   const service = Strivve.createService({ api_instance: 'customer-dev' });
+
+  const component = Strivve.createComponent({});
+  
   const core = Strivve.createCore({
     service,
+    component,
     card: {
       pan: '4111111111111111',
       cvv: '321',
@@ -90,13 +94,12 @@ We can use parts of the functions and components.
     }
   });
 
-  const component = Strivve.createComponent({ core });
-  component.mountAccountLink('account-link', {
+  core.mountAccountLink('account-link', {
     merchant_site_id: '1',
     hide_title: false
   });
 
-  component.mountSelectSites('select-sites', {
+  core.mountSelectSite('select-sites', {
     single: false,
     view: 'list',
     hide_search: false,

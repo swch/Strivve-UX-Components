@@ -14,7 +14,7 @@ Contains functions to render components on the website.
 | name | params | 
 |---|---|
 | createAccountLink | (id: string, options: [MountAccountLinkOptions](#MountAccountLinkOptions)) | 
-| createSelectSite | (id: string, options?: MountSelectSitesOptions) | 
+| createSelectSite | (id: string, options?: mountSelectSiteOptions) | 
 | mountFullAccountLinking | (id: string, options: [MountFullAccountLinkOptions](#MountFullAccountLinkOptions)) | 
 
 
@@ -36,7 +36,7 @@ Contains functions to render components on the website.
 | button | `(data) => CustomComponent` | A function that takes in data and returns a custom button component. |
 
 
-## MountSelectSitesOptions <a href="#MountSelectSitesOptions" id="MountSelectSitesOptions"></a>
+## mountSelectSiteOptions <a href="#mountSelectSiteOptions" id="mountSelectSiteOptions"></a>
 
 | Name | Params | Description |
 | --- | --- | --- |
@@ -46,9 +46,9 @@ Contains functions to render components on the website.
 | hide_search | `boolean` | (Optional) A boolean representing whether to hide the search bar. |
 | hide_button | `boolean` | (Optional) A boolean representing whether to hide the submit button. |
 | view | `'list'` &#124; `'grid'` | (Optional) A string representing the view mode. |
-| components | `MountSelectSitesComponent` | (Optional) An object containing custom components. |
+| components | `mountSelectSiteComponent` | (Optional) An object containing custom components. |
 
-## MountSelectSitesComponent
+## mountSelectSiteComponent
 | Name | Params | Description |
 | --- | --- | --- |
 | search | `(data) => CustomComponent` | A function that takes in data and returns a custom search component. |

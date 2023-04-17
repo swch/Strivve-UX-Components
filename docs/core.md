@@ -41,7 +41,7 @@ Orchestration interface for processing job status, submitting credentials, funct
 ### Method and property
 | name | description | 
 |---|---|
-| state: [FormState](#state) | state data | 
+| state: [AccountLinkState](#state) | state data | 
 | fields: [Field](#field)[] | list of field | 
 | merchant_site: [MerchantSite](#site) | merchant site data | 
 | change(name: string, value: any) | update field state | 

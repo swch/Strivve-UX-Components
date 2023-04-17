@@ -1,30 +1,57 @@
-import StrivveService from "../service/service";
-import AccountLinkCore, { AccountLinkCoreOption } from "./accountLink";
-import SelectSiteCore, { SelectSiteCoreOptions } from "./selectSite";
+import { MerchantSite, StrivveComponentInterface, StrivveServiceInterface } from "../types";
+import { BaseStyle } from "../types";
+import AccountLinkCore, { AccountLinkCoreOption, AccountLinkState } from "./accountLink";
+import SelectSiteCore, { SelectSiteCoreOptions, SelectSiteState } from "./selectSite";
  
 export interface StrivveCoreOptions {
-  service: StrivveService;
-  component?: any;
+  service: StrivveServiceInterface;
+  component?: StrivveComponentInterface;
   card_id?: string;
   card?: any;
+  style?: BaseStyle
 }
 
 export type CreateAccountLinkOptions = Omit<AccountLinkCoreOption, 'service' | 'onSubmit'> 
 
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>
+
+export type mountFullAccountLinkingOptions = {
+  accountLinkingOptions: CreateAccountLinkOptions
+  selectSiteOptions: SelectSiteCoreOptions
+}
 export default class StrivveCore {
-  public service: StrivveService;
+  public service: StrivveServiceInterface;
   private cardholder: any;
   private card: any;
   private card_id?: string;
   private jobs: any[] = [];
-  private component: any;
+  private component?: StrivveComponentInterface;
 
   constructor({ service, card_id, card, component }: StrivveCoreOptions) {
+    const myInstance = {} as StrivveComponentInterface; // Create an instance of the interface
+    if (!this.checkInterfaceImplementation(service, myInstance)) {
+      throw new Error('Service does not implement StrivveServiceInterface')
+    }
+
     this.service = service;
+    this.component = component;
+
     this.card_id = card_id;
     this.card = card;
-    this.component = component;
+  }
+
+  checkInterfaceImplementation(className: any, interfaceName: any): boolean {
+    const interfaceMethods = Object.getOwnPropertyNames(interfaceName);
+    const classMethods = Object.getOwnPropertyNames(className);
+  
+    console.log('====', interfaceMethods)
+    for (let i = 0; i < interfaceMethods.length; i++) {
+      if (!classMethods.includes(interfaceMethods[i])) {
+        return false;
+      }
+    }
+  
+    return true;
   }
 
   createAccountLink(options: CreateAccountLinkOptions) {
@@ -36,6 +63,42 @@ export default class StrivveCore {
     return new SelectSiteCore({ ...options, service: this.service })
   }
 
+  mountSelectSite(id: string, options?: CreateSelectSiteOptions) {
+    const selectSiteCore = this.createSelectSite(options);
+    selectSiteCore.subscribe((state: SelectSiteState) => {
+      this.component?.mountSelectSite?.(id, { state, selectSiteCore, options });
+    });
+  }
+
+  mountAccountLink(id: string, options: CreateAccountLinkOptions) {
+    const accountLinkCore = this.createAccountLink(options);
+    accountLinkCore.subscribe((state: AccountLinkState) => {
+      this.component?.mountAccountLink?.(id, { state, accountLinkCore, options });
+    })
+  }
+
+  mountFullAccountLinking(id: string, { selectSiteOptions, accountLinkingOptions }: mountFullAccountLinkingOptions) {
+    this.mountSelectSite(id, {
+      ...selectSiteOptions,
+      onSubmit: (selected: MerchantSite[]) => {
+        this.component?.unmountSelectSite?.(id);
+        const parent = document.getElementById?.(id);
+        selected.forEach(item => {
+          if (typeof document !== 'undefined') {
+            const childrenId = `${id}-${item.id}`;
+            const children = document.createElement('div');
+            children.id = childrenId;
+            parent?.append(children);
+            this.mountAccountLink(childrenId, { ...accountLinkingOptions, merchant_site_id: item.id });
+          } else {
+            const childrenId = `${id}-${item.id}`;
+            this.mountAccountLink(childrenId, { ...accountLinkingOptions, merchant_site_id: item.id });
+          }
+        })
+      }
+    })
+  }
+  
   async startJob(
     creds: { [key: string]: any },
     meta?: { merchant_site: any }

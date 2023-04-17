@@ -1,8 +1,7 @@
-import StrivveService, { StrivveServiceOptions } from './service/service';
+import StrivveService from './service/service';
 import StrivveCore, { StrivveCoreOptions } from './core/core';
-import StrivveComponent, { MountFullAccountLinkOptions, StrivveComponentOptions } from './component/component';
-import { BaseStyle } from './types';
-import { MerchantSite } from './service/types';
+import StrivveComponent from './component/component';
+import { BaseStyle, StrivveComponentClass, StrivveComponentOptions, StrivveServiceClass, StrivveServiceOptions } from './types';
 
 declare global {
     interface Window {
@@ -10,43 +9,48 @@ declare global {
     }
 }
 
-
-export interface CreateFullAccountLinkingOptions extends MountFullAccountLinkOptions {
+export interface mountFullAccountLinkingOptions  {
     api_instance: string
     card?: any
     style?: BaseStyle
     element_id: string
     grant?: string
     card_id?: string
-    Component?: any
-    Service?: any
+    Component?: StrivveComponentClass
+    Service?: StrivveServiceClass
+    select_site?: any
+    account_link?: any
 }
 
 export default class Strivve {
 
-    createCore = (options: StrivveCoreOptions) => new StrivveCore(options);
+    createCore = (options: StrivveCoreOptions) => {
+
+        if (!options?.component) {
+            options.component = new StrivveComponent({ style: options?.style });
+        }
+
+        return new StrivveCore(options)
+    };
 
     createService = (options: StrivveServiceOptions) => new StrivveService(options);
 
-    createComponent = (options: StrivveComponentOptions) => new StrivveComponent(options);
+    createComponent = (options: StrivveComponentOptions): StrivveComponent => new StrivveComponent(options);
 
-    createFullAccountLinking = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_sites = {}, account_link = {} }: CreateFullAccountLinkingOptions) => {
+    mountFullAccountLinking = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_site = {}, account_link = {} }: mountFullAccountLinkingOptions) => {
         const createService = Service ? new Service({ api_instance, grant }) : this.createService({ api_instance, grant })
+        const createComponent = Component ? new Component({ style }) : this.createComponent({ style });
+        
         const core = this.createCore({
+            component: createComponent,
+            service: createService,
             card,
             card_id,
-            service: createService
         })
-        const createComponent = Component ? new Component({ core, style }) : this.createComponent({ core, style });
-        createComponent.mountSelectSites(element_id, {
-            ...select_sites,
-            onSubmit: (selected: MerchantSite[]) => {
-                createComponent.unmountSelectSites(element_id);
-                createComponent.mountAccountLink(element_id, {
-                    ...account_link,
-                    merchant_site_id: selected.map(item => item.id),
-                })              
-            }
+
+        core.mountFullAccountLinking(element_id, {
+            selectSiteOptions: select_site,
+            accountLinkingOptions: account_link
         })
     }
 }

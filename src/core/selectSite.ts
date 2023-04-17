@@ -1,8 +1,7 @@
-import StrivveService from "../service/service";
-import { APIFilter, MerchantSite } from "../service/types";
+import { APIFilter, MerchantSite, StrivveServiceInterface } from "../types";
 
 export interface SelectSiteCoreOptions {
-  service: StrivveService;
+  service: StrivveServiceInterface;
   filter?: APIFilter
   single?: boolean;
   onSubmit?: Function;
@@ -23,7 +22,7 @@ export const initialStateSelectSite = {
 }
 
 export default class SelectSiteCore {
-  service: StrivveService;
+  service: StrivveServiceInterface;
   state: SelectSiteState = initialStateSelectSite;
   private subscriber: Function = () => { };
   private sites: MerchantSite[] = []
@@ -52,6 +51,7 @@ export default class SelectSiteCore {
 
   public subscribe(func: Function) {
     this.subscriber = func;
+    this.notifyForm();
   }
 
   public submit() {
@@ -89,7 +89,6 @@ export default class SelectSiteCore {
       ...this.state,
       ...value
     }
-
     this.notifyForm()
   }
 

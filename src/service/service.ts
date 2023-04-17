@@ -1,12 +1,6 @@
 import { Encryption } from '@strivve/strivve-sdk/lib/cardsavr/CardsavrSessionCrypto';
 import { CardholderQuery, CardsavrHelper } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper";
-import { MerchantSite, StrivveServiceInterface, APIFilter } from "./types";
-
-export interface StrivveServiceOptions {
-  api_instance: string;
-  safe_key?: string;
-  grant?: string;
-}
+import { MerchantSite, StrivveServiceInterface, APIFilter, StrivveServiceOptions } from "../types";
 
 class StrivveService implements StrivveServiceInterface {
   ch: CardsavrHelper;

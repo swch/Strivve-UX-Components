@@ -1,11 +1,10 @@
 import { CardholderQuery } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper";
-import StrivveService from "../service/service";
-import { MerchantSite } from "../service/types";
+import { MerchantSite, StrivveServiceInterface } from "../types";
 
 export interface AccountLinkCoreOption {
   merchant_site_id: string;
   onSubmit: Function;
-  service: StrivveService;
+  service: StrivveServiceInterface;
   quick_start?: boolean;
   job?: any;
 }
@@ -23,7 +22,7 @@ export interface ErrorField {
   message: string;
 }
 
-export interface FormState {
+export interface AccountLinkState {
   values: { [key: string]: any }
   valid: boolean
   loading: boolean
@@ -50,9 +49,9 @@ export const initialStateAccountLink = {
 }
 
 export default class AccountLinkCore {
-  service: StrivveService;
+  service: StrivveServiceInterface;
   merchant_site?: MerchantSite = undefined;
-  state: FormState = initialStateAccountLink;
+  state: AccountLinkState = initialStateAccountLink;
   fields: Field[] = [];
   query?:CardholderQuery;
   failed_status = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
@@ -77,13 +76,13 @@ export default class AccountLinkCore {
   async getSite(id: string, quick_start?: boolean, job?: any) {
     const merchant_site = await this.service.getMerchantSite(id);
     this.merchant_site = merchant_site;
-    this.fields = merchant_site.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
+    this.fields = merchant_site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
       name: item.key_name,
       value: '',
       label: item.label,
       type: item.secret ? 'password' : 'text',
       required: true,
-    }))
+    })) || []
 
     this.updateState({ linking: job ? true : Boolean(quick_start), loading: false, job, fields: this.fields });
     if (quick_start) {
@@ -168,7 +167,7 @@ export default class AccountLinkCore {
     this.notifyForm();
   }
 
-  private updateState(value: Partial<FormState>) {
+  private updateState(value: Partial<AccountLinkState>) {
     this.state = {
       ...this.state,
       ...value
