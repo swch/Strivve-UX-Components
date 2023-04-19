@@ -9,38 +9,21 @@ export interface BaseProps {
   style: BaseStyle
 }
 
-interface WithBaseProps {
+export interface WithBaseProps {
   style: BaseStyle
 }
 
-// Take in a component as argument WrappedComponent
 const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
-  // And return another component
-  class HOC extends React.Component<P & WithBaseProps> {
-
-    render() {
-      return (
-        <div
-          style={{
-            color: this.props.style.text_color,
-            fontFamily: this.props.style?.font_family,
-            fontSize: '0.9rem'
-          }}>
-          <BaseContext.Provider
-            value={{
-              style: this.props.style
-            }}
-          >
-            <Component
-              {...this.props as P}
-            />
-          </BaseContext.Provider>
-
-        </div>
-      );
-    }
-  }
-  return HOC;
+  return function WithBase(props: P) {
+    const { style } = props;
+    return (
+      <div style={{ color: style.text_color, fontFamily: style?.font_family, fontSize: '0.9rem' }}>
+        <BaseContext.Provider value={{ style }}>
+          <Component {...props} />
+        </BaseContext.Provider>
+      </div>
+    );
+  };
 };
 
 export default withBase;

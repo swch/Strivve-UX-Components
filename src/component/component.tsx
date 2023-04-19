@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AccountLink from './AccountLink';
 import SelectSite from './SelectSite';

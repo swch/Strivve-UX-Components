@@ -2,6 +2,9 @@
   "name": "strivve",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@strivve/strivve-sdk": "^2.12.0",
@@ -13,7 +16,6 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -22,7 +24,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "GENERATE_SOURCEMAP=false react-app-rewired build  && mv build/static/js/main*.js example/strivve.min.js && cp example/strivve.min.js ../cardupdatr_v2/public/",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/index.min.js",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
@@ -45,10 +47,8 @@
     ]
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.2",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
-    "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
