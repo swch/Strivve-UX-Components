@@ -6,7 +6,7 @@
 <body>
   <div id="account-link"></div>
 </body>
-<script src="{url}/strivve.min.js"></script>
+<script src="{url}/main.js"></script>
 <script>
 
   Strivve.mountFullAccountLinking({

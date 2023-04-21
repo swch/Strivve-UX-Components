@@ -2,7 +2,7 @@
   "name": "strivve",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
@@ -16,15 +16,19 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/index.min.js",
+    "build": "tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
@@ -49,11 +53,8 @@
   "devDependencies": {
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
-    "https-browserify": "^1.0.0",
-    "os-browserify": "^0.3.0",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
-    "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0"
   },

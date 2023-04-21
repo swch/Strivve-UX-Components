@@ -44,7 +44,6 @@ export default class StrivveCore {
     const interfaceMethods = Object.getOwnPropertyNames(interfaceName);
     const classMethods = Object.getOwnPropertyNames(className);
   
-    console.log('====', interfaceMethods)
     for (let i = 0; i < interfaceMethods.length; i++) {
       if (!classMethods.includes(interfaceMethods[i])) {
         return false;
