@@ -1,5 +1,5 @@
-import { Encryption } from '@strivve/strivve-sdk/lib/cardsavr/CardsavrSessionCrypto';
-import { CardholderQuery, CardsavrHelper } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper";
+import { Encryption } from '../cardsavr/CardsavrSessionCrypto';
+import { CardholderQuery, CardsavrHelper } from "../cardsavr/CardsavrHelper";
 import { MerchantSite, StrivveServiceInterface, APIFilter, StrivveServiceOptions } from "../types";
 
 class StrivveService implements StrivveServiceInterface {
