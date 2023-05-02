@@ -8,6 +8,9 @@ npm install
 npm start
 ```
 
+## Mount Component
+Example file: `/index.html`
+
 ## Using Strivve Component
 
 ```html

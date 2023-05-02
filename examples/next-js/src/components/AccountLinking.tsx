@@ -1,21 +1,26 @@
 import Strivve from '@strivve/component';
+import axios from 'axios';
 import { useEffect } from 'react';
 
 export default function AccountLinking() {
 
-  useEffect(() => {
+  const init = async () => {
+    // get grant and card id
+    const res = await axios.get('/api/grant');
+    const data = res.data;
+
+    // initiate component
     const s = new Strivve();
     s.mountFullAccountLinking({
       element_id: 'linking',
       api_instance: 'customer-dev',
-      card: {
-        pan: '4111111111111111',
-        cvv: '321',
-        expiration_month: '02',
-        expiration_year: '24',
-        name_on_card: 'Mvick',
-      },
-    })
+      card_id: data.card_id,
+      grant: data.grant,
+    });
+  }
+
+  useEffect(() => {
+    init();
   }, []);
 
   return (
