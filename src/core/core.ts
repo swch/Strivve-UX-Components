@@ -15,7 +15,7 @@ export type CreateAccountLinkOptions = Omit<AccountLinkCoreOption, 'service' | '
 
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>
 
-export type mountFullAccountLinkingOptions = {
+export type mountLinkingJourneyOptions = {
   accountLinkingOptions: CreateAccountLinkOptions
   selectSiteOptions: SelectSiteCoreOptions
 }
@@ -54,7 +54,7 @@ export default class StrivveCore {
   }
 
   createAccountLink(options: CreateAccountLinkOptions) {
-    const job = this.jobs.find(item => item.merchant_site_id === options.merchant_site_id);
+    const job = this.jobs.find(item => item.site_id === options.site_id);
     return new AccountLinkCore({ ...options, job, onSubmit: (v: any, meta: any) => this.startJob(v, meta), service: this.service })
   }
 
@@ -62,25 +62,25 @@ export default class StrivveCore {
     return new SelectSiteCore({ ...options, service: this.service })
   }
 
-  mountSelectSite(id: string, options?: CreateSelectSiteOptions) {
+  mountSelectSiteView(id: string, options?: CreateSelectSiteOptions) {
     const selectSiteCore = this.createSelectSite(options);
     selectSiteCore.subscribe((state: SelectSiteState) => {
-      this.component?.mountSelectSite?.(id, { state, selectSiteCore, options });
+      this.component?.mountSelectSiteView?.(id, { state, selectSiteCore, options });
     });
   }
 
-  mountAccountLink(id: string, options: CreateAccountLinkOptions) {
+  mountAccountLinkView(id: string, options: CreateAccountLinkOptions) {
     const accountLinkCore = this.createAccountLink(options);
     accountLinkCore.subscribe((state: AccountLinkState) => {
-      this.component?.mountAccountLink?.(id, { state, accountLinkCore, options });
+      this.component?.mountAccountLinkView?.(id, { state, accountLinkCore, options });
     })
   }
 
-  mountFullAccountLinking(id: string, { selectSiteOptions, accountLinkingOptions }: mountFullAccountLinkingOptions) {
-    this.mountSelectSite(id, {
+  mountLinkingJourney(id: string, { selectSiteOptions, accountLinkingOptions }: mountLinkingJourneyOptions) {
+    this.mountSelectSiteView(id, {
       ...selectSiteOptions,
       onSubmit: (selected: MerchantSite[]) => {
-        this.component?.unmountSelectSite?.(id);
+        this.component?.unmountSelectSiteView?.(id);
         const parent = document.getElementById?.(id);
         selected.forEach(item => {
           if (typeof document !== 'undefined') {
@@ -88,10 +88,10 @@ export default class StrivveCore {
             const children = document.createElement('div');
             children.id = childrenId;
             parent?.append(children);
-            this.mountAccountLink(childrenId, { ...accountLinkingOptions, merchant_site_id: item.id });
+            this.mountAccountLinkView(childrenId, { ...accountLinkingOptions, site_id: item.id });
           } else {
             const childrenId = `${id}-${item.id}`;
-            this.mountAccountLink(childrenId, { ...accountLinkingOptions, merchant_site_id: item.id });
+            this.mountAccountLinkView(childrenId, { ...accountLinkingOptions, site_id: item.id });
           }
         })
       }
@@ -150,7 +150,7 @@ export default class StrivveCore {
           card_id: card?.id,
           status: "REQUESTED",
           account: {
-            merchant_site_id: merchant.id,
+            site_id: merchant.id,
             cardholder_id: cardholder?.id,
             account_link: creds,
             customer_key : `${merchant.id}$${cardholder?.cuid}`
@@ -162,7 +162,7 @@ export default class StrivveCore {
       );
 
       const job =  singleSiteJobResponse.body[0];
-      job.merchant_site_id = merchant.id;
+      job.site_id = merchant.id;
       this.jobs.push(job);
       return job;
     } catch (error: any) {

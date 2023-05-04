@@ -4,7 +4,7 @@ import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
 import { customComponentToReact } from './parser';
-import { MountAccountLinkComponents } from '../types';
+import { mountAccountLinkViewComponents } from '../types';
 
 export interface AccountLinkFormProps {
   fields: Field[]
@@ -12,7 +12,7 @@ export interface AccountLinkFormProps {
   change: (name: string, value: any) => void
   disabled?: boolean
   values?: { [key: string]: any }
-  components?: MountAccountLinkComponents
+  components?: mountAccountLinkViewComponents
   autoFocus?: boolean
 }
 

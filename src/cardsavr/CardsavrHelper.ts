@@ -323,10 +323,10 @@ export class CardsavrHelper {
         const session = this._sessions[username];
         if (session) {
             try {
-                if (!account.merchant_site_id && account.site_hostname) {
+                if (!account.site_id && account.site_hostname) {
                     const site: any = await this.lookupMerchantSite(username, account.site_hostname);
                     if (site) {
-                        account.merchant_site_id = site.id;
+                        account.site_id = site.id;
                     }
                 }
                 return await this.placeCardOnSites({username, jobs_data : [job_data], safe_key });

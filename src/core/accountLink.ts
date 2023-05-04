@@ -2,7 +2,7 @@ import { CardholderQuery } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelpe
 import { MerchantSite, StrivveServiceInterface } from "../types";
 
 export interface AccountLinkCoreOption {
-  merchant_site_id: string;
+  site_id: string;
   onSubmit: Function;
   service: StrivveServiceInterface;
   quick_start?: boolean;
@@ -58,7 +58,7 @@ export default class AccountLinkCore {
   private onSubmit: Function;
   private subscriber: Function = () => { };
 
-  constructor({ merchant_site_id, quick_start, onSubmit, service, job }: AccountLinkCoreOption) {
+  constructor({ site_id, quick_start, onSubmit, service, job }: AccountLinkCoreOption) {
     this.service = service;
     if (job) {
       this.createQuery(job);
@@ -70,7 +70,7 @@ export default class AccountLinkCore {
     }
 
     this.onSubmit = onSubmit;
-    this.getSite(merchant_site_id, quick_start, job)
+    this.getSite(site_id, quick_start, job)
   }
 
   async getSite(id: string, quick_start?: boolean, job?: any) {

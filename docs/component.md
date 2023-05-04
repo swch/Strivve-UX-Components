@@ -13,21 +13,21 @@ Contains functions to render components on the website.
 ## Method
 | name | params | 
 |---|---|
-| createAccountLink | (id: string, options: [MountAccountLinkOptions](#MountAccountLinkOptions)) | 
-| createSelectSite | (id: string, options?: mountSelectSiteOptions) | 
-| mountFullAccountLinking | (id: string, options: [MountFullAccountLinkOptions](#MountFullAccountLinkOptions)) | 
+| createAccountLink | (id: string, options: [mountAccountLinkViewOptions](#mountAccountLinkViewOptions)) | 
+| createSelectSite | (id: string, options?: mountSelectSiteViewOptions) | 
+| mountLinkingJourney | (id: string, options: [MountFullAccountLinkOptions](#MountFullAccountLinkOptions)) | 
 
 
-## MountAccountLinkOptions <a href="#MountAccountLinkOptions" id="MountAccountLinkOptions"></a>
+## mountAccountLinkViewOptions <a href="#mountAccountLinkViewOptions" id="mountAccountLinkViewOptions"></a>
 | Name | Params | Description |
 | --- | --- | --- |
-| merchant_site_id | `string` | (Optional) A string representing the merchant site ID. |
+| site_id | `string` | (Optional) A string representing the merchant site ID. |
 | quick_start | `boolean` | (Optional) A boolean representing whether to show a quick start option. |
 | hide_title | `boolean` | (Optional) A boolean representing whether to hide the title. |
-| components | `MountAccountLinkComponents` | (Optional) An object containing custom components. |
+| components | `mountAccountLinkViewComponents` | (Optional) An object containing custom components. |
 
 
-## MountAccountLinkComponents
+## mountAccountLinkViewComponents
 
 | Name | Params | Description |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Contains functions to render components on the website.
 | button | `(data) => CustomComponent` | A function that takes in data and returns a custom button component. |
 
 
-## mountSelectSiteOptions <a href="#mountSelectSiteOptions" id="mountSelectSiteOptions"></a>
+## mountSelectSiteViewOptions <a href="#mountSelectSiteViewOptions" id="mountSelectSiteViewOptions"></a>
 
 | Name | Params | Description |
 | --- | --- | --- |
@@ -46,9 +46,9 @@ Contains functions to render components on the website.
 | hide_search | `boolean` | (Optional) A boolean representing whether to hide the search bar. |
 | hide_button | `boolean` | (Optional) A boolean representing whether to hide the submit button. |
 | view | `'list'` &#124; `'grid'` | (Optional) A string representing the view mode. |
-| components | `mountSelectSiteComponent` | (Optional) An object containing custom components. |
+| components | `mountSelectSiteViewComponent` | (Optional) An object containing custom components. |
 
-## mountSelectSiteComponent
+## mountSelectSiteViewComponent
 | Name | Params | Description |
 | --- | --- | --- |
 | search | `(data) => CustomComponent` | A function that takes in data and returns a custom search component. |

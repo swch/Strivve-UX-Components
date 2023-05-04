@@ -28,12 +28,9 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 8px">
-    <div id="account-link"></div>
     <div id="full"></div>
-    <div id="select-sites"></div>
-    <div id="account-link-form"></div>
-    <div id="select-site-list"></div>
-
+    <div id="account-link"></div>
+    <div id="select-site"></div>
   </div>
 
   <!--
@@ -51,8 +48,8 @@
 <script src="./static/js/bundle.js"></script>
 <script>
 
-  // full account linking
-  Strivve.mountFullAccountLinking({
+  // mount journey
+  Strivve.mountLinkingJourney({
     element_id: 'full',
     api_instance: 'customer-dev',
     card: {
@@ -64,6 +61,13 @@
     },
   });
 
+  // mount view
+  const service = Strivve.createService({ api_instance: 'customer-dev' })
+  const component = Strivve.createComponent({ })
+  const core = Strivve.createCore({ service, component })
+
+  core.mountAccountLinkView('account-link', {  site_id: 1  })
+  core.mountSelectSiteView('select-site', {})
 
 </script>
 

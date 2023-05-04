@@ -54,7 +54,7 @@
     }
 
     // mount select sites component
-    mountSelectSite(id, { state, selectSiteCore, options }) {
+    mountSelectSiteView(id, { state, selectSiteCore, options }) {
 
       const parent = document.getElementById(id);
       while (parent.firstChild) {
@@ -102,7 +102,7 @@
     }
 
     // unmount select sites component
-    unmountSelectSite(id) {
+    unmountSelectSiteView(id) {
       const parent = document.getElementById(id);
       while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -110,7 +110,7 @@
     }
 
     // mount account link component
-    mountAccountLink(id, { options, accountLinkCore, state }) {
+    mountAccountLinkView(id, { options, accountLinkCore, state }) {
 
       const parent = document.getElementById(id);
 
@@ -158,7 +158,7 @@
     }
 
     // unmount account link component
-    unmountAccountLink(id) {
+    unmountAccountLinkView(id) {
       const parent = document.getElementById(id);
       while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -168,7 +168,7 @@
 
 
   // full account link
-  Strivve.mountFullAccountLinking({
+  Strivve.mountLinkingJourney({
     Component: MyComponent,
     element_id: 'full',
     api_instance: 'customer-dev',

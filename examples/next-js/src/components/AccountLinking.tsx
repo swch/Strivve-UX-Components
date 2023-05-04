@@ -10,8 +10,8 @@ export default function AccountLinking() {
     const data = res.data;
 
     // initiate component
-    const s = new Strivve();
-    s.mountFullAccountLinking({
+    const stv = new Strivve();
+    stv.mountLinkingJourney({
       element_id: 'linking',
       api_instance: 'customer-dev',
       card_id: data.card_id,

@@ -2,13 +2,13 @@ import React from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
 import { customComponentToReact } from './parser';
-import { MountSelectSiteComponent } from '../types';
+import { mountSelectSiteViewComponent } from '../types';
 
 export interface SelectSiteListProps {
   sites: MerchantSite[]
   selected: MerchantSite[]
   onSelectItem: Function
-  components?: MountSelectSiteComponent
+  components?: mountSelectSiteViewComponent
   view?: 'list' | 'grid'
 }
 

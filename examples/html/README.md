@@ -20,7 +20,7 @@ Example file: `/index.html`
 <script src="{url}/main.js"></script>
 <script>
 
-  Strivve.mountFullAccountLinking({
+  Strivve.mountLinkingJourney({
     element_id: 'account-link',
     api_instance: 'customer-dev',
     card: {

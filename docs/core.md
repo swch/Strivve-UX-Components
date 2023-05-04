@@ -24,7 +24,7 @@ Orchestration interface for processing job status, submitting credentials, funct
 ## AccountLinkCore
 
 ```js
-  const accountLink = core.createAccountLin({ merchant_site_id: '1', quick_start: false })
+  const accountLink = core.createAccountLin({ site_id: '1', quick_start: false })
 
   // subscribe state
   accountLink.subsribe((state) => {
@@ -35,7 +35,7 @@ Orchestration interface for processing job status, submitting credentials, funct
 ### Params
 | name | params | description |
 |---|---|---|
-| merchant_site_id | string | optional |
+| site_id | string | optional |
 | quick_start | boolean | optional |
 
 ### Method and property

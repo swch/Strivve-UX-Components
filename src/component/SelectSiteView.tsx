@@ -6,7 +6,7 @@ import AccountInput from './AccountInput';
 import Button from './Button';
 import { customComponentToReact } from './parser';
 
-function SelectSite({ options, state, selectSiteCore }: any) {
+function SelectSiteView({ options, state, selectSiteCore }: any) {
 
   const handleSubmit = () => {
     selectSiteCore?.submit?.();
@@ -81,4 +81,4 @@ function SelectSite({ options, state, selectSiteCore }: any) {
   );
 }
 
-export default withBase(SelectSite);
+export default withBase(SelectSiteView);

@@ -3,10 +3,10 @@ import Loader from './Loader';
 import AccountLinkForm from './AccountLinkForm';
 import AccountLinkContainer from './AccountLinkContainer';
 import { customComponentToReact } from './parser';
-import { MountAccountLinkProps } from '../types';
+import { mountAccountLinkViewProps } from '../types';
 import withBase from './withBase';
 
-function AccountLink({ options, state, accountLinkCore }: MountAccountLinkProps & { style: any }) {
+function AccountLinkView({ options, state, accountLinkCore }: mountAccountLinkViewProps & { style: any }) {
 
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault()
@@ -72,4 +72,4 @@ function AccountLink({ options, state, accountLinkCore }: MountAccountLinkProps 
   );
 }
 
-export default withBase(AccountLink);
+export default withBase(AccountLinkView);

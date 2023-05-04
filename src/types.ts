@@ -46,10 +46,10 @@ export interface Localization {
 }
 
 export interface StrivveComponentInterface {
-  mountSelectSite: (id: string, props?: MountSelectSiteProps) => void
-  unmountSelectSite: (id: string) => void;
-  mountAccountLink: (id: string, props: MountAccountLinkProps) => void
-  unmountAccountLink: (id: string) => void;
+  mountSelectSiteView: (id: string, props?: mountSelectSiteViewProps) => void
+  unmountSelectSiteView: (id: string) => void;
+  mountAccountLinkView: (id: string, props: mountAccountLinkViewProps) => void
+  unmountAccountLinkView: (id: string) => void;
 }
 
 export interface StrivveComponentClass {
@@ -65,43 +65,43 @@ export interface StrivveServiceOptions {
   safe_key?: string;
   grant?: string;
 }
-export interface MountAccountLinkComponents {
+export interface mountAccountLinkViewComponents {
   input: (data: Field & { change: (name: string, value: any) => void }) => CustomComponent,
   progress: (data: any) => CustomComponent
   button: (data: any) => CustomComponent
 }
-export interface MountAccountLinkOptions {
-  merchant_site_id?: string | string[]
+export interface mountAccountLinkViewOptions {
+  site_id?: string | string[]
   quick_start?: boolean
   hide_title?: boolean
-  components?: MountAccountLinkComponents
+  components?: mountAccountLinkViewComponents
 }
 
-export interface MountAccountLinkProps {
-  options: MountAccountLinkOptions
+export interface mountAccountLinkViewProps {
+  options: mountAccountLinkViewOptions
   state: AccountLinkState
   accountLinkCore: AccountLinkCore
 }
 
-export interface MountSelectSiteComponent {
+export interface mountSelectSiteViewComponent {
   search: (data: any) => CustomComponent
   button: (data: any) => CustomComponent
   item: (data: any) => CustomComponent
   container: (data: any) => CustomComponent
 }
 
-export interface MountSelectSiteOptions {
+export interface mountSelectSiteViewOptions {
   filter?: APIFilter
   single?: boolean
   onSubmit?: Function
   hide_search?: boolean
   hide_button?: boolean
   view?: 'list' | 'grid'
-  components?: MountSelectSiteComponent
+  components?: mountSelectSiteViewComponent
 }
 
-export interface MountSelectSiteProps {
-  options?: MountSelectSiteOptions
+export interface mountSelectSiteViewProps {
+  options?: mountSelectSiteViewOptions
   state: SelectSiteState
   selectSiteCore: SelectSiteCore
 }

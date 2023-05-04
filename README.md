@@ -9,7 +9,7 @@
 <script src="{url}/main.js"></script>
 <script>
 
-  Strivve.mountFullAccountLinking({
+  Strivve.mountLinkingJourney({
     element_id: 'account-link',
     api_instance: 'customer-dev',
     card: {
@@ -44,8 +44,8 @@
 | card_id | string | optional |
 | style | StyleConfig | optional |
 | grant | string | optional |
-| select_site | [mountSelectSiteOptions](docs/component.md#mountSelectSitecomponent) | optional |
-| account_link | [MountAccountLinkOptions](docs/component.md#mountaccountlinkoptions) | optional |
+| select_site | [mountSelectSiteViewOptions](docs/component.md#mountSelectSiteViewcomponent) | optional |
+| account_link | [mountAccountLinkViewOptions](docs/component.md#mountAccountLinkViewoptions) | optional |
 
 
 
@@ -94,12 +94,12 @@ We can use parts of the functions and components.
     }
   });
 
-  core.mountAccountLink('account-link', {
-    merchant_site_id: '1',
+  core.mountAccountLinkView('account-link', {
+    site_id: '1',
     hide_title: false
   });
 
-  core.mountSelectSite('select-sites', {
+  core.mountSelectSiteView('select-sites', {
     single: false,
     view: 'list',
     hide_search: false,

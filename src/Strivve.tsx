@@ -9,7 +9,7 @@ declare global {
     }
 }
 
-export interface mountFullAccountLinkingOptions  {
+export interface mountLinkingJourneyOptions  {
     api_instance: string
     card?: any
     style?: BaseStyle
@@ -37,7 +37,7 @@ export default class Strivve {
 
     createComponent = (options: StrivveComponentOptions): StrivveComponent => new StrivveComponent(options);
 
-    mountFullAccountLinking = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_site = {}, account_link = {} }: mountFullAccountLinkingOptions) => {
+    mountLinkingJourney = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_site = {}, account_link = {} }: mountLinkingJourneyOptions) => {
         const createService = Service ? new Service({ api_instance, grant }) : this.createService({ api_instance, grant })
         const createComponent = Component ? new Component({ style }) : this.createComponent({ style });
         
@@ -48,7 +48,7 @@ export default class Strivve {
             card_id,
         })
 
-        core.mountFullAccountLinking(element_id, {
+        core.mountLinkingJourney(element_id, {
             selectSiteOptions: select_site,
             accountLinkingOptions: account_link
         })

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import AccountLink from './AccountLink';
-import SelectSite from './SelectSite';
-import { BaseStyle, MountAccountLinkProps, MountSelectSiteProps, StrivveComponentInterface, StrivveComponentOptions } from '../types';
+import AccountLinkView from './AccountLinkView';
+import SelectSiteView from './SelectSiteView';
+import { BaseStyle, mountAccountLinkViewProps, mountSelectSiteViewProps, StrivveComponentInterface, StrivveComponentOptions } from '../types';
 
 
 export default class StrivveComponent implements StrivveComponentInterface {
@@ -34,29 +34,29 @@ export default class StrivveComponent implements StrivveComponentInterface {
     }, { ...a });
   }
 
-  mountAccountLink(id: string, props: MountAccountLinkProps) {    
+  mountAccountLinkView(id: string, props: mountAccountLinkViewProps) {    
     const root = this.accountLink[id] ? this.accountLink[id] : ReactDOM.createRoot(
       document.getElementById(id) as HTMLElement
     );
 
-    root.render(<AccountLink state={props.state} accountLinkCore={props.accountLinkCore} style={this.style} options={props.options} />)
+    root.render(<AccountLinkView state={props.state} accountLinkCore={props.accountLinkCore} style={this.style} options={props.options} />)
     this.accountLink[id] = root;
   }
 
-  unmountAccountLink(id: string) {
+  unmountAccountLinkView(id: string) {
     this.accountLink[id]?.unmount();
   }
 
-  mountSelectSite(id: string, props?: MountSelectSiteProps) {
+  mountSelectSiteView(id: string, props?: mountSelectSiteViewProps) {
     const root = this.selectSite ? this.selectSite : ReactDOM.createRoot(
       document.getElementById(id) as HTMLElement
     );
 
-    root.render(<SelectSite style={this.style} state={props?.state} selectSiteCore={props?.selectSiteCore} options={props?.options}/>)
+    root.render(<SelectSiteView style={this.style} state={props?.state} selectSiteCore={props?.selectSiteCore} options={props?.options}/>)
     this.selectSite = root;
   }
 
-  unmountSelectSite(id: string) {
+  unmountSelectSiteView(id: string) {
     this.selectSite?.unmount();
   }
 }

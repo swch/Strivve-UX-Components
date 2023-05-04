@@ -5,7 +5,7 @@ export default function AccountLinking() {
 
   useEffect(() => {
     const s = new Strivve();
-    s.mountFullAccountLinking({
+    s.mountLinkingJourney({
       element_id: 'linking',
       api_instance: 'customer-dev',
       card: {
