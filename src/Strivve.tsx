@@ -1,7 +1,7 @@
 import StrivveService from './service/service';
 import StrivveCore, { StrivveCoreOptions } from './core/core';
 import StrivveComponent from './component/component';
-import { BaseStyle, StrivveComponentClass, StrivveComponentOptions, StrivveServiceClass, StrivveServiceOptions } from './types';
+import { Appearance, BaseStyle, StrivveComponentClass, StrivveComponentOptions, StrivveServiceClass, StrivveServiceOptions } from './types';
 
 declare global {
     interface Window {
@@ -12,7 +12,7 @@ declare global {
 export interface mountLinkingJourneyOptions  {
     api_instance: string
     card?: any
-    style?: BaseStyle
+    appearance?: Appearance
     element_id: string
     grant?: string
     card_id?: string
@@ -32,7 +32,7 @@ export default class Strivve {
 
     createComponent = (options: StrivveComponentOptions): StrivveComponent => new StrivveComponent(options);
 
-    mountLinkingJourney = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_site = {}, account_link = {} }: mountLinkingJourneyOptions) => {
+    mountLinkingJourney = ({ Component, Service, element_id, api_instance, card, appearance, grant, card_id, select_site = {}, account_link = {} }: mountLinkingJourneyOptions) => {
         const createService = Service ? new Service({ api_instance, grant }) : this.createService({ api_instance, grant })
         
         const core = this.createCore({
@@ -41,7 +41,7 @@ export default class Strivve {
             card_id,
         })
 
-        const createComponent = Component ? new Component({ style, core }) : this.createComponent({ style, core });
+        const createComponent = Component ? new Component({ appearance, core }) : this.createComponent({ appearance, core });
 
         createComponent.mountLinkingJourney(element_id, {
             selectSiteOptions: select_site,
