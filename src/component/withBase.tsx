@@ -1,24 +1,27 @@
 import React, { createContext, useContext } from 'react';
-import { BaseStyle } from '../types';
+import { Appearance } from '../types';
+import StrivveCore from '../core/core';
 
 
-export const BaseContext = createContext<{ style: BaseStyle }>({ style: {} as BaseStyle });
+export const BaseContext = createContext<{ appearance: Appearance }>({ appearance: {} as Appearance });
 export const useBase = () => useContext(BaseContext);
 
 export interface BaseProps {
-  style: BaseStyle
+  core: StrivveCore
+  appearance: Appearance
 }
 
 export interface WithBaseProps {
-  style: BaseStyle
+  core: StrivveCore
+  appearance: Appearance
 }
 
 const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
   return function WithBase(props: P) {
-    const { style } = props;
+    const { appearance } = props;
     return (
-      <div style={{ color: style.text_color, fontFamily: style?.font_family, fontSize: '0.9rem' }}>
-        <BaseContext.Provider value={{ style }}>
+      <div>
+        <BaseContext.Provider value={{ appearance }}>
           <Component {...props} />
         </BaseContext.Provider>
       </div>

@@ -1,6 +1,8 @@
+import { Interpolation } from '@emotion/react';
 import { CustomComponent } from './component/parser';
 import AccountLinkCore, { AccountLinkState, Field } from './core/accountLink';
-import SelectSiteCore, { SelectSiteState } from './core/selectSite';
+import StrivveCore, { CreateAccountLinkOptions } from './core/core';
+import SelectSiteCore, { SelectSiteCoreOptions, SelectSiteState } from './core/selectSite';
 
 export type APIFilter = number | {
   [key: string]: string | string[];
@@ -46,10 +48,12 @@ export interface Localization {
 }
 
 export interface StrivveComponentInterface {
-  mountSelectSiteView: (id: string, props?: mountSelectSiteViewProps) => void
+  core: StrivveCore
+  mountSelectSiteView: (id: string, options?: mountSelectSiteViewOptions) => void
   unmountSelectSiteView: (id: string) => void;
-  mountAccountLinkView: (id: string, props: mountAccountLinkViewProps) => void
+  mountAccountLinkView: (id: string, options: mountAccountLinkViewOptions) => void
   unmountAccountLinkView: (id: string) => void;
+  mountLinkingJourney: (id: string, options: mountLinkingJourneyOptions) => void;
 }
 
 export interface StrivveComponentClass {
@@ -58,6 +62,8 @@ export interface StrivveComponentClass {
 
 export interface StrivveComponentOptions {
   style?: BaseStyle;
+  core: StrivveCore;
+  appearance?: any;
 }
 
 export interface StrivveServiceOptions {
@@ -71,7 +77,7 @@ export interface mountAccountLinkViewComponents {
   button: (data: any) => CustomComponent
 }
 export interface mountAccountLinkViewOptions {
-  site_id?: string | string[]
+  site_id: string
   quick_start?: boolean
   hide_title?: boolean
   components?: mountAccountLinkViewComponents
@@ -79,8 +85,6 @@ export interface mountAccountLinkViewOptions {
 
 export interface mountAccountLinkViewProps {
   options: mountAccountLinkViewOptions
-  state: AccountLinkState
-  accountLinkCore: AccountLinkCore
 }
 
 export interface mountSelectSiteViewComponent {
@@ -102,8 +106,6 @@ export interface mountSelectSiteViewOptions {
 
 export interface mountSelectSiteViewProps {
   options?: mountSelectSiteViewOptions
-  state: SelectSiteState
-  selectSiteCore: SelectSiteCore
 }
 export interface BaseStyle {
   primary_color: string;
@@ -115,4 +117,28 @@ export interface BaseStyle {
   border_radius: number;
   border_color: string;
   [key: string]: any;
+}
+
+export type mountLinkingJourneyOptions = {
+  accountLinkOptions: CreateAccountLinkOptions
+  selectSiteOptions: SelectSiteCoreOptions
+}
+
+export type Appearance = {
+  elements?: {
+    button?: Interpolation<any>,
+    input?: Interpolation<any>,
+    label?: Interpolation<any>,
+    selectSiteList?: Interpolation<any>,
+    selectSiteItem?: Interpolation<any>,
+    selectSiteItemSelected?: Interpolation<any>,
+    selectSiteItemImage?: Interpolation<any>,
+    selectSiteItemName?: Interpolation<any>,
+    accountLinkContainer?: Interpolation<any>,
+    accountLinkHeader?: Interpolation<any>,
+    accountLinkHeaderImage?: Interpolation<any>,
+    accountLinkHeaderTitle?: Interpolation<any>,
+    accountLinkBody?: Interpolation<any>,
+    accountLinkFooter?: Interpolation<any>,
+  }
 }

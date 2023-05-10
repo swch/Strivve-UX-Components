@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Field } from '../core/accountLink';
 import AccountInput from './AccountInput';
@@ -17,10 +18,11 @@ export interface AccountLinkFormProps {
 }
 
 function AccountLinkForm({ fields, submit, change, disabled, values, components, autoFocus }: AccountLinkFormProps) {
-  const { style } = useBase();
+  const { appearance } = useBase();
 
   return (
     <form
+      className='accountLinkForm'
       onSubmit={(e) => {
         e.preventDefault()
         submit(e)
@@ -50,11 +52,8 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
         })
       }
       <div
-        style={{
-          marginTop: style?.spacing_unit,
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }}
+        css={appearance.elements?.accountLinkFooter}
+        className='accountLinkFooter'
       >
         {
           components?.button ? customComponentToReact(components?.button({ disabled, submit })) : <Button title={'Link'} disabled={disabled} />

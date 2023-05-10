@@ -25,11 +25,6 @@ export interface mountLinkingJourneyOptions  {
 export default class Strivve {
 
     createCore = (options: StrivveCoreOptions) => {
-
-        if (!options?.component) {
-            options.component = new StrivveComponent({ style: options?.style });
-        }
-
         return new StrivveCore(options)
     };
 
@@ -39,18 +34,18 @@ export default class Strivve {
 
     mountLinkingJourney = ({ Component, Service, element_id, api_instance, card, style, grant, card_id, select_site = {}, account_link = {} }: mountLinkingJourneyOptions) => {
         const createService = Service ? new Service({ api_instance, grant }) : this.createService({ api_instance, grant })
-        const createComponent = Component ? new Component({ style }) : this.createComponent({ style });
         
         const core = this.createCore({
-            component: createComponent,
             service: createService,
             card,
             card_id,
         })
 
-        core.mountLinkingJourney(element_id, {
+        const createComponent = Component ? new Component({ style, core }) : this.createComponent({ style, core });
+
+        createComponent.mountLinkingJourney(element_id, {
             selectSiteOptions: select_site,
-            accountLinkingOptions: account_link
+            accountLinkOptions: account_link
         })
     }
 }

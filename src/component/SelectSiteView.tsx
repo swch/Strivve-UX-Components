@@ -1,12 +1,22 @@
-import React from 'react';
-import withBase from './withBase';
+import React, { useEffect, useState } from 'react';
+import withBase, { BaseProps } from './withBase';
 import SelectSiteList from './SelectSiteList';
 import Loader from './Loader';
 import AccountInput from './AccountInput';
 import Button from './Button';
 import { customComponentToReact } from './parser';
+import SelectSiteCore, { SelectSiteState } from '../core/selectSite';
+import { mountSelectSiteViewProps } from '../types';
 
-function SelectSiteView({ options, state, selectSiteCore }: any) {
+function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps) {
+  const [state, setState] = useState<SelectSiteState>();
+  const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
+
+  useEffect(() => {
+    const selectSite = core.createSelectSite(options);
+    selectSite.subscribe((state: SelectSiteState) => setState(state));
+    setSelectSiteCore(selectSite);
+  }, []);
 
   const handleSubmit = () => {
     selectSiteCore?.submit?.();
@@ -28,10 +38,10 @@ function SelectSiteView({ options, state, selectSiteCore }: any) {
     );
   }
 
-  const disabled = state.selected?.length === 0;
+  const disabled = state?.selected?.length === 0;
 
   return (
-    <div>
+    <div className='selectSiteView'>
       {
         !options?.hide_button && (
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -59,7 +69,7 @@ function SelectSiteView({ options, state, selectSiteCore }: any) {
               selectSiteCore?.changeSearch(e.target.value);
             }}
             placeholder='Amazon, Apple Store, Hulu...'
-            value={state.search}
+            value={state?.search}
           />
         ) : null
       }
@@ -67,7 +77,6 @@ function SelectSiteView({ options, state, selectSiteCore }: any) {
         sites={state?.sites || []}
         selected={state?.selected || []}
         components={options?.components}
-        view={options?.view}
         onSelectItem={(item: any) => {
           if (options?.hide_button) {
             selectSiteCore?.selectItem(item)

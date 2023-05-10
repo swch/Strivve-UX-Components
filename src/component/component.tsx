@@ -2,44 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AccountLinkView from './AccountLinkView';
 import SelectSiteView from './SelectSiteView';
-import { BaseStyle, mountAccountLinkViewProps, mountSelectSiteViewProps, StrivveComponentInterface, StrivveComponentOptions } from '../types';
+import { Appearance, MerchantSite, mountAccountLinkViewOptions, mountLinkingJourneyOptions, mountSelectSiteViewOptions, StrivveComponentInterface, StrivveComponentOptions } from '../types';
+import StrivveCore from '../core/core';
+import defaultAppearance from './appearance';
 
 
 export default class StrivveComponent implements StrivveComponentInterface {
-  private accountLink: { [key:string]: ReactDOM.Root } = {}; 
-  private selectSite?: ReactDOM.Root; 
-  style: BaseStyle = {
-    background_color: 'white',
-    font_family: 'sans-serif',
-    primary_color: 'black',
-    text_color: '#1c1c1c',
-    spacing_unit: 12,
-    border_radius: 4,
-    font_size: 14,
-    border_color: 'lightgray',
-  };
+  core: StrivveCore;
+  appearance: Appearance = defaultAppearance;
+  private accountLink: { [key: string]: ReactDOM.Root } = {};
+  private selectSite?: ReactDOM.Root;
 
-  constructor({ style }: StrivveComponentOptions) {
-    if (style) {
-      this.style = this.deepMerge(this.style, style);
+  constructor({ core, appearance }: StrivveComponentOptions) {
+    this.core = core;
+
+    if (appearance) {
+      this.appearance = appearance;
     }
   }
 
-  private deepMerge = (a: any, b: any) => {
-    return Object.entries({ ...b }).reduce((o, [k, v]) => {
-      o[k] = v && typeof v === 'object'
-        ? this.deepMerge(o[k] = o[k] || (Array.isArray(v) ? [] : {}), v)
-        : v;
-      return o;
-    }, { ...a });
-  }
-
-  mountAccountLinkView(id: string, props: mountAccountLinkViewProps) {    
+  mountAccountLinkView(id: string, options: mountAccountLinkViewOptions) {
     const root = this.accountLink[id] ? this.accountLink[id] : ReactDOM.createRoot(
       document.getElementById(id) as HTMLElement
     );
 
-    root.render(<AccountLinkView state={props.state} accountLinkCore={props.accountLinkCore} style={this.style} options={props.options} />)
+    root.render(<AccountLinkView core={this.core} appearance={this.appearance} options={options} />)
     this.accountLink[id] = root;
   }
 
@@ -47,16 +34,38 @@ export default class StrivveComponent implements StrivveComponentInterface {
     this.accountLink[id]?.unmount();
   }
 
-  mountSelectSiteView(id: string, props?: mountSelectSiteViewProps) {
+  mountSelectSiteView(id: string, options?: mountSelectSiteViewOptions) {
     const root = this.selectSite ? this.selectSite : ReactDOM.createRoot(
       document.getElementById(id) as HTMLElement
     );
 
-    root.render(<SelectSiteView style={this.style} state={props?.state} selectSiteCore={props?.selectSiteCore} options={props?.options}/>)
+    root.render(<SelectSiteView appearance={this.appearance} core={this.core} options={options} />)
     this.selectSite = root;
   }
 
   unmountSelectSiteView(id: string) {
     this.selectSite?.unmount();
+  }
+
+  mountLinkingJourney(id: string, { selectSiteOptions, accountLinkOptions }: mountLinkingJourneyOptions) {
+    this.mountSelectSiteView(id, {
+      ...selectSiteOptions,
+      onSubmit: (selected: MerchantSite[]) => {
+        this.unmountSelectSiteView?.(id);
+        const parent = document.getElementById?.(id);
+        selected.forEach(item => {
+          if (typeof document !== 'undefined') {
+            const childrenId = `${id}-${item.id}`;
+            const children = document.createElement('div');
+            children.id = childrenId;
+            parent?.append(children);
+            this.mountAccountLinkView(childrenId, { ...accountLinkOptions, site_id: item.id });
+          } else {
+            const childrenId = `${id}-${item.id}`;
+            this.mountAccountLinkView(childrenId, { ...accountLinkOptions, site_id: item.id });
+          }
+        })
+      }
+    })
   }
 }

@@ -10,7 +10,6 @@ Service contains functions that are connected to API/Backend.
 
 | name | params | description |
 |---|---|---|
-| element_id | string | required |
 | safe_key | string | optional |
 | grant | string | optional |
 

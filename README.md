@@ -19,16 +19,6 @@
       expiration_year: '24',
       name_on_card: 'Mvick',
     },
-    style: {
-      background_color: 'white',
-      font_family: 'sans-serif',
-      primary_color: 'black',
-      text_color: '#1c1c1c',
-      spacing_unit: 12,
-      border_radius: 4,
-      font_size: 14,
-      border_color: 'lightgray',
-    }
   });
 
 </script>
@@ -40,26 +30,14 @@
 |---|---|---|
 | element_id | string | required |
 | api_instance | string | required |
-| card | StyleConfig | optional |
+| card | CardConfig | optional |
 | card_id | string | optional |
-| style | StyleConfig | optional |
+| appearance | Appearance | optional |
 | grant | string | optional |
 | select_site | [mountSelectSiteViewOptions](docs/component.md#mountSelectSiteViewcomponent) | optional |
 | account_link | [mountAccountLinkViewOptions](docs/component.md#mountAccountLinkViewoptions) | optional |
 
 
-
-## StyleConfig
-
-| name | params | description |
-|---|---|---|
-| background_color | string | - |
-| font_family | string | - |
-| primary_color | string | - |
-| text_color | string | - |
-| spacing_unit | string | - |
-| border_radius | string | - |
-| border_color | string | - |
 
 ## Card
 

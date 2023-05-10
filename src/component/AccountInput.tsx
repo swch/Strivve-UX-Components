@@ -38,17 +38,16 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
 
   const required = props.required == null ? false : true;
 
-  const  { style } = useBase();
+  const  { appearance } = useBase();
 
   return (
-    <div style={{ marginTop: style?.spacing_unit }}>
+    <div>
       {props.label ? (
         <div
-          style={{
-            marginBottom: 6
-          }}
+          className="label"
+          css={appearance.elements?.label}
         >
-          <label htmlFor={props.id} style={{ fontWeight: 700, whiteSpace: !props.wrap ? "nowrap" : undefined }}>{props.label}</label>
+          <label htmlFor={props.id}>{props.label}</label>
         </div>
       ) : null}
       <div>
@@ -67,15 +66,8 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           required={required}
           value={props.value}
           autoFocus={props.autoFocus}
-          style={{
-            padding: '0.7rem',
-            boxSizing: 'border-box',
-            width: '100%',
-            borderColor: style?.primary_color || '',
-            borderRadius: style?.border_radius || '',
-            borderStyle: 'solid',
-            borderWidth: '1px',
-          }}
+          css={appearance.elements?.input}
+          className='input'
         />
         {props.type === "password" ? <span className="input-group-append">
           {/* <button className="btn btn-secondary" onClick={shouldShow}><EyeIcon /></button>  */}
