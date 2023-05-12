@@ -1,30 +1,60 @@
 import { Interpolation } from '@emotion/react';
 import { CustomComponent } from './component/parser';
-import AccountLinkCore, { AccountLinkState, Field } from './core/accountLink';
+import { Field } from './core/accountLink';
 import StrivveCore, { CreateAccountLinkOptions } from './core/core';
-import SelectSiteCore, { SelectSiteCoreOptions, SelectSiteState } from './core/selectSite';
+import { SelectSiteCoreOptions } from './core/selectSite';
 
 export type APIFilter = number | {
   [key: string]: string | string[];
 } | null;
 
-export type MerchantSite = {
+
+export interface MerchantSite {
   id: string;
   name: string;
-  account_link: any[];
-  images: any[];
+  note: string;
+  host: string;
+  tags: (string | number)[];
+  interface_type: string;
+  job_type: string;
+  required_form_fields: string[];
+  images: {
+    url: string;
+    width: number;
+    grayscale: boolean;
+  }[];
+  account_link: {
+    key_name: string;
+    label: string;
+    type: string;
+    secret?: boolean;
+  }[];
+  messages: {
+    mfa_label: string;
+    additional_info_message: string;
+    auth_message: string;
+  };
+  script_directory: string;
+  record_final_site_artifacts: boolean;
+  puppeteer_screenshot: boolean;
+  login_page: string;
+  forgot_password_page: string;
+  credit_card_page: string;
+  wallet_page: string;
+  merchant_sso_group: string;
+  tier: number;
 }
 
 export interface StrivveServiceInterface {
   grant?: string;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
-  createJob(data: any): Promise<any>;
-  createCardholder(data: any): Promise<any>;
-  createCard(data: any): Promise<any>;
+  createJobs(data: JobBody[]): Promise<any>;
+  createCardholder(body: CardholderBody): Promise<any>;
+  createCard(data: CardBody): Promise<any>;
   authorizeCardholder(data: any): Promise<any>;
   createCardholderQuery(id: string): any;
-  postCreds(body: any): Promise<any>;
+  postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
 }
 
@@ -61,7 +91,6 @@ export interface StrivveComponentClass {
 }
 
 export interface StrivveComponentOptions {
-  style?: BaseStyle;
   core: StrivveCore;
   appearance?: any;
 }
@@ -100,7 +129,6 @@ export interface mountSelectSiteViewOptions {
   onSubmit?: Function
   hide_search?: boolean
   hide_button?: boolean
-  view?: 'list' | 'grid'
   components?: mountSelectSiteViewComponent
 }
 
@@ -141,4 +169,49 @@ export type Appearance = {
     accountLinkBody?: Interpolation<any>,
     accountLinkFooter?: Interpolation<any>,
   }
+}
+
+export type CardBody = {
+  cardholder_id: number;
+  address_id?: number;
+  bin_id?: number;
+  par?: string;
+  customer_key: string;
+  pan: string;
+  cvv: string;
+  expiration_month: number;
+  expiration_year: number;
+  name_on_card: string;
+  nickname?: string;
+};
+
+export interface JobBody {
+    account : {[k: string]: any},
+    user_is_present? : boolean,
+    cardholder?: {[k: string]: any}, 
+    cardholder_id? : number,
+    card? : CardBody,
+    card_id? : number,
+    status? : string,
+    type? : string,
+    queue_name? : string
+}
+
+export interface CardholderBody {
+  cuid?: string;
+  type: "ephemeral" | "persistent_creds" | "persistent_all";
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  meta_key?: string;
+  webhook_url?: string;
+  custom_data?: {
+    [key: string]: any
+  };
+}
+
+export interface PostCredsBody {
+  account_link: {[k: string]: string}, 
+  job_id: string, 
+  envelope_id: string,
 }

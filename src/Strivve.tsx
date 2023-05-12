@@ -1,7 +1,7 @@
 import StrivveService from './service/service';
 import StrivveCore, { StrivveCoreOptions } from './core/core';
 import StrivveComponent from './component/component';
-import { Appearance, BaseStyle, StrivveComponentClass, StrivveComponentOptions, StrivveServiceClass, StrivveServiceOptions } from './types';
+import { Appearance, StrivveComponentClass, StrivveComponentOptions, StrivveServiceClass, StrivveServiceOptions } from './types';
 
 declare global {
     interface Window {

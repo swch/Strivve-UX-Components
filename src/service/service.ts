@@ -1,6 +1,6 @@
 import { Encryption } from '../cardsavr/CardsavrSessionCrypto';
 import { CardholderQuery, CardsavrHelper } from "../cardsavr/CardsavrHelper";
-import { MerchantSite, StrivveServiceInterface, APIFilter, StrivveServiceOptions } from "../types";
+import { MerchantSite, StrivveServiceInterface, APIFilter, StrivveServiceOptions, JobBody, CardBody, CardholderBody, PostCredsBody } from "../types";
 
 class StrivveService implements StrivveServiceInterface {
   ch: CardsavrHelper;
@@ -89,17 +89,17 @@ class StrivveService implements StrivveServiceInterface {
     return res?.body || [];
   }
 
-  createJob(data: any) {
+  createJobs(data: JobBody[]) {
     const session = this.ch.getSession(this.username);
     return session?.createSingleSiteJobs(data, this.safe_key);
   }
 
-  createCardholder(data: any) {
+  createCardholder(data: CardholderBody) {
     const session = this.ch.getSession(this.username);
     return session?.createCardholder(data, this.safe_key);
   }
 
-  createCard(data: any) {
+  createCard(data: CardBody) {
     const session = this.ch.getSession(this.username);
     return session?.createCard(data, this.safe_key);
   }
@@ -113,12 +113,12 @@ class StrivveService implements StrivveServiceInterface {
     return this.ch.createCardholderQuery(this.username, Number(job_id));
   }
 
-  postCreds(body: any) {
+  postCreds(body: PostCredsBody) {
     return this.ch.postCreds({
       username: this.username,
       safe_key: this.safe_key,
       ...body,
-    });
+    } as any);
   }
 }
 

@@ -1,11 +1,10 @@
-import { MerchantSite, StrivveComponentInterface, StrivveServiceInterface } from "../types";
+import { StrivveServiceInterface } from "../types";
 import { BaseStyle } from "../types";
 import AccountLinkCore, { AccountLinkCoreOption } from "./accountLink";
 import SelectSiteCore, { SelectSiteCoreOptions } from "./selectSite";
  
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
-  component?: StrivveComponentInterface;
   card_id?: string;
   card?: any;
   style?: BaseStyle
@@ -21,11 +20,9 @@ export default class StrivveCore {
   private card: any;
   private card_id?: string;
   private jobs: any[] = [];
-  private component?: StrivveComponentInterface;
 
-  constructor({ service, card_id, card, component }: StrivveCoreOptions) {
+  constructor({ service, card_id, card }: StrivveCoreOptions) {
     this.service = service;
-    this.component = component;
 
     this.card_id = card_id;
     this.card = card;
@@ -95,11 +92,11 @@ export default class StrivveCore {
             merchant_site_id: merchant.id,
             cardholder_id: cardholder?.id,
             account_link: creds,
-            customer_key : `${merchant.id}$${cardholder?.cuid}`
+            customer_key : `${merchant.id}${cardholder?.cuid}`
           },
         },
       ];
-      const singleSiteJobResponse = await this.service.createJob(
+      const singleSiteJobResponse = await this.service.createJobs(
         jobs,
       );
 
@@ -108,7 +105,6 @@ export default class StrivveCore {
       this.jobs.push(job);
       return job;
     } catch (error: any) {
-      console.log('==============', error.response);
       throw error;
     }
   }
