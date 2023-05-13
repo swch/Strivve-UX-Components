@@ -133,8 +133,10 @@ The `elements` property within the `Appearance` type is an object that contains 
 ## Method
 | name | params | 
 |---|---|
-| createAccountLink | (id: string, options: [mountAccountLinkViewOptions](#mountAccountLinkViewOptions)) | 
-| createSelectSite | (id: string, options?: mountSelectSiteViewOptions) | 
+| mountAccountLink | (id: string, options: [mountAccountLinkViewOptions](#mountAccountLinkViewOptions)) | 
+| unmountAccountLink | (id: string) | 
+| mountSelectSite | (id: string, options?: mountSelectSiteViewOptions) | 
+| unmountSelectSite | (id: string) | 
 | mountLinkingJourney | (id: string, options: [MountFullAccountLinkOptions](#MountFullAccountLinkOptions)) | 
 
 
@@ -155,5 +157,4 @@ The `elements` property within the `Appearance` type is an object that contains 
 | submit | `Function` | (Optional) A function to be called when the selection is submitted. |
 | hide_search | `boolean` | (Optional) A boolean representing whether to hide the search bar. |
 | hide_button | `boolean` | (Optional) A boolean representing whether to hide the submit button. |
-| view | `'list'` &#124; `'grid'` | (Optional) A string representing the view mode. |
 
