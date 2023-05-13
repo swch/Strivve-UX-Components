@@ -47,11 +47,12 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           className="label"
           css={appearance.elements?.label}
         >
-          <label htmlFor={props.id}>{props.label}</label>
+          <label data-testid="label" htmlFor={props.id}>{props.label}</label>
         </div>
       ) : null}
       <div>
         <input
+          data-testid="input"
           id={props.id}
           name={props.name}
           aria-describedby="basic-addon2"

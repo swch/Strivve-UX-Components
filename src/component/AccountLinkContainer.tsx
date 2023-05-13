@@ -25,6 +25,7 @@ function AccountLinkContainer({ site, children, hide_title }: AccountLinkContain
       css={appearance.elements?.accountLinkContainer}
     >
       <div
+        data-testid="accountLinkHeader"
         className='accountLinkHeader'
         css={appearance.elements?.accountLinkHeader}
       >

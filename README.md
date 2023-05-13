@@ -47,8 +47,8 @@
 | cvv | string | - |
 | expiration_month | string | - |
 | expiration_year | string | - |
-| name_on_card | string | - |
 
+| name_on_card | string | - |
 ## Service, Core and Component
 We can use parts of the functions and components.
 - [Service](docs/service.md) 
@@ -57,12 +57,9 @@ We can use parts of the functions and components.
 
 ```js
   const service = Strivve.createService({ api_instance: 'customer-dev' });
-
-  const component = Strivve.createComponent({});
   
   const core = Strivve.createCore({
     service,
-    component,
     card: {
       pan: '4111111111111111',
       cvv: '321',
@@ -72,12 +69,14 @@ We can use parts of the functions and components.
     }
   });
 
-  core.mountAccountLinkView('account-link', {
+  const component = Strivve.createComponent({ core });
+
+  component.mountAccountLinkView('account-link', {
     site_id: '1',
     hide_title: false
   });
 
-  core.mountSelectSiteView('select-sites', {
+  component.mountSelectSiteView('select-sites', {
     single: false,
     view: 'list',
     hide_search: false,
