@@ -41,7 +41,7 @@ function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps)
   const disabled = state?.selected?.length === 0;
 
   return (
-    <div className='selectSiteView'>
+    <div data-testid="selectSiteView" className='selectSiteView'>
       {
         !options?.hide_button && (
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -49,6 +49,7 @@ function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps)
               options?.components?.button ? customComponentToReact(options?.components?.button({ disabled, submit: handleSubmit })) : (
                 <Button
                   id="continue"
+                  dataTestId="continue"
                   title='Continue'
                   disabled={disabled}
                   onClick={handleSubmit}

@@ -59,7 +59,7 @@ function AccountLinkView({ options, core }: mountAccountLinkViewProps & BaseProp
   }
 
   return (
-    <div className='accountLinkView'>
+    <div data-testid="accountLinkView" className='accountLinkView'>
       <AccountLinkContainer hide_title={options.hide_title} site={accountLinkCore?.merchant_site}>
         {state?.message?.status_message && <p className='accountLinkStatusMessage'>{state?.message?.status_message}</p>}
         {state?.errors?.map((item: any) => (

@@ -21,6 +21,8 @@ function SelectSiteList({ sites, components, selected, onSelectItem }: SelectSit
       <div
         key={item.id}
         id={`selectSiteItem-${item.id}`}
+        data-testid={`selectSiteItem-${item.id}`}
+        aria-selected={active ? "true" : "false"}
         className={`selectSiteItem ${active ? 'selectSiteItemSelected' : ''}`}
         css={active ? appearance.elements?.selectSiteItemSelected : appearance.elements?.selectSiteItem}
         onClick={() => onSelectItem(item)}
@@ -34,7 +36,7 @@ function SelectSiteList({ sites, components, selected, onSelectItem }: SelectSit
   })
 
   return (
-    <div id="selectSiteList" className="selectSiteList" css={appearance.elements?.selectSiteList}>
+    <div data-testid="selectSiteList" id="selectSiteList" className="selectSiteList" css={appearance.elements?.selectSiteList}>
       {items}
     </div>
   );

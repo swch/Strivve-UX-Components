@@ -12,11 +12,11 @@ export type APIFilter = number | {
 export interface MerchantSite {
   id: string;
   name: string;
-  note: string;
+  note?: string;
   host: string;
-  tags: (string | number)[];
-  interface_type: string;
-  job_type: string;
+  tags?: (string | number)[];
+  interface_type?: string;
+  job_type?: string;
   required_form_fields: string[];
   images: {
     url: string;
@@ -29,20 +29,20 @@ export interface MerchantSite {
     type: string;
     secret?: boolean;
   }[];
-  messages: {
+  messages?: {
     mfa_label: string;
     additional_info_message: string;
     auth_message: string;
   };
-  script_directory: string;
-  record_final_site_artifacts: boolean;
-  puppeteer_screenshot: boolean;
-  login_page: string;
-  forgot_password_page: string;
-  credit_card_page: string;
-  wallet_page: string;
-  merchant_sso_group: string;
-  tier: number;
+  script_directory?: string;
+  record_final_site_artifacts?: boolean;
+  puppeteer_screenshot?: boolean;
+  login_page?: string;
+  forgot_password_page?: string;
+  credit_card_page?: string;
+  wallet_page?: string;
+  merchant_sso_group?: string;
+  tier?: number;
 }
 
 export interface StrivveServiceInterface {
@@ -148,8 +148,8 @@ export interface BaseStyle {
 }
 
 export type mountLinkingJourneyOptions = {
-  accountLinkOptions: CreateAccountLinkOptions
-  selectSiteOptions: SelectSiteCoreOptions
+  accountLinkOptions?: CreateAccountLinkOptions
+  selectSiteOptions?: SelectSiteCoreOptions
 }
 
 export type Appearance = {

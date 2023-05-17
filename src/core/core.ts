@@ -7,7 +7,6 @@ export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
   card_id?: string;
   card?: any;
-  style?: BaseStyle
 }
 
 export type CreateAccountLinkOptions = Omit<AccountLinkCoreOption, 'service' | 'onSubmit'> 
