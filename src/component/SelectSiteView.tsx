@@ -74,6 +74,11 @@ function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps)
           />
         ) : null
       }
+      {
+        state?.error && (
+          <p data-testid="selectSiteErrorMessage" className='selectSiteErrorMessage'>{state.message}</p>
+        )
+      }
       <SelectSiteList
         sites={state?.sites || []}
         selected={state?.selected || []}

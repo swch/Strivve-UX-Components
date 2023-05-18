@@ -37,7 +37,7 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
           }
           return (
             <AccountInput
-              id={`account-link-${item.name}`}
+              id={`accountInput-${item.name}`}
               key={item.name}
               name={item.name}
               autocomplete="off"

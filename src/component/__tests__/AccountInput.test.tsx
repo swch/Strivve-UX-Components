@@ -7,11 +7,12 @@ describe("AccountInput", () => {
   test('render AccountInput', () => {
     render(
       <AccountInput
+        id="email"
         name='email'
         onChange={() => { }}
       />
     );
-    const element: HTMLInputElement = screen.getByTestId('input');
+    const element: HTMLInputElement = screen.getByTestId('email');
 
     expect(element).toBeInTheDocument();
   });

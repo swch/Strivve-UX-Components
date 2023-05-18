@@ -52,7 +52,7 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
       ) : null}
       <div>
         <input
-          data-testid="input"
+          data-testid={props.id}
           id={props.id}
           name={props.name}
           aria-describedby="basic-addon2"

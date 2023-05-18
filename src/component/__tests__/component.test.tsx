@@ -30,14 +30,14 @@ const merchantSite: MerchantSite = {
     {
       key_name: "username",
       label: "Username",
-      type: "text",
       secret: false,
+      type: "initial_account_link"
     },
     {
       key_name: "password",
       label: "Password",
-      type: "password",
       secret: true,
+      type: "initial_account_link"
     },
   ],
   messages: {
@@ -96,8 +96,48 @@ class Service implements StrivveServiceInterface {
   }
 }
 
-describe("StrivveComponent", () => {
-  beforeEach(async () => {
+class ErrorService implements StrivveServiceInterface {
+
+  getMerchantSites(filters?: APIFilter | undefined): Promise<MerchantSite[]> {
+    throw new Error('Failed')
+  }
+
+  async getMerchantSite(id: string): Promise<MerchantSite | undefined> {
+    throw new Error('Failed')
+  }
+
+  createJobs(data: JobBody[]): Promise<any> {
+    return Promise.resolve()
+  }
+
+  createCardholder(body: CardholderBody): Promise<any> {
+    return Promise.resolve()
+  }
+
+  createCardholderQuery(id: string) {
+    return Promise.resolve()
+  }
+
+  createCard(data: CardBody): Promise<any> {
+    return Promise.resolve()
+  }
+
+  authorizeCardholder(data: any): Promise<any> {
+    return Promise.resolve()
+  }
+
+  setSafeKey(key: string): void {
+
+  }
+
+  postCreds(body: PostCredsBody): Promise<any> {
+    return Promise.resolve()
+  }
+}
+
+describe("mountLinkingJourney", () => {
+
+  test('Successfully rendered', async () => {
     const service = new Service()
     const core = new StrivveCore({
       service,
@@ -124,7 +164,9 @@ describe("StrivveComponent", () => {
     expect(selectSiteView).toBeInTheDocument();
 
     const selectSiteItem: HTMLDivElement = await screen.findByTestId(`selectSiteItem-${merchantSite.id}`);
-    fireEvent.click(selectSiteItem);
+    if (selectSiteItem.getAttribute('aria-selected') === 'false') {
+      fireEvent.click(selectSiteItem);
+    }
 
     expect(selectSiteItem).toHaveAttribute('aria-selected', 'true');
 
@@ -134,10 +176,36 @@ describe("StrivveComponent", () => {
 
     const accountLinkView: HTMLInputElement = await screen.findByTestId('accountLinkView');
     expect(accountLinkView).toBeInTheDocument();
+
+    const usernameInput: HTMLInputElement = await screen.findByTestId('accountInput-username');
+    expect(usernameInput).toBeInTheDocument();
   });
 
-  test('mountLinkingJourney', async () => {
-    const accountLinkView: HTMLInputElement = await screen.findByTestId('accountLinkView');
-    expect(accountLinkView).toHaveClass('accountLinkView');
+  test('Failed rendered', async () => {
+    const service = new ErrorService()
+    const core = new StrivveCore({
+      service,
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+    })
+
+    const component = new StrivveComponent({ core });
+
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    render(<div id="linking" />);
+
+    component.mountLinkingJourney("linking", {});
+
+    const selectSiteView: HTMLDivElement = await screen.findByTestId('selectSiteView');
+
+    expect(selectSiteView).toBeInTheDocument();
+
+    const selectSiteErrorMessage: HTMLDivElement = await screen.findByTestId('selectSiteErrorMessage');
+    expect(selectSiteErrorMessage).toBeInTheDocument();
   });
 })

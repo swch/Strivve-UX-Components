@@ -26,7 +26,7 @@ export interface MerchantSite {
   account_link: {
     key_name: string;
     label: string;
-    type: string;
+    type?: string;
     secret?: boolean;
   }[];
   messages?: {

@@ -12,13 +12,16 @@ export interface SelectSiteState {
   selected: any[]
   loading: boolean
   search: string
+  error?: boolean
+  message?: string
 }
 
 export const initialStateSelectSite = {
   sites: [],
   selected: [],
   loading: false,
-  search: ''
+  search: '',
+  error: false
 }
 
 export default class SelectSiteCore {
@@ -43,8 +46,8 @@ export default class SelectSiteCore {
       this.sites = res;
       this.updateState({ loading: false, sites: res });
       return res
-    } catch (error) {
-      this.updateState({ loading: false })
+    } catch (error: any) {
+      this.updateState({ loading: false, error: true, message: error?.message })
       return []
     }
   }

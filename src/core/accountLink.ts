@@ -53,7 +53,7 @@ export default class AccountLinkCore {
   merchant_site?: MerchantSite = undefined;
   state: AccountLinkState = initialStateAccountLink;
   fields: Field[] = [];
-  query?:CardholderQuery;
+  query?: CardholderQuery;
   failed_status = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
   private onSubmit: Function;
   private subscriber: Function = () => { };
@@ -74,19 +74,23 @@ export default class AccountLinkCore {
   }
 
   async getSite(id: string, quick_start?: boolean, job?: any) {
-    const merchant_site = await this.service.getMerchantSite(id);
-    this.merchant_site = merchant_site;
-    this.fields = merchant_site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
-      name: item.key_name,
-      value: '',
-      label: item.label,
-      type: item.secret ? 'password' : 'text',
-      required: true,
-    })) || []
+    try {
+      const merchant_site = await this.service.getMerchantSite(id);
+      this.merchant_site = merchant_site;
+      this.fields = merchant_site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
+        name: item.key_name,
+        value: '',
+        label: item.label,
+        type: item.secret ? 'password' : 'text',
+        required: true,
+      })) || []
 
-    this.updateState({ linking: job ? true : Boolean(quick_start), loading: false, job, fields: this.fields });
-    if (quick_start) {
-      this.submit();
+      this.updateState({ linking: job ? true : Boolean(quick_start), loading: false, job, fields: this.fields });
+      if (quick_start) {
+        this.submit();
+      }
+    } catch (err) {
+      console.log('=========', err);
     }
   }
 

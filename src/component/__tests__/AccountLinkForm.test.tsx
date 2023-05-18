@@ -20,7 +20,7 @@ describe("AccountLinkForm", () => {
       />
     );
 
-    const element: HTMLInputElement = screen.getByTestId('input');
+    const element: HTMLInputElement = screen.getByTestId('accountInput-email');
 
     expect(element).toBeInTheDocument();
     expect(element.name).toBe('email');
@@ -44,7 +44,7 @@ describe("AccountLinkForm", () => {
       />
     );
     
-    const element: HTMLInputElement = screen.getByTestId('input');
+    const element: HTMLInputElement = screen.getByTestId('accountInput-email');
     const email = 'tes@gmail.com';
     userEvent.type(element, email);
     expect(element.value).toBe(email);
