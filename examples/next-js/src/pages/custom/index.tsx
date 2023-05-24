@@ -9,11 +9,6 @@ export default function Custom() {
   const [component, setComponent] = useState<StrivveComponentInterface>();
   const [step, setStep] = useState(1);
 
-  const mountAccountLink = (value: MerchantSite) => {
-    setStep(2);
-
-  };
-
   const init = () => {
     const stv = new Strivve();
 
