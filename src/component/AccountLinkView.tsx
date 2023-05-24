@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
 import AccountLinkForm from './AccountLinkForm';
@@ -7,19 +8,26 @@ import { mountAccountLinkViewProps } from '../types';
 import withBase, { BaseProps } from './withBase';
 import AccountLinkCore, { AccountLinkState } from '../core/accountLink';
 
-function AccountLinkView({ options, core }: mountAccountLinkViewProps & BaseProps) {
+function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>()
 
   useEffect(() => {
     const accountLink = core.createAccountLink(options);
-    accountLink.subscribe((state: AccountLinkState) => setState(state));
+    accountLink.subscribe((state: AccountLinkState) => {
+      setState(state);
+      options?.subscribe?.(state);
+    });
     setAccountLinkCore(accountLink);
   }, []);
 
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
-    event?.preventDefault()
-    accountLinkCore?.submit()
+    event?.preventDefault();
+    if (options.onSubmit) {
+      options.onSubmit(state?.values);
+    } else {
+      accountLinkCore?.submit();
+    }
   }
 
   if (state?.loading) {
@@ -59,7 +67,7 @@ function AccountLinkView({ options, core }: mountAccountLinkViewProps & BaseProp
   }
 
   return (
-    <div data-testid="accountLinkView" className='accountLinkView'>
+    <div data-testid="accountLinkView" className='accountLinkView' css={appearance.elements?.accountLinkView}>
       <AccountLinkContainer hide_title={options.hide_title} site={accountLinkCore?.merchant_site}>
         {state?.message?.status_message && <p className='accountLinkStatusMessage'>{state?.message?.status_message}</p>}
         {state?.errors?.map((item: any) => (
@@ -72,6 +80,7 @@ function AccountLinkView({ options, core }: mountAccountLinkViewProps & BaseProp
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
           components={options.components}
+          onCancel={options.onCancel}
         />
       </AccountLinkContainer>
     </div>

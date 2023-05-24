@@ -136,7 +136,6 @@ class ErrorService implements StrivveServiceInterface {
 }
 
 describe("mountLinkingJourney", () => {
-
   test('Successfully rendered', async () => {
     const service = new Service()
     const core = new StrivveCore({
@@ -152,7 +151,6 @@ describe("mountLinkingJourney", () => {
 
     const component = new StrivveComponent({ core });
 
-    // eslint-disable-next-line testing-library/no-render-in-setup
     render(<div id="linking" />);
 
     component.mountLinkingJourney("linking", {});
@@ -196,7 +194,6 @@ describe("mountLinkingJourney", () => {
 
     const component = new StrivveComponent({ core });
 
-    // eslint-disable-next-line testing-library/no-render-in-setup
     render(<div id="linking" />);
 
     component.mountLinkingJourney("linking", {});
@@ -209,3 +206,65 @@ describe("mountLinkingJourney", () => {
     expect(selectSiteErrorMessage).toBeInTheDocument();
   });
 })
+
+describe("mountAccountLinkView", () => {
+  test('Mount and unmount', async () => {
+    const service = new Service()
+    const core = new StrivveCore({
+      service,
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+    })
+
+    const component = new StrivveComponent({ core });
+
+    render(<div id="linking" />);
+
+    component.mountAccountLinkView("linking", { site_id: '1' });
+
+    const element: HTMLInputElement = await screen.findByTestId('loader');
+    expect(element).toBeInTheDocument();
+
+    const accountLinkView: HTMLInputElement = await screen.findByTestId('accountLinkView');
+    expect(accountLinkView).toBeInTheDocument();
+
+    component.unmountAccountLinkView('linking');
+    expect(screen.queryByTestId('accountLinkView')).not.toBeInTheDocument();
+  });
+});
+
+describe("mountSelectSiteView", () => {
+  test('Mount and unmount', async () => {
+    const service = new Service()
+    const core = new StrivveCore({
+      service,
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+    })
+
+    const component = new StrivveComponent({ core });
+
+    render(<div id="linking" />);
+
+    component.mountSelectSiteView("linking", {  });
+
+    const element: HTMLInputElement = await screen.findByTestId('loader');
+    expect(element).toBeInTheDocument();
+
+    const selectSiteView: HTMLInputElement = await screen.findByTestId('selectSiteView');
+    expect(selectSiteView).toBeInTheDocument();
+
+    component.unmountSelectSiteView('linking');
+    expect(screen.queryByTestId('selectSiteView')).not.toBeInTheDocument();
+  });
+});

@@ -14,15 +14,16 @@ export interface AccountLinkFormProps {
   disabled?: boolean
   values?: { [key: string]: any }
   components?: mountAccountLinkViewComponents
-  autoFocus?: boolean
+  onCancel?: () => void
 }
 
-function AccountLinkForm({ fields, submit, change, disabled, values, components, autoFocus }: AccountLinkFormProps) {
+function AccountLinkForm({ fields, submit, change, disabled, values, components, onCancel }: AccountLinkFormProps) {
   const { appearance } = useBase();
 
   return (
     <form
       className='accountLinkForm'
+      css={appearance.elements?.accountLinkForm}
       onSubmit={(e) => {
         e.preventDefault()
         submit(e)
@@ -31,7 +32,7 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
       {
         fields?.map((item, index) => {
           const element = components?.input?.({ ...item, change });
-          
+
           if (element) {
             return customComponentToReact(element)
           }
@@ -55,9 +56,8 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
         css={appearance.elements?.accountLinkFooter}
         className='accountLinkFooter'
       >
-        {
-          components?.button ? customComponentToReact(components?.button({ disabled, submit })) : <Button title={'Link'} disabled={disabled} />
-        }
+        {onCancel && (<Button onClick={onCancel} type='button' title={'Cancel'} secondary />)}
+        <Button type='submit' title={'Link'} disabled={disabled} />
       </div>
     </form>
   );

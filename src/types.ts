@@ -1,8 +1,8 @@
 import { Interpolation } from '@emotion/react';
 import { CustomComponent } from './component/parser';
-import { Field } from './core/accountLink';
+import { AccountLinkState, Field } from './core/accountLink';
 import StrivveCore, { CreateAccountLinkOptions } from './core/core';
-import { SelectSiteCoreOptions } from './core/selectSite';
+import { SelectSiteCoreOptions, SelectSiteState } from './core/selectSite';
 
 export type APIFilter = number | {
   [key: string]: string | string[];
@@ -109,6 +109,9 @@ export interface mountAccountLinkViewOptions {
   site_id: string
   quick_start?: boolean
   hide_title?: boolean
+  subscribe?: (state: AccountLinkState) => void
+  onSubmit?: (values: any) => void
+  onCancel?: () => void
   components?: mountAccountLinkViewComponents
 }
 
@@ -126,9 +129,10 @@ export interface mountSelectSiteViewComponent {
 export interface mountSelectSiteViewOptions {
   filter?: APIFilter
   single?: boolean
-  onSubmit?: Function
+  onSubmit?: (values: any) => void
   hide_search?: boolean
   hide_button?: boolean
+  subscribe?: (state: SelectSiteState) => void
   components?: mountSelectSiteViewComponent
 }
 
@@ -155,8 +159,10 @@ export type mountLinkingJourneyOptions = {
 export type Appearance = {
   elements?: {
     button?: Interpolation<any>,
+    secondaryButton?: Interpolation<any>,
     input?: Interpolation<any>,
     label?: Interpolation<any>,
+    selectSiteView?: Interpolation<any>,
     selectSiteList?: Interpolation<any>,
     selectSiteItem?: Interpolation<any>,
     selectSiteItemSelected?: Interpolation<any>,
@@ -168,6 +174,8 @@ export type Appearance = {
     accountLinkHeaderTitle?: Interpolation<any>,
     accountLinkBody?: Interpolation<any>,
     accountLinkFooter?: Interpolation<any>,
+    accountLinkView?: Interpolation<any>,
+    accountLinkForm?: Interpolation<any>,
   }
 }
 

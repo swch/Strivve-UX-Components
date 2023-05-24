@@ -7,19 +7,21 @@ interface ButtonProps {
   disabled?: boolean;
   title?: string;
   dataTestId?: string;
-  onClick?: () => void
+  onClick?: () => void;
   style?: React.CSSProperties
+  secondary?: boolean;
+  type?: string
 }
 
-function Button({ dataTestId, disabled, title, onClick, id  }: ButtonProps) {
+function Button({ dataTestId, disabled, title, onClick, id, secondary, type  }: ButtonProps) {
   const  { appearance } = useBase();
   return (
     <input
       id={id}
-      type="submit"
+      type={type}
       data-testid={dataTestId}
       onClick={onClick}
-      css={appearance.elements?.button}
+      css={secondary ? appearance.elements?.secondaryButton : appearance.elements?.button}
       value={title}
       disabled={disabled}
       className='button'

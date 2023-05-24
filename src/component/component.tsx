@@ -6,7 +6,6 @@ import { Appearance, MerchantSite, mountAccountLinkViewOptions, mountLinkingJour
 import StrivveCore from '../core/core';
 import defaultAppearance from './appearance';
 
-
 export default class StrivveComponent implements StrivveComponentInterface {
   core: StrivveCore;
   appearance: Appearance = defaultAppearance;

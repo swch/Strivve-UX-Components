@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import withBase, { BaseProps } from './withBase';
 import SelectSiteList from './SelectSiteList';
@@ -8,13 +9,16 @@ import { customComponentToReact } from './parser';
 import SelectSiteCore, { SelectSiteState } from '../core/selectSite';
 import { mountSelectSiteViewProps } from '../types';
 
-function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps) {
+function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSiteViewProps) {
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
 
   useEffect(() => {
     const selectSite = core.createSelectSite(options);
-    selectSite.subscribe((state: SelectSiteState) => setState(state));
+    selectSite.subscribe((state: SelectSiteState) => {
+      setState(state);
+      options?.subscribe?.(state);
+    });
     setSelectSiteCore(selectSite);
   }, []);
 
@@ -41,7 +45,7 @@ function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps)
   const disabled = state?.selected?.length === 0;
 
   return (
-    <div data-testid="selectSiteView" className='selectSiteView'>
+    <div data-testid="selectSiteView" className='selectSiteView' css={appearance.elements?.selectSiteView}>
       {
         !options?.hide_button && (
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -84,7 +88,7 @@ function SelectSiteView({ options, core }: BaseProps & mountSelectSiteViewProps)
         selected={state?.selected || []}
         components={options?.components}
         onSelectItem={(item: any) => {
-          if (options?.hide_button) {
+          if (options?.single) {
             selectSiteCore?.selectItem(item)
             handleSubmit();
           } else {
