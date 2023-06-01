@@ -20,11 +20,9 @@ const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
   return function WithBase(props: P) {
     const { appearance } = props;
     return (
-      <div>
-        <BaseContext.Provider value={{ appearance }}>
-          <Component {...props} />
-        </BaseContext.Provider>
-      </div>
+      <BaseContext.Provider value={{ appearance }}>
+        <Component {...props} />
+      </BaseContext.Provider>
     );
   };
 };

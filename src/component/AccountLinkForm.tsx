@@ -57,7 +57,7 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
         className='accountLinkFooter'
       >
         {onCancel && (<Button onClick={onCancel} type='button' title={'Cancel'} secondary />)}
-        <Button type='submit' title={'Link'} disabled={disabled} />
+        <Button type='submit' title={'Link Account'} disabled={disabled} />
       </div>
     </form>
   );

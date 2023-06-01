@@ -10,22 +10,21 @@ interface ButtonProps {
   onClick?: () => void;
   style?: React.CSSProperties
   secondary?: boolean;
-  type?: string
+  type?: "button" | "submit" | "reset"
 }
 
-function Button({ dataTestId, disabled, title, onClick, id, secondary, type  }: ButtonProps) {
+function Button({ dataTestId, disabled, title, onClick, id, secondary, type = 'button'  }: ButtonProps) {
   const  { appearance } = useBase();
   return (
-    <input
+    <button
       id={id}
       type={type}
       data-testid={dataTestId}
       onClick={onClick}
       css={secondary ? appearance.elements?.secondaryButton : appearance.elements?.button}
-      value={title}
       disabled={disabled}
       className='button'
-    />
+    >{title}</button>
   );
 }
 

@@ -128,10 +128,9 @@ export interface mountSelectSiteViewComponent {
 
 export interface mountSelectSiteViewOptions {
   filter?: APIFilter
-  single?: boolean
+  multiple?: boolean
   onSubmit?: (values: any) => void
-  hide_search?: boolean
-  hide_button?: boolean
+  onClose?: () => void
   subscribe?: (state: SelectSiteState) => void
   components?: mountSelectSiteViewComponent
 }
@@ -157,17 +156,31 @@ export type mountLinkingJourneyOptions = {
 }
 
 export type Appearance = {
+  logoUrl?: string,
   elements?: {
     button?: Interpolation<any>,
     secondaryButton?: Interpolation<any>,
+    iconButton?: Interpolation<any>,
     input?: Interpolation<any>,
     label?: Interpolation<any>,
     selectSiteView?: Interpolation<any>,
     selectSiteList?: Interpolation<any>,
     selectSiteItem?: Interpolation<any>,
+    selectSiteHeader?: Interpolation<any>,
     selectSiteItemSelected?: Interpolation<any>,
     selectSiteItemImage?: Interpolation<any>,
     selectSiteItemName?: Interpolation<any>,
+    selectSiteCarouselItem?: Interpolation<any>,
+    selectSiteCarouselFooter?: Interpolation<any>,
+    selectSiteCarouselItemSelected?: Interpolation<any>,
+    selectSiteCarouselItemImage?: Interpolation<any>,
+    selectSiteCarouselItemName?: Interpolation<any>,
+
+    searchSiteView?: Interpolation<any>,
+    searchSiteHeader?: Interpolation<any>,
+    modal?: Interpolation<any>,
+    modalStatus?: Interpolation<any>,
+
     accountLinkContainer?: Interpolation<any>,
     accountLinkHeader?: Interpolation<any>,
     accountLinkHeaderImage?: Interpolation<any>,
@@ -176,6 +189,10 @@ export type Appearance = {
     accountLinkFooter?: Interpolation<any>,
     accountLinkView?: Interpolation<any>,
     accountLinkForm?: Interpolation<any>,
+    accountLinkProgress?: Interpolation<any>,
+    accountLinkProgressFooter?: Interpolation<any>,
+    accountLinkProgressTitle?: Interpolation<any>,
+
   }
 }
 

@@ -3,7 +3,7 @@ import { APIFilter, MerchantSite, StrivveServiceInterface } from "../types";
 export interface SelectSiteCoreOptions {
   service: StrivveServiceInterface;
   filter?: APIFilter
-  single?: boolean;
+  multiple?: boolean;
   onSubmit?: Function;
 }
 
@@ -14,6 +14,7 @@ export interface SelectSiteState {
   search: string
   error?: boolean
   message?: string
+  step: number,
 }
 
 export const initialStateSelectSite = {
@@ -21,7 +22,8 @@ export const initialStateSelectSite = {
   selected: [],
   loading: false,
   search: '',
-  error: false
+  error: false,
+  step: 1,
 }
 
 export default class SelectSiteCore {
@@ -29,22 +31,27 @@ export default class SelectSiteCore {
   state: SelectSiteState = initialStateSelectSite;
   private subscriber: Function = () => { };
   private sites: MerchantSite[] = []
-  single?: boolean;
+  multiple?: boolean;
   private onSubmit?: Function;
 
-  constructor({ service, filter, single, onSubmit }: SelectSiteCoreOptions) {
+  constructor({ service, filter, multiple, onSubmit }: SelectSiteCoreOptions) {
     this.service = service;
-    this.single = single;
+    this.multiple = multiple;
     this.onSubmit = onSubmit;
-    this.getSites(filter)
+    this.getSites(filter);
   }
 
   async getSites(filter?: APIFilter) {
     this.updateState({ loading: true })
     try {
-      const res = await this.service.getMerchantSites(filter)
-      this.sites = res;
-      this.updateState({ loading: false, sites: res });
+      const res = await this.service.getMerchantSites(filter);
+      const sites = res.filter(site => {
+        const normalized_query = this.state.search.toLowerCase();
+        const normalized_site_name = site.name.toLowerCase();
+        return normalized_site_name.indexOf(normalized_query) >= 0;
+      })
+      this.sites = sites;
+      this.updateState({ loading: false, sites });
       return res
     } catch (error: any) {
       this.updateState({ loading: false, error: true, message: error?.message })
@@ -72,19 +79,23 @@ export default class SelectSiteCore {
     })
   }
 
-  selectItem(merchant: MerchantSite) {
+  selectItem(merchant: MerchantSite, ) {
     if (this.state.selected?.find(item => item.id === merchant.id)) {
       const selected = this.state.selected.filter((item: any) => item.id !== merchant.id);
       this.updateState({ selected });
     } else {
       let selected = this.state.selected || [];
-      if (this.single) {
-        selected = [merchant];
-      } else {
+      if (this.multiple) {
         selected.push(merchant);
+      } else {
+        selected = [merchant];
       }
       this.updateState({ selected });
     }
+  }
+
+  setStep(step: number) {
+    this.updateState({ step });
   }
 
   private updateState(value: Partial<SelectSiteState>) {

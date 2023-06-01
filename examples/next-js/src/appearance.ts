@@ -66,7 +66,7 @@ const appearance: Appearance = {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
       gridGap: '12px'
-    }
+    },
   }
 };
 

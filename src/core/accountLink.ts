@@ -90,7 +90,6 @@ export default class AccountLinkCore {
         this.submit();
       }
     } catch (err) {
-      console.log('=========', err);
     }
   }
 

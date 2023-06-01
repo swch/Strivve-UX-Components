@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
 import AccountLinkForm from './AccountLinkForm';
 import AccountLinkContainer from './AccountLinkContainer';
-import { customComponentToReact } from './parser';
 import { mountAccountLinkViewProps } from '../types';
 import withBase, { BaseProps } from './withBase';
 import AccountLinkCore, { AccountLinkState } from '../core/accountLink';
+import SecurityIcon from './SecurityIcon';
+import ModalStatus from './ModalStatus';
 
 function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
@@ -48,27 +49,27 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
 
   if (state?.linking || state?.success || state?.failed) {
     return (
-      <AccountLinkContainer hide_title={options.hide_title} site={accountLinkCore?.merchant_site}>
-        {
-          options.components?.progress ? customComponentToReact(options.components?.progress(state.message)) : (
-            <>
-              <p>{state?.message?.status_message || 'Linking account.'}</p>
-              <div
-                data-testid={state.failed ? "account-link-error" : state.success ? "account-link-success" : "account-link-progress"}
-                className='accountLinkProgress'
-              >
-                {`${state.message?.percent_complete || 0}%`}
-              </div>
-            </>
-          )
-        }
+      <AccountLinkContainer site={accountLinkCore?.merchant_site}>
+        <div data-testid="accountLinkProgress" className='accountLinkProgress' css={appearance.elements?.accountLinkProgress}>
+          <p className='accountLinkProgressTitle' css={appearance.elements?.accountLinkProgressTitle}>Logging in...</p>
+          <SecurityIcon />
+          <div className='accountLinkProgressFooter' css={appearance.elements?.accountLinkProgressFooter}></div>
+        </div>
+        <ModalStatus
+          open={state.success}
+          title='Success!'
+          description='Your card details were successfully placed on this site.'
+          buttonText='Browse More Sites'
+          onClickButton={options.onCancel}
+          onClickClose={options.onCancel}
+        />
       </AccountLinkContainer>
     )
   }
 
   return (
     <div data-testid="accountLinkView" className='accountLinkView' css={appearance.elements?.accountLinkView}>
-      <AccountLinkContainer hide_title={options.hide_title} site={accountLinkCore?.merchant_site}>
+      <AccountLinkContainer site={accountLinkCore?.merchant_site}>
         {state?.message?.status_message && <p className='accountLinkStatusMessage'>{state?.message?.status_message}</p>}
         {state?.errors?.map((item: any) => (
           <p key={item.message} className='accountLinkErrorMessage' style={{ color: 'red', marginTop: 4 }}>{item.message}</p>
