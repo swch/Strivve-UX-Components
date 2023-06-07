@@ -12,6 +12,16 @@ const defaultAppearance: Appearance = {
     colorTextSecondary: '#565656',
   },
   elements: {
+    loader: {
+      width: '48px',
+      height: '48px',
+      border: '5px solid lightgray',
+      borderBottomColor: 'transparent',
+      borderRadius: '50%',
+      display: 'inline-block',
+      boxSizing: 'border-box',
+      animation: 'rotation 1s linear infinite',
+    },
     input: {
       padding: '12px',
       border: '1px solid #D9D9D9',
@@ -39,6 +49,22 @@ const defaultAppearance: Appearance = {
       },
     },
     secondaryButton: {
+      background: 'var(--colorSecondary)',
+      borderRadius: '6px',
+      padding: '10px 12px',
+      color: 'white',
+      width: '100%',
+      cursor: 'pointer',
+      border: '2px solid var(--colorSecondaryDark)',
+      '&:hover': {
+        background: 'var(--colorSecondaryDark)'
+      },
+      '&:disabled': {
+        background: 'gray',
+        border: '2px solid gray',
+      },
+    },
+    outlinedButton: {
       background: '#FFFFFF',
       border: '2px solid var(--colorPrimaryDark)',
       borderRadius: '6px',

@@ -1,5 +1,4 @@
 import { StrivveServiceInterface } from "../types";
-import { BaseStyle } from "../types";
 import AccountLinkCore, { AccountLinkCoreOption } from "./accountLink";
 import SelectSiteCore, { SelectSiteCoreOptions } from "./selectSite";
  

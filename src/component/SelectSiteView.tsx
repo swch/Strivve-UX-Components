@@ -96,7 +96,7 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
                 onClick={() => {
                   selectSiteCore?.setStep(2);
                 }}
-                secondary
+                variant='outlined'
               />
             </div>
           </div>

@@ -88,6 +88,7 @@ function PendingModal({ open, title, description, buttonText, onClickButton, onC
             <Button
               title={buttonText}
               type='submit'
+              variant='secondary'
             />
           </div>
         </form>

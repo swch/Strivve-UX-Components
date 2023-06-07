@@ -1,21 +1,13 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
+import { useBase } from './withBase';
 
 function Loader() {
+  const { appearance }  = useBase();
   return (
     <div data-testid="loader" id="loader">
-      <div className='loader' />
-      <style>{`
-      .loader {
-        width: 48px;
-        height: 48px;
-        border: 5px solid lightgray;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-        }
-    
+      <div css={appearance.elements?.loader} />
+      <style>{`    
         @keyframes rotation {
         0% {
             transform: rotate(0deg);

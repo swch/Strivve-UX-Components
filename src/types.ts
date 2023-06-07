@@ -168,8 +168,10 @@ export type Appearance = {
     colorTextSecondary?: string,
   },
   elements?: {
+    loader?: Interpolation<any>,
     button?: Interpolation<any>,
     secondaryButton?: Interpolation<any>,
+    outlinedButton?: Interpolation<any>,
     iconButton?: Interpolation<any>,
     input?: Interpolation<any>,
     label?: Interpolation<any>,

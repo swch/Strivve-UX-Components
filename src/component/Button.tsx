@@ -9,11 +9,11 @@ interface ButtonProps {
   dataTestId?: string;
   onClick?: () => void;
   style?: React.CSSProperties
-  secondary?: boolean;
+  variant?: "primary" | "secondary" | "outlined";
   type?: "button" | "submit" | "reset"
 }
 
-function Button({ dataTestId, disabled, title, onClick, id, secondary, type = 'button'  }: ButtonProps) {
+function Button({ dataTestId, disabled, title, onClick, id, variant = 'primary', type = 'button'  }: ButtonProps) {
   const  { appearance } = useBase();
   return (
     <button
@@ -21,7 +21,7 @@ function Button({ dataTestId, disabled, title, onClick, id, secondary, type = 'b
       type={type}
       data-testid={dataTestId}
       onClick={onClick}
-      css={secondary ? appearance.elements?.secondaryButton : appearance.elements?.button}
+      css={variant === 'secondary' ? appearance.elements?.secondaryButton : variant === 'outlined' ? appearance.elements?.outlinedButton : appearance.elements?.button}
       disabled={disabled}
       className='button'
     >{title}</button>
