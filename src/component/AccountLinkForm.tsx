@@ -45,8 +45,10 @@ function AccountLinkForm({ fields, submit, change, disabled, values, components,
               type={item.type}
               placeholder={item.label}
               required={item.required ? "true" : "false"}
-              onChange={(e) => change?.(item.name, e.target.value)}
-              value={values?.[item.name]}
+              onChange={(e) => {
+                change?.(item.name, e.target.value);
+              }}
+              value={values?.[item.name] || ""}
               autoFocus={index === 0}
             />
           )

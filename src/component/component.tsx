@@ -87,11 +87,11 @@ export default class StrivveComponent implements StrivveComponentInterface {
   }
 
   mountLinkingJourney(id: string, { selectSiteOptions, accountLinkOptions }: mountLinkingJourneyOptions) {
-    const root = this.selectSite ? this.selectSite : ReactDOM.createRoot(
+    const root = this.linkingJourney ? this.linkingJourney : ReactDOM.createRoot(
       document.getElementById(id) as HTMLElement
     );
 
-    root.render(<LinkingJourney appearance={this.appearance} core={this.core} selectSiteOptions={selectSiteOptions} />)
-    this.selectSite = root;
+    root.render(<LinkingJourney appearance={this.appearance} core={this.core} selectSiteOptions={selectSiteOptions} accountLinkOptions={accountLinkOptions} />)
+    this.linkingJourney = root;
   }
 }

@@ -129,6 +129,7 @@ export interface mountSelectSiteViewComponent {
 export interface mountSelectSiteViewOptions {
   filter?: APIFilter
   multiple?: boolean
+  view?: 'list' | 'carousel'
   onSubmit?: (values: any) => void
   onClose?: () => void
   subscribe?: (state: SelectSiteState) => void
@@ -151,12 +152,21 @@ export interface BaseStyle {
 }
 
 export type mountLinkingJourneyOptions = {
-  accountLinkOptions?: CreateAccountLinkOptions
-  selectSiteOptions?: SelectSiteCoreOptions
+  accountLinkOptions?: mountAccountLinkViewOptions
+  selectSiteOptions?: mountSelectSiteViewOptions
 }
 
 export type Appearance = {
-  logoUrl?: string,
+  layout?: {
+    logoImageUrl?: string,
+  },
+  variables?: {
+    colorPrimary?: string,
+    colorSecondary?: string,
+    fontFamily?: string,
+    colorText?: string,
+    colorTextSecondary?: string,
+  },
   elements?: {
     button?: Interpolation<any>,
     secondaryButton?: Interpolation<any>,

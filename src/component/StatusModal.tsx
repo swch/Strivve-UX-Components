@@ -3,8 +3,8 @@ import React from 'react';
 import { useBase } from './withBase';
 import Button from './Button';
 
-type ModalStatusProps = {
-  open: boolean;
+type StatusModalProps = {
+  open?: boolean;
   title: string;
   description: string;
   buttonText: string;
@@ -13,7 +13,7 @@ type ModalStatusProps = {
   variant?: 'success' | 'error'
 }
 
-function ModalStatus({ open, variant = 'success', title, description, buttonText, onClickButton, onClickClose }: ModalStatusProps) {
+function StatusModal({ open, variant = 'success', title, description, buttonText, onClickButton, onClickClose }: StatusModalProps) {
   const { appearance } = useBase();
 
   if (!open) {
@@ -69,4 +69,4 @@ function ModalStatus({ open, variant = 'success', title, description, buttonText
   );
 }
 
-export default ModalStatus;
+export default StatusModal;

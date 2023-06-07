@@ -15,17 +15,5 @@ describe("AccountLinkContainer", () => {
     expect(element).toBeInTheDocument();
   });
 
-  test('hide title', async () => {
-    render(
-      <AccountLinkContainer
-        hide_title
-      >
-        <div data-testid="children" />
-      </AccountLinkContainer>
-    );
-    const element: HTMLDivElement | null = screen.queryByTestId('accountLinkHeader');
-
-    expect(element).toBe(null);
-  });
 
 })

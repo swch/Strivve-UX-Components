@@ -1,4 +1,6 @@
 import '@testing-library/jest-dom';
+import "matchmedia-polyfill";
+import "matchmedia-polyfill/matchMedia.addListener";
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import SelectSiteView from '../SelectSiteView';
@@ -117,7 +119,8 @@ describe("SelectSiteView", () => {
         options={{
           onSubmit: () => {
             submitted = true;
-          }
+          },
+          view: 'list'
         }}
         core={core}
         appearance={{}}
@@ -138,9 +141,7 @@ describe("SelectSiteView", () => {
 
     expect(selectSiteItem).toHaveAttribute('aria-selected', 'true');
 
-    const continueButton = await screen.findByTestId(`continue`);
-    
-    fireEvent.click(continueButton);
+
     expect(submitted).toBe(true);
   });
 })

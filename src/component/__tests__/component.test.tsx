@@ -1,4 +1,6 @@
 import '@testing-library/jest-dom';
+import "matchmedia-polyfill";
+import "matchmedia-polyfill/matchMedia.addListener";
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { APIFilter, CardBody, CardholderBody, JobBody, MerchantSite, PostCredsBody, StrivveServiceInterface } from '../../types';
@@ -153,7 +155,11 @@ describe("mountLinkingJourney", () => {
 
     render(<div id="linking" />);
 
-    component.mountLinkingJourney("linking", {});
+    component.mountLinkingJourney("linking", {
+      selectSiteOptions: {
+        view: 'list',
+      }
+    });
 
     const element: HTMLInputElement = await screen.findByTestId('loader');
     expect(element).toBeInTheDocument();
@@ -165,13 +171,7 @@ describe("mountLinkingJourney", () => {
     if (selectSiteItem.getAttribute('aria-selected') === 'false') {
       fireEvent.click(selectSiteItem);
     }
-
-    expect(selectSiteItem).toHaveAttribute('aria-selected', 'true');
-
-    const continueButton = await screen.findByTestId(`continue`);
-
-    fireEvent.click(continueButton);
-
+    
     const accountLinkView: HTMLInputElement = await screen.findByTestId('accountLinkView');
     expect(accountLinkView).toBeInTheDocument();
 

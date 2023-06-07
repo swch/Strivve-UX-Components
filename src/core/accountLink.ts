@@ -45,7 +45,7 @@ export const initialStateAccountLink = {
   success: false,
   failed: false,
   submitting: false,
-  fields: []
+  fields: [],
 }
 
 export default class AccountLinkCore {
@@ -94,7 +94,13 @@ export default class AccountLinkCore {
   }
 
   public change(name: string, value: any) {
-    (this.state.values as any)[name] = value;
+    if (!this.state.values) {
+      this.state.values = {};
+    }
+    this.state.values = {
+      ...this.state.values,
+      [name]: value,
+    };
     this.state.errors = [];
     this.notifyForm();
   }
@@ -110,6 +116,7 @@ export default class AccountLinkCore {
           envelope_id: pending.envelope_id,
           account_link: this.state.values,
         })
+        this.updateState({ pending: null, linking: true })
       } else {
         this.updateState({ submitting: true })
         const job = await this.onSubmit(this.state.values, { merchant_site: this.merchant_site })
@@ -138,9 +145,9 @@ export default class AccountLinkCore {
       const message = data.message;
       if (message.termination_type) {
         if (this.failed_status.includes(message.termination_type)) {
-          this.updateState({ message, linking: false, failed: true });
+          this.updateState({ message, linking: false, failed: true, pending: null });
         } else {
-          this.updateState({ message, linking: false, success: true });
+          this.updateState({ message, linking: false, success: true, pending: null });
         }
       } else {
         this.updateState({ message, linking: true, submitting: false });
@@ -180,6 +187,8 @@ export default class AccountLinkCore {
   }
 
   private notifyForm() {
-    this.subscriber(this.state)
+    this.subscriber?.({
+      ...this.state
+    })
   }
 }

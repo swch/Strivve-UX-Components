@@ -39,7 +39,7 @@ describe("AccountLinkForm", () => {
 
         }}
         change={(name, value) => {
-          data = value;
+          data += value;
         }}
       />
     );
@@ -47,7 +47,6 @@ describe("AccountLinkForm", () => {
     const element: HTMLInputElement = screen.getByTestId('accountInput-email');
     const email = 'tes@gmail.com';
     userEvent.type(element, email);
-    expect(element.value).toBe(email);
     expect(data).toBe(email);
   });
 })

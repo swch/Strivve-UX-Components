@@ -76,7 +76,7 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
         )
       }
       {
-        state?.step === 1 && (
+        options?.view !== 'list' && state?.step === 1 && (
           <div style={{ width: '100%' }}>
             <SelectSiteCarousel
               sites={state?.sites || []}
@@ -102,8 +102,8 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
           </div>
         )
       }
-      {
-        state?.step === 2 && (
+      {(
+        options?.view === 'list' || state?.step === 2) && (
           <SelectSiteList
             sites={state?.sites || []}
             selected={state?.selected || []}

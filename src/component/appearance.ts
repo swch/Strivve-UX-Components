@@ -1,7 +1,16 @@
 import { Appearance } from "../types";
 
 const defaultAppearance: Appearance = {
-  logoUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+  layout: {
+    logoImageUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+  },
+  variables: {
+    colorPrimary: '#008BD9',
+    colorSecondary: '#6BBF00',
+    fontFamily: 'sans-serif',
+    colorText: '#000000',
+    colorTextSecondary: '#565656',
+  },
   elements: {
     input: {
       padding: '12px',
@@ -14,30 +23,34 @@ const defaultAppearance: Appearance = {
       }
     },
     button: {
-      background: '#008BD9',
+      background: 'var(--colorPrimary)',
       borderRadius: '6px',
-      padding: '12px',
-      border: 'none',
+      padding: '10px 12px',
       color: 'white',
       width: '100%',
       cursor: 'pointer',
+      border: '2px solid var(--colorPrimaryDark)',
+      '&:hover': {
+        background: 'var(--colorPrimaryDark)'
+      },
       '&:disabled': {
-        background: 'lightgray'
+        background: 'gray',
+        border: '2px solid gray',
       },
     },
     secondaryButton: {
       background: '#FFFFFF',
-      border: '2px solid #008BD9',
+      border: '2px solid var(--colorPrimaryDark)',
       borderRadius: '6px',
-      color: '#008BD9',
+      color: 'var(--colorTextSecondary)',
       cursor: 'pointer',
-      padding: '8px 20px',
+      padding: '10px 12px',
     },
     iconButton: {
       background: '#FFFFFF',
       border: '1px solid #D9D9D9',
       borderRadius: '6px',
-      color: '#008BD9',
+      color: 'var(--colorPrimary)',
       cursor: 'pointer',
       padding: '4px 6px',
     },
@@ -76,7 +89,6 @@ const defaultAppearance: Appearance = {
     selectSiteView: {
       maxWidth: '400px',
       margin: 'auto',
-      fontFamily: 'sans-serif',
     },
     selectSiteHeader: {
       display: 'flex',
@@ -90,7 +102,6 @@ const defaultAppearance: Appearance = {
       gridGap: '6px',
       overflow: 'auto',
       maxHeight: '400px',
-      background: 'rgba(255, 248, 234, 0.4)',
       padding: '16px'
     },
     selectSiteItem: {
@@ -151,7 +162,6 @@ const defaultAppearance: Appearance = {
     accountLinkView: {
       maxWidth: '400px',
       margin: 'auto',
-      fontFamily: 'sans-serif',
     },
     accountLinkContainer: {
     },
@@ -183,15 +193,13 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      fontFamily: 'sans-serif',
     },
     accountLinkProgressFooter: {
-      height: '40px',
-      borderBottom: '8px solid #6BBF00',
-      borderLeft: '8px solid #6BBF00',
-      borderRight: '8px solid #6BBF00',
+      height: '8px',
+      backgroundColor: 'lightgray',
       width: '100%',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      marginTop: '40px'
     },
     accountLinkProgressTitle: {
       marginTop: '20px',

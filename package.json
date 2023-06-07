@@ -34,7 +34,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "rm -rv -f ./dist && tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js",
-    "test": "react-app-rewired test",
+    "test": "react-scripts test",
     "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
@@ -59,6 +59,7 @@
     "@types/react-slick": "^0.23.10",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
+    "matchmedia-polyfill": "^0.3.2",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
     "stream-http": "^3.2.0",
