@@ -179,6 +179,7 @@ const defaultAppearance: Appearance = {
     },
     selectSiteCarouselItemImage: {
       width: '50%',
+      minHeight: '80px',
       margin: 'auto',
       marginTop: '12px',
     },
@@ -219,13 +220,8 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    accountLinkProgressFooter: {
-      height: '8px',
-      backgroundColor: 'lightgray',
-      width: '100%',
-      boxSizing: 'border-box',
-      marginTop: '40px'
+      paddingBottom: '40px',
+      paddingTop: '20px',
     },
     accountLinkProgressTitle: {
       marginTop: '20px',

@@ -202,7 +202,6 @@ export type Appearance = {
     accountLinkView?: Interpolation<any>,
     accountLinkForm?: Interpolation<any>,
     accountLinkProgress?: Interpolation<any>,
-    accountLinkProgressFooter?: Interpolation<any>,
     accountLinkProgressTitle?: Interpolation<any>,
 
   }
