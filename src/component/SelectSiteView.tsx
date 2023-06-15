@@ -27,6 +27,10 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
     selectSiteCore?.submit?.();
   }
 
+  const isHaveJob = core.jobs?.length > 0;
+
+  console.log('===', core.jobs);
+
   if (state?.loading) {
     return (
       <div
@@ -44,31 +48,54 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
   }
 
   return (
-    <div data-testid="selectSiteView" className='selectSiteView' css={appearance.elements?.selectSiteView}>
+    <div
+      data-testid="selectSiteView"
+      className='selectSiteView'
+      css={appearance.elements?.selectSiteView}
+    >
       {
-        <div
-          css={appearance.elements?.selectSiteHeader}
-        >
-          <div>
-            Select the first site for us to push your updated card info to.
+        isHaveJob && state?.step === 2 ? (
+          <div css={appearance.elements?.tabContainer}>
+            <button
+              css={state?.tab === 2 ? appearance.elements?.tabItemActive : appearance.elements?.tabItem}
+              onClick={() => selectSiteCore?.setTab(2)}
+            >
+              Your Sites
+            </button>
+            <button
+              css={state?.tab === 1 ? appearance.elements?.tabItemActive : appearance.elements?.tabItem}
+              onClick={() => selectSiteCore?.setTab(1)}
+            >
+              More Sites
+            </button>
           </div>
-          <div>
-            {
-              state?.step === 2 && (
-                <button
-                  className='iconButton'
-                  css={appearance.elements?.iconButton}
-                  onClick={() => setOpenSearch(true)}
-                >
-                  <svg width="18" height="18" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="13.5" cy="9.5" r="8" stroke="#6BBF00" stroke-width="3" />
-                    <line x1="8.06066" y1="16.0607" x2="1.06066" y2="23.0607" stroke="#6BBF00" stroke-width="3" />
-                  </svg>
-                </button>
-              )
-            }
+        ) : (
+          <div
+            css={appearance.elements?.selectSiteHeader}
+          >
+            <div>
+              {
+                isHaveJob ? 'Select an additional site for us to push your card info to.' : 'Select the first site for us to push your updated card info to.'
+              }
+            </div>
+            <div>
+              {
+                state?.step === 2 && (
+                  <button
+                    className='iconButton'
+                    css={appearance.elements?.iconButton}
+                    onClick={() => setOpenSearch(true)}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="13.5" cy="9.5" r="8" stroke="#6BBF00" strokeWidth="3" />
+                      <line x1="8.06066" y1="16.0607" x2="1.06066" y2="23.0607" stroke="#6BBF00" strokeWidth="3" />
+                    </svg>
+                  </button>
+                )
+              }
+            </div>
           </div>
-        </div>
+        )
       }
       {
         state?.error && (
@@ -98,24 +125,52 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
                 }}
                 variant='outlined'
               />
+              {
+                isHaveJob && (
+                  <p
+                    onClick={() => {
+                      selectSiteCore?.setStep(2);
+                    }}
+                    className='link'
+                    css={appearance.elements?.link}
+                  >
+                    My Sites
+                  </p>
+                )
+              }
             </div>
           </div>
         )
       }
+
       {(
         options?.view === 'list' || state?.step === 2) && (
-          <SelectSiteList
-            sites={state?.sites || []}
-            selected={state?.selected || []}
-            onSelectItem={(item: any) => {
-              if (options?.multiple) {
-                selectSiteCore?.selectItem(item)
-              } else {
-                selectSiteCore?.selectItem(item)
-                handleSubmit();
-              }
-            }}
-          />
+          <>
+            {
+              state?.tab === 2 ? (
+                <SelectSiteList
+                  sites={core.jobs?.map(item => ({ ...(item.site || {}), job: item })) || []}
+                  selected={[]}
+                  onSelectItem={(item: any) => {
+                    
+                  }}
+                />
+              ) : (
+                <SelectSiteList
+                  sites={state?.sites || []}
+                  selected={state?.selected || []}
+                  onSelectItem={(item: any) => {
+                    if (options?.multiple) {
+                      selectSiteCore?.selectItem(item)
+                    } else {
+                      selectSiteCore?.selectItem(item)
+                      handleSubmit();
+                    }
+                  }}
+                />
+              )
+            }
+          </>
         )
       }
       {

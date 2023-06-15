@@ -7,6 +7,7 @@ export interface AccountLinkCoreOption {
   service: StrivveServiceInterface;
   quick_start?: boolean;
   job?: any;
+  onMessage?: (id: string, values: any) => void;
 }
 
 export interface Field {
@@ -50,15 +51,16 @@ export const initialStateAccountLink = {
 
 export default class AccountLinkCore {
   service: StrivveServiceInterface;
-  merchant_site?: MerchantSite = undefined;
+  site?: MerchantSite = undefined;
   state: AccountLinkState = initialStateAccountLink;
   fields: Field[] = [];
   query?: CardholderQuery;
   failed_status = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
   private onSubmit: Function;
+  private onMessage?: (id: string, values: any) => void;
   private subscriber: Function = () => { };
 
-  constructor({ site_id, quick_start, onSubmit, service, job }: AccountLinkCoreOption) {
+  constructor({ site_id, quick_start, onSubmit, onMessage, service, job }: AccountLinkCoreOption) {
     this.service = service;
     if (job) {
       this.createQuery(job);
@@ -70,14 +72,15 @@ export default class AccountLinkCore {
     }
 
     this.onSubmit = onSubmit;
+    this.onMessage = onMessage;
     this.getSite(site_id, quick_start, job)
   }
 
   async getSite(id: string, quick_start?: boolean, job?: any) {
     try {
-      const merchant_site = await this.service.getMerchantSite(id);
-      this.merchant_site = merchant_site;
-      this.fields = merchant_site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
+      const site = await this.service.getMerchantSite(id);
+      this.site = site;
+      this.fields = site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
         name: item.key_name,
         value: '',
         label: item.label,
@@ -115,11 +118,11 @@ export default class AccountLinkCore {
           job_id: job.id,
           envelope_id: pending.envelope_id,
           account_link: this.state.values,
-        })
+        });
         this.updateState({ pending: null, linking: true })
       } else {
         this.updateState({ submitting: true })
-        const job = await this.onSubmit(this.state.values, { merchant_site: this.merchant_site })
+        const job = await this.onSubmit(this.state.values, { site: this.site })
         this.updateState({ job, submitting: false, linking: true, values: {} })
         this.createQuery(job);
       }
@@ -143,6 +146,7 @@ export default class AccountLinkCore {
 
     const statusHandler = (data: any) => {
       const message = data.message;
+      this.onMessage?.(data.job_id, message);
       if (message.termination_type) {
         if (this.failed_status.includes(message.termination_type)) {
           this.updateState({ message, linking: false, failed: true, pending: null });

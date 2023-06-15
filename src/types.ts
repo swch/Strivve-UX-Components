@@ -1,14 +1,25 @@
 import { Interpolation } from '@emotion/react';
 import { CustomComponent } from './component/parser';
 import { AccountLinkState, Field } from './core/accountLink';
-import StrivveCore, { CreateAccountLinkOptions } from './core/core';
-import { SelectSiteCoreOptions, SelectSiteState } from './core/selectSite';
+import StrivveCore from './core/core';
+import { SelectSiteState } from './core/selectSite';
 
 export type APIFilter = number | {
   [key: string]: string | string[];
 } | null;
 
-
+export interface Job {
+  id: number;
+  status: string;
+  status_message: string;
+  termination_type: string;
+  notification_sent: boolean;
+  time_elapsed: number;
+  started_on: string;
+  completed_on: string;
+  created_on: string;
+  last_updated_on: string;
+}
 export interface MerchantSite {
   id: string;
   name: string;
@@ -43,6 +54,7 @@ export interface MerchantSite {
   wallet_page?: string;
   merchant_sso_group?: string;
   tier?: number;
+  job: Job;
 }
 
 export interface StrivveServiceInterface {
@@ -164,6 +176,7 @@ export type Appearance = {
     colorPrimary?: string,
     colorSecondary?: string,
     fontFamily?: string,
+    colorBorder?: string,
     colorText?: string,
     colorTextSecondary?: string,
   },
@@ -175,6 +188,13 @@ export type Appearance = {
     iconButton?: Interpolation<any>,
     input?: Interpolation<any>,
     label?: Interpolation<any>,
+    link?: Interpolation<any>,
+    errorText?: Interpolation<any>,
+
+    tabContainer?: Interpolation<any>,
+    tabItem?: Interpolation<any>,
+    tabItemActive?: Interpolation<any>,
+
     selectSiteView?: Interpolation<any>,
     selectSiteList?: Interpolation<any>,
     selectSiteItem?: Interpolation<any>,

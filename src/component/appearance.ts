@@ -9,6 +9,7 @@ const defaultAppearance: Appearance = {
     colorSecondary: '#6BBF00',
     fontFamily: 'sans-serif',
     colorText: '#000000',
+    colorBorder: 'lightgray',
     colorTextSecondary: '#565656',
   },
   elements: {
@@ -31,6 +32,38 @@ const defaultAppearance: Appearance = {
       ':focus-visible': {
         outlineColor: '#6BBF00',
       }
+    },
+    link: {
+      color: 'var(--colorSecondary)',
+      cursor: 'pointer',
+      '&:hover': {
+        color: 'var(--colorSecondaryDark)'
+      },
+    },
+    tabContainer: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      border: '1px solid var(--colorBorder)',
+      borderRadius: '4px',
+      overflow: 'hidden'
+    },
+    tabItem: {
+      padding: '6px',
+      textAlign: 'center',
+      outline: 'none',
+      background: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    },
+    tabItemActive: {
+      padding: '6px',
+      textAlign: 'center',
+      outline: 'none',
+      background: 'var(--colorSecondary)',
+      border: 'none',
+      cursor: 'pointer',
+      color: 'white',
+      fontWeight: 'bold',
     },
     button: {
       background: 'var(--colorPrimary)',
@@ -82,7 +115,14 @@ const defaultAppearance: Appearance = {
     },
     label: {
       marginBottom: '6px',
-      fontSize: '16px'
+      fontSize: '16px',
+    },
+    errorText: {
+      color: 'red',
+      fontSize: '12px',
+      '& a': {
+        textDecoration: 'underline',
+      }
     },
     modal: {
       position: 'fixed',
@@ -151,17 +191,19 @@ const defaultAppearance: Appearance = {
       backgroundColor: 'white',
     },
     selectSiteItemName: {
-      fontSize: '0.75rem',
+      fontSize: '14px',
       marginBottom: '0.75rem',
-      marginTop: '0.75rem'
+      marginTop: '0.75rem',
+      flex: 1,
     },
     selectSiteItemImage: {
       width: '25px',
-       marginRight: '12px',
+      marginRight: '12px',
     },
     selectSiteCarouselFooter: {
       display: 'flex',
-      justifyContent: 'center'
+      flexDirection: 'column',
+      alignItems: 'center'
     },
     selectSiteCarouselItem: {
       cursor: 'pointer',

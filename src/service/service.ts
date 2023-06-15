@@ -26,12 +26,20 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async login() {
-    const config = await this.buildConfigFromLocalSettings(this.api_instance)
-    this.ch.setAppSettings(config.cardsavr_server, config.name, config.key, false, undefined, undefined, false)
-    this.username = config.username;
-    const res = await this.ch.loginAndCreateSession(config.username, config.password)
-    this.is_login = true;
-    return res;
+    try {
+      const config = await this.buildConfigFromLocalSettings(this.api_instance)
+      this.ch.setAppSettings(config.cardsavr_server, config.name, config.key, false, undefined, undefined, false)
+      this.username = config.username;
+      const res = await this.ch.loginAndCreateSession(config.username, config.password)
+      this.is_login = true;
+      return res;
+    } catch (error: any) {
+      console.log(error);
+      if (window !== undefined) {
+        localStorage.clear();
+      }
+      throw new Error(error.message);
+    }
   }
 
   setSafeKey(key: string) {
@@ -71,7 +79,7 @@ class StrivveService implements StrivveServiceInterface {
 
   async getMerchantSite(id: string): Promise<MerchantSite> {
     await this.waitingLogin();
-    
+
     const session = this.ch.getSession(this.username);
     const res = await session?.getMerchantSites({
       ids: id,
@@ -84,7 +92,7 @@ class StrivveService implements StrivveServiceInterface {
     await this.waitingLogin();
 
     const session = this.ch.getSession(this.username);
-    const res = await session?.getMerchantSites(filters || {}, {  page: 1, page_length: 9999, sort: "name", is_descending: false });
+    const res = await session?.getMerchantSites(filters || {}, { page: 1, page_length: 9999, sort: "name", is_descending: false });
 
     return res?.body || [];
   }

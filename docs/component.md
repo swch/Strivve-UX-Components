@@ -15,88 +15,44 @@ Contains functions to render components on the website.
 The `Appearance` type is an interface that specifies the appearance options for rendering different UI elements. 
 
 ```json
- {
+{
+  layout: {
+    logoImageUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+  },
+  variables: {
+    colorPrimary: '#008BD9',
+    colorSecondary: '#6BBF00',
+    fontFamily: 'sans-serif',
+    colorText: '#000000',
+    colorTextSecondary: '#565656',
+  },
   elements: {
-    button: {
-      background: 'black',
-      border: 'none',
-      color: 'white',
-      borderRadius: '0.25rem',
-      padding: '0.75rem 1rem',
-      cursor: 'pointer',
-      '&:disabled': {
-        background: 'lightgray'
-      },
-    },
     input: {
-      padding: '0.625rem',
-      boxSizing: 'border-box',
+      padding: '12px',
+      border: '1px solid #D9D9D9',
+      borderRadius: '5px',
+      marginBottom: '12px',
+      width: '-webkit-fill-available',
+      ':focus-visible': {
+        outlineColor: '#6BBF00',
+      }
+    },
+    button: {
+      background: 'var(--colorPrimary)',
+      borderRadius: '6px',
+      padding: '10px 12px',
+      color: 'white',
       width: '100%',
-      borderColor: 'black',
-      borderRadius: '0.125rem',
-      borderStyle: 'solid',
-      borderWidth: '0.0625rem',
-      marginBottom: '0.75rem'
-    },
-    label: {
-      marginBottom: '0.375rem',
-      fontSize: '0.75rem'
-    },
-    selectSiteList: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridGap: '0.625rem',
-      overflow: 'auto',
-      maxHeight: '100vh'
-    },
-    selectSiteItem: {
       cursor: 'pointer',
-      boxShadow: '0 0.5rem 1rem rgba(0,0,0,.15)',
-      textAlign: 'center',
-      border: '0.0625rem solid transparent'
-    },
-    selectSiteItemSelected: {
-      cursor: 'pointer',
-      boxShadow: '0 0.5rem 1rem rgba(0,0,0,.15)',
-      textAlign: 'center',
-      border: '0.0625rem solid black',
-    },
-    selectSiteItemName: {
-      fontSize: '0.75rem',
-      marginBottom: '0.75rem',
-      marginTop: '0.75rem'
-    },
-    selectSiteItemImage: {
-      width: '3.75rem',
-      marginTop: '0.75rem'
-    },
-    accountLinkContainer: {
-      border: "0.0625rem solid lightgray",
-      borderRadius: '0.25rem',
-    },
-    accountLinkHeader: {
-      padding: "0.25rem 0.75rem",
-      borderBottom: "0.0625rem solid lightgray",
-      display: "flex",
-      alignItems: "center",
-      height: '3rem',
-    },
-    accountLinkHeaderImage: {
-      marginRight: '0.75rem',
-      width: '2.5rem',
-    },
-    accountLinkHeaderTitle: {
-      fontSize: '1rem',
-      marginBottom: 0,
-      marginTop: 0,
-    },
-    accountLinkBody: {
-      margin: '0.75rem'
-    },
-    accountLinkFooter: {
-      marginTop: '0.75rem',
-      display: 'flex',
-      justifyContent: 'flex-end'
+      border: '2px solid var(--colorPrimaryDark)',
+      '&:hover': {
+        background: 'var(--colorPrimaryDark)'
+      },
+      '&:disabled': {
+        background: 'gray',
+        border: '2px solid gray',
+      },
+      ...
     }
   }
 }
@@ -104,30 +60,12 @@ The `Appearance` type is an interface that specifies the appearance options for 
 
 ## Properties
 
-| Name         | Type                         | Description                                                                   |
-| ------------ | ---------------------------- | ----------------------------------------------------------------------------- |
-| `elements`   | `{}` or `AppearanceElements` | _(Optional)_ An object that contains properties for customizing UI elements. |
+| Name | Params | Description |
+| --- | --- | --- |
+| layout | `logoImageUrl?: string` | An object representing the layout properties. |
+| variables | `colorPrimary?: string`<br>`colorSecondary?: string`<br>`fontFamily?: string`<br>`colorText?: string`<br>`colorTextSecondary?: string` | An object representing the variable properties. |
+| elements | {} | An object representing the elements. |
 
-The `elements` property within the `Appearance` type is an object that contains properties for customizing the appearance of various UI elements.
-
-## `AppearanceElements`
-
-| Name                   | Type               | Description                                                                                                          |
-| ----------------------| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `button`               | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of buttons.                       |
-| `input`                | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of input fields.                   |
-| `label`                | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of labels.                         |
-| `selectSiteList`       | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the site list in the account link view. |
-| `selectSiteItem`       | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of each site item in the site list. |
-| `selectSiteItemSelected` | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of a selected site item in the site list. |
-| `selectSiteItemImage`  | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the site item image in the site list. |
-| `selectSiteItemName`   | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the site item name in the site list. |
-| `accountLinkContainer` | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link container.      |
-| `accountLinkHeader`    | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link header.         |
-| `accountLinkHeaderImage`| `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link header image.   |
-| `accountLinkHeaderTitle`| `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link header title.   |
-| `accountLinkBody`      | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link body.           |
-| `accountLinkFooter`    | `Interpolation<any>` | _(Optional)_ An `Interpolation<any>` type property for customizing the appearance of the account link footer.         |
 
 
 ## Method

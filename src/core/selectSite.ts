@@ -15,6 +15,7 @@ export interface SelectSiteState {
   error?: boolean
   message?: string
   step: number,
+  tab: number,
 }
 
 export const initialStateSelectSite = {
@@ -24,6 +25,7 @@ export const initialStateSelectSite = {
   search: '',
   error: false,
   step: 1,
+  tab: 1,
 }
 
 export default class SelectSiteCore {
@@ -96,6 +98,10 @@ export default class SelectSiteCore {
 
   setStep(step: number) {
     this.updateState({ step });
+  }
+
+  setTab(tab: number) {
+    this.updateState({ tab });
   }
 
   private updateState(value: Partial<SelectSiteState>) {

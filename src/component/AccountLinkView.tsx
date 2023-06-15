@@ -58,7 +58,7 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
 
   if (state?.linking || state?.success || state?.failed || state?.pending) {
     return (
-      <AccountLinkContainer site={accountLinkCore?.merchant_site}>
+      <AccountLinkContainer site={accountLinkCore?.site}>
         <div style={{ position: 'relative' }} data-testid="accountLinkProgress" className='accountLinkProgress' css={appearance.elements?.accountLinkProgress}>
           <p className='accountLinkProgressTitle' css={appearance.elements?.accountLinkProgressTitle}>Logging in...</p>
           <SecurityIcon />
@@ -96,7 +96,7 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
           submit={handleSubmit}
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
-          site={accountLinkCore?.merchant_site}
+          site={accountLinkCore?.site}
         />
       </AccountLinkContainer>
     )
@@ -104,7 +104,7 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
 
   return (
     <div data-testid="accountLinkView" className='accountLinkView' css={appearance.elements?.accountLinkView}>
-      <AccountLinkContainer site={accountLinkCore?.merchant_site}>
+      <AccountLinkContainer site={accountLinkCore?.site}>
         {state?.message?.status_message && <p className='accountLinkStatusMessage'>{state?.message?.status_message}</p>}
         {state?.errors?.map((item: any) => (
           <p key={item.message} className='accountLinkErrorMessage' style={{ color: 'red', marginTop: 4 }}>{item.message}</p>
