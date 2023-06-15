@@ -29,8 +29,6 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
 
   const isHaveJob = core.jobs?.length > 0;
 
-  console.log('===', core.jobs);
-
   if (state?.loading) {
     return (
       <div
@@ -122,6 +120,7 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
                 title='Browse all sites'
                 onClick={() => {
                   selectSiteCore?.setStep(2);
+                  selectSiteCore?.setTab(1);
                 }}
                 variant='outlined'
               />
@@ -130,6 +129,7 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
                   <p
                     onClick={() => {
                       selectSiteCore?.setStep(2);
+                      selectSiteCore?.setTab(2);
                     }}
                     className='link'
                     css={appearance.elements?.link}

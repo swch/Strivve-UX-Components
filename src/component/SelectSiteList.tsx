@@ -8,7 +8,7 @@ import SuccessIcon from './SuccessIcon';
 import ErrorIcon from './ErrorIcon';
 import StatusModal from './StatusModal';
 
-const errorStatus = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE", "TOO_MANY_TFA_FAILURES"];
+const errorStatus = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"];
 
 export interface SelectSiteListProps {
   sites: MerchantSite[]
@@ -24,7 +24,7 @@ function SelectSiteList({ sites, components, selected, onSelectItem }: SelectSit
   const items = sites?.map(item => {
     const image = item.images?.find((image: any) => image.width === 128);
     const active = Boolean(selected?.find(m => m.id === item.id));
-    const isError = errorStatus.includes(item.job?.status || "");
+    const isError = errorStatus.includes(item.job?.termination_type || "");
     return components?.item ? customComponentToReact(components?.item({ data: item, active, selectItem: () => onSelectItem(item) })) : (
       <div
         key={item.id}
