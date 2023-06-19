@@ -146,7 +146,7 @@ function SelectSiteCarousel({ sites, selected, onSelectItem }: SelectSiteCarouse
 }
 
 .slick-dotted.slick-slider {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .slick-dots {
@@ -233,7 +233,7 @@ function SelectSiteCarousel({ sites, selected, onSelectItem }: SelectSiteCarouse
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
-  margin-bottom: 45px;
+  margin-bottom: 50px;
 }
 
 .slick-list {

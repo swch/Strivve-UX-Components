@@ -126,16 +126,14 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
               />
               {
                 isHaveJob && (
-                  <p
+                  <Button
                     onClick={() => {
                       selectSiteCore?.setStep(2);
                       selectSiteCore?.setTab(2);
                     }}
-                    className='link'
-                    css={appearance.elements?.link}
-                  >
-                    My Sites
-                  </p>
+                    title='My Sites'
+                    variant='text'
+                  />
                 )
               }
             </div>

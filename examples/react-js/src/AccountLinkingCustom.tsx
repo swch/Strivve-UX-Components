@@ -60,9 +60,6 @@ export default function AccountLinkingCustom() {
             width: '2rem',
             marginRight: '1rem'
           },
-          accountLinkHeaderTitle: {
-            fontSize: '1.2rem'
-          }
         }
       }
     })

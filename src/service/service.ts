@@ -77,10 +77,14 @@ class StrivveService implements StrivveServiceInterface {
     });
   }
 
-  async getMerchantSite(id: string): Promise<MerchantSite> {
+  async getSession() {
     await this.waitingLogin();
-
     const session = this.ch.getSession(this.username);
+    return session;
+  }
+
+  async getMerchantSite(id: string): Promise<MerchantSite> {
+    const session = await this.getSession();
     const res = await session?.getMerchantSites({
       ids: id,
     });
@@ -89,9 +93,8 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]> {
-    await this.waitingLogin();
+    const session = await this.getSession();
 
-    const session = this.ch.getSession(this.username);
     const res = await session?.getMerchantSites(filters || {}, { page: 1, page_length: 9999, sort: "name", is_descending: false });
 
     return res?.body || [];

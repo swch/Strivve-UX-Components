@@ -3,14 +3,15 @@ import { Appearance } from "../types";
 const defaultAppearance: Appearance = {
   layout: {
     logoImageUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+    appName: 'Strivve'
   },
   variables: {
     colorPrimary: '#008BD9',
     colorSecondary: '#6BBF00',
     fontFamily: 'sans-serif',
     colorText: '#000000',
-    colorBorder: 'lightgray',
     colorTextSecondary: '#565656',
+    colorBorder: 'lightgray',
   },
   elements: {
     loader: {
@@ -45,7 +46,8 @@ const defaultAppearance: Appearance = {
       gridTemplateColumns: '1fr 1fr',
       border: '1px solid var(--colorBorder)',
       borderRadius: '4px',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      margin: '16px'
     },
     tabItem: {
       padding: '6px',
@@ -101,9 +103,21 @@ const defaultAppearance: Appearance = {
       background: '#FFFFFF',
       border: '2px solid var(--colorPrimaryDark)',
       borderRadius: '6px',
-      color: 'var(--colorTextSecondary)',
+      color: 'var(--colorPrimaryDark)',
       cursor: 'pointer',
       padding: '10px 12px',
+    },
+    textButton: {
+      borderRadius: '6px',
+      color: 'var(--colorPrimary)',
+      cursor: 'pointer',
+      padding: '10px 12px',
+      '&:hover': {
+        color: 'var(--colorPrimaryDark)'
+      },
+      border: 'none',
+      outline: 'none',
+      background: 'transparent',
     },
     iconButton: {
       background: '#FFFFFF',
@@ -111,7 +125,7 @@ const defaultAppearance: Appearance = {
       borderRadius: '6px',
       color: 'var(--colorPrimary)',
       cursor: 'pointer',
-      padding: '4px 6px',
+      padding: '4px 6px 1px 6px',
     },
     label: {
       marginBottom: '6px',
@@ -168,7 +182,8 @@ const defaultAppearance: Appearance = {
       gridGap: '6px',
       overflow: 'auto',
       maxHeight: '400px',
-      padding: '16px'
+      padding: '16px',
+      borderTop: '1px solid var(--colorBorder)',
     },
     selectSiteItem: {
       cursor: 'pointer',
@@ -227,12 +242,13 @@ const defaultAppearance: Appearance = {
     },
     selectSiteCarouselItemName: {
       margin: '8px 20px 20px 20px',
+      height: '24px',
     },
-    accountLinkView: {
+    accountLinkContainer: {
       maxWidth: '400px',
       margin: 'auto',
     },
-    accountLinkContainer: {
+    accountLinkView: {
     },
     accountLinkHeader: {
       display: 'flex',
@@ -242,12 +258,26 @@ const defaultAppearance: Appearance = {
       gap: '4px',
       marginTop: '40px',
     },
+    accountLinkHeaderTitle: {
+      margin: 0,
+      color: 'var(--colorText)',
+      fontSize: '20px',
+      fontWeight: 400,
+    },
+    accountLinkHeaderDescription: {
+      margin: 0,
+      color: 'var(--colorTextSecondary)',
+      fontSize: '16px',
+      marginTop: '6px',
+      marginBottom: '80px',
+      fontWeight: 400,
+    },
     accountLinkHeaderImage: {
       height: '36px',
       maxWidth: '100px'
     },
     accountLinkBody: {
-      marginTop: '60px',
+      marginTop: '70px',
     },
     accountLinkFooter: {
       marginTop: '20px',
@@ -256,19 +286,42 @@ const defaultAppearance: Appearance = {
       gridGap: '12px'
     },
     accountLinkProgress: {
-      background: 'white',
-      margin: 'auto',
+      position: 'relative',
+      padding: '8px',
       maxWidth: '280px',
+      margin: 'auto',
+    },
+    accountLinkProgressCard: {
+      background: 'white',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       paddingBottom: '40px',
       paddingTop: '20px',
+      position: 'relative',
+      zIndex: 2,
+    },
+    accountLinkProgressBar: {
+      height: '{percent}%',
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      left: 0,
+      background: 'var(--colorSecondary)',
+      zIndex: 1,
+      transitionDuration: '0.5s',
     },
     accountLinkProgressTitle: {
       marginTop: '20px',
       marginBottom: '20px',
-    }
+    },
+    accountLinkProgressFooter: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginTop: '20px',
+      gap: '20px',
+    },
   }
 }
 

@@ -11,7 +11,6 @@ type PendingModalProps = {
   title: string;
   description: string;
   buttonText: string;
-  onClickButton?: () => void;
   onClickClose?: () => void;
   fields: Field[]
   values?: { [key: string]: any }
@@ -21,7 +20,7 @@ type PendingModalProps = {
   site?: MerchantSite
 }
 
-function PendingModal({ open, title, description, buttonText, onClickButton, onClickClose, fields, change, values, submit, site }: PendingModalProps) {
+function PendingModal({ open, title, description, buttonText, onClickClose, fields, change, values, submit, site }: PendingModalProps) {
   const { appearance } = useBase();
 
   const image = site?.images?.find((item: any) => item.width === 128);
@@ -89,6 +88,11 @@ function PendingModal({ open, title, description, buttonText, onClickButton, onC
               title={buttonText}
               type='submit'
               variant='secondary'
+            />
+            <Button
+              title="Cancel"
+              variant='text'
+              onClick={onClickClose}
             />
           </div>
         </form>

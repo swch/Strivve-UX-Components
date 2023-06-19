@@ -54,7 +54,7 @@ function SelectSiteList({ sites, components, selected, onSelectItem }: SelectSit
         }
       </div>
     )
-  })
+  });
 
   return (
     <>

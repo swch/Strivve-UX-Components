@@ -1,12 +1,12 @@
 import { CardholderQuery } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper";
-import { MerchantSite, StrivveServiceInterface } from "../types";
+import { Job, MerchantSite, StrivveServiceInterface } from "../types";
 
 export interface AccountLinkCoreOption {
   site_id: string;
   onSubmit: Function;
   service: StrivveServiceInterface;
   quick_start?: boolean;
-  job?: any;
+  job?: Job;
   onMessage?: (id: string, values: any) => void;
 }
 
@@ -31,7 +31,7 @@ export interface AccountLinkState {
   linking: boolean
   success: boolean
   failed: boolean
-  job?: any
+  job?: Job
   message?: any
   pending?: any
   errors?: ErrorField[]
@@ -49,13 +49,15 @@ export const initialStateAccountLink = {
   fields: [],
 }
 
+export const failedStatus = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
+
+
 export default class AccountLinkCore {
   service: StrivveServiceInterface;
   site?: MerchantSite = undefined;
   state: AccountLinkState = initialStateAccountLink;
   fields: Field[] = [];
   query?: CardholderQuery;
-  failed_status = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
   private onSubmit: Function;
   private onMessage?: (id: string, values: any) => void;
   private subscriber: Function = () => { };
@@ -148,7 +150,7 @@ export default class AccountLinkCore {
       const message = data.message;
       this.onMessage?.(data.job_id, message);
       if (message.termination_type) {
-        if (this.failed_status.includes(message.termination_type)) {
+        if (failedStatus.includes(message.termination_type)) {
           this.updateState({ message, linking: false, failed: true, pending: null });
         } else {
           this.updateState({ message, linking: false, success: true, pending: null });

@@ -1,4 +1,4 @@
-import { StrivveServiceInterface } from "../types";
+import { Job, StrivveServiceInterface } from "../types";
 import AccountLinkCore, { AccountLinkCoreOption } from "./accountLink";
 import SelectSiteCore, { SelectSiteCoreOptions } from "./selectSite";
  
@@ -31,10 +31,12 @@ export default class StrivveCore {
   getJobs() {
     const local = localStorage.getItem('jobs');
     if (local) {
-      const newJobs = JSON.parse(local);
+      try {
+        const newJobs = JSON.parse(local)?.filter((item: Job) => item?.termination_type);
       this.jobs = newJobs;
 
       return newJobs;
+      } catch (err) {}
     }
 
     return [];
@@ -61,7 +63,7 @@ export default class StrivveCore {
   }
 
   createAccountLink(options: CreateAccountLinkOptions) {
-    const job = this.jobs.find(item => item.site_id === options.site_id);
+    const job = this.jobs.find(item => item.site_id === options.site_id && !item?.termination_type);
     return new AccountLinkCore({
       ...options,
       job,
@@ -70,6 +72,7 @@ export default class StrivveCore {
   }
 
   createSelectSite(options?: CreateSelectSiteOptions) {
+    this.getJobs();
     return new SelectSiteCore({ ...options, service: this.service })
   }
   
@@ -146,7 +149,5 @@ export default class StrivveCore {
     } catch (error: any) {
       throw error;
     }
-  }
-
-  
+  } 
 }

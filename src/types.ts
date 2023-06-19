@@ -171,6 +171,7 @@ export type mountLinkingJourneyOptions = {
 export type Appearance = {
   layout?: {
     logoImageUrl?: string,
+    appName?: string,
   },
   variables?: {
     colorPrimary?: string,
@@ -185,6 +186,7 @@ export type Appearance = {
     button?: Interpolation<any>,
     secondaryButton?: Interpolation<any>,
     outlinedButton?: Interpolation<any>,
+    textButton?: Interpolation<any>,
     iconButton?: Interpolation<any>,
     input?: Interpolation<any>,
     label?: Interpolation<any>,
@@ -217,12 +219,16 @@ export type Appearance = {
     accountLinkHeader?: Interpolation<any>,
     accountLinkHeaderImage?: Interpolation<any>,
     accountLinkHeaderTitle?: Interpolation<any>,
+    accountLinkHeaderDescription?: Interpolation<any>,
     accountLinkBody?: Interpolation<any>,
     accountLinkFooter?: Interpolation<any>,
     accountLinkView?: Interpolation<any>,
     accountLinkForm?: Interpolation<any>,
     accountLinkProgress?: Interpolation<any>,
+    accountLinkProgressCard?: Interpolation<any>,
+    accountLinkProgressBar?: Interpolation<any>,
     accountLinkProgressTitle?: Interpolation<any>,
+    accountLinkProgressFooter?: Interpolation<any>,
 
   }
 }
@@ -268,6 +274,6 @@ export interface CardholderBody {
 
 export interface PostCredsBody {
   account_link: {[k: string]: string}, 
-  job_id: string, 
+  job_id: string | number, 
   envelope_id: string,
 }

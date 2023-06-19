@@ -18,6 +18,24 @@ function AccountLinkContainer({ site, children, hide_title }: AccountLinkContain
       className='accountLinkContainer'
       css={appearance.elements?.accountLinkContainer}
     >
+      {
+        !hide_title && (
+          <>
+            <h3
+              className='accountLinkHeaderTitle'
+              css={appearance.elements?.accountLinkHeaderTitle}
+            >
+              Securely link your account
+            </h3>
+            <p
+              className='accountLinkHeaderDescription'
+              css={appearance.elements?.accountLinkHeaderDescription}
+            >
+              Rest easy. {appearance.layout?.appName} does not store your login credentials.
+            </p>
+          </>
+        )
+      }
       <div
         data-testid="accountLinkHeader"
         className='accountLinkHeader'

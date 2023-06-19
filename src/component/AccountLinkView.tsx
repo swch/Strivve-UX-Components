@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Loader from './Loader';
 import AccountLinkForm from './AccountLinkForm';
 import AccountLinkContainer from './AccountLinkContainer';
@@ -9,6 +9,7 @@ import AccountLinkCore, { AccountLinkState } from '../core/accountLink';
 import SecurityIcon from './SecurityIcon';
 import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
+import Button from './Button';
 
 function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
@@ -37,6 +38,21 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
     }
   }
 
+  const percent = state?.message?.percent_complete || 0;
+
+  const dynamicBarStyle = useMemo(() => {
+    const style: any = {};
+    const barStyle: any = appearance.elements?.accountLinkProgressBar || {};
+    Object.keys(barStyle).forEach((key) => {
+      if (typeof barStyle[key] === 'string' && barStyle[key].includes('{percent}')) {
+        style[key] = barStyle[key].replace('{percent}', percent)
+      }
+    });
+    
+    return style;
+  }, [appearance.elements?.accountLinkProgressBar, percent])
+
+
   if (state?.loading) {
     return (
       <div
@@ -54,18 +70,22 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
   }
 
 
-  const percent = state?.message?.percent_complete || 0;
-
   if (state?.linking || state?.success || state?.failed || state?.pending) {
     return (
-      <AccountLinkContainer site={accountLinkCore?.site}>
-        <div style={{ position: 'relative' }} data-testid="accountLinkProgress" className='accountLinkProgress' css={appearance.elements?.accountLinkProgress}>
-          <p className='accountLinkProgressTitle' css={appearance.elements?.accountLinkProgressTitle}>Logging in...</p>
-          <SecurityIcon />
-          <div style={{ height: `${percent}%`, position: 'absolute', bottom: 0, width: '8px', left: 0, background: 'var(--colorSecondary)', zIndex: 1 }} />
-          <div style={{ height: `${percent}%`, position: 'absolute', bottom: 0, width: '8px', right: 0, background: 'var(--colorSecondary)', zIndex: 1 }} />
-          <div style={{ height: `${percent < 8 ? percent : 8}px`, background: 'var(--colorSecondary)', position: 'absolute', bottom: 0, width: '100%', transitionDuration: '0.5s' }} />
-          <div style={{ height: percent === 100 ? '8px' : 0, background: 'var(--colorSecondary)', position: 'absolute', top: 0, width: '100%', transitionDuration: '0.5s' }} />
+      <AccountLinkContainer hide_title site={accountLinkCore?.site}>
+        <div data-testid="accountLinkProgress" className='accountLinkProgress' css={appearance.elements?.accountLinkProgress}>
+          <div className='accountLinkProgressCard' css={appearance.elements?.accountLinkProgressCard}>
+            <p className='accountLinkProgressTitle' css={appearance.elements?.accountLinkProgressTitle}>Logging in...</p>
+            <SecurityIcon />
+          </div>
+          <div style={dynamicBarStyle} className='accountLinkProgressBar' css={appearance.elements?.accountLinkProgressBar} />
+        </div>
+        <div className='accountLinkProgressFooter' css={appearance.elements?.accountLinkProgressFooter}>
+          <Button
+            variant='text'
+            onClick={options.onCancel}
+            title='Cancel'
+          />
         </div>
         <StatusModal
           open={state?.success}
@@ -89,7 +109,6 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
           title={pendingMessage[state?.message?.status] || ''}
           description={state?.message?.status_message}
           buttonText='Verify'
-          onClickButton={options.onCancel}
           onClickClose={options.onCancel}
           fields={accountLinkCore?.fields || []}
           disabled={state?.submitting}

@@ -63,6 +63,11 @@ function StatusModal({ open, variant = 'success', title, description, buttonText
             title={buttonText}
             onClick={onClickButton}
           />
+          <Button
+            title="Cancel"
+            variant='text'
+            onClick={onClickClose}
+          />
         </div>
       </div>
     </div>
