@@ -1,12 +1,11 @@
 export default class CardsavrSDKError extends Error {
-
   errors: any[];
   type: string;
 
-  constructor(errors : any[], message = "JS Library Error") {
-    super(message); 
+  constructor(errors: any[], message = 'JS Library Error') {
+    super(message);
     this.errors = errors;
-    this.type = "CardsavrSDKError";
+    this.type = 'CardsavrSDKError';
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, CardsavrSDKError);
@@ -14,5 +13,4 @@ export default class CardsavrSDKError extends Error {
 
     Object.setPrototypeOf(this, CardsavrSDKError.prototype);
   }
-
 }

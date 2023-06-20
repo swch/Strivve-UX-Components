@@ -1,21 +1,21 @@
-import { APIFilter, MerchantSite, StrivveServiceInterface } from "../types";
+import { APIFilter, MerchantSite, StrivveServiceInterface } from '../types';
 
 export interface SelectSiteCoreOptions {
   service: StrivveServiceInterface;
-  filter?: APIFilter
+  filter?: APIFilter;
   multiple?: boolean;
   onSubmit?: Function;
 }
 
 export interface SelectSiteState {
-  sites: any[]
-  selected: any[]
-  loading: boolean
-  search: string
-  error?: boolean
-  message?: string
-  step: number,
-  tab: number,
+  sites: any[];
+  selected: any[];
+  loading: boolean;
+  search: string;
+  error?: boolean;
+  message?: string;
+  step: number;
+  tab: number;
 }
 
 export const initialStateSelectSite = {
@@ -26,13 +26,13 @@ export const initialStateSelectSite = {
   error: false,
   step: 1,
   tab: 1,
-}
+};
 
 export default class SelectSiteCore {
   service: StrivveServiceInterface;
   state: SelectSiteState = initialStateSelectSite;
-  private subscriber: Function = () => { };
-  private sites: MerchantSite[] = []
+  private subscriber: Function = () => {};
+  private sites: MerchantSite[] = [];
   multiple?: boolean;
   private onSubmit?: Function;
 
@@ -44,20 +44,24 @@ export default class SelectSiteCore {
   }
 
   async getSites(filter?: APIFilter) {
-    this.updateState({ loading: true })
+    this.updateState({ loading: true });
     try {
       const res = await this.service.getMerchantSites(filter);
-      const sites = res.filter(site => {
+      const sites = res.filter((site) => {
         const normalized_query = this.state.search.toLowerCase();
         const normalized_site_name = site.name.toLowerCase();
         return normalized_site_name.indexOf(normalized_query) >= 0;
-      })
+      });
       this.sites = sites;
       this.updateState({ loading: false, sites });
-      return res
+      return res;
     } catch (error: any) {
-      this.updateState({ loading: false, error: true, message: error?.message })
-      return []
+      this.updateState({
+        loading: false,
+        error: true,
+        message: error?.message,
+      });
+      return [];
     }
   }
 
@@ -73,17 +77,19 @@ export default class SelectSiteCore {
   changeSearch(search: string) {
     this.updateState({
       search,
-      sites: this.sites.filter(site => {
+      sites: this.sites.filter((site) => {
         const normalized_query = search.toLowerCase();
         const normalized_site_name = site.name.toLowerCase();
         return normalized_site_name.indexOf(normalized_query) >= 0;
-      })
-    })
+      }),
+    });
   }
 
-  selectItem(merchant: MerchantSite, ) {
-    if (this.state.selected?.find(item => item.id === merchant.id)) {
-      const selected = this.state.selected.filter((item: any) => item.id !== merchant.id);
+  selectItem(merchant: MerchantSite) {
+    if (this.state.selected?.find((item) => item.id === merchant.id)) {
+      const selected = this.state.selected.filter(
+        (item: any) => item.id !== merchant.id
+      );
       this.updateState({ selected });
     } else {
       let selected = this.state.selected || [];
@@ -107,12 +113,12 @@ export default class SelectSiteCore {
   private updateState(value: Partial<SelectSiteState>) {
     this.state = {
       ...this.state,
-      ...value
-    }
-    this.notifyForm()
+      ...value,
+    };
+    this.notifyForm();
   }
 
   private notifyForm() {
-    this.subscriber(this.state)
+    this.subscriber(this.state);
   }
 }

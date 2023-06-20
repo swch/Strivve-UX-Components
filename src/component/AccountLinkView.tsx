@@ -11,13 +11,17 @@ import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
 import Button from './Button';
 
-function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProps & BaseProps) {
+function AccountLinkView({
+  options,
+  core,
+  appearance,
+}: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
 
   const pendingMessage: any = {
-    'PENDING_NEWCREDS': 'Enter valid credentials',
-    'PENDING_TFA': 'Enter One-Time Passcode'
+    PENDING_NEWCREDS: 'Enter valid credentials',
+    PENDING_TFA: 'Enter One-Time Passcode',
   };
 
   useEffect(() => {
@@ -44,23 +48,25 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
     const style: any = {};
     const barStyle: any = appearance.elements?.accountLinkProgressBar || {};
     Object.keys(barStyle).forEach((key) => {
-      if (typeof barStyle[key] === 'string' && barStyle[key].includes('{percent}')) {
-        style[key] = barStyle[key].replace('{percent}', percent)
+      if (
+        typeof barStyle[key] === 'string' &&
+        barStyle[key].includes('{percent}')
+      ) {
+        style[key] = barStyle[key].replace('{percent}', percent);
       }
     });
-    
-    return style;
-  }, [appearance.elements?.accountLinkProgressBar, percent])
 
+    return style;
+  }, [appearance.elements?.accountLinkProgressBar, percent]);
 
   if (state?.loading) {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
           height: 120,
         }}
       >
@@ -69,38 +75,52 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
     );
   }
 
-
   if (state?.linking || state?.success || state?.failed || state?.pending) {
     return (
       <AccountLinkContainer hide_title site={accountLinkCore?.site}>
-        <div data-testid="accountLinkProgress" className='accountLinkProgress' css={appearance.elements?.accountLinkProgress}>
-          <div className='accountLinkProgressCard' css={appearance.elements?.accountLinkProgressCard}>
-            <p className='accountLinkProgressTitle' css={appearance.elements?.accountLinkProgressTitle}>Logging in...</p>
+        <div
+          data-testid="accountLinkProgress"
+          className="accountLinkProgress"
+          css={appearance.elements?.accountLinkProgress}
+        >
+          <div
+            className="accountLinkProgressCard"
+            css={appearance.elements?.accountLinkProgressCard}
+          >
+            <p
+              className="accountLinkProgressTitle"
+              css={appearance.elements?.accountLinkProgressTitle}
+            >
+              Logging in...
+            </p>
             <SecurityIcon />
           </div>
-          <div style={dynamicBarStyle} className='accountLinkProgressBar' css={appearance.elements?.accountLinkProgressBar} />
-        </div>
-        <div className='accountLinkProgressFooter' css={appearance.elements?.accountLinkProgressFooter}>
-          <Button
-            variant='text'
-            onClick={options.onCancel}
-            title='Cancel'
+          <div
+            style={dynamicBarStyle}
+            className="accountLinkProgressBar"
+            css={appearance.elements?.accountLinkProgressBar}
           />
+        </div>
+        <div
+          className="accountLinkProgressFooter"
+          css={appearance.elements?.accountLinkProgressFooter}
+        >
+          <Button variant="text" onClick={options.onCancel} title="Cancel" />
         </div>
         <StatusModal
           open={state?.success}
-          title='Success!'
-          description='Your card details were successfully placed on this site.'
-          buttonText='Browse More Sites'
+          title="Success!"
+          description="Your card details were successfully placed on this site."
+          buttonText="Browse More Sites"
           onClickButton={options.onCancel}
           onClickClose={options.onCancel}
         />
         <StatusModal
           open={state?.failed}
-          variant='error'
-          title='Error!'
+          variant="error"
+          title="Error!"
           description={state?.message?.status_message}
-          buttonText='Try a Different Site'
+          buttonText="Try a Different Site"
           onClickButton={options.onCancel}
           onClickClose={options.onCancel}
         />
@@ -108,7 +128,7 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
           open={Boolean(state?.pending)}
           title={pendingMessage[state?.message?.status] || ''}
           description={state?.message?.status_message}
-          buttonText='Verify'
+          buttonText="Verify"
           onClickClose={options.onCancel}
           fields={accountLinkCore?.fields || []}
           disabled={state?.submitting}
@@ -118,15 +138,29 @@ function AccountLinkView({ options, core, appearance }: mountAccountLinkViewProp
           site={accountLinkCore?.site}
         />
       </AccountLinkContainer>
-    )
+    );
   }
 
   return (
-    <div data-testid="accountLinkView" className='accountLinkView' css={appearance.elements?.accountLinkView}>
+    <div
+      data-testid="accountLinkView"
+      className="accountLinkView"
+      css={appearance.elements?.accountLinkView}
+    >
       <AccountLinkContainer site={accountLinkCore?.site}>
-        {state?.message?.status_message && <p className='accountLinkStatusMessage'>{state?.message?.status_message}</p>}
+        {state?.message?.status_message && (
+          <p className="accountLinkStatusMessage">
+            {state?.message?.status_message}
+          </p>
+        )}
         {state?.errors?.map((item: any) => (
-          <p key={item.message} className='accountLinkErrorMessage' style={{ color: 'red', marginTop: 4 }}>{item.message}</p>
+          <p
+            key={item.message}
+            className="accountLinkErrorMessage"
+            style={{ color: 'red', marginTop: 4 }}
+          >
+            {item.message}
+          </p>
         ))}
         <AccountLinkForm
           fields={accountLinkCore?.fields || []}

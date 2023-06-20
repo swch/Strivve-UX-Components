@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, HTMLAttributes } from "react";
-import { useBase } from "./withBase";
+import React, { useState, HTMLAttributes } from 'react';
+import { useBase } from './withBase';
 
 interface AccountInputProps {
   value?: string;
@@ -11,8 +11,9 @@ interface AccountInputProps {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onClickHandler?(e: React.MouseEvent): void;
   onKeyDownHandler?(e: React.KeyboardEvent): void;
-  label?: string; autocomplete?: string;
-  inputmode?: HTMLAttributes<HTMLInputElement>["inputMode"];
+  label?: string;
+  autocomplete?: string;
+  inputmode?: HTMLAttributes<HTMLInputElement>['inputMode'];
   descriptionId?: string;
   description?: string;
   pattern?: string;
@@ -29,8 +30,8 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
 
   function shouldShow(e: React.MouseEvent): void {
     e.preventDefault();
-    if (type === "password") {
-      setType("text");
+    if (type === 'password') {
+      setType('text');
     } else {
       setType(props.type);
     }
@@ -38,16 +39,15 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
 
   const required = props.required == null ? false : true;
 
-  const  { appearance } = useBase();
+  const { appearance } = useBase();
 
   return (
     <div>
       {props.label ? (
-        <div
-          className="label"
-          css={appearance.elements?.label}
-        >
-          <label data-testid="label" htmlFor={props.id}>{props.label}</label>
+        <div className="label" css={appearance.elements?.label}>
+          <label data-testid="label" htmlFor={props.id}>
+            {props.label}
+          </label>
         </div>
       ) : null}
       <div>
@@ -68,17 +68,30 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           value={props.value}
           autoFocus={props.autoFocus}
           css={appearance.elements?.input}
-          className='input'
+          className="input"
         />
-        {props.type === "password" ? <span className="input-group-append">
-          {/* <button className="btn btn-secondary" onClick={shouldShow}><EyeIcon /></button>  */}
-        </span> : null}
-        {props.error ? <div className="invalid-feedback" id={`${props.id}-error`} style={{ display: "block" }}>{props.error}</div> : null}
+        {props.type === 'password' ? (
+          <span className="input-group-append">
+            {/* <button className="btn btn-secondary" onClick={shouldShow}><EyeIcon /></button>  */}
+          </span>
+        ) : null}
+        {props.error ? (
+          <div
+            className="invalid-feedback"
+            id={`${props.id}-error`}
+            style={{ display: 'block' }}
+          >
+            {props.error}
+          </div>
+        ) : null}
       </div>
-      {props.description ? <small id={props.descriptionId} className="form-text text-muted">{props.description}</small> : null}
+      {props.description ? (
+        <small id={props.descriptionId} className="form-text text-muted">
+          {props.description}
+        </small>
+      ) : null}
     </div>
   );
 };
 
-
-export default AccountInput
+export default AccountInput;

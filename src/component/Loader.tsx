@@ -3,7 +3,7 @@ import React from 'react';
 import { useBase } from './withBase';
 
 function Loader() {
-  const { appearance }  = useBase();
+  const { appearance } = useBase();
   return (
     <div data-testid="loader" id="loader">
       <div css={appearance.elements?.loader} />

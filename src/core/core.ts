@@ -1,16 +1,19 @@
-import { Job, StrivveServiceInterface } from "../types";
-import AccountLinkCore, { AccountLinkCoreOption } from "./accountLink";
-import SelectSiteCore, { SelectSiteCoreOptions } from "./selectSite";
- 
+import { Job, StrivveServiceInterface } from '../types';
+import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
+import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
+
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
   card_id?: string;
   card?: any;
 }
 
-export type CreateAccountLinkOptions = Omit<AccountLinkCoreOption, 'service' | 'onSubmit'> 
+export type CreateAccountLinkOptions = Omit<
+  AccountLinkCoreOption,
+  'service' | 'onSubmit'
+>;
 
-export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>
+export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>;
 
 export default class StrivveCore {
   public service: StrivveServiceInterface;
@@ -32,10 +35,12 @@ export default class StrivveCore {
     const local = localStorage.getItem('jobs');
     if (local) {
       try {
-        const newJobs = JSON.parse(local)?.filter((item: Job) => item?.termination_type);
-      this.jobs = newJobs;
+        const newJobs = JSON.parse(local)?.filter(
+          (item: Job) => item?.termination_type
+        );
+        this.jobs = newJobs;
 
-      return newJobs;
+        return newJobs;
       } catch (err) {}
     }
 
@@ -49,43 +54,44 @@ export default class StrivveCore {
 
   private onMessage(id: string, message: any) {
     if (this.jobs) {
-      this.updateJobs(this.jobs.map((job) => {
-        if (job.id === id) {
-  
-          return {
-            ...job,
-            ...message
-          };
-        }
-        return job;
-      }));
+      this.updateJobs(
+        this.jobs.map((job) => {
+          if (job.id === id) {
+            return {
+              ...job,
+              ...message,
+            };
+          }
+          return job;
+        })
+      );
     }
   }
 
   createAccountLink(options: CreateAccountLinkOptions) {
-    const job = this.jobs.find(item => item.site_id === options.site_id && !item?.termination_type);
+    const job = this.jobs.find(
+      (item) => item.site_id === options.site_id && !item?.termination_type
+    );
     return new AccountLinkCore({
       ...options,
       job,
       onMessage: (id, messageg) => this.onMessage(id, messageg),
-      onSubmit: (v: any, meta: any) => this.startJob(v, meta), service: this.service })
+      onSubmit: (v: any, meta: any) => this.startJob(v, meta),
+      service: this.service,
+    });
   }
 
   createSelectSite(options?: CreateSelectSiteOptions) {
     this.getJobs();
-    return new SelectSiteCore({ ...options, service: this.service })
+    return new SelectSiteCore({ ...options, service: this.service });
   }
-  
-  async startJob(
-    creds: { [key: string]: any },
-    meta?: { site: any }
-  ) {
 
+  async startJob(creds: { [key: string]: any }, meta?: { site: any }) {
     try {
       let cardholder = this.cardholder;
       let card = this.card;
       const site = meta?.site;
-  
+
       if (this.service.grant) {
         const authorize = await this.service.authorizeCardholder(
           this.service.grant
@@ -95,11 +101,9 @@ export default class StrivveCore {
         this.service.setSafeKey(authorize.body.cardholder_safe_key);
       }
       if (!cardholder?.id) {
-        const cardholderResponse = await this.service.createCardholder(
-          {
-            type: "persistent_creds",
-          },
-        );
+        const cardholderResponse = await this.service.createCardholder({
+          type: 'persistent_creds',
+        });
         cardholder = cardholderResponse.body;
         await this.service.authorizeCardholder(cardholder.grant);
         this.cardholder = cardholder;
@@ -107,39 +111,35 @@ export default class StrivveCore {
 
       // card
       if (this.card_id) {
-        card = { id: this.card_id }
+        card = { id: this.card_id };
       }
 
       if (!card?.id) {
-        const createCardResponse = await this.service.createCard(
-          {
-            ...card,
-            cardholder_id: cardholder.id,
-          },
-        );
-  
+        const createCardResponse = await this.service.createCard({
+          ...card,
+          cardholder_id: cardholder.id,
+        });
+
         card = createCardResponse.body;
       }
       this.card = card;
-  
+
       const jobs = [
         {
           cardholder_id: cardholder?.id,
           card_id: card?.id,
-          status: "REQUESTED",
+          status: 'REQUESTED',
           account: {
             merchant_site_id: site.id,
             cardholder_id: cardholder?.id,
             account_link: creds,
-            customer_key : `${site.id}${cardholder?.cuid}`
+            customer_key: `${site.id}${cardholder?.cuid}`,
           },
         },
       ];
-      const singleSiteJobResponse = await this.service.createJobs(
-        jobs,
-      );
+      const singleSiteJobResponse = await this.service.createJobs(jobs);
 
-      const job =  singleSiteJobResponse.body[0];
+      const job = singleSiteJobResponse.body[0];
       job.site_id = site.id;
       job.site = site;
       const newJobs = [...this.jobs];
@@ -149,5 +149,5 @@ export default class StrivveCore {
     } catch (error: any) {
       throw error;
     }
-  } 
+  }
 }

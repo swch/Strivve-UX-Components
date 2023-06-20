@@ -1,8 +1,15 @@
-  import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AccountLinkView from './AccountLinkView';
 import SelectSiteView from './SelectSiteView';
-import { Appearance, MerchantSite, mountAccountLinkViewOptions, mountLinkingJourneyOptions, mountSelectSiteViewOptions, StrivveComponentInterface, StrivveComponentOptions } from '../types';
+import {
+  Appearance,
+  mountAccountLinkViewOptions,
+  mountLinkingJourneyOptions,
+  mountSelectSiteViewOptions,
+  StrivveComponentInterface,
+  StrivveComponentOptions,
+} from '../types';
 import StrivveCore from '../core/core';
 import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
@@ -27,7 +34,11 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private mergeJSON(target: any, source: any): any {
     for (const key in source) {
       if (source.hasOwnProperty(key)) {
-        if (source[key] instanceof Object && key in target && target[key] instanceof Object) {
+        if (
+          source[key] instanceof Object &&
+          key in target &&
+          target[key] instanceof Object
+        ) {
           target[key] = this.mergeJSON(target[key], source[key]);
         } else {
           target[key] = source[key];
@@ -36,14 +47,19 @@ export default class StrivveComponent implements StrivveComponentInterface {
     }
     return target;
   }
-  
 
   mountAccountLinkView(id: string, options: mountAccountLinkViewOptions) {
-    const root = this.accountLink[id] ? this.accountLink[id] : ReactDOM.createRoot(
-      document.getElementById(id) as HTMLElement
-    );
+    const root = this.accountLink[id]
+      ? this.accountLink[id]
+      : ReactDOM.createRoot(document.getElementById(id) as HTMLElement);
 
-    root.render(<AccountLinkView core={this.core} appearance={this.appearance} options={options} />)
+    root.render(
+      <AccountLinkView
+        core={this.core}
+        appearance={this.appearance}
+        options={options}
+      />
+    );
     this.accountLink[id] = root;
   }
 
@@ -52,11 +68,17 @@ export default class StrivveComponent implements StrivveComponentInterface {
   }
 
   mountSelectSiteView(id: string, options?: mountSelectSiteViewOptions) {
-    const root = this.selectSite ? this.selectSite : ReactDOM.createRoot(
-      document.getElementById(id) as HTMLElement
-    );
+    const root = this.selectSite
+      ? this.selectSite
+      : ReactDOM.createRoot(document.getElementById(id) as HTMLElement);
 
-    root.render(<SelectSiteView appearance={this.appearance} core={this.core} options={options} />)
+    root.render(
+      <SelectSiteView
+        appearance={this.appearance}
+        core={this.core}
+        options={options}
+      />
+    );
     this.selectSite = root;
   }
 
@@ -74,11 +96,17 @@ export default class StrivveComponent implements StrivveComponentInterface {
       element = document.getElementById('strivve-modal');
     }
 
-    const root = this.searchSite ? this.searchSite : ReactDOM.createRoot(
-      element as HTMLElement
-    );
+    const root = this.searchSite
+      ? this.searchSite
+      : ReactDOM.createRoot(element as HTMLElement);
 
-    root.render(<SearchSiteView appearance={this.appearance} core={this.core} options={options} />)
+    root.render(
+      <SearchSiteView
+        appearance={this.appearance}
+        core={this.core}
+        options={options}
+      />
+    );
     this.searchSite = root;
   }
 
@@ -86,12 +114,22 @@ export default class StrivveComponent implements StrivveComponentInterface {
     this.searchSite?.unmount();
   }
 
-  mountLinkingJourney(id: string, { selectSiteOptions, accountLinkOptions }: mountLinkingJourneyOptions) {
-    const root = this.linkingJourney ? this.linkingJourney : ReactDOM.createRoot(
-      document.getElementById(id) as HTMLElement
-    );
+  mountLinkingJourney(
+    id: string,
+    { selectSiteOptions, accountLinkOptions }: mountLinkingJourneyOptions
+  ) {
+    const root = this.linkingJourney
+      ? this.linkingJourney
+      : ReactDOM.createRoot(document.getElementById(id) as HTMLElement);
 
-    root.render(<LinkingJourney appearance={this.appearance} core={this.core} selectSiteOptions={selectSiteOptions} accountLinkOptions={accountLinkOptions} />)
+    root.render(
+      <LinkingJourney
+        appearance={this.appearance}
+        core={this.core}
+        selectSiteOptions={selectSiteOptions}
+        accountLinkOptions={accountLinkOptions}
+      />
+    );
     this.linkingJourney = root;
   }
 }

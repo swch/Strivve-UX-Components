@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <!--
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -22,17 +24,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>Strivve Component</title>
-</head>
+    <title>Strivve Component</title>
+  </head>
 
-<body style="background-color: rgba(255, 248, 234, 0.4);">
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div style="margin: auto;" id="full"></div>
+  <body style="background-color: rgba(255, 248, 234, 0.4)">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div style="margin: auto" id="full"></div>
+
     <div id="account-link"></div>
     <div id="select-site"></div>
-  </div>
 
-  <!--
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -42,48 +44,45 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-</body>
+  </body>
 
-<script src="./static/js/bundle.js"></script>
-<script>
+  <script src="./static/js/bundle.js"></script>
+  <script>
+    // mount journey
+    Strivve.mountLinkingJourney({
+      element_id: 'full',
+      api_instance: 'customer-dev',
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+      // appearance: {
+      //   variables: {
+      //     colorPrimary: 'green'
+      //   },
+      // }
+    });
 
-  // mount journey
-  Strivve.mountLinkingJourney({
-    element_id: 'full',
-    api_instance: 'customer-dev',
-    card: {
-      pan: '4111111111111111',
-      cvv: '321',
-      expiration_month: '02',
-      expiration_year: '24',
-      name_on_card: 'Mvick',
-    },
-    // appearance: {
-    //   variables: {
-    //     colorPrimary: 'green'
-    //   },
-    // }
-  });
+    // mount view
+    const service = Strivve.createService({
+      api_instance: 'customer-dev',
+    });
+    const core = Strivve.createCore({
+      service,
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+    });
+    const component = Strivve.createComponent({ core });
 
-  // mount view
-  const service = Strivve.createService({
-    api_instance: 'customer-dev',
-  })
-  const core = Strivve.createCore({
-    service,
-    card: {
-      pan: '4111111111111111',
-      cvv: '321',
-      expiration_month: '02',
-      expiration_year: '24',
-      name_on_card: 'Mvick',
-    },
-  })
-  const component = Strivve.createComponent({ core, })
-
-  // component.mountAccountLinkView('account-link', {  site_id: 1, onCancel: () => {}  })
-  // component.mountSelectSiteView('select-site', {})
-
-</script>
-
+    // component.mountAccountLinkView('account-link', {  site_id: 1, onCancel: () => {}  })
+    // component.mountSelectSiteView('select-site', {})
+  </script>
 </html>

@@ -35,7 +35,8 @@
     "start": "react-app-rewired start",
     "build": "rm -rv -f ./dist && tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js",
     "test": "react-scripts test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,7 @@
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "matchmedia-polyfill": "^0.3.2",
+    "prettier": "2.8.8",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
     "stream-http": "^3.2.0",

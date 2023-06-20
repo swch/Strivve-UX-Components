@@ -4,9 +4,12 @@ import { AccountLinkState, Field } from './core/accountLink';
 import StrivveCore from './core/core';
 import { SelectSiteState } from './core/selectSite';
 
-export type APIFilter = number | {
-  [key: string]: string | string[];
-} | null;
+export type APIFilter =
+  | number
+  | {
+      [key: string]: string | string[];
+    }
+  | null;
 
 export interface Job {
   id: number;
@@ -90,12 +93,21 @@ export interface Localization {
 }
 
 export interface StrivveComponentInterface {
-  core: StrivveCore
-  mountSelectSiteView: (id: string, options?: mountSelectSiteViewOptions) => void
+  core: StrivveCore;
+  mountSelectSiteView: (
+    id: string,
+    options?: mountSelectSiteViewOptions
+  ) => void;
   unmountSelectSiteView: (id: string) => void;
-  mountAccountLinkView: (id: string, options: mountAccountLinkViewOptions) => void
+  mountAccountLinkView: (
+    id: string,
+    options: mountAccountLinkViewOptions
+  ) => void;
   unmountAccountLinkView: (id: string) => void;
-  mountLinkingJourney: (id: string, options: mountLinkingJourneyOptions) => void;
+  mountLinkingJourney: (
+    id: string,
+    options: mountLinkingJourneyOptions
+  ) => void;
 }
 
 export interface StrivveComponentClass {
@@ -113,43 +125,45 @@ export interface StrivveServiceOptions {
   grant?: string;
 }
 export interface mountAccountLinkViewComponents {
-  input: (data: Field & { change: (name: string, value: any) => void }) => CustomComponent,
-  progress: (data: any) => CustomComponent
-  button: (data: any) => CustomComponent
+  input: (
+    data: Field & { change: (name: string, value: any) => void }
+  ) => CustomComponent;
+  progress: (data: any) => CustomComponent;
+  button: (data: any) => CustomComponent;
 }
 export interface mountAccountLinkViewOptions {
-  site_id: string
-  quick_start?: boolean
-  hide_title?: boolean
-  subscribe?: (state: AccountLinkState) => void
-  onSubmit?: (values: any) => void
-  onCancel?: () => void
-  components?: mountAccountLinkViewComponents
+  site_id: string;
+  quick_start?: boolean;
+  hide_title?: boolean;
+  subscribe?: (state: AccountLinkState) => void;
+  onSubmit?: (values: any) => void;
+  onCancel?: () => void;
+  components?: mountAccountLinkViewComponents;
 }
 
 export interface mountAccountLinkViewProps {
-  options: mountAccountLinkViewOptions
+  options: mountAccountLinkViewOptions;
 }
 
 export interface mountSelectSiteViewComponent {
-  search: (data: any) => CustomComponent
-  button: (data: any) => CustomComponent
-  item: (data: any) => CustomComponent
-  container: (data: any) => CustomComponent
+  search: (data: any) => CustomComponent;
+  button: (data: any) => CustomComponent;
+  item: (data: any) => CustomComponent;
+  container: (data: any) => CustomComponent;
 }
 
 export interface mountSelectSiteViewOptions {
-  filter?: APIFilter
-  multiple?: boolean
-  view?: 'list' | 'carousel'
-  onSubmit?: (values: any) => void
-  onClose?: () => void
-  subscribe?: (state: SelectSiteState) => void
-  components?: mountSelectSiteViewComponent
+  filter?: APIFilter;
+  multiple?: boolean;
+  view?: 'list' | 'carousel';
+  onSubmit?: (values: any) => void;
+  onClose?: () => void;
+  subscribe?: (state: SelectSiteState) => void;
+  components?: mountSelectSiteViewComponent;
 }
 
 export interface mountSelectSiteViewProps {
-  options?: mountSelectSiteViewOptions
+  options?: mountSelectSiteViewOptions;
 }
 export interface BaseStyle {
   primary_color: string;
@@ -164,74 +178,73 @@ export interface BaseStyle {
 }
 
 export type mountLinkingJourneyOptions = {
-  accountLinkOptions?: mountAccountLinkViewOptions
-  selectSiteOptions?: mountSelectSiteViewOptions
-}
+  accountLinkOptions?: mountAccountLinkViewOptions;
+  selectSiteOptions?: mountSelectSiteViewOptions;
+};
 
 export type Appearance = {
   layout?: {
-    logoImageUrl?: string,
-    appName?: string,
-  },
+    logoImageUrl?: string;
+    appName?: string;
+  };
   variables?: {
-    colorPrimary?: string,
-    colorSecondary?: string,
-    fontFamily?: string,
-    colorBorder?: string,
-    colorText?: string,
-    colorTextSecondary?: string,
-  },
+    colorPrimary?: string;
+    colorSecondary?: string;
+    fontFamily?: string;
+    colorBorder?: string;
+    colorText?: string;
+    colorTextSecondary?: string;
+  };
   elements?: {
-    loader?: Interpolation<any>,
-    button?: Interpolation<any>,
-    secondaryButton?: Interpolation<any>,
-    outlinedButton?: Interpolation<any>,
-    textButton?: Interpolation<any>,
-    iconButton?: Interpolation<any>,
-    input?: Interpolation<any>,
-    label?: Interpolation<any>,
-    link?: Interpolation<any>,
-    errorText?: Interpolation<any>,
+    loader?: Interpolation<any>;
+    button?: Interpolation<any>;
+    secondaryButton?: Interpolation<any>;
+    outlinedButton?: Interpolation<any>;
+    textButton?: Interpolation<any>;
+    iconButton?: Interpolation<any>;
+    input?: Interpolation<any>;
+    label?: Interpolation<any>;
+    link?: Interpolation<any>;
+    errorText?: Interpolation<any>;
 
-    tabContainer?: Interpolation<any>,
-    tabItem?: Interpolation<any>,
-    tabItemActive?: Interpolation<any>,
+    tabContainer?: Interpolation<any>;
+    tabItem?: Interpolation<any>;
+    tabItemActive?: Interpolation<any>;
 
-    selectSiteView?: Interpolation<any>,
-    selectSiteList?: Interpolation<any>,
-    selectSiteItem?: Interpolation<any>,
-    selectSiteHeader?: Interpolation<any>,
-    selectSiteItemSelected?: Interpolation<any>,
-    selectSiteItemImage?: Interpolation<any>,
-    selectSiteItemName?: Interpolation<any>,
-    selectSiteCarouselItem?: Interpolation<any>,
-    selectSiteCarouselFooter?: Interpolation<any>,
-    selectSiteCarouselItemSelected?: Interpolation<any>,
-    selectSiteCarouselItemImage?: Interpolation<any>,
-    selectSiteCarouselItemName?: Interpolation<any>,
+    selectSiteView?: Interpolation<any>;
+    selectSiteList?: Interpolation<any>;
+    selectSiteItem?: Interpolation<any>;
+    selectSiteHeader?: Interpolation<any>;
+    selectSiteItemSelected?: Interpolation<any>;
+    selectSiteItemImage?: Interpolation<any>;
+    selectSiteItemName?: Interpolation<any>;
+    selectSiteCarouselItem?: Interpolation<any>;
+    selectSiteCarouselFooter?: Interpolation<any>;
+    selectSiteCarouselItemSelected?: Interpolation<any>;
+    selectSiteCarouselItemImage?: Interpolation<any>;
+    selectSiteCarouselItemName?: Interpolation<any>;
 
-    searchSiteView?: Interpolation<any>,
-    searchSiteHeader?: Interpolation<any>,
-    modal?: Interpolation<any>,
-    modalStatus?: Interpolation<any>,
+    searchSiteView?: Interpolation<any>;
+    searchSiteHeader?: Interpolation<any>;
+    modal?: Interpolation<any>;
+    modalStatus?: Interpolation<any>;
 
-    accountLinkContainer?: Interpolation<any>,
-    accountLinkHeader?: Interpolation<any>,
-    accountLinkHeaderImage?: Interpolation<any>,
-    accountLinkHeaderTitle?: Interpolation<any>,
-    accountLinkHeaderDescription?: Interpolation<any>,
-    accountLinkBody?: Interpolation<any>,
-    accountLinkFooter?: Interpolation<any>,
-    accountLinkView?: Interpolation<any>,
-    accountLinkForm?: Interpolation<any>,
-    accountLinkProgress?: Interpolation<any>,
-    accountLinkProgressCard?: Interpolation<any>,
-    accountLinkProgressBar?: Interpolation<any>,
-    accountLinkProgressTitle?: Interpolation<any>,
-    accountLinkProgressFooter?: Interpolation<any>,
-
-  }
-}
+    accountLinkContainer?: Interpolation<any>;
+    accountLinkHeader?: Interpolation<any>;
+    accountLinkHeaderImage?: Interpolation<any>;
+    accountLinkHeaderTitle?: Interpolation<any>;
+    accountLinkHeaderDescription?: Interpolation<any>;
+    accountLinkBody?: Interpolation<any>;
+    accountLinkFooter?: Interpolation<any>;
+    accountLinkView?: Interpolation<any>;
+    accountLinkForm?: Interpolation<any>;
+    accountLinkProgress?: Interpolation<any>;
+    accountLinkProgressCard?: Interpolation<any>;
+    accountLinkProgressBar?: Interpolation<any>;
+    accountLinkProgressTitle?: Interpolation<any>;
+    accountLinkProgressFooter?: Interpolation<any>;
+  };
+};
 
 export type CardBody = {
   cardholder_id: number;
@@ -248,32 +261,32 @@ export type CardBody = {
 };
 
 export interface JobBody {
-    account : {[k: string]: any},
-    user_is_present? : boolean,
-    cardholder?: {[k: string]: any}, 
-    cardholder_id? : number,
-    card? : CardBody,
-    card_id? : number,
-    status? : string,
-    type? : string,
-    queue_name? : string
+  account: { [k: string]: any };
+  user_is_present?: boolean;
+  cardholder?: { [k: string]: any };
+  cardholder_id?: number;
+  card?: CardBody;
+  card_id?: number;
+  status?: string;
+  type?: string;
+  queue_name?: string;
 }
 
 export interface CardholderBody {
   cuid?: string;
-  type: "ephemeral" | "persistent_creds" | "persistent_all";
+  type: 'ephemeral' | 'persistent_creds' | 'persistent_all';
   first_name?: string;
   last_name?: string;
   email?: string;
   meta_key?: string;
   webhook_url?: string;
   custom_data?: {
-    [key: string]: any
+    [key: string]: any;
   };
 }
 
 export interface PostCredsBody {
-  account_link: {[k: string]: string}, 
-  job_id: string | number, 
-  envelope_id: string,
+  account_link: { [k: string]: string };
+  job_id: string | number;
+  envelope_id: string;
 }

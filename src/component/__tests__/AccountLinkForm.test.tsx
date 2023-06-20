@@ -4,19 +4,13 @@ import { render, screen } from '@testing-library/react';
 import AccountLinkForm from '../AccountLinkForm';
 import userEvent from '@testing-library/user-event';
 
-describe("AccountLinkForm", () => {
+describe('AccountLinkForm', () => {
   test('render AccountLinkForm', () => {
     render(
       <AccountLinkForm
-        fields={[
-          { name: 'email', type: 'email', value: '', required: true }
-        ]}
-        submit={() => {
-
-        }}
-        change={() => {
-
-        }}
+        fields={[{ name: 'email', type: 'email', value: '', required: true }]}
+        submit={() => {}}
+        change={() => {}}
       />
     );
 
@@ -32,21 +26,17 @@ describe("AccountLinkForm", () => {
     let data = '';
     render(
       <AccountLinkForm
-        fields={[
-          { name: 'email', type: 'email', value: '', required: true }
-        ]}
-        submit={() => {
-
-        }}
+        fields={[{ name: 'email', type: 'email', value: '', required: true }]}
+        submit={() => {}}
         change={(name, value) => {
           data += value;
         }}
       />
     );
-    
+
     const element: HTMLInputElement = screen.getByTestId('accountInput-email');
     const email = 'tes@gmail.com';
     userEvent.type(element, email);
     expect(data).toBe(email);
   });
-})
+});

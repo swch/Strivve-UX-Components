@@ -12,10 +12,10 @@ export default function useCarousel() {
       const { scrollLeft } = scrollArea.current!;
       scrollArea.current!.scroll({
         behavior: 'smooth',
-        left: scrollLeft + (scrollBy! * delta),
+        left: scrollLeft + scrollBy! * delta,
       });
     },
-    [scrollBy],
+    [scrollBy]
   );
 
   useEffect(() => {

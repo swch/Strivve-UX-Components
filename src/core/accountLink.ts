@@ -1,5 +1,5 @@
-import { CardholderQuery } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper";
-import { Job, MerchantSite, StrivveServiceInterface } from "../types";
+import { CardholderQuery } from '@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper';
+import { Job, MerchantSite, StrivveServiceInterface } from '../types';
 
 export interface AccountLinkCoreOption {
   site_id: string;
@@ -24,18 +24,18 @@ export interface ErrorField {
 }
 
 export interface AccountLinkState {
-  values: { [key: string]: any }
-  valid: boolean
-  loading: boolean
-  submitting: boolean
-  linking: boolean
-  success: boolean
-  failed: boolean
-  job?: Job
-  message?: any
-  pending?: any
-  errors?: ErrorField[]
-  fields: Field[]
+  values: { [key: string]: any };
+  valid: boolean;
+  loading: boolean;
+  submitting: boolean;
+  linking: boolean;
+  success: boolean;
+  failed: boolean;
+  job?: Job;
+  message?: any;
+  pending?: any;
+  errors?: ErrorField[];
+  fields: Field[];
 }
 
 export const initialStateAccountLink = {
@@ -47,10 +47,13 @@ export const initialStateAccountLink = {
   failed: false,
   submitting: false,
   fields: [],
-}
+};
 
-export const failedStatus = ["PROCESS_FAILURE", "SITE_INTERACTION_FAILURE", "USER_DATA_FAILURE"]
-
+export const failedStatus = [
+  'PROCESS_FAILURE',
+  'SITE_INTERACTION_FAILURE',
+  'USER_DATA_FAILURE',
+];
 
 export default class AccountLinkCore {
   service: StrivveServiceInterface;
@@ -60,42 +63,56 @@ export default class AccountLinkCore {
   query?: CardholderQuery;
   private onSubmit: Function;
   private onMessage?: (id: string, values: any) => void;
-  private subscriber: Function = () => { };
+  private subscriber: Function = () => {};
 
-  constructor({ site_id, quick_start, onSubmit, onMessage, service, job }: AccountLinkCoreOption) {
+  constructor({
+    site_id,
+    quick_start,
+    onSubmit,
+    onMessage,
+    service,
+    job,
+  }: AccountLinkCoreOption) {
     this.service = service;
     if (job) {
       this.createQuery(job);
       this.updateState({
         job,
         linking: true,
-        loading: false
-      })
+        loading: false,
+      });
     }
 
     this.onSubmit = onSubmit;
     this.onMessage = onMessage;
-    this.getSite(site_id, quick_start, job)
+    this.getSite(site_id, quick_start, job);
   }
 
   async getSite(id: string, quick_start?: boolean, job?: any) {
     try {
       const site = await this.service.getMerchantSite(id);
       this.site = site;
-      this.fields = site?.account_link.filter(item => item.type === 'initial_account_link').map((item) => ({
-        name: item.key_name,
-        value: '',
-        label: item.label,
-        type: item.secret ? 'password' : 'text',
-        required: true,
-      })) || []
+      this.fields =
+        site?.account_link
+          .filter((item) => item.type === 'initial_account_link')
+          .map((item) => ({
+            name: item.key_name,
+            value: '',
+            label: item.label,
+            type: item.secret ? 'password' : 'text',
+            required: true,
+          })) || [];
 
-      this.updateState({ linking: job ? true : Boolean(quick_start), loading: false, job, fields: this.fields });
+      this.updateState({
+        linking: job ? true : Boolean(quick_start),
+        loading: false,
+        job,
+        fields: this.fields,
+      });
       if (quick_start) {
         this.submit();
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 
   public change(name: string, value: any) {
@@ -115,21 +132,23 @@ export default class AccountLinkCore {
     const pending = this.state.pending;
     try {
       if (job && pending) {
-        this.updateState({ submitting: true })
+        this.updateState({ submitting: true });
         await this.service.postCreds({
           job_id: job.id,
           envelope_id: pending.envelope_id,
           account_link: this.state.values,
         });
-        this.updateState({ pending: null, linking: true })
+        this.updateState({ pending: null, linking: true });
       } else {
-        this.updateState({ submitting: true })
-        const job = await this.onSubmit(this.state.values, { site: this.site })
-        this.updateState({ job, submitting: false, linking: true, values: {} })
+        this.updateState({ submitting: true });
+        const job = await this.onSubmit(this.state.values, { site: this.site });
+        this.updateState({ job, submitting: false, linking: true, values: {} });
         this.createQuery(job);
       }
     } catch (error: any) {
-      const err = error.response?.body[0]?._errors || [{ name: 'failed', message: 'Failed' }];
+      const err = error.response?.body[0]?._errors || [
+        { name: 'failed', message: 'Failed' },
+      ];
       this.updateState({ errors: err, submitting: false });
     }
   }
@@ -149,28 +168,45 @@ export default class AccountLinkCore {
     const statusHandler = (data: any) => {
       const message = data.message;
       this.onMessage?.(data.job_id, message);
-      if (message.termination_type) {
+      if (message?.termination_type) {
         if (failedStatus.includes(message.termination_type)) {
-          this.updateState({ message, linking: false, failed: true, pending: null });
+          this.updateState({
+            message,
+            linking: false,
+            failed: true,
+            pending: null,
+          });
         } else {
-          this.updateState({ message, linking: false, success: true, pending: null });
+          this.updateState({
+            message,
+            linking: false,
+            success: true,
+            pending: null,
+          });
         }
       } else {
         this.updateState({ message, linking: true, submitting: false });
       }
-    }
+    };
 
     const pendingHandler = (data: any) => {
       const pending = data;
-      this.fields = this.uniqueBy(pending.account_link, 'key_name').map((item: any) => ({
-        name: item.key_name,
-        value: '',
-        label: item.label,
-        type: item.secret ? 'password' : 'text',
-        required: true,
-      }))
-      this.updateState({ pending, linking: false, submitting: false, fields: this.fields });
-    }
+      this.fields = this.uniqueBy(pending.account_link, 'key_name').map(
+        (item: any) => ({
+          name: item.key_name,
+          value: '',
+          label: item.label,
+          type: item.secret ? 'password' : 'text',
+          required: true,
+        })
+      );
+      this.updateState({
+        pending,
+        linking: false,
+        submitting: false,
+        fields: this.fields,
+      });
+    };
 
     query.addListener(job.id, statusHandler, 'job_status');
     query.addListener(job.id, pendingHandler, 'pending');
@@ -186,15 +222,15 @@ export default class AccountLinkCore {
   private updateState(value: Partial<AccountLinkState>) {
     this.state = {
       ...this.state,
-      ...value
-    }
+      ...value,
+    };
 
-    this.notifyForm()
+    this.notifyForm();
   }
 
   private notifyForm() {
     this.subscriber?.({
-      ...this.state
-    })
+      ...this.state,
+    });
   }
 }

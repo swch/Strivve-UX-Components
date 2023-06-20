@@ -1,9 +1,10 @@
-import { Appearance } from "../types";
+import { Appearance } from '../types';
 
 const defaultAppearance: Appearance = {
   layout: {
-    logoImageUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
-    appName: 'Strivve'
+    logoImageUrl:
+      'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+    appName: 'Strivve',
   },
   variables: {
     colorPrimary: '#008BD9',
@@ -32,13 +33,13 @@ const defaultAppearance: Appearance = {
       width: '-webkit-fill-available',
       ':focus-visible': {
         outlineColor: '#6BBF00',
-      }
+      },
     },
     link: {
       color: 'var(--colorSecondary)',
       cursor: 'pointer',
       '&:hover': {
-        color: 'var(--colorSecondaryDark)'
+        color: 'var(--colorSecondaryDark)',
       },
     },
     tabContainer: {
@@ -47,7 +48,7 @@ const defaultAppearance: Appearance = {
       border: '1px solid var(--colorBorder)',
       borderRadius: '4px',
       overflow: 'hidden',
-      margin: '16px'
+      margin: '16px',
     },
     tabItem: {
       padding: '6px',
@@ -76,7 +77,7 @@ const defaultAppearance: Appearance = {
       cursor: 'pointer',
       border: '2px solid var(--colorPrimaryDark)',
       '&:hover': {
-        background: 'var(--colorPrimaryDark)'
+        background: 'var(--colorPrimaryDark)',
       },
       '&:disabled': {
         background: 'gray',
@@ -92,7 +93,7 @@ const defaultAppearance: Appearance = {
       cursor: 'pointer',
       border: '2px solid var(--colorSecondaryDark)',
       '&:hover': {
-        background: 'var(--colorSecondaryDark)'
+        background: 'var(--colorSecondaryDark)',
       },
       '&:disabled': {
         background: 'gray',
@@ -113,7 +114,7 @@ const defaultAppearance: Appearance = {
       cursor: 'pointer',
       padding: '10px 12px',
       '&:hover': {
-        color: 'var(--colorPrimaryDark)'
+        color: 'var(--colorPrimaryDark)',
       },
       border: 'none',
       outline: 'none',
@@ -136,7 +137,7 @@ const defaultAppearance: Appearance = {
       fontSize: '12px',
       '& a': {
         textDecoration: 'underline',
-      }
+      },
     },
     modal: {
       position: 'fixed',
@@ -164,7 +165,7 @@ const defaultAppearance: Appearance = {
     searchSiteHeader: {
       padding: '16px 16px 0 16px',
       position: 'relative',
-      borderBottom: '1px solid #A4A4A4'
+      borderBottom: '1px solid #A4A4A4',
     },
     selectSiteView: {
       maxWidth: '400px',
@@ -174,7 +175,7 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
-      gap: '16px'
+      gap: '16px',
     },
     selectSiteList: {
       display: 'grid',
@@ -218,7 +219,7 @@ const defaultAppearance: Appearance = {
     selectSiteCarouselFooter: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     selectSiteCarouselItem: {
       cursor: 'pointer',
@@ -248,8 +249,7 @@ const defaultAppearance: Appearance = {
       maxWidth: '400px',
       margin: 'auto',
     },
-    accountLinkView: {
-    },
+    accountLinkView: {},
     accountLinkHeader: {
       display: 'flex',
       justifyContent: 'center',
@@ -274,7 +274,7 @@ const defaultAppearance: Appearance = {
     },
     accountLinkHeaderImage: {
       height: '36px',
-      maxWidth: '100px'
+      maxWidth: '100px',
     },
     accountLinkBody: {
       marginTop: '70px',
@@ -283,7 +283,7 @@ const defaultAppearance: Appearance = {
       marginTop: '20px',
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      gridGap: '12px'
+      gridGap: '12px',
     },
     accountLinkProgress: {
       position: 'relative',
@@ -322,7 +322,7 @@ const defaultAppearance: Appearance = {
       marginTop: '20px',
       gap: '20px',
     },
-  }
-}
+  },
+};
 
 export default defaultAppearance;

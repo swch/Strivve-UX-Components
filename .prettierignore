@@ -1,0 +1,6 @@
+dist/
+build/
+examples/
+
+**/*.svg
+**/*.min.js

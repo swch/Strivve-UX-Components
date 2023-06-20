@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 
 export interface SelectSiteCarouselProps {
-  sites: MerchantSite[]
-  selected: MerchantSite[]
-  onSelectItem: Function
+  sites: MerchantSite[];
+  selected: MerchantSite[];
+  onSelectItem: Function;
 }
 
-function SelectSiteCarousel({ sites, selected, onSelectItem }: SelectSiteCarouselProps) {
+function SelectSiteCarousel({
+  sites,
+  selected,
+  onSelectItem,
+}: SelectSiteCarouselProps) {
   const { appearance } = useBase();
 
   const settings = {
@@ -26,28 +30,44 @@ function SelectSiteCarousel({ sites, selected, onSelectItem }: SelectSiteCarouse
     <>
       <div style={{ width: '100%' }}>
         <Slider {...settings}>
-          {
-            sites?.slice(0,20).map(item => {
-              const image = item.images?.find((image: any) => image.width === 128);
-              const active = Boolean(selected?.find(m => m.id === item.id));
-              return (
+          {sites?.slice(0, 20).map((item) => {
+            const image = item.images?.find(
+              (image: any) => image.width === 128
+            );
+            const active = Boolean(selected?.find((m) => m.id === item.id));
+            return (
+              <div
+                key={item.id}
+                id={`selectSiteCarouselItem-${item.id}`}
+                data-testid={`selectSiteCarouselItem-${item.id}`}
+                aria-selected={active ? 'true' : 'false'}
+                className={`selectSiteCarouselItem ${
+                  active ? 'selectSiteCarouselItemSelected' : ''
+                }`}
+                css={
+                  active
+                    ? appearance.elements?.selectSiteCarouselItemSelected
+                    : appearance.elements?.selectSiteCarouselItem
+                }
+                onClick={() => onSelectItem(item)}
+              >
+                {image ? (
+                  <img
+                    className="selectSiteCarouselItemImage"
+                    css={appearance.elements?.selectSiteCarouselItemImage}
+                    alt={item.name}
+                    src={image?.url}
+                  />
+                ) : null}
                 <div
-                  key={item.id}
-                  id={`selectSiteCarouselItem-${item.id}`}
-                  data-testid={`selectSiteCarouselItem-${item.id}`}
-                  aria-selected={active ? "true" : "false"}
-                  className={`selectSiteCarouselItem ${active ? 'selectSiteCarouselItemSelected' : ''}`}
-                  css={active ? appearance.elements?.selectSiteCarouselItemSelected : appearance.elements?.selectSiteCarouselItem}
-                  onClick={() => onSelectItem(item)}
+                  className="selectSiteCarouselItemName"
+                  css={appearance.elements?.selectSiteCarouselItemName}
                 >
-                  {image ? <img className='selectSiteCarouselItemImage' css={appearance.elements?.selectSiteCarouselItemImage} alt={item.name} src={image?.url} /> : null}
-                  <div className='selectSiteCarouselItemName' css={appearance.elements?.selectSiteCarouselItemName}>
-                    {item.name}
-                  </div>
+                  {item.name}
                 </div>
-              )
-            })
-          }
+              </div>
+            );
+          })}
         </Slider>
       </div>
       <style>{`
@@ -322,9 +342,7 @@ function SelectSiteCarousel({ sites, selected, onSelectItem }: SelectSiteCarouse
 }
 
       `}</style>
-
     </>
-
   );
 }
 

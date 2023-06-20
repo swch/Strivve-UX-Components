@@ -1,26 +1,26 @@
-import CardsavrSDKError from "./CardsavrSDKError";
-import CardsavrSessionResponse from "./CardsavrSessionResponse";
+import CardsavrSDKError from './CardsavrSDKError';
+import CardsavrSessionResponse from './CardsavrSessionResponse';
 
 export default class CardsavrRestError extends CardsavrSDKError {
+  response: CardsavrSessionResponse;
+  statusCode: number;
+  statusText: string;
 
-    response: CardsavrSessionResponse;
-    statusCode: number;
-    statusText: string;
+  constructor(response: CardsavrSessionResponse) {
+    const errors = Array.isArray(response.body)
+      ? response.body?.map((obj: { _errors: any }) => obj._errors)
+      : response.body?._errors;
 
-    constructor(response: CardsavrSessionResponse) {
-
-        const errors = Array.isArray(response.body) ? 
-            response.body?.map((obj: { _errors: any; }) => obj._errors) :
-            response.body?._errors;
-            
-        super(errors, `CardsavrRestError ${response.statusCode}: ${response.statusText}`); 
-        this.response = response;
-        this.type = "CardsavrRestError";
-        this.statusCode = response.statusCode;
-        this.statusText = response.statusText;
-        Object.setPrototypeOf(this, CardsavrRestError.prototype);
-    }
-
+    super(
+      errors,
+      `CardsavrRestError ${response.statusCode}: ${response.statusText}`
+    );
+    this.response = response;
+    this.type = 'CardsavrRestError';
+    this.statusCode = response.statusCode;
+    this.statusText = response.statusText;
+    Object.setPrototypeOf(this, CardsavrRestError.prototype);
+  }
 }
 
 /*

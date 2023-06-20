@@ -9,7 +9,11 @@ import SelectSiteCarousel from './SelectSiteCarousel';
 import Button from './Button';
 import SearchSiteView from './SearchSiteView';
 
-function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSiteViewProps) {
+function SelectSiteView({
+  options,
+  core,
+  appearance,
+}: BaseProps & mountSelectSiteViewProps) {
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
   const [openSearch, setOpenSearch] = useState<boolean>(false);
@@ -25,7 +29,7 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
 
   const handleSubmit = () => {
     selectSiteCore?.submit?.();
-  }
+  };
 
   const isHaveJob = core.jobs?.length > 0;
 
@@ -33,10 +37,10 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
           height: 120,
         }}
       >
@@ -48,143 +52,160 @@ function SelectSiteView({ options, core, appearance }: BaseProps & mountSelectSi
   return (
     <div
       data-testid="selectSiteView"
-      className='selectSiteView'
+      className="selectSiteView"
       css={appearance.elements?.selectSiteView}
     >
-      {
-        isHaveJob && state?.step === 2 ? (
-          <div css={appearance.elements?.tabContainer}>
-            <button
-              css={state?.tab === 2 ? appearance.elements?.tabItemActive : appearance.elements?.tabItem}
-              onClick={() => selectSiteCore?.setTab(2)}
-            >
-              Your Sites
-            </button>
-            <button
-              css={state?.tab === 1 ? appearance.elements?.tabItemActive : appearance.elements?.tabItem}
-              onClick={() => selectSiteCore?.setTab(1)}
-            >
-              More Sites
-            </button>
-          </div>
-        ) : (
-          <div
-            css={appearance.elements?.selectSiteHeader}
+      {isHaveJob && state?.step === 2 ? (
+        <div css={appearance.elements?.tabContainer}>
+          <button
+            css={
+              state?.tab === 2
+                ? appearance.elements?.tabItemActive
+                : appearance.elements?.tabItem
+            }
+            onClick={() => selectSiteCore?.setTab(2)}
           >
-            <div>
-              {
-                isHaveJob ? 'Select an additional site for us to push your card info to.' : 'Select the first site for us to push your updated card info to.'
-              }
-            </div>
-            <div>
-              {
-                state?.step === 2 && (
-                  <button
-                    className='iconButton'
-                    css={appearance.elements?.iconButton}
-                    onClick={() => setOpenSearch(true)}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="13.5" cy="9.5" r="8" stroke="#6BBF00" strokeWidth="3" />
-                      <line x1="8.06066" y1="16.0607" x2="1.06066" y2="23.0607" stroke="#6BBF00" strokeWidth="3" />
-                    </svg>
-                  </button>
-                )
-              }
-            </div>
+            Your Sites
+          </button>
+          <button
+            css={
+              state?.tab === 1
+                ? appearance.elements?.tabItemActive
+                : appearance.elements?.tabItem
+            }
+            onClick={() => selectSiteCore?.setTab(1)}
+          >
+            More Sites
+          </button>
+        </div>
+      ) : (
+        <div css={appearance.elements?.selectSiteHeader}>
+          <div>
+            {isHaveJob
+              ? 'Select an additional site for us to push your card info to.'
+              : 'Select the first site for us to push your updated card info to.'}
           </div>
-        )
-      }
-      {
-        state?.error && (
-          <p data-testid="selectSiteErrorMessage" className='selectSiteErrorMessage'>{state.message}</p>
-        )
-      }
-      {
-        options?.view !== 'list' && state?.step === 1 && (
-          <div style={{ width: '100%' }}>
-            <SelectSiteCarousel
+          <div>
+            {state?.step === 2 && (
+              <button
+                className="iconButton"
+                css={appearance.elements?.iconButton}
+                onClick={() => setOpenSearch(true)}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 23 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="13.5"
+                    cy="9.5"
+                    r="8"
+                    stroke="#6BBF00"
+                    strokeWidth="3"
+                  />
+                  <line
+                    x1="8.06066"
+                    y1="16.0607"
+                    x2="1.06066"
+                    y2="23.0607"
+                    stroke="#6BBF00"
+                    strokeWidth="3"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+      {state?.error && (
+        <p
+          data-testid="selectSiteErrorMessage"
+          className="selectSiteErrorMessage"
+        >
+          {state.message}
+        </p>
+      )}
+      {options?.view !== 'list' && state?.step === 1 && (
+        <div style={{ width: '100%' }}>
+          <SelectSiteCarousel
+            sites={state?.sites || []}
+            selected={state?.selected || []}
+            onSelectItem={(item: any) => {
+              if (options?.multiple) {
+                selectSiteCore?.selectItem(item);
+              } else {
+                selectSiteCore?.selectItem(item);
+                handleSubmit();
+              }
+            }}
+          />
+          <div css={appearance.elements?.selectSiteCarouselFooter}>
+            <Button
+              title="Browse all sites"
+              onClick={() => {
+                selectSiteCore?.setStep(2);
+                selectSiteCore?.setTab(1);
+              }}
+              variant="outlined"
+            />
+            {isHaveJob && (
+              <Button
+                onClick={() => {
+                  selectSiteCore?.setStep(2);
+                  selectSiteCore?.setTab(2);
+                }}
+                title="My Sites"
+                variant="text"
+              />
+            )}
+          </div>
+        </div>
+      )}
+
+      {(options?.view === 'list' || state?.step === 2) && (
+        <>
+          {state?.tab === 2 ? (
+            <SelectSiteList
+              sites={
+                core.jobs?.map((item) => ({
+                  ...(item.site || {}),
+                  job: item,
+                })) || []
+              }
+              selected={[]}
+              onSelectItem={(item: any) => {}}
+            />
+          ) : (
+            <SelectSiteList
               sites={state?.sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {
                 if (options?.multiple) {
-                  selectSiteCore?.selectItem(item)
+                  selectSiteCore?.selectItem(item);
                 } else {
-                  selectSiteCore?.selectItem(item)
+                  selectSiteCore?.selectItem(item);
                   handleSubmit();
                 }
               }}
             />
-            <div css={appearance.elements?.selectSiteCarouselFooter}>
-              <Button
-                title='Browse all sites'
-                onClick={() => {
-                  selectSiteCore?.setStep(2);
-                  selectSiteCore?.setTab(1);
-                }}
-                variant='outlined'
-              />
-              {
-                isHaveJob && (
-                  <Button
-                    onClick={() => {
-                      selectSiteCore?.setStep(2);
-                      selectSiteCore?.setTab(2);
-                    }}
-                    title='My Sites'
-                    variant='text'
-                  />
-                )
-              }
-            </div>
-          </div>
-        )
-      }
-
-      {(
-        options?.view === 'list' || state?.step === 2) && (
-          <>
-            {
-              state?.tab === 2 ? (
-                <SelectSiteList
-                  sites={core.jobs?.map(item => ({ ...(item.site || {}), job: item })) || []}
-                  selected={[]}
-                  onSelectItem={(item: any) => {
-                    
-                  }}
-                />
-              ) : (
-                <SelectSiteList
-                  sites={state?.sites || []}
-                  selected={state?.selected || []}
-                  onSelectItem={(item: any) => {
-                    if (options?.multiple) {
-                      selectSiteCore?.selectItem(item)
-                    } else {
-                      selectSiteCore?.selectItem(item)
-                      handleSubmit();
-                    }
-                  }}
-                />
-              )
-            }
-          </>
-        )
-      }
-      {
-        openSearch && (
-          <SearchSiteView
-            options={{
-              ...options,
-              onClose() {
-                setOpenSearch(false);
-              },
-            }}
-            appearance={appearance}
-            core={core}
-          />
-        )
-      }
+          )}
+        </>
+      )}
+      {openSearch && (
+        <SearchSiteView
+          options={{
+            ...options,
+            onClose() {
+              setOpenSearch(false);
+            },
+          }}
+          appearance={appearance}
+          core={core}
+        />
+      )}
     </div>
   );
 }

@@ -1,6 +1,15 @@
 import { Encryption } from '../cardsavr/CardsavrSessionCrypto';
-import { CardholderQuery, CardsavrHelper } from "../cardsavr/CardsavrHelper";
-import { MerchantSite, StrivveServiceInterface, APIFilter, StrivveServiceOptions, JobBody, CardBody, CardholderBody, PostCredsBody } from "../types";
+import { CardholderQuery, CardsavrHelper } from '../cardsavr/CardsavrHelper';
+import {
+  MerchantSite,
+  StrivveServiceInterface,
+  APIFilter,
+  StrivveServiceOptions,
+  JobBody,
+  CardBody,
+  CardholderBody,
+  PostCredsBody,
+} from '../types';
 
 class StrivveService implements StrivveServiceInterface {
   ch: CardsavrHelper;
@@ -22,15 +31,26 @@ class StrivveService implements StrivveServiceInterface {
       this.grant = grant;
     }
 
-    this.login()
+    this.login();
   }
 
   async login() {
     try {
-      const config = await this.buildConfigFromLocalSettings(this.api_instance)
-      this.ch.setAppSettings(config.cardsavr_server, config.name, config.key, false, undefined, undefined, false)
+      const config = await this.buildConfigFromLocalSettings(this.api_instance);
+      this.ch.setAppSettings(
+        config.cardsavr_server,
+        config.name,
+        config.key,
+        false,
+        undefined,
+        undefined,
+        false
+      );
       this.username = config.username;
-      const res = await this.ch.loginAndCreateSession(config.username, config.password)
+      const res = await this.ch.loginAndCreateSession(
+        config.username,
+        config.password
+      );
       this.is_login = true;
       return res;
     } catch (error: any) {
@@ -48,18 +68,30 @@ class StrivveService implements StrivveServiceInterface {
 
   private async buildConfigFromLocalSettings(instance: string | undefined) {
     try {
-      const nodes = window.location.host.split(".");
-      if (nodes.length === 4) { nodes.shift(); }
-      const cardsavr_server = instance ? `https://csapi.${instance}.cardupdatr.app/` : `https://csapi.${nodes.join(".")}/`;
-      const config_server = instance ? `https://${instance}.cardupdatr.app/config.json` : `https://${window.location.host}/config.json`;
-      console.log(`config_server: ${config_server}, cardsavr_server: ${cardsavr_server}`);
+      const nodes = window.location.host.split('.');
+      if (nodes.length === 4) {
+        nodes.shift();
+      }
+      const cardsavr_server = instance
+        ? `https://csapi.${instance}.cardupdatr.app/`
+        : `https://csapi.${nodes.join('.')}/`;
+      const config_server = instance
+        ? `https://${instance}.cardupdatr.app/config.json`
+        : `https://${window.location.host}/config.json`;
+      console.log(
+        `config_server: ${config_server}, cardsavr_server: ${cardsavr_server}`
+      );
       const config = await (await fetch(config_server)).json();
       if (Array.isArray(config)) {
-        return { ...(await Encryption.decryptResponse(config[0], { "encrypted_body": config[1] })), cardsavr_server };
+        return {
+          ...(await Encryption.decryptResponse(config[0], {
+            encrypted_body: config[1],
+          })),
+          cardsavr_server,
+        };
       } else if (config?.username) {
         return config;
       }
-
     } catch (err) {
       return null;
     }
@@ -67,7 +99,7 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   private async waitingLogin(): Promise<boolean> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const intervalId = setInterval(() => {
         if (this.is_login === true) {
           clearInterval(intervalId);
@@ -89,13 +121,18 @@ class StrivveService implements StrivveServiceInterface {
       ids: id,
     });
 
-    return res?.body?.[0]
+    return res?.body?.[0];
   }
 
   async getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]> {
     const session = await this.getSession();
 
-    const res = await session?.getMerchantSites(filters || {}, { page: 1, page_length: 9999, sort: "name", is_descending: false });
+    const res = await session?.getMerchantSites(filters || {}, {
+      page: 1,
+      page_length: 9999,
+      sort: 'name',
+      is_descending: false,
+    });
 
     return res?.body || [];
   }

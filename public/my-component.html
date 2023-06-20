@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <!--
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-  <!--
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -19,21 +21,23 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>My Component</title>
-</head>
+    <title>My Component</title>
+  </head>
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 8px">
-    <div id="account-link"></div>
-    <div id="full"></div>
-    <div id="select-sites"></div>
-    <div id="account-link-form"></div>
-    <div id="select-site-list"></div>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div
+      id="container"
+      style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 8px"
+    >
+      <div id="account-link"></div>
+      <div id="full"></div>
+      <div id="select-sites"></div>
+      <div id="account-link-form"></div>
+      <div id="select-site-list"></div>
+    </div>
 
-  </div>
-
-  <!--
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -43,145 +47,138 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-</body>
+  </body>
 
-<script src="./static/js/bundle.js"></script>
-<script>
-
-  class MyComponent {
-    constructor({ core }) {
-      this.core = core;
-    }
-
-    // mount select sites component
-    mountSelectSiteView(id, { state, selectSiteCore, options }) {
-
-      const parent = document.getElementById(id);
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+  <script src="./static/js/bundle.js"></script>
+  <script>
+    class MyComponent {
+      constructor({ core }) {
+        this.core = core;
       }
 
-      if (state.loading) {
-        const item = document.createElement('div')
-        item.innerText = 'Loading...';
-        parent.appendChild(item);
+      // mount select sites component
+      mountSelectSiteView(id, { state, selectSiteCore, options }) {
+        const parent = document.getElementById(id);
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+
+        if (state.loading) {
+          const item = document.createElement('div');
+          item.innerText = 'Loading...';
+          parent.appendChild(item);
+        }
+
+        // continue button
+        const button = document.createElement('button');
+        button.onclick = () => {
+          selectSiteCore.submit();
+        };
+        button.innerText = 'Continue';
+        parent.appendChild(button);
+
+        // search input
+        const search = document.createElement('input');
+        search.style.display = 'block';
+        search.onchange = (e) => {
+          selectSiteCore.changeSearch(e.target.value);
+        };
+        search.placeholder = 'Search';
+        parent.appendChild(search);
+
+        // sites
+        const selected = state.selected;
+        state.sites.map((site) => {
+          const item = document.createElement('div');
+          item.addEventListener('click', () => {
+            selectSiteCore.selectItem(site);
+          });
+          const active = Boolean(selected?.find((m) => m.id === site.id));
+
+          item.innerHTML = `
+          <div style="padding: 10px;${
+            active ? ' background: lightgray;' : ''
+          }">${site.name}</div>
+          `;
+          parent.appendChild(item);
+        });
       }
 
-      // continue button
-      const button = document.createElement('button')
-      button.onclick = () => {
-        selectSiteCore.submit();
-      }
-      button.innerText = 'Continue';
-      parent.appendChild(button)
-
-      // search input
-      const search = document.createElement('input')
-      search.style.display = 'block'
-      search.onchange = (e) => {
-        selectSiteCore.changeSearch(e.target.value);
-      }
-      search.placeholder = 'Search';
-      parent.appendChild(search)
-
-      // sites
-      const selected = state.selected;
-      state.sites.map(site => {
-        const item = document.createElement('div')
-        item.addEventListener('click', () => {
-          selectSiteCore.selectItem(site);
-        })
-        const active = Boolean(selected?.find(m => m.id === site.id));
-
-        item.innerHTML = `
-          <div style="padding: 10px;${active ? " background: lightgray;" : ''}">${site.name}</div>
-          `
-        parent.appendChild(item)
-      })
-
-    }
-
-    // unmount select sites component
-    unmountSelectSiteView(id) {
-      const parent = document.getElementById(id);
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-      }
-    }
-
-    // mount account link component
-    mountAccountLinkView(id, { options, accountLinkCore, state }) {
-
-      const parent = document.getElementById(id);
-
-      if (state.fields.length > 0) {
+      // unmount select sites component
+      unmountSelectSiteView(id) {
+        const parent = document.getElementById(id);
         while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
         }
       }
 
-      // progress
-      if (state.message) {
-        const status = document.createElement('div');
-        status.innerText = state.message.status_message;
-        const progress = document.createElement('div');
-        progress.style.width = `${state.message.percent_complete}%`;
-        progress.style.height = '20px';
-        progress.style.background = 'gray';
-        status.appendChild(progress);
-        parent.appendChild(status);
-      }
+      // mount account link component
+      mountAccountLinkView(id, { options, accountLinkCore, state }) {
+        const parent = document.getElementById(id);
 
-      // inputs
-      if (!state.linking && !state.success) {
-        state.fields.map(field => {
-          const item = document.createElement('input')
-          item.addEventListener('change', (e) => {
-            accountLinkCore.change(field.name, e.target.value);
-          })
-          item.name = field.name;
-          item.placeholder = field.label;
-          item.value = state.values[field.name] || '';
-
-          parent.appendChild(item)
-        });
-
-        const button = document.createElement('button')
-        button.style.display = 'block'
-        button.onclick = () => {
-          accountLinkCore.submit();
+        if (state.fields.length > 0) {
+          while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+          }
         }
-        button.innerText = 'Link';
-        parent.appendChild(button)
+
+        // progress
+        if (state.message) {
+          const status = document.createElement('div');
+          status.innerText = state.message.status_message;
+          const progress = document.createElement('div');
+          progress.style.width = `${state.message.percent_complete}%`;
+          progress.style.height = '20px';
+          progress.style.background = 'gray';
+          status.appendChild(progress);
+          parent.appendChild(status);
+        }
+
+        // inputs
+        if (!state.linking && !state.success) {
+          state.fields.map((field) => {
+            const item = document.createElement('input');
+            item.addEventListener('change', (e) => {
+              accountLinkCore.change(field.name, e.target.value);
+            });
+            item.name = field.name;
+            item.placeholder = field.label;
+            item.value = state.values[field.name] || '';
+
+            parent.appendChild(item);
+          });
+
+          const button = document.createElement('button');
+          button.style.display = 'block';
+          button.onclick = () => {
+            accountLinkCore.submit();
+          };
+          button.innerText = 'Link';
+          parent.appendChild(button);
+        }
       }
 
-    }
-
-    // unmount account link component
-    unmountAccountLinkView(id) {
-      const parent = document.getElementById(id);
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+      // unmount account link component
+      unmountAccountLinkView(id) {
+        const parent = document.getElementById(id);
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
       }
     }
-  }
 
-
-  // full account link
-  Strivve.mountLinkingJourney({
-    Component: MyComponent,
-    element_id: 'full',
-    api_instance: 'customer-dev',
-    card: {
-      pan: '4111111111111111',
-      cvv: '321',
-      expiration_month: '02',
-      expiration_year: '24',
-      name_on_card: 'Mvick',
-    }
-  });
-
-
-</script>
-
+    // full account link
+    Strivve.mountLinkingJourney({
+      Component: MyComponent,
+      element_id: 'full',
+      api_instance: 'customer-dev',
+      card: {
+        pan: '4111111111111111',
+        cvv: '321',
+        expiration_month: '02',
+        expiration_year: '24',
+        name_on_card: 'Mvick',
+      },
+    });
+  </script>
 </html>

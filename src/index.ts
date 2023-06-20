@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 
-import Strivve from "./Strivve";
+import Strivve from './Strivve';
 
 if (typeof window !== 'undefined' && !window.Strivve) {
   window.Strivve = new Strivve();
