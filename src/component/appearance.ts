@@ -156,6 +156,10 @@ const defaultAppearance: Appearance = {
       padding: '30px',
       position: 'relative',
     },
+    modalDescription: {
+      marginTop: '12px',
+      marginBottom: '20px',
+    },
     searchSiteView: {
       margin: '20px',
       background: '#FFFFFF',

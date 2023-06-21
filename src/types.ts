@@ -57,7 +57,7 @@ export interface MerchantSite {
   wallet_page?: string;
   merchant_sso_group?: string;
   tier?: number;
-  job: Job;
+  job?: Job;
 }
 
 export interface StrivveServiceInterface {
@@ -228,6 +228,8 @@ export type Appearance = {
     searchSiteHeader?: Interpolation<any>;
     modal?: Interpolation<any>;
     modalStatus?: Interpolation<any>;
+    modalTitle?: Interpolation<any>;
+    modalDescription?: Interpolation<any>;
 
     accountLinkContainer?: Interpolation<any>;
     accountLinkHeader?: Interpolation<any>;

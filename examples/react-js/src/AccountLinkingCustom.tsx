@@ -16,50 +16,11 @@ export default function AccountLinkingCustom() {
         name_on_card: 'Mvick',
       },
       appearance: {
-        elements: {
-          button: {
-            backgroundColor: 'red',
-            padding: '0.5rem 1rem',
-            color: 'white',
-          },
-          input: {
-            width: '100%',
-            padding: '0.5rem 1rem',
-            marginBottom: '0.2rem',
-          },
-          selectSiteList: {
-            maxHeight: '80vh',
-            overflow: 'auto',
-            marginTop: '0.5rem',
-          },
-          selectSiteItem: {
-            display: 'flex',
-            alignItems: 'center',
-            border: '1px solid lightgray',
-            marginBottom: '0.2rem',
-            padding: '0.4rem',
-            cursor: 'pointer',
-          },
-          selectSiteItemSelected: {
-            display: 'flex',
-            alignItems: 'center',
-            border: '1px solid red',
-            marginBottom: '0.2rem',
-            padding: '0.4rem',
-            cursor: 'pointer',
-          },
-          selectSiteItemImage: {
-            width: '2rem',
-            marginRight: '1rem'
-          },
-          accountLinkHeader: {
-            display: 'flex',
-            alignItems: 'center',
-          },
-          accountLinkHeaderImage: {
-            width: '2rem',
-            marginRight: '1rem'
-          },
+        layout: {
+          appName: 'Custom',
+        },
+        variables: {
+          colorPrimary: 'red',
         }
       }
     })

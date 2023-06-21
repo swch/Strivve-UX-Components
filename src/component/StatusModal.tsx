@@ -105,8 +105,15 @@ function StatusModal({
             <circle cx="18.0297" cy="17.2416" r="16.7416" stroke="#FF0000" />
           </svg>
         )}
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <h3 className="modalTitle" css={appearance.elements?.modalTitle}>
+          {title}
+        </h3>
+        <p
+          className="modalDescription"
+          css={appearance.elements?.modalDescription}
+        >
+          {description}
+        </p>
         <div style={{ display: 'inline-block' }}>
           <Button title={buttonText} onClick={onClickButton} />
           <Button title="Cancel" variant="text" onClick={onClickClose} />

@@ -91,8 +91,15 @@ function PendingModal({
             </svg>
           </div>
 
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <h3 className="modalTitle" css={appearance.elements?.modalTitle}>
+            {title}
+          </h3>
+          <p
+            className="modalDescription"
+            css={appearance.elements?.modalDescription}
+          >
+            {description}
+          </p>
           {fields?.map((item, index) => {
             return (
               <AccountInput
