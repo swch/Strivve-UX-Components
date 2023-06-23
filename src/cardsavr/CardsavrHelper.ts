@@ -475,12 +475,14 @@ export class CardsavrHelper {
     } = post_creds_config;
     try {
       const session = this.getSession(username);
-      session.updateSingleSiteJob(
+      const res = await session.updateSingleSiteJob(
         job_id,
         { account: { account_link } },
         safe_key,
         envelope_id ? { 'x-cardsavr-envelope-id': envelope_id } : undefined
       );
+
+      return res;
     } catch (err) {
       this.handleError(err);
     }

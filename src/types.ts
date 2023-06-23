@@ -119,7 +119,7 @@ export interface StrivveServiceInterface {
   createCard(body: CardBody): Promise<StrivveResponse<Card>>;
   authorizeCardholder(grant: string): Promise<StrivveResponse<{ cardholder_safe_key: string, cardholder: Cardholder }>>;
   createCardholderQuery(id: string): any;
-  postCreds(body: PostCredsBody): Promise<undefined>;
+  postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
 }
 
