@@ -133,11 +133,12 @@ export default class AccountLinkCore {
     try {
       if (job && pending) {
         this.updateState({ submitting: true });
-        await this.service.postCreds({
+        const res = await this.service.postCreds({
           job_id: job.id,
           envelope_id: pending.envelope_id,
           account_link: this.state.values,
         });
+        console.log('==', res);
         this.updateState({ pending: null, linking: true });
       } else {
         this.updateState({ submitting: true });

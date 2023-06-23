@@ -5,7 +5,6 @@ import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
 import { customComponentToReact } from './parser';
-import { mountAccountLinkViewComponents } from '../types';
 
 export interface AccountLinkFormProps {
   fields: Field[];
@@ -13,7 +12,6 @@ export interface AccountLinkFormProps {
   change: (name: string, value: any) => void;
   disabled?: boolean;
   values?: { [key: string]: any };
-  components?: mountAccountLinkViewComponents;
   onCancel?: () => void;
 }
 
@@ -23,7 +21,6 @@ function AccountLinkForm({
   change,
   disabled,
   values,
-  components,
   onCancel,
 }: AccountLinkFormProps) {
   const { appearance } = useBase();
@@ -38,11 +35,7 @@ function AccountLinkForm({
       }}
     >
       {fields?.map((item, index) => {
-        const element = components?.input?.({ ...item, change });
 
-        if (element) {
-          return customComponentToReact(element);
-        }
         return (
           <AccountInput
             id={`accountInput-${item.name}`}

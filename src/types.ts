@@ -1,6 +1,5 @@
-import { Interpolation } from '@emotion/react';
-import { CustomComponent } from './component/parser';
-import { AccountLinkState, Field } from './core/accountLink';
+import { Interpolation, Theme } from '@emotion/react';
+import { AccountLinkState } from './core/accountLink';
 import StrivveCore from './core/core';
 import { SelectSiteState } from './core/selectSite';
 
@@ -22,7 +21,28 @@ export interface Job {
   completed_on: string;
   created_on: string;
   last_updated_on: string;
+  site?: MerchantSite;
+  site_id?: string;
 }
+
+export interface Cardholder {
+  agent_session_id?: number;
+  created_on: string;
+  cuid: string;
+  custom_data?: string;
+  email?: string;
+  financial_institution_id: number;
+  first_name?: string;
+  grant: string;
+  id: number;
+  integrator_id: number;
+  last_name?: string;
+  last_updated_on?: string;
+  meta_key?: string;
+  type: "persistent_creds";
+  webhook_url?: string;
+}
+
 export interface MerchantSite {
   id: string;
   name: string;
@@ -60,16 +80,46 @@ export interface MerchantSite {
   job?: Job;
 }
 
+interface Card {
+  address_id?: number;
+  bin_id?: number;
+  cardholder_id: number;
+  created_on: string;
+  custom_data?: any;
+  customer_key: string;
+  expiration_month: string;
+  expiration_year: string;
+  first_6: string;
+  first_7: string;
+  first_8: string;
+  id: number;
+  last_updated_on: string;
+  name_on_card: string;
+  nickname: string;
+  par?: string;
+  type: string;
+}
+
+
+
+export interface StrivveResponse<Body> {
+  statusCode: number;
+  statusText: string;
+  headers: any;
+  body: Body;
+  call: string;
+}
+
 export interface StrivveServiceInterface {
   grant?: string;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
-  createJobs(data: JobBody[]): Promise<any>;
-  createCardholder(body: CardholderBody): Promise<any>;
-  createCard(data: CardBody): Promise<any>;
-  authorizeCardholder(data: any): Promise<any>;
+  createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
+  createCardholder(body: CardholderBody): Promise<StrivveResponse<Cardholder>>;
+  createCard(body: CardBody): Promise<StrivveResponse<Card>>;
+  authorizeCardholder(grant: string): Promise<StrivveResponse<{ cardholder_safe_key: string, cardholder: Cardholder }>>;
   createCardholderQuery(id: string): any;
-  postCreds(body: PostCredsBody): Promise<any>;
+  postCreds(body: PostCredsBody): Promise<undefined>;
   setSafeKey(key: string): void;
 }
 
@@ -116,20 +166,13 @@ export interface StrivveComponentClass {
 
 export interface StrivveComponentOptions {
   core: StrivveCore;
-  appearance?: any;
+  appearance?: Appearance;
 }
 
 export interface StrivveServiceOptions {
   api_instance: string;
   safe_key?: string;
   grant?: string;
-}
-export interface mountAccountLinkViewComponents {
-  input: (
-    data: Field & { change: (name: string, value: any) => void }
-  ) => CustomComponent;
-  progress: (data: any) => CustomComponent;
-  button: (data: any) => CustomComponent;
 }
 export interface mountAccountLinkViewOptions {
   site_id: string;
@@ -138,18 +181,10 @@ export interface mountAccountLinkViewOptions {
   subscribe?: (state: AccountLinkState) => void;
   onSubmit?: (values: any) => void;
   onCancel?: () => void;
-  components?: mountAccountLinkViewComponents;
 }
 
 export interface mountAccountLinkViewProps {
   options: mountAccountLinkViewOptions;
-}
-
-export interface mountSelectSiteViewComponent {
-  search: (data: any) => CustomComponent;
-  button: (data: any) => CustomComponent;
-  item: (data: any) => CustomComponent;
-  container: (data: any) => CustomComponent;
 }
 
 export interface mountSelectSiteViewOptions {
@@ -159,7 +194,6 @@ export interface mountSelectSiteViewOptions {
   onSubmit?: (values: any) => void;
   onClose?: () => void;
   subscribe?: (state: SelectSiteState) => void;
-  components?: mountSelectSiteViewComponent;
 }
 
 export interface mountSelectSiteViewProps {
@@ -196,55 +230,55 @@ export type Appearance = {
     colorTextSecondary?: string;
   };
   elements?: {
-    loader?: Interpolation<any>;
-    button?: Interpolation<any>;
-    secondaryButton?: Interpolation<any>;
-    outlinedButton?: Interpolation<any>;
-    textButton?: Interpolation<any>;
-    iconButton?: Interpolation<any>;
-    input?: Interpolation<any>;
-    label?: Interpolation<any>;
-    link?: Interpolation<any>;
-    errorText?: Interpolation<any>;
+    loader?: Interpolation<Theme>;
+    button?: Interpolation<Theme>;
+    secondaryButton?: Interpolation<Theme>;
+    outlinedButton?: Interpolation<Theme>;
+    textButton?: Interpolation<Theme>;
+    iconButton?: Interpolation<Theme>;
+    input?: Interpolation<Theme>;
+    label?: Interpolation<Theme>;
+    link?: Interpolation<Theme>;
+    errorText?: Interpolation<Theme>;
 
-    tabContainer?: Interpolation<any>;
-    tabItem?: Interpolation<any>;
-    tabItemActive?: Interpolation<any>;
+    tabContainer?: Interpolation<Theme>;
+    tabItem?: Interpolation<Theme>;
+    tabItemActive?: Interpolation<Theme>;
 
-    selectSiteView?: Interpolation<any>;
-    selectSiteList?: Interpolation<any>;
-    selectSiteItem?: Interpolation<any>;
-    selectSiteHeader?: Interpolation<any>;
-    selectSiteItemSelected?: Interpolation<any>;
-    selectSiteItemImage?: Interpolation<any>;
-    selectSiteItemName?: Interpolation<any>;
-    selectSiteCarouselItem?: Interpolation<any>;
-    selectSiteCarouselFooter?: Interpolation<any>;
-    selectSiteCarouselItemSelected?: Interpolation<any>;
-    selectSiteCarouselItemImage?: Interpolation<any>;
-    selectSiteCarouselItemName?: Interpolation<any>;
+    selectSiteView?: Interpolation<Theme>;
+    selectSiteList?: Interpolation<Theme>;
+    selectSiteItem?: Interpolation<Theme>;
+    selectSiteHeader?: Interpolation<Theme>;
+    selectSiteItemSelected?: Interpolation<Theme>;
+    selectSiteItemImage?: Interpolation<Theme>;
+    selectSiteItemName?: Interpolation<Theme>;
+    selectSiteCarouselItem?: Interpolation<Theme>;
+    selectSiteCarouselFooter?: Interpolation<Theme>;
+    selectSiteCarouselItemSelected?: Interpolation<Theme>;
+    selectSiteCarouselItemImage?: Interpolation<Theme>;
+    selectSiteCarouselItemName?: Interpolation<Theme>;
 
-    searchSiteView?: Interpolation<any>;
-    searchSiteHeader?: Interpolation<any>;
-    modal?: Interpolation<any>;
-    modalStatus?: Interpolation<any>;
-    modalTitle?: Interpolation<any>;
-    modalDescription?: Interpolation<any>;
+    searchSiteView?: Interpolation<Theme>;
+    searchSiteHeader?: Interpolation<Theme>;
+    modal?: Interpolation<Theme>;
+    modalStatus?: Interpolation<Theme>;
+    modalTitle?: Interpolation<Theme>;
+    modalDescription?: Interpolation<Theme>;
 
-    accountLinkContainer?: Interpolation<any>;
-    accountLinkHeader?: Interpolation<any>;
-    accountLinkHeaderImage?: Interpolation<any>;
-    accountLinkHeaderTitle?: Interpolation<any>;
-    accountLinkHeaderDescription?: Interpolation<any>;
-    accountLinkBody?: Interpolation<any>;
-    accountLinkFooter?: Interpolation<any>;
-    accountLinkView?: Interpolation<any>;
-    accountLinkForm?: Interpolation<any>;
-    accountLinkProgress?: Interpolation<any>;
-    accountLinkProgressCard?: Interpolation<any>;
-    accountLinkProgressBar?: Interpolation<any>;
-    accountLinkProgressTitle?: Interpolation<any>;
-    accountLinkProgressFooter?: Interpolation<any>;
+    accountLinkContainer?: Interpolation<Theme>;
+    accountLinkHeader?: Interpolation<Theme>;
+    accountLinkHeaderImage?: Interpolation<Theme>;
+    accountLinkHeaderTitle?: Interpolation<Theme>;
+    accountLinkHeaderDescription?: Interpolation<Theme>;
+    accountLinkBody?: Interpolation<Theme>;
+    accountLinkFooter?: Interpolation<Theme>;
+    accountLinkView?: Interpolation<Theme>;
+    accountLinkForm?: Interpolation<Theme>;
+    accountLinkProgress?: Interpolation<Theme>;
+    accountLinkProgressCard?: Interpolation<Theme>;
+    accountLinkProgressBar?: Interpolation<Theme>;
+    accountLinkProgressTitle?: Interpolation<Theme>;
+    accountLinkProgressFooter?: Interpolation<Theme>;
   };
 };
 

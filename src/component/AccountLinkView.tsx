@@ -168,7 +168,6 @@ function AccountLinkView({
           submit={handleSubmit}
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
-          components={options.components}
           onCancel={options.onCancel}
         />
       </AccountLinkContainer>

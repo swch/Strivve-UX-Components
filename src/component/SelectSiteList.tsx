@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
-import { customComponentToReact } from './parser';
-import { mountSelectSiteViewComponent } from '../types';
 import SuccessIcon from './SuccessIcon';
 import ErrorIcon from './ErrorIcon';
 import StatusModal from './StatusModal';
@@ -18,12 +16,10 @@ export interface SelectSiteListProps {
   sites: MerchantSite[];
   selected: MerchantSite[];
   onSelectItem: Function;
-  components?: mountSelectSiteViewComponent;
 }
 
 function SelectSiteList({
   sites,
-  components,
   selected,
   onSelectItem,
 }: SelectSiteListProps) {
@@ -34,15 +30,7 @@ function SelectSiteList({
     const image = item.images?.find((image: any) => image.width === 128);
     const active = Boolean(selected?.find((m) => m.id === item.id));
     const isError = errorStatus.includes(item.job?.termination_type || '');
-    return components?.item ? (
-      customComponentToReact(
-        components?.item({
-          data: item,
-          active,
-          selectItem: () => onSelectItem(item),
-        })
-      )
-    ) : (
+    return (
       <div
         key={item.id}
         id={`selectSiteItem-${item.id}`}
