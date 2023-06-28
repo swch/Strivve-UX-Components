@@ -1,12 +1,19 @@
-# Strivve Component
+# Strivve CX
+ Varying levels of customizable Javascript Components which easily drop into desktop and mobile web applications as well as native applications as reqired.
 
-## Using Strivve Component
+## Install via CDN
+```html
+<script src="https://cdn.jsdelivr.net/npm/@strivve/strivve-cx"></script>
+```
+
+
+### Usage
 
 ```html
 <body>
   <div id="account-link"></div>
 </body>
-<script src="{url}/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@strivve/strivve-cx"></script>
 <script>
   Strivve.mountLinkingJourney({
     element_id: 'account-link',
@@ -20,6 +27,29 @@
     },
   });
 </script>
+```
+
+## Install as package
+```bash
+npm install @strivve/strivve-cx
+```
+### Usage
+
+
+```js
+import Strivve from '@strivve/strivve-cx';
+
+Strivve.mountLinkingJourney({
+  element_id: 'account-link',
+  api_instance: 'customer-dev',
+  card: {
+    pan: '4111111111111111',
+    cvv: '321',
+    expiration_month: '02',
+    expiration_year: '24',
+    name_on_card: 'Mvick',
+  },
+});
 ```
 
 ## Config
@@ -72,13 +102,9 @@ const component = Strivve.createComponent({ core });
 
 component.mountAccountLinkView('account-link', {
   site_id: '1',
-  hide_title: false,
 });
 
 component.mountSelectSiteView('select-sites', {
-  single: false,
-  view: 'list',
-  hide_search: false,
   submit: (selected) => {
     alert(selected.map((item) => item.name).join(', '));
   },

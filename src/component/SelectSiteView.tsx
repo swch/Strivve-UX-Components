@@ -9,7 +9,7 @@ import SelectSiteCarousel from './SelectSiteCarousel';
 import Button from './Button';
 import SearchSiteView from './SearchSiteView';
 
-function SelectSiteView({
+export function SelectSiteView({
   options,
   core,
   appearance,

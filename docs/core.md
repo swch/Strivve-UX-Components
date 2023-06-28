@@ -48,7 +48,7 @@ accountLink.subsribe((state) => {
 | merchant_site: [MerchantSite](#site) | merchant site data     |
 | change(name: string, value: any)     | update field state     |
 | submit()                             | submit form            |
-| subscriber(func: Function)           | subscribe state change |
+| subscribe(func: Function)           | subscribe state change |
 
 ### State <a href="#state" id="state"></a>
 

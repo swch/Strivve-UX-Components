@@ -5,7 +5,7 @@ import { MerchantSite, mountLinkingJourneyOptions } from '../types';
 import SelectSiteView from './SelectSiteView';
 import AccountLinkView from './AccountLinkView';
 
-function LinkingJourney({
+export function LinkingJourney({
   selectSiteOptions,
   accountLinkOptions,
   core,

@@ -4,7 +4,6 @@ import { Field } from '../core/accountLink';
 import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
-import { customComponentToReact } from './parser';
 
 export interface AccountLinkFormProps {
   fields: Field[];

@@ -11,7 +11,7 @@ import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
 import Button from './Button';
 
-function AccountLinkView({
+export function AccountLinkView({
   options,
   core,
   appearance,

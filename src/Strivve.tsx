@@ -7,6 +7,7 @@ import {
   StrivveComponentOptions,
   StrivveServiceClass,
   StrivveServiceOptions,
+  mountLinkingJourneyOptions,
 } from './types';
 
 declare global {
@@ -15,7 +16,7 @@ declare global {
   }
 }
 
-export interface mountLinkingJourneyOptions {
+export interface mountLinkingJourneyStrivve extends mountLinkingJourneyOptions {
   api_instance: string;
   card?: any;
   appearance?: Appearance;
@@ -24,8 +25,6 @@ export interface mountLinkingJourneyOptions {
   card_id?: string;
   Component?: StrivveComponentClass;
   Service?: StrivveServiceClass;
-  select_site?: any;
-  account_link?: any;
 }
 
 export default class Strivve {
@@ -48,9 +47,9 @@ export default class Strivve {
     appearance,
     grant,
     card_id,
-    select_site = {},
-    account_link = {},
-  }: mountLinkingJourneyOptions) => {
+    accountLinkOptions,
+    selectSiteOptions,
+  }: mountLinkingJourneyStrivve) => {
     const createService = Service
       ? new Service({ api_instance, grant })
       : this.createService({ api_instance, grant });
@@ -66,8 +65,8 @@ export default class Strivve {
       : this.createComponent({ appearance, core });
 
     createComponent.mountLinkingJourney(element_id, {
-      selectSiteOptions: select_site,
-      accountLinkOptions: account_link,
+      selectSiteOptions,
+      accountLinkOptions,
     });
   };
 }
