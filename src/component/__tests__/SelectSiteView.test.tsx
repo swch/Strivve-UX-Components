@@ -12,7 +12,6 @@ import {
   MerchantSite,
   PostCredsBody,
   StrivveServiceInterface,
-  StrivveServiceOptions,
 } from '../../types';
 import StrivveCore from '../../core/core';
 

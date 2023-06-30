@@ -39,7 +39,7 @@ export interface Cardholder {
   last_name?: string;
   last_updated_on?: string;
   meta_key?: string;
-  type: "persistent_creds";
+  type: 'persistent_creds';
   webhook_url?: string;
 }
 
@@ -100,8 +100,6 @@ interface Card {
   type: string;
 }
 
-
-
 export interface StrivveResponse<Body> {
   statusCode: number;
   statusText: string;
@@ -117,7 +115,11 @@ export interface StrivveServiceInterface {
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
   createCardholder(body: CardholderBody): Promise<StrivveResponse<Cardholder>>;
   createCard(body: CardBody): Promise<StrivveResponse<Card>>;
-  authorizeCardholder(grant: string): Promise<StrivveResponse<{ cardholder_safe_key: string, cardholder: Cardholder }>>;
+  authorizeCardholder(
+    grant: string
+  ): Promise<
+    StrivveResponse<{ cardholder_safe_key: string; cardholder: Cardholder }>
+  >;
   createCardholderQuery(id: string): any;
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
@@ -126,17 +128,6 @@ export interface StrivveServiceInterface {
 export interface StrivveServiceClass {
   new (options: StrivveServiceOptions): StrivveServiceInterface;
 }
-export interface BaseStyle {
-  primary_color: string;
-  background_color: string;
-  text_color: string;
-  font_size: number;
-  font_family: string;
-  spacing_unit: number;
-  border_radius: number;
-  border_color: string;
-}
-
 export interface Localization {
   success_message: string;
   link_button: string;
@@ -177,7 +168,6 @@ export interface StrivveServiceOptions {
 export interface mountAccountLinkViewOptions {
   site_id: string;
   quick_start?: boolean;
-  hide_title?: boolean;
   subscribe?: (state: AccountLinkState) => void;
   onSubmit?: (values: any) => void;
   onCancel?: () => void;
@@ -198,17 +188,6 @@ export interface mountSelectSiteViewOptions {
 
 export interface mountSelectSiteViewProps {
   options?: mountSelectSiteViewOptions;
-}
-export interface BaseStyle {
-  primary_color: string;
-  background_color: string;
-  text_color: string;
-  font_size: number;
-  font_family: string;
-  spacing_unit: number;
-  border_radius: number;
-  border_color: string;
-  [key: string]: any;
 }
 
 export type mountLinkingJourneyOptions = {

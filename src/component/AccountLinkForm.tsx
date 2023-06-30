@@ -34,7 +34,6 @@ function AccountLinkForm({
       }}
     >
       {fields?.map((item, index) => {
-
         return (
           <AccountInput
             id={`accountInput-${item.name}`}

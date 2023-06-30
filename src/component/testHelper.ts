@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-useless-constructor */
-import StrivveCore from '../../core/core';
+import StrivveCore from '../core/core';
 import {
   APIFilter,
   CardBody,
@@ -9,7 +9,7 @@ import {
   PostCredsBody,
   StrivveServiceInterface,
   StrivveServiceOptions,
-} from '../../types';
+} from '../types';
 
 export const merchantSite: MerchantSite = {
   id: '123456789',
@@ -62,19 +62,18 @@ export const merchantSite: MerchantSite = {
   tier: 2,
 };
 
-
 export class StrivveService implements StrivveServiceInterface {
-  constructor(options: StrivveServiceOptions) {
+  constructor(options: StrivveServiceOptions) {}
 
-  }
-
-  getMerchantSites(filters?: APIFilter | undefined): Promise<MerchantSite[]> {
+  async getMerchantSites(
+    filters?: APIFilter | undefined
+  ): Promise<MerchantSite[]> {
     const items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    return Promise.resolve(items.map((item, index) => ({
+    return items.map((item, index) => ({
       ...merchantSite,
       id: `${merchantSite.id}-${index}`,
-      name: `${merchantSite.name} ${index}`
-    })));
+      name: `${merchantSite.name} ${index}`,
+    }));
   }
 
   async getMerchantSite(id: string): Promise<MerchantSite | undefined> {

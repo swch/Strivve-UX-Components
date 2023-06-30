@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import 'matchmedia-polyfill';
 import 'matchmedia-polyfill/matchMedia.addListener';
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import {
   APIFilter,
   CardBody,
@@ -14,7 +14,7 @@ import {
 } from '../../types';
 import StrivveCore from '../../core/core';
 import StrivveComponent from '../component';
-import { ServiceTest, merchantSite } from './helper';
+import { StrivveService, merchantSite } from '../testHelper';
 
 class ErrorService implements StrivveServiceInterface {
   getMerchantSites(filters?: APIFilter | undefined): Promise<MerchantSite[]> {
@@ -54,7 +54,7 @@ class ErrorService implements StrivveServiceInterface {
 
 describe('mountLinkingJourney', () => {
   test('Successfully rendered', async () => {
-    const service = new ServiceTest();
+    const service = new StrivveService({ api_instance: 'test' });
     const core = new StrivveCore({
       service,
       card: {
@@ -70,10 +70,12 @@ describe('mountLinkingJourney', () => {
 
     render(<div id="linking" />);
 
-    component.mountLinkingJourney('linking', {
-      selectSiteOptions: {
-        view: 'list',
-      },
+    act(() => {
+      component.mountLinkingJourney('linking', {
+        selectSiteOptions: {
+          view: 'list',
+        },
+      });
     });
 
     const element: HTMLInputElement = await screen.findByTestId('loader');
@@ -85,7 +87,7 @@ describe('mountLinkingJourney', () => {
     expect(selectSiteView).toBeInTheDocument();
 
     const selectSiteItem: HTMLDivElement = await screen.findByTestId(
-      `selectSiteItem-${merchantSite.id}`
+      `selectSiteItem-${merchantSite.id}-0`
     );
     if (selectSiteItem.getAttribute('aria-selected') === 'false') {
       fireEvent.click(selectSiteItem);
@@ -119,7 +121,9 @@ describe('mountLinkingJourney', () => {
 
     render(<div id="linking" />);
 
-    component.mountLinkingJourney('linking', {});
+    act(() => {
+      component.mountLinkingJourney('linking', {});
+    });
 
     const selectSiteView: HTMLDivElement = await screen.findByTestId(
       'selectSiteView'
@@ -136,7 +140,7 @@ describe('mountLinkingJourney', () => {
 
 describe('mountAccountLinkView', () => {
   test('Mount and unmount', async () => {
-    const service = new ServiceTest();
+    const service = new StrivveService({ api_instance: 'test' });
     const core = new StrivveCore({
       service,
       card: {
@@ -152,7 +156,9 @@ describe('mountAccountLinkView', () => {
 
     render(<div id="linking" />);
 
-    component.mountAccountLinkView('linking', { site_id: '1' });
+    act(() => {
+      component.mountAccountLinkView('linking', { site_id: '1' });
+    });
 
     const element: HTMLInputElement = await screen.findByTestId('loader');
     expect(element).toBeInTheDocument();
@@ -162,14 +168,17 @@ describe('mountAccountLinkView', () => {
     );
     expect(accountLinkView).toBeInTheDocument();
 
-    component.unmountAccountLinkView('linking');
+    act(() => {
+      component.unmountAccountLinkView('linking');
+    });
+
     expect(screen.queryByTestId('accountLinkView')).not.toBeInTheDocument();
   });
 });
 
 describe('mountSelectSiteView', () => {
   test('Mount and unmount', async () => {
-    const service = new ServiceTest();
+    const service = new StrivveService({ api_instance: 'test' });
     const core = new StrivveCore({
       service,
       card: {
@@ -185,7 +194,9 @@ describe('mountSelectSiteView', () => {
 
     render(<div id="linking" />);
 
-    component.mountSelectSiteView('linking', {});
+    act(() => {
+      component.mountSelectSiteView('linking', {});
+    });
 
     const element: HTMLInputElement = await screen.findByTestId('loader');
     expect(element).toBeInTheDocument();
@@ -194,8 +205,10 @@ describe('mountSelectSiteView', () => {
       'selectSiteView'
     );
     expect(selectSiteView).toBeInTheDocument();
+    act(() => {
+      component.unmountSelectSiteView('linking');
+    });
 
-    component.unmountSelectSiteView('linking');
     expect(screen.queryByTestId('selectSiteView')).not.toBeInTheDocument();
   });
 });

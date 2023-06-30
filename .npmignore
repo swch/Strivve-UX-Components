@@ -21,3 +21,7 @@ CONTRIBUTING.md
 .eslintrc
 .babelrc
 .gitignore
+
+# test file
+__tests__
+testHelper.ts

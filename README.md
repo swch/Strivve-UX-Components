@@ -1,11 +1,12 @@
 # Strivve CX
- Varying levels of customizable Javascript Components which easily drop into desktop and mobile web applications as well as native applications as reqired.
+
+Varying levels of customizable Javascript Components which easily drop into desktop and mobile web applications as well as native applications as reqired.
 
 ## Install via CDN
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@strivve/strivve-cx"></script>
 ```
-
 
 ### Usage
 
@@ -30,11 +31,12 @@
 ```
 
 ## Install as package
+
 ```bash
 npm install @strivve/strivve-cx
 ```
-### Usage
 
+### Usage
 
 ```js
 import Strivve from '@strivve/strivve-cx';
