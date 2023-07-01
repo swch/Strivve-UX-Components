@@ -28,11 +28,11 @@ export interface mountLinkingJourneyStrivve extends mountLinkingJourneyOptions {
 }
 
 export default class Strivve {
-  createCore = (options: StrivveCoreOptions) => {
+  createCore = (options: StrivveCoreOptions): StrivveCore => {
     return new StrivveCore(options);
   };
 
-  createService = (options: StrivveServiceOptions) =>
+  createService = (options: StrivveServiceOptions): StrivveService =>
     new StrivveService(options);
 
   createComponent = (options: StrivveComponentOptions): StrivveComponent =>

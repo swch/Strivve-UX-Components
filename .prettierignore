@@ -1,6 +1,7 @@
 dist/
 build/
 examples/
+build-storybook/
 
 **/*.svg
 **/*.min.js

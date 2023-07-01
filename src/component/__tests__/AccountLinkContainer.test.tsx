@@ -5,11 +5,7 @@ import AccountLinkContainer from '../AccountLinkContainer';
 
 describe('AccountLinkContainer', () => {
   test('render AccountLinkContainer', () => {
-    render(
-      <AccountLinkContainer>
-        <div data-testid="children" />
-      </AccountLinkContainer>
-    );
+    render(<AccountLinkContainer></AccountLinkContainer>);
     const element: HTMLDivElement = screen.getByTestId('children');
 
     expect(element).toBeInTheDocument();

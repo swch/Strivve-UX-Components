@@ -10,7 +10,6 @@ describe('AccountInput', () => {
 
     expect(element).toBeInTheDocument();
   });
-
   test('show label', () => {
     render(
       <AccountInput name="email" onChange={() => {}} label="Your Email" />
