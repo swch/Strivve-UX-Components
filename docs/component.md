@@ -73,10 +73,12 @@ The `Appearance` type is an interface that specifies the appearance options for 
 The `Appearance` type has the following properties:
 
 - `layout`
+
   - `logoImageUrl` (optional): string
   - `appName` (optional): string
 
 - `variables`
+
   - `colorPrimary` (optional): string
   - `colorSecondary` (optional): string
   - `fontFamily` (optional): string

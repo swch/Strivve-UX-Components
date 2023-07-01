@@ -22,7 +22,7 @@ type Story = StoryObj<typeof SelectSiteView>;
 /**
  * ```js
  * const service = Strivve.createService({ api_instance: 'customer-dev' });
- * 
+ *
  * const core = Strivve.createCore({
  *  service,
  *  card: {
@@ -33,9 +33,9 @@ type Story = StoryObj<typeof SelectSiteView>;
  *    name_on_card: 'Mvick',
  *  },
  * });
- * 
+ *
  * const component = Strivve.createComponent({ core });
- * 
+ *
  * component.mountSelectSiteView('select-sites', {
  *   submit: (selected) => {
  *     alert(selected.map((item) => item.name).join(', '));

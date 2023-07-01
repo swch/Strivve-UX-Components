@@ -22,7 +22,7 @@ type Story = StoryObj<typeof AccountLinkView>;
 /**
  * ```js
  * const service = Strivve.createService({ api_instance: 'customer-dev' });
- * 
+ *
  * const core = Strivve.createCore({
  *  service,
  *  card: {
@@ -33,9 +33,9 @@ type Story = StoryObj<typeof AccountLinkView>;
  *    name_on_card: 'Mvick',
  *  },
  * });
- * 
+ *
  * const component = Strivve.createComponent({ core });
- * 
+ *
  * component.mountAccountLinkView('account-link', {
  *   site_id: '1',
  * });

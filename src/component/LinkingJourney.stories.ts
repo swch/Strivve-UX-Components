@@ -31,10 +31,10 @@ type Story = StoryObj<typeof MetaComponent>;
  * });
  * ```
  * or
- * 
+ *
  * ```js
  * const service = Strivve.createService({ api_instance: 'customer-dev' });
- * 
+ *
  * const core = Strivve.createCore({
  *  service,
  *  card: {
@@ -45,9 +45,9 @@ type Story = StoryObj<typeof MetaComponent>;
  *    name_on_card: 'Mvick',
  *  },
  * });
- * 
+ *
  * const component = Strivve.createComponent({ core });
- * 
+ *
  * component.mountLinkingJourney('account-link', {
  *   selectSiteOptions: {},
  *   accountLinkOptions: {},
