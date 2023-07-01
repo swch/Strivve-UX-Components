@@ -3,7 +3,7 @@ name: Build and Publish storybook to GitHub Pages
 on:
   push:
     branches:
-      - "master"
+      - 'master'
 
 permissions:
   contents: read
@@ -17,8 +17,8 @@ jobs:
       url: ${{ steps.build-publish.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - id: build-publish
-      uses: bitovi/github-actions-react-to-ghp@v1.2.0
-      with:
-        path: storybook-static
-        build_command: npm run build-storybook
+      - id: build-publish
+        uses: bitovi/github-actions-react-to-ghp@v1.2.0
+        with:
+          path: dist/storybook
+          build_command: npm run build-storybook
