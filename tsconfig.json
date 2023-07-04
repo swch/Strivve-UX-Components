@@ -17,11 +17,7 @@
     "outDir": "dist"
   },
   "include": ["src"],
-  "exclude": [
-    "**/*.stories.tsx",
-    "**/*.stories.ts",
-    "**/*.stories.mdx"
-  ],
+  "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.mdx"],
   "paths": {
     "crypto": ["node_modules/crypto-browserify"],
     "stream": ["node_modules/stream-browserify"]
