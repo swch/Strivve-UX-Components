@@ -3,15 +3,16 @@
 Contains functions to render components on the website.
 
 ```js
-const component = Strivve.createComponent({ core });
+const component = Strivve.createComponent({ core, appearance, localization });
 ```
 
 ## Params
 
-| name       | params                   | description |
-| ---------- | ------------------------ | ----------- |
-| core       | [core instance](core.md) | required    |
-| appearance | `Appearance`             | optional    |
+| name         | params                   | description |
+| ------------ | ------------------------ | ----------- |
+| core         | [core instance](core.md) | required    |
+| appearance   | `Appearance`             | optional    |
+| localization | `Localization`           | optional    |
 
 ## Appearance
 
@@ -129,12 +130,18 @@ The `Appearance` type has the following properties:
   - `accountLinkForm` (optional): [Object Styles](https://emotion.sh/docs/object-styles)
   - `accountLinkProgress` (optional): [Object Styles](https://emotion.sh/docs/object-styles)
 
-## Properties
+## Localization
 
-| Name      | Params                                                                                                                                 | Description                                     |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| layout    | `logoImageUrl?: string`                                                                                                                | An object representing the layout properties.   |
-| variables | `colorPrimary?: string`<br>`colorSecondary?: string`<br>`fontFamily?: string`<br>`colorText?: string`<br>`colorTextSecondary?: string` | An object representing the variable properties. |
+Interface representing localization options.
+
+### Properties
+
+| Name                   | Type   | Description                                                            |
+| ---------------------- | ------ | ---------------------------------------------------------------------- |
+| selectSiteTitle        | string | Optional. The title to display when selecting a site.                  |
+| selectSiteTitleHaveJob | string | Optional. The title to display when selecting a site and having a job. |
+| accountLinkTitle       | string | Optional. The title for the account link.                              |
+| accountLinkDescription | string | Optional. The description for the account link.                        |
 
 ## Method
 

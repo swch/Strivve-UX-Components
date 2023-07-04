@@ -75,8 +75,7 @@ Strivve.mountLinkingJourney({
 | cvv              | string | -                                                                                                                                                                     |
 | expiration_month | string | -                                                                                                                                                                     |
 | expiration_year  | string | -                                                                                                                                                                     |
-
-| name_on_card | string | - |
+| name_on_card     | string | -                                                                                                                                                                     |
 
 ## Service, Core and Component
 

@@ -13,6 +13,7 @@ export function SelectSiteView({
   options,
   core,
   appearance,
+  localization,
 }: BaseProps & mountSelectSiteViewProps) {
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
@@ -80,11 +81,11 @@ export function SelectSiteView({
         </div>
       ) : (
         <div css={appearance.elements?.selectSiteHeader}>
-          <div>
+          <p css={appearance.elements?.selectSiteTitle}>
             {isHaveJob
-              ? 'Select an additional site for us to push your card info to.'
-              : 'Select the first site for us to push your updated card info to.'}
-          </div>
+              ? localization?.selectSiteTitleHaveJob
+              : localization?.selectSiteTitle}
+          </p>
           <div>
             {state?.step === 2 && (
               <button
@@ -203,6 +204,7 @@ export function SelectSiteView({
             },
           }}
           appearance={appearance}
+          localization={localization}
           core={core}
         />
       )}

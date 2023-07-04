@@ -1,4 +1,4 @@
-import Strivve from '@strivve/component';
+import Strivve from '@strivve/strivve-cx';
 import axios from 'axios';
 import { useEffect } from 'react';
 
@@ -10,8 +10,7 @@ export default function AccountLinking() {
     const data = res.data;
 
     // initiate component
-    const stv = new Strivve();
-    stv.mountLinkingJourney({
+    Strivve.mountLinkingJourney({
       element_id: 'linking',
       api_instance: 'customer-dev',
       card_id: data.card_id,

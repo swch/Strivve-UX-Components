@@ -3,8 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LinkingJourney, {
   LinkingJourney as MetaComponent,
 } from './LinkingJourney';
-import defaultAppearance from './appearance';
 import { coreTest } from './testHelper';
+import defaultAppearance from './appearance';
+import defaultLocalization from './localization';
 
 const meta: Meta<typeof LinkingJourney> = {
   title: 'Journey/LinkingJourney',
@@ -57,6 +58,7 @@ type Story = StoryObj<typeof MetaComponent>;
 export const Component: Story = {
   args: {
     appearance: defaultAppearance,
+    localization: defaultLocalization,
     core: coreTest,
   },
 };

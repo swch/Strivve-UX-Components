@@ -6,7 +6,13 @@ import userEvent from '@testing-library/user-event';
 
 describe('AccountLinkForm', () => {
   test('render AccountLinkForm', () => {
-    render(<AccountLinkForm fields={[]} submit={() => {}} change={() => {}} />);
+    render(
+      <AccountLinkForm
+        fields={[{ name: 'email', type: 'email', value: '', required: true }]}
+        submit={() => {}}
+        change={() => {}}
+      />
+    );
 
     const element: HTMLInputElement = screen.getByTestId('accountInput-email');
 

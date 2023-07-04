@@ -1,11 +1,10 @@
-import Strivve from '@strivve/component';
+import Strivve from '@strivve/strivve-cx';
 import { useEffect } from 'react';
 
 export default function AccountLinkingCustom() {
 
   useEffect(() => {
-    const s = new Strivve();
-    s.mountLinkingJourney({
+    Strivve.mountLinkingJourney({
       element_id: 'linking-custom',
       api_instance: 'customer-dev',
       card: {
@@ -30,5 +29,5 @@ export default function AccountLinkingCustom() {
     <div>
       <div id="linking-custom"></div>
     </div>
-  )
+  );
 }

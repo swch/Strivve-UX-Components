@@ -7,6 +7,7 @@ import AccountLinkView, {
 import defaultAppearance from './appearance';
 import { StrivveService } from './testHelper';
 import StrivveCore from '../core/core';
+import defaultLocalization from './localization';
 
 const meta: Meta<typeof AccountLinkView> = {
   title: 'View/AccountLinkView',
@@ -48,6 +49,7 @@ export const Component: Story = {
     return (
       <AccountLinkView
         appearance={defaultAppearance}
+        localization={defaultLocalization}
         core={core}
         options={{
           site_id: '1',

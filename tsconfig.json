@@ -13,10 +13,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "declaration": true, // enable generation of .d.ts files
-    "outDir": "dist" // specify output directory
+    "declaration": true,
+    "outDir": "dist"
   },
   "include": ["src"],
+  "exclude": [
+    "**/*.stories.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.mdx"
+  ],
   "paths": {
     "crypto": ["node_modules/crypto-browserify"],
     "stream": ["node_modules/stream-browserify"]

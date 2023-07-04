@@ -7,6 +7,7 @@ import SelectSiteView, {
 import defaultAppearance from './appearance';
 import { StrivveService } from './testHelper';
 import StrivveCore from '../core/core';
+import defaultLocalization from './localization';
 
 const meta: Meta<typeof SelectSiteView> = {
   title: 'View/SelectSiteView',
@@ -48,7 +49,12 @@ export const Component: Story = {
     const service = new StrivveService({ api_instance: 'test' });
     const core = new StrivveCore({ service });
     return (
-      <SelectSiteView appearance={defaultAppearance} core={core} options={{}} />
+      <SelectSiteView
+        appearance={defaultAppearance}
+        localization={defaultLocalization}
+        core={core}
+        options={{}}
+      />
     );
   },
 };

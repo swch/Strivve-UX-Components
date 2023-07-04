@@ -14,8 +14,9 @@ function AccountLinkContainer({
   children,
   hide_title,
 }: AccountLinkContainerProps) {
-  const { appearance } = useBase();
+  const { appearance, localization } = useBase();
   const image = site?.images?.find((item: any) => item.width === 128);
+  const appName = appearance.layout?.appName || '';
 
   return (
     <div
@@ -28,14 +29,13 @@ function AccountLinkContainer({
             className="accountLinkHeaderTitle"
             css={appearance.elements?.accountLinkHeaderTitle}
           >
-            Securely link your account
+            {localization.accountLinkTitle}
           </h3>
           <p
             className="accountLinkHeaderDescription"
             css={appearance.elements?.accountLinkHeaderDescription}
           >
-            Rest easy. {appearance.layout?.appName} does not store your login
-            credentials.
+            {localization.accountLinkDescription?.replace('{appName}', appName)}
           </p>
         </>
       )}

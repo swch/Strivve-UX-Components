@@ -10,6 +10,7 @@ export function LinkingJourney({
   accountLinkOptions,
   core,
   appearance,
+  localization,
 }: BaseProps & mountLinkingJourneyOptions) {
   const [step, setStep] = useState(1);
   const [sites, setSites] = useState<MerchantSite[]>([]);
@@ -20,6 +21,7 @@ export function LinkingJourney({
         <SelectSiteView
           core={core}
           appearance={appearance}
+          localization={localization}
           options={{
             ...selectSiteOptions,
             onSubmit: (sites) => {
@@ -34,6 +36,7 @@ export function LinkingJourney({
         <div>
           <AccountLinkView
             appearance={appearance}
+            localization={localization}
             core={core}
             options={{
               ...accountLinkOptions,

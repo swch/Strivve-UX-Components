@@ -4,6 +4,7 @@ import AccountLinkView from './AccountLinkView';
 import SelectSiteView from './SelectSiteView';
 import {
   Appearance,
+  Localization,
   mountAccountLinkViewOptions,
   mountLinkingJourneyOptions,
   mountSelectSiteViewOptions,
@@ -14,20 +15,26 @@ import StrivveCore from '../core/core';
 import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
 import LinkingJourney from './LinkingJourney';
+import defaultLocalization from './localization';
 
 export default class StrivveComponent implements StrivveComponentInterface {
   core: StrivveCore;
   appearance: Appearance = defaultAppearance;
+  localization: Localization = defaultLocalization;
   private accountLink: { [key: string]: ReactDOM.Root } = {};
   private selectSite?: ReactDOM.Root;
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
 
-  constructor({ core, appearance }: StrivveComponentOptions) {
+  constructor({ core, appearance, localization }: StrivveComponentOptions) {
     this.core = core;
 
     if (appearance) {
       this.appearance = this.mergeJSON(this.appearance, appearance);
+    }
+
+    if (localization) {
+      this.localization = this.mergeJSON(this.localization, localization);
     }
   }
 
@@ -57,6 +64,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
       <AccountLinkView
         core={this.core}
         appearance={this.appearance}
+        localization={this.localization}
         options={options}
       />
     );
@@ -75,6 +83,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
     root.render(
       <SelectSiteView
         appearance={this.appearance}
+        localization={this.localization}
         core={this.core}
         options={options}
       />
@@ -103,6 +112,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
     root.render(
       <SearchSiteView
         appearance={this.appearance}
+        localization={this.localization}
         core={this.core}
         options={options}
       />
@@ -125,6 +135,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
     root.render(
       <LinkingJourney
         appearance={this.appearance}
+        localization={this.localization}
         core={this.core}
         selectSiteOptions={selectSiteOptions}
         accountLinkOptions={accountLinkOptions}

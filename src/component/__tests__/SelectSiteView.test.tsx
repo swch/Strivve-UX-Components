@@ -128,6 +128,7 @@ describe('SelectSiteView', () => {
         }}
         core={core}
         appearance={{}}
+        localization={{}}
       />
     );
 

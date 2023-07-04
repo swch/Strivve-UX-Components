@@ -2,8 +2,10 @@ import 'regenerator-runtime/runtime';
 
 import Strivve from './Strivve';
 
+const striveIntance = new Strivve();
+
 if (typeof window !== 'undefined' && !window.Strivve) {
-  window.Strivve = new Strivve();
+  window.Strivve = striveIntance;
 }
 
 export * from './types';
@@ -17,4 +19,4 @@ export { default as StrivveCore } from './core/core';
 export * from './component/component';
 export { default as StrivveComponent } from './component/component';
 
-export default Strivve;
+export default striveIntance;

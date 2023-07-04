@@ -27,12 +27,12 @@ const defaultAppearance: Appearance = {
     },
     input: {
       padding: '12px',
-      border: '1px solid #D9D9D9',
+      border: '1px solid var(--colorBorder)',
       borderRadius: '5px',
       marginBottom: '12px',
       width: '-webkit-fill-available',
       ':focus-visible': {
-        outlineColor: '#6BBF00',
+        outlineColor: 'var(--colorPrimary)',
       },
     },
     link: {
@@ -180,6 +180,10 @@ const defaultAppearance: Appearance = {
       justifyContent: 'space-between',
       marginBottom: '16px',
       gap: '16px',
+    },
+    selectSiteTitle: {
+      marginBottom: '0px',
+      marginTop: '0px',
     },
     selectSiteList: {
       display: 'grid',

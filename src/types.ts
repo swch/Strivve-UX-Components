@@ -129,8 +129,11 @@ export interface StrivveServiceClass {
   new (options: StrivveServiceOptions): StrivveServiceInterface;
 }
 export interface Localization {
-  success_message: string;
-  link_button: string;
+  selectSiteTitle?: string;
+  selectSiteTitleHaveJob?: string;
+
+  accountLinkTitle?: string;
+  accountLinkDescription?: string;
 }
 
 export interface StrivveComponentInterface {
@@ -158,6 +161,7 @@ export interface StrivveComponentClass {
 export interface StrivveComponentOptions {
   core: StrivveCore;
   appearance?: Appearance;
+  localization?: Localization;
 }
 
 export interface StrivveServiceOptions {
@@ -227,6 +231,7 @@ export type Appearance = {
     selectSiteView?: Interpolation<Theme>;
     selectSiteList?: Interpolation<Theme>;
     selectSiteItem?: Interpolation<Theme>;
+    selectSiteTitle?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;
     selectSiteItemSelected?: Interpolation<Theme>;
     selectSiteItemImage?: Interpolation<Theme>;

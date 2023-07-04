@@ -1,26 +1,32 @@
 import React, { createContext, useContext } from 'react';
-import { Appearance } from '../types';
+import { Appearance, Localization } from '../types';
 import StrivveCore from '../core/core';
 import { getColors } from './utils';
 
-export const BaseContext = createContext<{ appearance: Appearance }>({
+export const BaseContext = createContext<{
+  appearance: Appearance;
+  localization: Localization;
+}>({
   appearance: {} as Appearance,
+  localization: {} as Localization,
 });
 export const useBase = () => useContext(BaseContext);
 
 export interface BaseProps {
   core: StrivveCore;
   appearance: Appearance;
+  localization: Localization;
 }
 
 export interface WithBaseProps {
   core: StrivveCore;
   appearance: Appearance;
+  localization: Localization;
 }
 
 const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
   return function WithBase(props: P) {
-    const { appearance } = props;
+    const { appearance, localization } = props;
     const variables = appearance?.variables || ({} as any);
     const generateVariables: { [key: string]: string } = {};
 
@@ -36,7 +42,7 @@ const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
     });
     return (
       <div style={{ ...generateVariables, fontFamily: variables.fontFamily }}>
-        <BaseContext.Provider value={{ appearance }}>
+        <BaseContext.Provider value={{ appearance, localization }}>
           <Component {...props} />
         </BaseContext.Provider>
       </div>
