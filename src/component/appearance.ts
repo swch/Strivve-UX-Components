@@ -320,8 +320,9 @@ const defaultAppearance: Appearance = {
       transitionDuration: '0.5s',
     },
     accountLinkProgressTitle: {
-      marginTop: '20px',
-      marginBottom: '20px',
+      margin: '20px',
+      textAlign: 'center',
+      fontSize: '14px',
     },
     accountLinkProgressFooter: {
       display: 'flex',

@@ -9,7 +9,7 @@ import { StrivveService } from '../component/testHelper';
 import { Localization } from '../types';
 
 const localization: Localization = {
-  selectSiteTitle: 'Select Site',
+  selectSiteTitle: 'Select my site',
   selectSiteTitleHaveJob: 'Select Site',
   accountLinkTitle: 'Sign in',
   accountLinkDescription: 'to continue account linking',

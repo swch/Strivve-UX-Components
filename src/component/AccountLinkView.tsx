@@ -42,7 +42,10 @@ export function AccountLinkView({
     }
   }
 
-  const percent = state?.message?.auth_percent_complete || 0;
+  let percent = state?.message?.auth_percent_complete || 0;
+  if (typeof state?.message?.auth_percent_complete === 'undefined') {
+    percent = state?.message?.percent_complete || 0;
+  }
 
   const dynamicBarStyle = useMemo(() => {
     const style: any = {};
@@ -91,7 +94,7 @@ export function AccountLinkView({
               className="accountLinkProgressTitle"
               css={appearance.elements?.accountLinkProgressTitle}
             >
-              Logging in...
+              {state?.message?.status_message || 'Logging in...'}
             </p>
             <SecurityIcon />
           </div>
@@ -110,7 +113,7 @@ export function AccountLinkView({
         <StatusModal
           open={state?.success}
           title="Success!"
-          description="Your card details were successfully placed on this site."
+          description={state?.message?.status_message}
           buttonText="Browse More Sites"
           onClickButton={options.onCancel}
           onClickClose={options.onCancel}
