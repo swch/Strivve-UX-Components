@@ -6,13 +6,73 @@ import LinkingJourney, {
 } from '../component/LinkingJourney';
 import Strivve from '../index';
 import { StrivveService } from '../component/testHelper';
-import { Appearance, Localization } from '../types';
+import { Appearance } from '../types';
 
-const localization: Localization = {
-  selectSiteTitle: 'Select Site',
-  selectSiteTitleHaveJob: 'Select Site',
-  accountLinkTitle: 'Sign in',
-  accountLinkDescription: 'to continue account linking',
+const appearance: Appearance = {
+  variables: {
+    colorPrimary: 'black',
+    colorSecondary: 'black',
+    colorBorder: 'black',
+  },
+  elements: {
+    selectSiteList: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gridGap: '12px',
+      borderTop: 'none',
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      borderRadius: '12px',
+    },
+    selectSiteTitle: {
+      fontSize: '20px',
+      fontWeight: 'bold',
+    },
+    selectSiteItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      border: 'none',
+      borderRadius: '8px',
+      transitionDuration: '0.2s',
+      '&:hover': {
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
+      },
+    },
+    selectSiteItemImage: {
+      height: '80px',
+      width: 'auto',
+    },
+    input: {
+      borderRadius: '20px',
+    },
+    button: {
+      borderRadius: '20px',
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      '&:hover': {
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
+      },
+    },
+    outlinedButton: {
+      borderRadius: '20px',
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      '&:hover': {
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
+      },
+    },
+    accountLinkContainer: {
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      borderRadius: '12px',
+      padding: '30px',
+      maxWidth: '330px',
+    },
+    accountLinkView: {
+      margin: '20px',
+    },
+    accountLinkHeaderTitle: {
+      fontSize: '20px',
+      fontWeight: 'bold',
+    },
+  },
 };
 
 const meta: Meta<typeof LinkingJourney> = {
@@ -35,7 +95,7 @@ Strivve.mountLinkingJourney({
     expiration_year: '24',
     name_on_card: 'Mvick',
   },
-  localization: ${JSON.stringify(localization, null, 2)},
+  appearance: ${JSON.stringify(appearance, null, 2)},
 });
 
 ${'```'}
@@ -64,7 +124,7 @@ export const Component: Story = {
           expiration_year: '24',
           name_on_card: 'Mvick',
         },
-        localization,
+        appearance,
         select_site: {
           view: 'list',
         },
