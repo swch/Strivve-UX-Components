@@ -115,7 +115,7 @@ function StatusModal({
           {description}
         </p>
         <div style={{ display: 'inline-block' }}>
-          <Button title={buttonText} onClick={onClickButton} />
+          {onClickButton && <Button title={buttonText} onClick={onClickButton} />}
           <Button title="Cancel" variant="text" onClick={onClickClose} />
         </div>
       </div>

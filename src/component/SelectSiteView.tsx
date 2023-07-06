@@ -170,6 +170,8 @@ export function SelectSiteView({
         <>
           {state?.tab === 2 ? (
             <SelectSiteList
+              key="my-sites"
+              id="my-site"
               sites={
                 core.jobs?.map((item) => ({
                   ...(item.site || {}),
@@ -181,6 +183,7 @@ export function SelectSiteView({
             />
           ) : (
             <SelectSiteList
+              key="sites"
               sites={state?.sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {

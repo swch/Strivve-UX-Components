@@ -151,10 +151,14 @@ const defaultAppearance: Appearance = {
     modalStatus: {
       background: 'white',
       textAlign: 'center',
-      margin: '20px',
+      margin: '20px auto',
       borderRadius: '5px',
       padding: '30px',
       position: 'relative',
+      maxWidth: '300px',
+      "@media (max-width: 600px)": {
+        margin: "20px"
+      }
     },
     modalDescription: {
       marginTop: '12px',
