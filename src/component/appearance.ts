@@ -156,9 +156,9 @@ const defaultAppearance: Appearance = {
       padding: '30px',
       position: 'relative',
       maxWidth: '300px',
-      "@media (max-width: 600px)": {
-        margin: "20px"
-      }
+      '@media (max-width: 600px)': {
+        margin: '20px',
+      },
     },
     modalDescription: {
       marginTop: '12px',
