@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { useRef, useState } from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
 import Slider from 'react-slick';
@@ -15,6 +16,8 @@ function SelectSiteCarousel({
   onSelectItem,
 }: SelectSiteCarouselProps) {
   const { appearance } = useBase();
+  const [slide, setSlide] = useState(0);
+  const sliderRef = useRef<Slider>(null);
 
   const settings = {
     dots: true,
@@ -26,11 +29,55 @@ function SelectSiteCarousel({
     slidesToScroll: 2,
   };
 
+  const totalSite = sites?.length || 0;
+  const isMore = totalSite > 20;
+
+  const tens = Math.floor(slide / 10) * 10;
+  const ones = slide % 10;
+
   return (
     <>
       <div style={{ width: '100%' }}>
-        <Slider {...settings}>
-          {sites?.slice(0, 20).map((item) => {
+        <Slider
+          {...settings}
+          ref={sliderRef}
+          appendDots={() => {
+            return (
+              <ul className="slick-dots">
+                {[0, 2, 4, 6, 8].map((item) => (
+                  <li className={ones === item ? 'slick-active' : ''}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sliderRef.current?.slickGoTo(tens + item);
+                      }}
+                      style={
+                        isMore && item === 8
+                          ? { height: '7px', width: '7px' }
+                          : {}
+                      }
+                    ></button>
+                  </li>
+                ))}
+                {ones === 8 && isMore && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sliderRef.current?.slickGoTo(tens + 10);
+                      }}
+                      style={{ height: '7px', width: '7px' }}
+                    ></button>
+                  </li>
+                )}
+              </ul>
+            );
+          }}
+          beforeChange={(current, index) => {
+            setSlide(index);
+          }}
+        >
+          {sites?.map((item) => {
             const image = item.images?.find(
               (image: any) => image.width === 128
             );
@@ -180,25 +227,29 @@ function SelectSiteCarousel({
 .slick-dots li {
   position: relative;
   display: inline-block;
-  width: 20px;
-  height: 20px;
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
 
 .slick-dots li button {
-  font-size: 0;
-  line-height: 0;
+  transition-duration: 0.2s;
   display: block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
+  width: 10px;
+  height: 10px;
+  margin: 6px;
   cursor: pointer;
-  color: transparent;
-  border: 0;
+  border: 1px solid #A4A4A4E5;
+  padding: 0;
   outline: 0;
-  background: 0 0;
+  background: #D9D9D9;
+  border-radius: 5px;
+}
+
+.slick-active button {
+  background: var(--colorPrimary) !important;
+  width: 10px !important;
+  height: 10px !important;
 }
 
 .slick-dots li button:focus,
@@ -206,28 +257,8 @@ function SelectSiteCarousel({
   outline: 0;
 }
 
-.slick-dots li button:focus:before,
-.slick-dots li button:hover:before {
-  opacity: 1;
-}
-
-.slick-dots li button:before {
-  font-size: 30px;
-  line-height: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  content: '•';
-  text-align: center;
-  opacity: 0.25;
-  color: #008BD9;
-}
-
-.slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: #008BD9;
+.slick-dots li button:hover {
+  background: var(--colorPrimary);
 }
 
 .slick-list,

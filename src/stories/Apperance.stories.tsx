@@ -5,7 +5,6 @@ import LinkingJourney, {
   LinkingJourney as MetaComponent,
 } from '../component/LinkingJourney';
 import Strivve from '../index';
-import { StrivveService } from '../component/testHelper';
 import { Appearance } from '../types';
 
 const appearance: Appearance = {
@@ -76,7 +75,7 @@ const appearance: Appearance = {
 };
 
 const meta: Meta<typeof LinkingJourney> = {
-  title: 'Costumize/Appearance',
+  title: 'Customization/Appearance',
   tags: ['autodocs'],
   component: LinkingJourney,
   argTypes: {},
@@ -114,7 +113,6 @@ export const Component: Story = {
   render: () => {
     const mount = () => {
       Strivve.mountLinkingJourney({
-        Service: StrivveService,
         element_id: 'account-link',
         api_instance: 'customer-dev',
         card: {

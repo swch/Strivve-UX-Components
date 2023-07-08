@@ -5,7 +5,6 @@ import LinkingJourney, {
   LinkingJourney as MetaComponent,
 } from '../component/LinkingJourney';
 import Strivve from '../index';
-import { StrivveService } from '../component/testHelper';
 import { Localization } from '../types';
 
 const localization: Localization = {
@@ -16,7 +15,7 @@ const localization: Localization = {
 };
 
 const meta: Meta<typeof LinkingJourney> = {
-  title: 'Costumize/Localization',
+  title: 'Customization/Localization',
   tags: ['autodocs'],
   component: LinkingJourney,
   argTypes: {},
@@ -54,7 +53,6 @@ export const Component: Story = {
   render: () => {
     const mount = () => {
       Strivve.mountLinkingJourney({
-        Service: StrivveService,
         element_id: 'account-link',
         api_instance: 'customer-dev',
         card: {

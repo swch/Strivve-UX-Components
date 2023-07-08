@@ -67,6 +67,7 @@ Strivve.mountLinkingJourney({
 | card         | CardConfig                                                                   | optional    |
 | card_id      | string                                                                       | optional    |
 | appearance   | Appearance                                                                   | optional    |
+| localization | Localization                                                                 | optional    |
 | grant        | string                                                                       | optional    |
 | select_site  | [mountSelectSiteViewOptions](docs/component.md#mountSelectSiteViewcomponent) | optional    |
 | account_link | [mountAccountLinkViewOptions](docs/component.md#mountAccountLinkViewoptions) | optional    |
