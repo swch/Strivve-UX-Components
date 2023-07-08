@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import withBase, { BaseProps } from './withBase';
 import { MerchantSite, mountLinkingJourneyOptions } from '../types';
 import SelectSiteView from './SelectSiteView';
 import AccountLinkView from './AccountLinkView';
+import { StrivveCoreMount, StrivveCoreState } from '../core/core';
 
 export function LinkingJourney({
   selectSiteOptions,
@@ -12,12 +13,19 @@ export function LinkingJourney({
   appearance,
   localization,
 }: BaseProps & mountLinkingJourneyOptions) {
-  const [step, setStep] = useState(1);
   const [sites, setSites] = useState<MerchantSite[]>([]);
+
+  const [state, setState] = useState<StrivveCoreState>();
+
+  useEffect(() => {
+    core.subscribe((state: StrivveCoreState) => {
+      setState(state);
+    });
+  }, []);
 
   return (
     <div data-testid="linkingJourney" className="linkingJourney">
-      {step === 1 && (
+      {state?.mount === StrivveCoreMount.SELECT_SITE && (
         <SelectSiteView
           core={core}
           appearance={appearance}
@@ -25,14 +33,14 @@ export function LinkingJourney({
           options={{
             ...selectSiteOptions,
             onSubmit: (sites) => {
-              setStep(2);
+              core.setMount(StrivveCoreMount.ACCOUNT_LINK);
               setSites(sites);
             },
           }}
         />
       )}
 
-      {step === 2 && (
+      {state?.mount === StrivveCoreMount.ACCOUNT_LINK && (
         <div>
           <AccountLinkView
             appearance={appearance}
@@ -42,7 +50,7 @@ export function LinkingJourney({
               ...accountLinkOptions,
               site_id: sites[0]?.id,
               onCancel: () => {
-                setStep(1);
+                core.setMount(StrivveCoreMount.SELECT_SITE);
               },
             }}
           />

@@ -44,7 +44,7 @@ export default class SelectSiteCore {
   }
 
   async getSites(filter?: APIFilter) {
-    this.updateState({ loading: true });
+    this.setState({ loading: true });
     try {
       const res = await this.service.getMerchantSites(filter);
       const sites = res.filter((site) => {
@@ -53,10 +53,10 @@ export default class SelectSiteCore {
         return normalized_site_name.indexOf(normalized_query) >= 0;
       });
       this.sites = sites;
-      this.updateState({ loading: false, sites });
+      this.setState({ loading: false, sites });
       return res;
     } catch (error: any) {
-      this.updateState({
+      this.setState({
         loading: false,
         error: true,
         message: error?.message,
@@ -75,7 +75,7 @@ export default class SelectSiteCore {
   }
 
   changeSearch(search: string) {
-    this.updateState({
+    this.setState({
       search,
       sites: this.sites.filter((site) => {
         const normalized_query = search.toLowerCase();
@@ -90,7 +90,7 @@ export default class SelectSiteCore {
       const selected = this.state.selected.filter(
         (item: any) => item.id !== merchant.id
       );
-      this.updateState({ selected });
+      this.setState({ selected });
     } else {
       let selected = this.state.selected || [];
       if (this.multiple) {
@@ -98,19 +98,19 @@ export default class SelectSiteCore {
       } else {
         selected = [merchant];
       }
-      this.updateState({ selected });
+      this.setState({ selected });
     }
   }
 
   setStep(step: number) {
-    this.updateState({ step });
+    this.setState({ step });
   }
 
   setTab(tab: number) {
-    this.updateState({ tab });
+    this.setState({ tab });
   }
 
-  private updateState(value: Partial<SelectSiteState>) {
+  public setState(value: Partial<SelectSiteState>) {
     this.state = {
       ...this.state,
       ...value,

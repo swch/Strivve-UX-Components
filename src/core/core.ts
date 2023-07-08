@@ -13,7 +13,16 @@ export type CreateAccountLinkOptions = Omit<
   'service' | 'onSubmit'
 >;
 
+export enum StrivveCoreMount {
+  ACCOUNT_LINK = 'account_link',
+  SELECT_SITE = 'select_site',
+}
+
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>;
+
+export type StrivveCoreState = {
+  mount: StrivveCoreMount;
+};
 
 export default class StrivveCore {
   public service: StrivveServiceInterface;
@@ -21,6 +30,12 @@ export default class StrivveCore {
   private card: any;
   private card_id?: string;
   public jobs: any[] = [];
+  public selectSiteCore?: SelectSiteCore;
+  public accountLinkCore?: AccountLinkCore;
+  private subscriber: Function = () => {};
+  public state: StrivveCoreState = {
+    mount: StrivveCoreMount.SELECT_SITE,
+  };
 
   constructor({ service, card_id, card }: StrivveCoreOptions) {
     this.service = service;
@@ -29,6 +44,39 @@ export default class StrivveCore {
     this.card = card;
 
     this.getJobs();
+  }
+
+  public subscribe(func: Function) {
+    this.subscriber = func;
+    this.notifyState();
+  }
+
+  public setState(value: Partial<StrivveCoreState>) {
+    this.state = {
+      ...this.state,
+      ...value,
+    };
+    this.notifyState();
+  }
+
+  private notifyState() {
+    this.subscriber(this.state);
+  }
+
+  setMount(mount: StrivveCoreMount) {
+    this.setState({ mount });
+  }
+
+  goBack(): boolean {
+    if (this.state.mount === StrivveCoreMount.ACCOUNT_LINK) {
+      this.setMount(StrivveCoreMount.SELECT_SITE);
+      return true;
+    } else if (this.selectSiteCore?.state.step === 2) {
+      this.selectSiteCore?.setStep(1);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getJobs() {
@@ -68,22 +116,28 @@ export default class StrivveCore {
     }
   }
 
-  createAccountLink(options: CreateAccountLinkOptions) {
+  createAccountLink(options: CreateAccountLinkOptions): AccountLinkCore {
     const job = this.jobs.find(
       (item) => item.site_id === options.site_id && !item?.termination_type
     );
-    return new AccountLinkCore({
+    this.accountLinkCore = new AccountLinkCore({
       ...options,
       job,
       onMessage: (id, messageg) => this.onMessage(id, messageg),
       onSubmit: (v: any, meta: any) => this.startJob(v, meta),
       service: this.service,
     });
+
+    return this.accountLinkCore;
   }
 
-  createSelectSite(options?: CreateSelectSiteOptions) {
+  createSelectSite(options?: CreateSelectSiteOptions): SelectSiteCore {
     this.getJobs();
-    return new SelectSiteCore({ ...options, service: this.service });
+    this.selectSiteCore = new SelectSiteCore({
+      ...options,
+      service: this.service,
+    });
+    return this.selectSiteCore;
   }
 
   async startJob(creds: { [key: string]: any }, meta?: { site: any }) {

@@ -16,6 +16,7 @@ import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
 import LinkingJourney from './LinkingJourney';
 import defaultLocalization from './localization';
+import SelectSiteCore from '../core/selectSite';
 
 export default class StrivveComponent implements StrivveComponentInterface {
   core: StrivveCore;

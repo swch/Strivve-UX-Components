@@ -165,10 +165,11 @@ const defaultAppearance: Appearance = {
       marginBottom: '20px',
     },
     searchSiteView: {
-      margin: '20px',
       background: '#FFFFFF',
       borderRadius: '5px',
       overflow: 'hidden',
+      maxWidth: '400px',
+      margin: '20px auto',
     },
     searchSiteHeader: {
       padding: '16px 16px 0 16px',
