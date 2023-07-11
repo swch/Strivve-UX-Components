@@ -10,6 +10,7 @@ const defaultAppearance: Appearance = {
     colorPrimary: '#008BD9',
     colorSecondary: '#6BBF00',
     fontFamily: 'sans-serif',
+    fontSize: '14px',
     colorText: '#000000',
     colorTextSecondary: '#565656',
     colorBorder: 'lightgray',
@@ -71,6 +72,7 @@ const defaultAppearance: Appearance = {
     button: {
       background: 'var(--colorPrimary)',
       borderRadius: '6px',
+      fontSize: 'var(--fontSize)',
       padding: '10px 12px',
       color: 'white',
       width: '100%',
@@ -86,6 +88,7 @@ const defaultAppearance: Appearance = {
     },
     secondaryButton: {
       background: 'var(--colorSecondary)',
+      fontSize: 'var(--fontSize)',
       borderRadius: '6px',
       padding: '10px 12px',
       color: 'white',
@@ -102,6 +105,7 @@ const defaultAppearance: Appearance = {
     },
     outlinedButton: {
       background: '#FFFFFF',
+      fontSize: 'var(--fontSize)',
       border: '2px solid var(--colorPrimaryDark)',
       borderRadius: '6px',
       color: 'var(--colorPrimaryDark)',
@@ -110,6 +114,7 @@ const defaultAppearance: Appearance = {
     },
     textButton: {
       borderRadius: '6px',
+      fontSize: 'var(--fontSize)',
       color: 'var(--colorPrimary)',
       cursor: 'pointer',
       padding: '10px 12px',
@@ -309,7 +314,7 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      paddingBottom: '40px',
+      paddingBottom: '20px',
       paddingTop: '20px',
       position: 'relative',
       zIndex: 2,
@@ -325,6 +330,11 @@ const defaultAppearance: Appearance = {
       transitionDuration: '0.5s',
     },
     accountLinkProgressTitle: {
+      margin: '20px',
+      textAlign: 'center',
+      fontSize: '14px',
+    },
+    accountLinkProgressDescription: {
       margin: '20px',
       textAlign: 'center',
       fontSize: '14px',

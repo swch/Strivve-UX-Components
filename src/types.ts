@@ -208,6 +208,7 @@ export type Appearance = {
     colorPrimary?: string;
     colorSecondary?: string;
     fontFamily?: string;
+    fontSize?: string;
     colorBorder?: string;
     colorText?: string;
     colorTextSecondary?: string;
@@ -262,6 +263,7 @@ export type Appearance = {
     accountLinkProgressCard?: Interpolation<Theme>;
     accountLinkProgressBar?: Interpolation<Theme>;
     accountLinkProgressTitle?: Interpolation<Theme>;
+    accountLinkProgressDescription?: Interpolation<Theme>;
     accountLinkProgressFooter?: Interpolation<Theme>;
   };
 };

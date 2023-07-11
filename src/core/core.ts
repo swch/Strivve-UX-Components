@@ -79,7 +79,7 @@ export default class StrivveCore {
     }
   }
 
-  getJobs() {
+  getJobs(): Job[] {
     const local = localStorage.getItem('jobs');
     if (local) {
       try {
@@ -132,10 +132,13 @@ export default class StrivveCore {
   }
 
   createSelectSite(options?: CreateSelectSiteOptions): SelectSiteCore {
-    this.getJobs();
+    const jobs = this.getJobs();
+    const isFirst = jobs.length === 0;
     this.selectSiteCore = new SelectSiteCore({
       ...options,
       service: this.service,
+      step: isFirst ? 0 : 2,
+      tab: isFirst ? 0 : 2,
     });
     return this.selectSiteCore;
   }

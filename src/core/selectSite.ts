@@ -5,6 +5,8 @@ export interface SelectSiteCoreOptions {
   filter?: APIFilter;
   multiple?: boolean;
   onSubmit?: Function;
+  step?: number;
+  tab?: number;
 }
 
 export interface SelectSiteState {
@@ -36,10 +38,11 @@ export default class SelectSiteCore {
   multiple?: boolean;
   private onSubmit?: Function;
 
-  constructor({ service, filter, multiple, onSubmit }: SelectSiteCoreOptions) {
+  constructor({ service, filter, multiple, onSubmit, step, tab }: SelectSiteCoreOptions) {
     this.service = service;
     this.multiple = multiple;
     this.onSubmit = onSubmit;
+    this.setState({ step: step || 1, tab: tab || 1 });
     this.getSites(filter);
   }
 

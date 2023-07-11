@@ -118,7 +118,6 @@ function StatusModal({
           {onClickButton && (
             <Button title={buttonText} onClick={onClickButton} />
           )}
-          <Button title="Cancel" variant="text" onClick={onClickClose} />
         </div>
       </div>
     </div>

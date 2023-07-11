@@ -94,9 +94,15 @@ export function AccountLinkView({
               className="accountLinkProgressTitle"
               css={appearance.elements?.accountLinkProgressTitle}
             >
-              {state?.message?.status_message || 'Logging in...'}
+              {'Logging in...'}
             </p>
             <SecurityIcon />
+            <p
+              className="accountLinkProgressDescription"
+              css={appearance.elements?.accountLinkProgressDescription}
+            >
+              {state?.message?.status_message}
+            </p>
           </div>
           <div
             style={dynamicBarStyle}
