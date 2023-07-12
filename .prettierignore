@@ -5,3 +5,5 @@ build-storybook/
 
 **/*.svg
 **/*.min.js
+
+public/main.js
