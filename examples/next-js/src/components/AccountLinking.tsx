@@ -1,6 +1,10 @@
-import Strivve from '@strivve/strivve-cx';
 import axios from 'axios';
 import { useEffect } from 'react';
+
+declare global {
+  const Strivve: any;
+}
+
 
 export default function AccountLinking() {
 
