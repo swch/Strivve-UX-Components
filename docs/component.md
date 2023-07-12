@@ -49,11 +49,12 @@ Interface representing localization options.
 
 ## mountSelectSiteViewOptions <a href="#mountSelectSiteViewOptions" id="mountSelectSiteViewOptions"></a>
 
-| Name        | Type                                          | Description                                                                                                                |
-| ----------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `filter`    | `APIFilter` (optional)                        | An object representing the filter criteria.                                                                                |
-| `multiple`  | `boolean` (optional)                          | A boolean value indicating whether multiple site selections are allowed.                                                   |
-| `view`      | `'list'                                       | 'carousel'` (optional)                                                                                                     | The view mode for the site selection, either `'list'` or `'carousel'`. |
-| `onSubmit`  | `(values: any) => void` (optional)            | A callback function to be executed when the selection is submitted. It receives the selected values as input.              |
-| `onClose`   | `() => void` (optional)                       | A callback function to be executed when the selection view is closed.                                                      |
-| `subscribe` | `(state: SelectSiteState) => void` (optional) | A callback function that subscribes to changes in the state of the site selection. It receives the updated state as input. |
+| Name       | Type                                    | Description                                                                                                               |
+| ---------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `filter`   | `{ [key: string]: string }` (optional)                  | An object representing the filter criteria https://swch.github.io/slate/?javascript#get-filters                                                                                |
+| `multiple` | `boolean` (optional)                    | A boolean value indicating whether multiple site selections are allowed.                                                   |
+| `view`     | `'list' \| 'carousel'` (optional)       | The view mode for the site selection, either `'list'` or `'carousel'`.                                                     |
+| `onSubmit` | `(values: any) => void` (optional)      | A callback function to be executed when the selection is submitted. It receives the selected values as input.              |
+| `onClose`  | `() => void` (optional)                 | A callback function to be executed when the selection view is closed.                                                      |
+| `subscribe`| `(state: SelectSiteState) => void` (optional) | A callback function that subscribes to changes in the state of the site selection. It receives the updated state as input. |
+

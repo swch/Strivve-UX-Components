@@ -5,5 +5,7 @@ build-storybook/
 
 **/*.svg
 **/*.min.js
+**/*.mdx
+**/*.md
 
 public/main.js

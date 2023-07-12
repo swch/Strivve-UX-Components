@@ -204,6 +204,12 @@ const defaultAppearance: Appearance = {
       padding: '16px',
       borderTop: '1px solid var(--colorBorder)',
     },
+    selectSiteListFooter: {
+      marginTop: '8px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
     selectSiteItem: {
       cursor: 'pointer',
       border: '1px solid #D9D9D9',

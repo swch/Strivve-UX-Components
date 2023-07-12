@@ -179,7 +179,7 @@ export function SelectSiteView({
                 })) || []
               }
               selected={[]}
-              onSelectItem={(item: any) => {}}
+              onSelectItem={(item: any) => { }}
             />
           ) : (
             <SelectSiteList
@@ -196,6 +196,19 @@ export function SelectSiteView({
               }}
             />
           )}
+
+          <div
+            className='selectSiteListFooter'
+            css={appearance.elements?.selectSiteListFooter}
+          >
+            <Button
+              title="Back"
+              variant="text"
+              onClick={() => {
+                selectSiteCore?.setStep(1);
+              }}
+            />
+          </div>
         </>
       )}
       {openSearch && (

@@ -16,7 +16,6 @@ import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
 import LinkingJourney from './LinkingJourney';
 import defaultLocalization from './localization';
-import SelectSiteCore from '../core/selectSite';
 
 export default class StrivveComponent implements StrivveComponentInterface {
   core: StrivveCore;
@@ -27,7 +26,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
 
-  constructor({ core, appearance, localization }: StrivveComponentOptions) {
+  constructor({ core, appearance, localization, unstyled }: StrivveComponentOptions) {
     this.core = core;
 
     if (appearance) {
@@ -36,6 +35,10 @@ export default class StrivveComponent implements StrivveComponentInterface {
 
     if (localization) {
       this.localization = this.mergeJSON(this.localization, localization);
+    }
+
+    if (unstyled) {
+      this.appearance = appearance || {};
     }
   }
 

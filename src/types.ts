@@ -162,6 +162,7 @@ export interface StrivveComponentOptions {
   core: StrivveCore;
   appearance?: Appearance;
   localization?: Localization;
+  unstyled?: boolean;
 }
 
 export interface StrivveServiceOptions {
@@ -231,6 +232,7 @@ export type Appearance = {
 
     selectSiteView?: Interpolation<Theme>;
     selectSiteList?: Interpolation<Theme>;
+    selectSiteListFooter?: Interpolation<Theme>;
     selectSiteItem?: Interpolation<Theme>;
     selectSiteTitle?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;

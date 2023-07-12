@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strivve Component</title>
+</head>
+
+<body>
+  <div style="max-width: 500px; margin: auto;">
+    <div id="account-link"></div>
+  </div>
+</body>
+
+<script src="https://swch.github.io/Strivve-UX-Components/main.js"></script>
+<script>
+
+  Strivve.mountLinkingJourney({
+    element_id: 'account-link',
+    api_instance: 'customer-dev',
+    card: {
+      pan: '4111111111111111',
+      cvv: '321',
+      expiration_month: '02',
+      expiration_year: '24',
+      name_on_card: 'Mvick',
+    },
+    appearance,
+    select_site: {
+        filter: {
+          tags: 'prod,synthetic,disabled'
+        }
+    },
+  });
+</script>
+
+</html>
