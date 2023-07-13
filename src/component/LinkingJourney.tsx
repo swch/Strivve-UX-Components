@@ -36,6 +36,7 @@ export function LinkingJourney({
               core.setMount(StrivveCoreMount.ACCOUNT_LINK);
               setSites(sites);
             },
+            view: appearance?.layout?.unstyled ? 'list' : selectSiteOptions?.view,
           }}
         />
       )}

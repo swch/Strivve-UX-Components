@@ -20,10 +20,7 @@ export function SelectSiteView({
   const [openSearch, setOpenSearch] = useState<boolean>(false);
 
   useEffect(() => {
-    const selectSite = core.createSelectSite({
-      ...(options || {}),
-      view: appearance?.layout?.unstyled ? 'list' : options?.view || 'carousel',
-    });
+    const selectSite = core.createSelectSite(options);
     selectSite.subscribe((state: SelectSiteState) => {
       setState(state);
       options?.subscribe?.(state);
