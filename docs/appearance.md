@@ -61,6 +61,7 @@ The `Appearance` type has the following properties:
 
   - `logoImageUrl` (optional): string
   - `appName` (optional): string
+  - `unstyled` (optional): boolean
 
 - `variables`
 
