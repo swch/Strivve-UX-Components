@@ -142,7 +142,7 @@ export default class AccountLinkCore {
       } else {
         this.updateState({ submitting: true });
         const job = await this.onSubmit(this.state.values, { site: this.site });
-        this.updateState({ job, submitting: false, linking: true, values: {} });
+        this.updateState({ job, submitting: false, linking: true, values: {}, loading: true });
         this.createQuery(job);
       }
     } catch (error: any) {
@@ -176,6 +176,7 @@ export default class AccountLinkCore {
             linking: false,
             failed: true,
             pending: null,
+            loading: false,
           });
         } else {
           this.updateState({
@@ -183,10 +184,11 @@ export default class AccountLinkCore {
             linking: false,
             success: true,
             pending: null,
+            loading: false,
           });
         }
       } else {
-        this.updateState({ message, linking: true, submitting: false });
+        this.updateState({ message, linking: true, submitting: false, loading: false });
       }
     };
 
