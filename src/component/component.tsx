@@ -26,7 +26,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
 
-  constructor({ core, appearance, localization, unstyled }: StrivveComponentOptions) {
+  constructor({ core, appearance, localization }: StrivveComponentOptions) {
     this.core = core;
 
     if (appearance) {
@@ -37,7 +37,8 @@ export default class StrivveComponent implements StrivveComponentInterface {
       this.localization = this.mergeJSON(this.localization, localization);
     }
 
-    if (unstyled) {
+    if (appearance?.layout?.unstyled) {
+      appearance.layout.unstyled = true;
       this.appearance = appearance || {};
     }
   }

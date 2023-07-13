@@ -41,7 +41,13 @@ const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
       }
     });
     return (
-      <div style={{ ...generateVariables, fontFamily: variables.fontFamily, fontSize: variables.fontSize }}>
+      <div
+        style={{
+          ...generateVariables,
+          fontFamily: variables.fontFamily,
+          fontSize: variables.fontSize,
+        }}
+      >
         <BaseContext.Provider value={{ appearance, localization }}>
           <Component {...props} />
         </BaseContext.Provider>

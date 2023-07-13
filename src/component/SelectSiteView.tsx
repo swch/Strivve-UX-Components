@@ -20,7 +20,10 @@ export function SelectSiteView({
   const [openSearch, setOpenSearch] = useState<boolean>(false);
 
   useEffect(() => {
-    const selectSite = core.createSelectSite(options);
+    const selectSite = core.createSelectSite({
+      ...(options || {}),
+      view: appearance?.layout?.unstyled ? 'list' : options?.view || 'carousel',
+    });
     selectSite.subscribe((state: SelectSiteState) => {
       setState(state);
       options?.subscribe?.(state);
@@ -179,7 +182,7 @@ export function SelectSiteView({
                 })) || []
               }
               selected={[]}
-              onSelectItem={(item: any) => { }}
+              onSelectItem={(item: any) => {}}
             />
           ) : (
             <SelectSiteList
@@ -198,7 +201,7 @@ export function SelectSiteView({
           )}
 
           <div
-            className='selectSiteListFooter'
+            className="selectSiteListFooter"
             css={appearance.elements?.selectSiteListFooter}
           >
             <Button

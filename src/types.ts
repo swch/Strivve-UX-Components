@@ -162,7 +162,6 @@ export interface StrivveComponentOptions {
   core: StrivveCore;
   appearance?: Appearance;
   localization?: Localization;
-  unstyled?: boolean;
 }
 
 export interface StrivveServiceOptions {
@@ -204,6 +203,7 @@ export type Appearance = {
   layout?: {
     logoImageUrl?: string;
     appName?: string;
+    unstyled?: boolean;
   };
   variables?: {
     colorPrimary?: string;

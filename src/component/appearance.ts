@@ -303,7 +303,7 @@ const defaultAppearance: Appearance = {
     accountLinkHeaderImageWrapper: {
       width: '100px',
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     accountLinkBody: {
       marginTop: '70px',

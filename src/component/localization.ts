@@ -1,8 +1,7 @@
 import { Localization } from '../types';
 
 const defaultLocalization: Localization = {
-  selectSiteTitle:
-    'Select a site for us to push your card info to.',
+  selectSiteTitle: 'Select a site for us to push your card info to.',
   selectSiteTitleHaveJob:
     'Select an additional site for us to push your card info to.',
 

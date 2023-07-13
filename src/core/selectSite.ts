@@ -7,6 +7,7 @@ export interface SelectSiteCoreOptions {
   onSubmit?: Function;
   step?: number;
   tab?: number;
+  view?: 'list' | 'carousel';
 }
 
 export interface SelectSiteState {
@@ -38,7 +39,14 @@ export default class SelectSiteCore {
   multiple?: boolean;
   private onSubmit?: Function;
 
-  constructor({ service, filter, multiple, onSubmit, step, tab }: SelectSiteCoreOptions) {
+  constructor({
+    service,
+    filter,
+    multiple,
+    onSubmit,
+    step,
+    tab,
+  }: SelectSiteCoreOptions) {
     this.service = service;
     this.multiple = multiple;
     this.onSubmit = onSubmit;

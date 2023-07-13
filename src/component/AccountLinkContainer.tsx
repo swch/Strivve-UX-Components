@@ -44,7 +44,10 @@ function AccountLinkContainer({
         className="accountLinkHeader"
         css={appearance.elements?.accountLinkHeader}
       >
-        <div className='accountLinkHeaderImageWrapper' css={appearance.elements?.accountLinkHeaderImageWrapper}>
+        <div
+          className="accountLinkHeaderImageWrapper"
+          css={appearance.elements?.accountLinkHeaderImageWrapper}
+        >
           {appearance.layout?.logoImageUrl && (
             <img
               alt="Logo"
@@ -100,7 +103,10 @@ function AccountLinkContainer({
           />
         </svg>
 
-        <div className='accountLinkHeaderImageWrapper' css={appearance.elements?.accountLinkHeaderImageWrapper}>
+        <div
+          className="accountLinkHeaderImageWrapper"
+          css={appearance.elements?.accountLinkHeaderImageWrapper}
+        >
           {image ? (
             <img
               alt="Site Logo"

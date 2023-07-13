@@ -142,7 +142,13 @@ export default class AccountLinkCore {
       } else {
         this.updateState({ submitting: true });
         const job = await this.onSubmit(this.state.values, { site: this.site });
-        this.updateState({ job, submitting: false, linking: true, values: {}, loading: true });
+        this.updateState({
+          job,
+          submitting: false,
+          linking: true,
+          values: {},
+          loading: true,
+        });
         this.createQuery(job);
       }
     } catch (error: any) {
@@ -188,7 +194,12 @@ export default class AccountLinkCore {
           });
         }
       } else {
-        this.updateState({ message, linking: true, submitting: false, loading: false });
+        this.updateState({
+          message,
+          linking: true,
+          submitting: false,
+          loading: false,
+        });
       }
     };
 
