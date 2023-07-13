@@ -300,6 +300,11 @@ const defaultAppearance: Appearance = {
       height: '36px',
       maxWidth: '100px',
     },
+    accountLinkHeaderImageWrapper: {
+      width: '100px',
+      display: 'flex',
+      justifyContent: 'center'
+    },
     accountLinkBody: {
       marginTop: '70px',
     },

@@ -254,6 +254,7 @@ export type Appearance = {
 
     accountLinkContainer?: Interpolation<Theme>;
     accountLinkHeader?: Interpolation<Theme>;
+    accountLinkHeaderImageWrapper?: Interpolation<Theme>;
     accountLinkHeaderImage?: Interpolation<Theme>;
     accountLinkHeaderTitle?: Interpolation<Theme>;
     accountLinkHeaderDescription?: Interpolation<Theme>;
