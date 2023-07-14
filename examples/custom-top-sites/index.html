@@ -16,7 +16,6 @@
 
 <script src="https://swch.github.io/Strivve-UX-Components/main.js"></script>
 <script>
-
   Strivve.mountLinkingJourney({
     element_id: 'account-link',
     api_instance: 'customer-dev',
@@ -29,11 +28,10 @@
     },
     select_site: {
       filter: {
-        tags: 'prod,synthetic,disabled',
-        image_widths: '128,32'
+        top_hosts: 'apple.com,amazon.com,netflix.com,spotify.com,target.com,uber.com,venmo.com,walgreens.com,walmart.com',
       }
-    },
+    }
   });
+  
 </script>
-
 </html>
