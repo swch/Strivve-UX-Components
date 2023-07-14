@@ -51,10 +51,35 @@ Interface representing localization options.
 
 | Name       | Type                                    | Description                                                                                                               |
 | ---------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `filter`   | `{ [key: string]: string }` (optional)                  | An object representing the filter criteria https://swch.github.io/slate/?javascript#get-merchant-site                                                                              |
+| `filter`   | `SelectSiteFilter: { [key: string]: string } ` (optional)                  | An object representing the filter criteria https://swch.github.io/slate/?javascript#get-merchant-site                                                                              |
 | `multiple` | `boolean` (optional)                    | A boolean value indicating whether multiple site selections are allowed.                                                   |
 | `view`     | `'list' \| 'carousel'` (optional)       | The view mode for the site selection, either `'list'` or `'carousel'`.                                                     |
 | `onSubmit` | `(values: any) => void` (optional)      | A callback function to be executed when the selection is submitted. It receives the selected values as input.              |
 | `onClose`  | `() => void` (optional)                 | A callback function to be executed when the selection view is closed.                                                      |
 | `subscribe`| `(state: SelectSiteState) => void` (optional) | A callback function that subscribes to changes in the state of the site selection. It receives the updated state as input. |
 
+
+### SelectSiteFilter
+
+```js
+      filter: {
+        tags: 'prod,synthetic,disabled',
+        top_hosts: 'apple.com,amazon.com,netflix.com,spotify.com,target.com,uber.com,venmo.com,walgreens.com,walmart.com',
+        image_widths: '128,32'
+      }
+```
+
+| Parameter            | Description                                    |
+|----------------------|------------------------------------------------|
+| ids / id (in path)   | Filter by specific IDs                         |
+| id                   | Filter by a single ID                          |
+| exclude_ids          | Exclude specific IDs                           |
+| top_ids              | Filter by the top IDs                          |
+| name_starts_with     | Filter by names that start with a specific string |
+| hosts                | Filter by specific hosts                       |
+| host                 | Filter by a single host                        |
+| exclude_hosts        | Exclude specific hosts                         |
+| top_hosts            | Filter by the top hosts                         |
+| host_starts_with     | Filter by hosts that start with a specific string |
+| tags                 | Filter by specific tags                         |
+| image_widths         | Filter by specific image widths                 |
