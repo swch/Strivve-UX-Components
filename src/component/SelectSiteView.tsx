@@ -34,6 +34,8 @@ export function SelectSiteView({
 
   const isHaveJob = core.jobs?.length > 0;
 
+  console.log('===', state?.sites);
+
   if (state?.loading) {
     return (
       <div
