@@ -19,11 +19,11 @@ export interface SelectSiteState {
   message?: string;
   step: number;
   tab: number;
-  filter: { top_hosts: string[], tags: string[] };
+  filter: { top_hosts: string[]; tags: string[] };
 }
 
 const defaultFilter = {
-  tags: ['prod','synthetic','disabled'],
+  tags: ['prod', 'synthetic', 'disabled'],
   top_hosts: [
     'amazon.com',
     'apple.com',
@@ -44,9 +44,9 @@ const defaultFilter = {
     'subway.com',
     'dominos.com',
     'starbucks.com',
-    'dribbble.com'
+    'dribbble.com',
   ],
-}
+};
 
 export const initialStateSelectSite = {
   sites: [],
@@ -62,9 +62,9 @@ export const initialStateSelectSite = {
 export default class SelectSiteCore {
   service: StrivveServiceInterface;
   state: SelectSiteState = initialStateSelectSite;
-  private subscriber: Function = () => { };
+  private subscriber: Function = () => {};
   private sites: MerchantSite[] = [];
-  multiple?: boolean;  
+  multiple?: boolean;
   private onSubmit?: Function;
 
   constructor({
@@ -85,8 +85,14 @@ export default class SelectSiteCore {
   async getSites(filter?: APIFilter) {
     this.setState({ loading: true });
     try {
-      const tags = filter?.tags || this.service.fi_detail?.config?.config?.merchant_site_tags || this.state.filter.tags;
-      const top_hosts =  filter?.top_hosts || this.service.fi_detail?.config?.config?.top_sites || this.state.filter.top_hosts;
+      const tags =
+        filter?.tags ||
+        this.service.fi_detail?.config?.config?.merchant_site_tags ||
+        this.state.filter.tags;
+      const top_hosts =
+        filter?.top_hosts ||
+        this.service.fi_detail?.config?.config?.top_sites ||
+        this.state.filter.top_hosts;
       const merchantFilter: any = {
         ...(filter || {}),
         tags: tags.join(','),

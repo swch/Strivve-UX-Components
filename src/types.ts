@@ -3,11 +3,9 @@ import { AccountLinkState } from './core/accountLink';
 import StrivveCore from './core/core';
 import { SelectSiteState } from './core/selectSite';
 
-export type APIFilter =
-  | {
-      [key: string]: string | string[];
-    }
-  | null;
+export type APIFilter = {
+  [key: string]: string | string[];
+} | null;
 
 export interface Job {
   id: number;

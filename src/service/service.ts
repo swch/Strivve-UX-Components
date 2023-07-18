@@ -22,7 +22,12 @@ class StrivveService implements StrivveServiceInterface {
   financial_institution?: string = 'default';
   public fi_detail?: any;
 
-  constructor({ api_instance, safe_key, grant, financial_institution }: StrivveServiceOptions) {
+  constructor({
+    api_instance,
+    safe_key,
+    grant,
+    financial_institution,
+  }: StrivveServiceOptions) {
     this.ch = CardsavrHelper.getInstance();
     this.api_instance = api_instance;
     if (safe_key) {
@@ -60,7 +65,9 @@ class StrivveService implements StrivveServiceInterface {
       this.is_login = true;
 
       if (this.financial_institution) {
-        const fi = await this.getFinancialInstitution(this.financial_institution);
+        const fi = await this.getFinancialInstitution(
+          this.financial_institution
+        );
         this.fi_detail = fi;
       }
       return res;
@@ -101,7 +108,7 @@ class StrivveService implements StrivveServiceInterface {
           })),
           cardsavr_server,
         };
-      } 
+      }
     } catch (err) {
       return null;
     }
@@ -181,7 +188,7 @@ class StrivveService implements StrivveServiceInterface {
 
   async getFinancialInstitution(lookup_key: string) {
     const session = this.ch.getSession(this.username);
-    const filters = {  };
+    const filters = {};
     const fis_response = await session.getFinancialInstitutions(filters);
     const fi = fis_response.body;
     console.log('===', fi);
