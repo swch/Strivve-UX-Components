@@ -33,7 +33,7 @@ const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
     Object.keys(variables).forEach((key) => {
       if (variables[key]) {
         generateVariables[`--${key}`] = variables[key];
-        if (key.includes('color')) {
+        if (key.includes('Color')) {
           const colors = getColors(variables[key]);
           generateVariables[`--${key}Dark`] = colors.dark;
           generateVariables[`--${key}Lighter`] = colors.lighter;

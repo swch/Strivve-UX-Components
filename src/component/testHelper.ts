@@ -76,6 +76,10 @@ export class StrivveService implements StrivveServiceInterface {
     }));
   }
 
+  init(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
   async getMerchantSite(id: string): Promise<MerchantSite | undefined> {
     const data = await this.getMerchantSites();
     return data[0];

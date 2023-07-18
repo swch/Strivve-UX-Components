@@ -85,6 +85,7 @@ export default class SelectSiteCore {
   async getSites(filter?: APIFilter) {
     this.setState({ loading: true });
     try {
+      await this.service.init();
       const tags =
         filter?.tags ||
         this.service.fi_detail?.config?.config?.merchant_site_tags ||
@@ -98,6 +99,7 @@ export default class SelectSiteCore {
         tags: tags.join(','),
         top_hosts: top_hosts.join(','),
       };
+
       const res = await this.service.getMerchantSites(merchantFilter);
       const sites = res.filter((site) => {
         const normalized_query = this.state.search.toLowerCase();
@@ -105,7 +107,7 @@ export default class SelectSiteCore {
         return normalized_site_name.indexOf(normalized_query) >= 0;
       });
       this.sites = sites;
-      this.setState({ loading: false, sites });
+      this.setState({ loading: false, sites, filter: { tags, top_hosts } });
       return res;
     } catch (error: any) {
       this.setState({

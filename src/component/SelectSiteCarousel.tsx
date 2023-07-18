@@ -248,7 +248,7 @@ function SelectSiteCarousel({
 }
 
 .slick-active button {
-  background: var(--colorPrimary) !important;
+  background: var(--primaryColor) !important;
   width: 10px !important;
   height: 10px !important;
 }
@@ -259,7 +259,7 @@ function SelectSiteCarousel({
 }
 
 .slick-dots li button:hover {
-  background: var(--colorPrimary);
+  background: var(--primaryColor);
 }
 
 .slick-list,

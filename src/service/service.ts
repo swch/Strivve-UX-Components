@@ -62,7 +62,6 @@ class StrivveService implements StrivveServiceInterface {
         config.username,
         config.password
       );
-      this.is_login = true;
 
       if (this.financial_institution) {
         const fi = await this.getFinancialInstitution(
@@ -70,6 +69,8 @@ class StrivveService implements StrivveServiceInterface {
         );
         this.fi_detail = fi;
       }
+
+      this.is_login = true;
       return res;
     } catch (error: any) {
       console.log(error);
@@ -115,7 +116,7 @@ class StrivveService implements StrivveServiceInterface {
     return null;
   }
 
-  private async waitingLogin(): Promise<boolean> {
+  async init(): Promise<boolean> {
     return new Promise((resolve) => {
       const intervalId = setInterval(() => {
         if (this.is_login === true) {
@@ -127,7 +128,7 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async getSession() {
-    await this.waitingLogin();
+    await this.init();
     const session = this.ch.getSession(this.username);
     return session;
   }
@@ -188,10 +189,9 @@ class StrivveService implements StrivveServiceInterface {
 
   async getFinancialInstitution(lookup_key: string) {
     const session = this.ch.getSession(this.username);
-    const filters = {};
+    const filters = { lookup_key };
     const fis_response = await session.getFinancialInstitutions(filters);
     const fi = fis_response.body;
-    console.log('===', fi);
     return fi?.[0];
   }
 }

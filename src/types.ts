@@ -122,6 +122,7 @@ export interface StrivveServiceInterface {
   createCardholderQuery(id: string): any;
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
+  init(): Promise<boolean>;
 }
 
 export interface StrivveServiceClass {
@@ -206,13 +207,13 @@ export type Appearance = {
     unstyled?: boolean;
   };
   variables?: {
-    colorPrimary?: string;
-    colorSecondary?: string;
+    primaryColor?: string;
+    secondaryColor?: string;
     fontFamily?: string;
     fontSize?: string;
-    colorBorder?: string;
-    colorText?: string;
-    colorTextSecondary?: string;
+    borderColor?: string;
+    textColor?: string;
+    textColorSecondary?: string;
   };
   elements?: {
     loader?: Interpolation<Theme>;

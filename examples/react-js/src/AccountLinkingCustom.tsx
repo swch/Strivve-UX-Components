@@ -19,7 +19,7 @@ export default function AccountLinkingCustom() {
           appName: 'Custom',
         },
         variables: {
-          colorPrimary: 'red',
+          primaryColor: 'red',
         }
       }
     })

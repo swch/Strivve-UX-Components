@@ -9,19 +9,19 @@ The `Appearance` type is an interface that specifies the appearance options for 
     appName: 'Strivve',
   },
   variables: {
-    colorPrimary: '#008BD9',
-    colorSecondary: '#6BBF00',
+    primaryColor: '#008BD9',
+    secondaryColor: '#6BBF00',
     fontFamily: 'sans-serif',
-    colorText: '#000000',
-    colorTextSecondary: '#565656',
-    colorBorder: 'lightgray',
+    textColor: '#000000',
+    textColorSecondary: '#565656',
+    borderColor: 'lightgray',
   },
   variables: {
-    colorPrimary: '#008BD9',
-    colorSecondary: '#6BBF00',
+    primaryColor: '#008BD9',
+    secondaryColor: '#6BBF00',
     fontFamily: 'sans-serif',
-    colorText: '#000000',
-    colorTextSecondary: '#565656',
+    textColor: '#000000',
+    textColorSecondary: '#565656',
   },
   elements: {
     input: {
@@ -35,15 +35,15 @@ The `Appearance` type is an interface that specifies the appearance options for 
       }
     },
     button: {
-      background: 'var(--colorPrimary)',
+      background: 'var(--primaryColor)',
       borderRadius: '6px',
       padding: '10px 12px',
       color: 'white',
       width: '100%',
       cursor: 'pointer',
-      border: '2px solid var(--colorPrimaryDark)',
+      border: '2px solid var(--primaryColorDark)',
       '&:hover': {
-        background: 'var(--colorPrimaryDark)'
+        background: 'var(--primaryColorDark)'
       },
       '&:disabled': {
         background: 'gray',
@@ -65,12 +65,12 @@ The `Appearance` type has the following properties:
 
 - `variables`
 
-  - `colorPrimary` (optional): string
-  - `colorSecondary` (optional): string
+  - `primaryColor` (optional): string
+  - `secondaryColor` (optional): string
   - `fontFamily` (optional): string
-  - `colorBorder` (optional): string
-  - `colorText` (optional): string
-  - `colorTextSecondary` (optional): string
+  - `borderColor` (optional): string
+  - `textColor` (optional): string
+  - `textColorSecondary` (optional): string
 
 - `elements`
   - `loader` (optional): [Object Styles](https://emotion.sh/docs/object-styles)
