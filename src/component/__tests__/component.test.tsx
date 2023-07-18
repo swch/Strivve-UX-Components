@@ -25,6 +25,10 @@ class ErrorService implements StrivveServiceInterface {
     throw new Error('Failed');
   }
 
+  init(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
   createJobs(data: JobBody[]): Promise<any> {
     return Promise.resolve();
   }

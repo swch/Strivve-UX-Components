@@ -76,6 +76,10 @@ class Service implements StrivveServiceInterface {
     return data[0];
   }
 
+  init(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
   createJobs(data: JobBody[]): Promise<any> {
     return Promise.resolve();
   }
