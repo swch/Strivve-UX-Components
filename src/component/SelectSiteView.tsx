@@ -33,9 +33,7 @@ export function SelectSiteView({
   };
 
   const isHaveJob = core.jobs?.length > 0;
-
-  console.log('===', state?.sites);
-
+  
   if (state?.loading) {
     return (
       <div
@@ -134,7 +132,7 @@ export function SelectSiteView({
       {options?.view !== 'list' && state?.step === 1 && (
         <div style={{ width: '100%' }}>
           <SelectSiteCarousel
-            sites={state?.sites || []}
+            sites={state?.sites ? state.sites.filter((site) => state.filter?.top_hosts.includes(site.host)) : []}
             selected={state?.selected || []}
             onSelectItem={(item: any) => {
               if (options?.multiple) {

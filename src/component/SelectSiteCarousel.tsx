@@ -41,38 +41,38 @@ function SelectSiteCarousel({
         <Slider
           {...settings}
           ref={sliderRef}
-          appendDots={() => {
-            return (
-              <ul className="slick-dots">
-                {[0, 2, 4, 6, 8].map((item) => (
-                  <li className={ones === item ? 'slick-active' : ''}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sliderRef.current?.slickGoTo(tens + item);
-                      }}
-                      style={
-                        isMore && item === 8
-                          ? { height: '7px', width: '7px' }
-                          : {}
-                      }
-                    ></button>
-                  </li>
-                ))}
-                {ones === 8 && isMore && (
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sliderRef.current?.slickGoTo(tens + 10);
-                      }}
-                      style={{ height: '7px', width: '7px' }}
-                    ></button>
-                  </li>
-                )}
-              </ul>
-            );
-          }}
+          // appendDots={() => {
+          //   return (
+          //     <ul className="slick-dots">
+          //       {[0, 2, 4, 6, 8].map((item) => (
+          //         <li key={item} className={ones === item ? 'slick-active' : ''}>
+          //           <button
+          //             type="button"
+          //             onClick={() => {
+          //               sliderRef.current?.slickGoTo(tens + item);
+          //             }}
+          //             style={
+          //               isMore && item === 8
+          //                 ? { height: '7px', width: '7px' }
+          //                 : {}
+          //             }
+          //           ></button>
+          //         </li>
+          //       ))}
+          //       {ones === 8 && isMore && (
+          //         <li>
+          //           <button
+          //             type="button"
+          //             onClick={() => {
+          //               sliderRef.current?.slickGoTo(tens + 10);
+          //             }}
+          //             style={{ height: '7px', width: '7px' }}
+          //           ></button>
+          //         </li>
+          //       )}
+          //     </ul>
+          //   );
+          // }}
           beforeChange={(current, index) => {
             setSlide(index);
           }}
@@ -233,6 +233,7 @@ function SelectSiteCarousel({
 }
 
 .slick-dots li button {
+  color: transparent;
   transition-duration: 0.2s;
   display: block;
   width: 10px;

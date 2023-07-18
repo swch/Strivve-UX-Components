@@ -25,6 +25,7 @@ export interface mountLinkingJourneyStrivve {
   localization?: Localization;
   element_id: string;
   grant?: string;
+  financial_institution?: string;
   card_id?: string;
   Component?: StrivveComponentClass;
   Service?: StrivveServiceClass;
@@ -58,10 +59,11 @@ export default class Strivve {
     card_id,
     select_site,
     account_link,
+    financial_institution,
   }: mountLinkingJourneyStrivve) {
     const createService = Service
-      ? new Service({ api_instance, grant })
-      : this.createService({ api_instance, grant });
+      ? new Service({ api_instance, grant, financial_institution })
+      : this.createService({ api_instance, grant, financial_institution });
 
     const core = this.createCore({
       service: createService,

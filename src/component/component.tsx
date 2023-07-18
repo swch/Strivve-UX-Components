@@ -25,11 +25,6 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private selectSite?: ReactDOM.Root;
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
-  private selectSiteFilter = {
-    tags: 'prod,synthetic,disabled',
-    top_hosts:
-      'amazon.com,apple.com,audible.com,hulu.com,netflix.com,spotify.com,target.com,uber.com,venmo.com,walgreens.com,walmart.com',
-  };
 
   constructor({ core, appearance, localization }: StrivveComponentOptions) {
     this.core = core;
@@ -95,10 +90,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
         appearance={this.appearance}
         localization={this.localization}
         core={this.core}
-        options={{
-          ...(options || {}),
-          filter: this.mergeJSON(this.selectSiteFilter, options?.filter),
-        }}
+        options={options}
       />
     );
     this.selectSite = root;
@@ -150,13 +142,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
         appearance={this.appearance}
         localization={this.localization}
         core={this.core}
-        selectSiteOptions={{
-          ...(selectSiteOptions || {}),
-          filter: this.mergeJSON(
-            this.selectSiteFilter,
-            selectSiteOptions?.filter
-          ),
-        }}
+        selectSiteOptions={selectSiteOptions}
         accountLinkOptions={accountLinkOptions}
       />
     );

@@ -19,6 +19,33 @@ export interface SelectSiteState {
   message?: string;
   step: number;
   tab: number;
+  filter: { top_hosts: string[], tags: string[] };
+}
+
+const defaultFilter = {
+  tags: ['prod','synthetic','disabled'],
+  top_hosts: [
+    'amazon.com',
+    'apple.com',
+    'audible.com',
+    'hulu.com',
+    'ebay.com',
+    'netflix.com',
+    'hbomax.com',
+    'spotify.com',
+    'target.com',
+    'uber.com',
+    'venmo.com',
+    'walgreens.com',
+    'walmart.com',
+    'nike.com',
+    'trivago.com',
+    'tripadvisor.com',
+    'subway.com',
+    'dominos.com',
+    'starbucks.com',
+    'dribbble.com'
+  ],
 }
 
 export const initialStateSelectSite = {
@@ -29,14 +56,15 @@ export const initialStateSelectSite = {
   error: false,
   step: 1,
   tab: 1,
+  filter: defaultFilter,
 };
 
 export default class SelectSiteCore {
   service: StrivveServiceInterface;
   state: SelectSiteState = initialStateSelectSite;
-  private subscriber: Function = () => {};
+  private subscriber: Function = () => { };
   private sites: MerchantSite[] = [];
-  multiple?: boolean;
+  multiple?: boolean;  
   private onSubmit?: Function;
 
   constructor({
@@ -57,7 +85,14 @@ export default class SelectSiteCore {
   async getSites(filter?: APIFilter) {
     this.setState({ loading: true });
     try {
-      const res = await this.service.getMerchantSites(filter);
+      const tags = filter?.tags || this.service.fi_detail?.config?.config?.merchant_site_tags || this.state.filter.tags;
+      const top_hosts =  filter?.top_hosts || this.service.fi_detail?.config?.config?.top_sites || this.state.filter.top_hosts;
+      const merchantFilter: any = {
+        ...(filter || {}),
+        tags: tags.join(','),
+        top_hosts: top_hosts.join(','),
+      };
+      const res = await this.service.getMerchantSites(merchantFilter);
       const sites = res.filter((site) => {
         const normalized_query = this.state.search.toLowerCase();
         const normalized_site_name = site.name.toLowerCase();

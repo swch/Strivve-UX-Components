@@ -19,8 +19,10 @@ class StrivveService implements StrivveServiceInterface {
   safe_key: string = 'strivve';
   pending: Function[] = [];
   grant?: string;
+  financial_institution?: string = 'default';
+  public fi_detail?: any;
 
-  constructor({ api_instance, safe_key, grant }: StrivveServiceOptions) {
+  constructor({ api_instance, safe_key, grant, financial_institution }: StrivveServiceOptions) {
     this.ch = CardsavrHelper.getInstance();
     this.api_instance = api_instance;
     if (safe_key) {
@@ -29,6 +31,10 @@ class StrivveService implements StrivveServiceInterface {
 
     if (grant) {
       this.grant = grant;
+    }
+
+    if (financial_institution) {
+      this.financial_institution = financial_institution;
     }
 
     this.login();
@@ -52,6 +58,11 @@ class StrivveService implements StrivveServiceInterface {
         config.password
       );
       this.is_login = true;
+
+      if (this.financial_institution) {
+        const fi = await this.getFinancialInstitution(this.financial_institution);
+        this.fi_detail = fi;
+      }
       return res;
     } catch (error: any) {
       console.log(error);
@@ -82,6 +93,7 @@ class StrivveService implements StrivveServiceInterface {
         `config_server: ${config_server}, cardsavr_server: ${cardsavr_server}`
       );
       const config = await (await fetch(config_server)).json();
+
       if (Array.isArray(config)) {
         return {
           ...(await Encryption.decryptResponse(config[0], {
@@ -89,9 +101,7 @@ class StrivveService implements StrivveServiceInterface {
           })),
           cardsavr_server,
         };
-      } else if (config?.username) {
-        return config;
-      }
+      } 
     } catch (err) {
       return null;
     }
@@ -167,6 +177,15 @@ class StrivveService implements StrivveServiceInterface {
       safe_key: this.safe_key,
       ...body,
     } as any);
+  }
+
+  async getFinancialInstitution(lookup_key: string) {
+    const session = this.ch.getSession(this.username);
+    const filters = {  };
+    const fis_response = await session.getFinancialInstitutions(filters);
+    const fi = fis_response.body;
+    console.log('===', fi);
+    return fi?.[0];
   }
 }
 

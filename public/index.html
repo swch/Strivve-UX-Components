@@ -52,6 +52,7 @@
     const stv = Strivve.mountLinkingJourney({
       element_id: 'full',
       api_instance: 'customer-dev',
+      financial_institution: '4frontcu',
       card: {
         pan: '4111111111111111',
         cvv: '321',
@@ -59,39 +60,6 @@
         expiration_year: '24',
         name_on_card: 'Mvick',
       },
-      // appearance: {
-      //   elements: {
-      //     accountLinkProgressBar: {
-      //       width: '{percent}%',
-      //       position: 'absolute',
-      //       top: 0,
-      //       height: '20px',
-      //       left: 0,
-      //       background: 'var(--colorSecondary)',
-      //       zIndex: 3,
-      //       transitionDuration: '0.5s',
-      //     }
-      //   }
-      // }
     });
-
-    // mount view
-    // const service = Strivve.createService({
-    //   api_instance: 'customer-dev',
-    // });
-    // const core = Strivve.createCore({
-    //   service,
-    //   card: {
-    //     pan: '4111111111111111',
-    //     cvv: '321',
-    //     expiration_month: '02',
-    //     expiration_year: '24',
-    //     name_on_card: 'Mvick',
-    //   },
-    // });
-    // const component = Strivve.createComponent({ core });
-
-    // component.mountAccountLinkView('account-link', {  site_id: 1, onCancel: () => {}  })
-    // component.mountSelectSiteView('select-site', {})
   </script>
 </html>

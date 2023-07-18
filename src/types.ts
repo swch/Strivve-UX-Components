@@ -4,7 +4,6 @@ import StrivveCore from './core/core';
 import { SelectSiteState } from './core/selectSite';
 
 export type APIFilter =
-  | number
   | {
       [key: string]: string | string[];
     }
@@ -110,6 +109,8 @@ export interface StrivveResponse<Body> {
 
 export interface StrivveServiceInterface {
   grant?: string;
+  financial_institution?: string;
+  fi_detail?: any;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
@@ -168,6 +169,7 @@ export interface StrivveServiceOptions {
   api_instance: string;
   safe_key?: string;
   grant?: string;
+  financial_institution?: string;
 }
 export interface mountAccountLinkViewOptions {
   site_id: string;
