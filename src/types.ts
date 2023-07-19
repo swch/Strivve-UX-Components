@@ -223,6 +223,7 @@ export type Appearance = {
     textButton?: Interpolation<Theme>;
     iconButton?: Interpolation<Theme>;
     input?: Interpolation<Theme>;
+    inputWrapper?: Interpolation<Theme>;
     label?: Interpolation<Theme>;
     link?: Interpolation<Theme>;
     errorText?: Interpolation<Theme>;
@@ -235,6 +236,8 @@ export type Appearance = {
     selectSiteList?: Interpolation<Theme>;
     selectSiteListFooter?: Interpolation<Theme>;
     selectSiteItem?: Interpolation<Theme>;
+    selectSiteItemError?: Interpolation<Theme>;
+    selectSiteItemSuccess?: Interpolation<Theme>;
     selectSiteTitle?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;
     selectSiteItemSelected?: Interpolation<Theme>;

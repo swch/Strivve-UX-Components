@@ -16,6 +16,7 @@ export interface Field {
   type?: string;
   label?: string;
   required?: boolean;
+  secret?: boolean;
 }
 
 export interface ErrorField {
@@ -91,6 +92,7 @@ export default class AccountLinkCore {
   async getSite(id: string, quick_start?: boolean, job?: any) {
     try {
       const site = await this.service.getMerchantSite(id);
+      console.log('===', site);
       this.site = site;
       this.fields =
         site?.account_link
@@ -101,6 +103,7 @@ export default class AccountLinkCore {
             label: item.label,
             type: item.secret ? 'password' : 'text',
             required: true,
+            secret: item.secret,
           })) || [];
 
       this.updateState({

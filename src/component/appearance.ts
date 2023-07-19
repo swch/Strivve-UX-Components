@@ -30,11 +30,13 @@ const defaultAppearance: Appearance = {
       padding: '12px',
       border: '1px solid var(--borderColor)',
       borderRadius: '5px',
-      marginBottom: '12px',
       width: '-webkit-fill-available',
       ':focus-visible': {
         outlineColor: 'var(--primaryColor)',
       },
+    },
+    inputWrapper: {
+      marginBottom: '12px',
     },
     link: {
       color: 'var(--secondaryColor)',
@@ -212,6 +214,24 @@ const defaultAppearance: Appearance = {
     },
     selectSiteItem: {
       cursor: 'pointer',
+      border: '1px solid #D9D9D9',
+      background: 'white',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '3px 12px',
+      backgroundColor: 'white',
+    },
+    selectSiteItemError: {
+      border: '1px solid #D9D9D9',
+      background: 'white',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '3px 12px',
+      backgroundColor: 'white',
+    },
+    selectSiteItemSuccess: {
       border: '1px solid #D9D9D9',
       background: 'white',
       borderRadius: '4px',

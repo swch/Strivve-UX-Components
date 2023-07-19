@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import { MerchantSite } from '../types';
@@ -53,7 +54,11 @@ function SelectSiteList({
                 active ? 'selectSiteItemSelected' : ''
               }`}
               css={
-                active
+                isSuccess
+                  ? appearance.elements?.selectSiteItemSuccess
+                  : isError
+                  ? appearance.elements?.selectSiteItemError
+                  : active
                   ? appearance.elements?.selectSiteItemSelected
                   : appearance.elements?.selectSiteItem
               }
@@ -84,7 +89,12 @@ function SelectSiteList({
                     css={appearance.elements?.errorText}
                   >
                     Problem logging in.{' '}
-                    <a onClick={() => setOpenStatus(item)}>See details</a>
+                    <a
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setOpenStatus(item)}
+                    >
+                      See details
+                    </a>
                   </div>
                 )}
               </div>

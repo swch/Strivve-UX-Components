@@ -41,38 +41,45 @@ function SelectSiteCarousel({
         <Slider
           {...settings}
           ref={sliderRef}
-          // appendDots={() => {
-          //   return (
-          //     <ul className="slick-dots">
-          //       {[0, 2, 4, 6, 8].map((item) => (
-          //         <li key={item} className={ones === item ? 'slick-active' : ''}>
-          //           <button
-          //             type="button"
-          //             onClick={() => {
-          //               sliderRef.current?.slickGoTo(tens + item);
-          //             }}
-          //             style={
-          //               isMore && item === 8
-          //                 ? { height: '7px', width: '7px' }
-          //                 : {}
-          //             }
-          //           ></button>
-          //         </li>
-          //       ))}
-          //       {ones === 8 && isMore && (
-          //         <li>
-          //           <button
-          //             type="button"
-          //             onClick={() => {
-          //               sliderRef.current?.slickGoTo(tens + 10);
-          //             }}
-          //             style={{ height: '7px', width: '7px' }}
-          //           ></button>
-          //         </li>
-          //       )}
-          //     </ul>
-          //   );
-          // }}
+          appendDots={
+            isMore
+              ? () => {
+                  return (
+                    <ul className="slick-dots">
+                      {[0, 2, 4, 6, 8].map((item) => (
+                        <li
+                          key={item}
+                          className={ones === item ? 'slick-active' : ''}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              sliderRef.current?.slickGoTo(tens + item);
+                            }}
+                            style={
+                              isMore && item === 8
+                                ? { height: '7px', width: '7px' }
+                                : {}
+                            }
+                          ></button>
+                        </li>
+                      ))}
+                      {ones === 8 && isMore && (
+                        <li>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              sliderRef.current?.slickGoTo(tens + 10);
+                            }}
+                            style={{ height: '7px', width: '7px' }}
+                          ></button>
+                        </li>
+                      )}
+                    </ul>
+                  );
+                }
+              : (dots) => <div>{dots}</div>
+          }
           beforeChange={(current, index) => {
             setSlide(index);
           }}

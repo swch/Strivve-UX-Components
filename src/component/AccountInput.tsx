@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, HTMLAttributes } from 'react';
 import { useBase } from './withBase';
+import EyeIcon from './icons/EyeIcon';
+import EyeSlashIcon from './icons/EyeSlashIcon';
 
 interface AccountInputProps {
   value?: string;
@@ -42,7 +44,7 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
   const { appearance } = useBase();
 
   return (
-    <div>
+    <div className="inputWrapper" css={appearance.elements?.inputWrapper}>
       {props.label ? (
         <div className="label" css={appearance.elements?.label}>
           <label data-testid="label" htmlFor={props.id}>
@@ -50,7 +52,11 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           </label>
         </div>
       ) : null}
-      <div>
+      <div
+        style={{
+          position: 'relative',
+        }}
+      >
         <input
           data-testid={props.id}
           id={props.id}
@@ -71,9 +77,19 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           className="input"
         />
         {props.type === 'password' ? (
-          <span className="input-group-append">
-            {/* <button className="btn btn-secondary" onClick={shouldShow}><EyeIcon /></button>  */}
-          </span>
+          <button
+            style={{
+              height: '100%',
+              position: 'absolute',
+              right: 4,
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            onClick={shouldShow}
+          >
+            {type === 'password' ? <EyeSlashIcon /> : <EyeIcon />}
+          </button>
         ) : null}
         {props.error ? (
           <div
