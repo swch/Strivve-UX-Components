@@ -16,6 +16,7 @@ class StrivveService implements StrivveServiceInterface {
   username: string = 'strivve';
   api_instance: string = 'strivve';
   is_login: boolean = false;
+  is_error: boolean = false;
   safe_key: string = 'strivve';
   pending: Function[] = [];
   grant?: string;
@@ -73,7 +74,7 @@ class StrivveService implements StrivveServiceInterface {
       this.is_login = true;
       return res;
     } catch (error: any) {
-      console.log(error);
+      this.is_error = true;
       if (window !== undefined) {
         localStorage.clear();
       }
@@ -117,11 +118,16 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async init(): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const intervalId = setInterval(() => {
-        if (this.is_login === true) {
+        if (this.is_login) {
           clearInterval(intervalId);
           resolve(true);
+        }
+
+        if (this.is_error) {
+          clearInterval(intervalId);
+          reject('Session expired');
         }
       }, 100);
     });
