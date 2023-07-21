@@ -19,7 +19,7 @@ class StrivveService implements StrivveServiceInterface {
   safe_key: string = 'strivve';
   pending: Function[] = [];
   grant?: string;
-  financial_institution?: string = 'default';
+  financial_institution?: string;
   public fi_detail?: any;
 
   constructor({

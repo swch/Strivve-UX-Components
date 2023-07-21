@@ -363,10 +363,11 @@ const defaultAppearance: Appearance = {
     accountLinkProgressTitle: {
       margin: '20px',
       textAlign: 'center',
-      fontSize: '14px',
+      fontSize: '16px',
+      fontWeight: 'bold',
     },
     accountLinkProgressDescription: {
-      margin: '20px',
+      margin: '14px',
       textAlign: 'center',
       fontSize: '14px',
     },

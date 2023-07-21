@@ -92,7 +92,6 @@ export default class AccountLinkCore {
   async getSite(id: string, quick_start?: boolean, job?: any) {
     try {
       const site = await this.service.getMerchantSite(id);
-      console.log('===', site);
       this.site = site;
       this.fields =
         site?.account_link

@@ -96,8 +96,8 @@ export default class SelectSiteCore {
         this.state.filter.top_hosts;
       const merchantFilter: any = {
         ...(filter || {}),
-        tags: tags.join(','),
-        top_hosts: top_hosts.join(','),
+        tags: Array.isArray(tags) ? tags.join(',') : tags,
+        top_hosts: Array.isArray(top_hosts) ? top_hosts.join(',') : top_hosts,
       };
 
       const res = await this.service.getMerchantSites(merchantFilter);

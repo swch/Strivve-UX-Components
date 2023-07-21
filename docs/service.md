@@ -14,7 +14,6 @@ const sites = await servive.getMerchantSites();
 | -------- | ------ | ----------- |
 | safe_key | string | optional    |
 | grant    | string | optional    |
-| financial_institution    | string | optional    |
 
 ## Function
 

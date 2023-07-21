@@ -66,7 +66,6 @@ Strivve.mountLinkingJourney({
 | api_instance | string                                                                       | required    |
 | card         | CardConfig                                                                   | optional    |
 | card_id      | string                                                                       | optional    |
-| financial_institution      | string                                                                       | optional    |
 | appearance   | Appearance                                                                   | optional    |
 | localization | Localization                                                                 | optional    |
 | grant        | string                                                                       | optional    |
