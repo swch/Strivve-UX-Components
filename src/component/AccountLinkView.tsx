@@ -119,7 +119,9 @@ export function AccountLinkView({
         <StatusModal
           open={state?.success}
           title="Success!"
-          description={state?.message?.status_message}
+          description={
+            'Your card details were successfully placed on this site.'
+          }
           buttonText="Browse More Sites"
           onClickButton={options.onCancel}
           onClickClose={options.onCancel}
@@ -135,7 +137,7 @@ export function AccountLinkView({
         />
         <PendingModal
           open={Boolean(state?.pending)}
-          title={pendingMessage[state?.message?.status] || ''}
+          title={pendingMessage[state?.pending?.status] || ''}
           description={state?.message?.status_message}
           buttonText="Verify"
           onClickClose={options.onCancel}

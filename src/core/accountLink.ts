@@ -174,9 +174,12 @@ export default class AccountLinkCore {
     const query = this.service.createCardholderQuery(job.cardholder_id);
 
     const statusHandler = (data: any) => {
-      const message = data.message;
+      const message = data.message || data.error_message;
       this.onMessage?.(data.job_id, message);
-      if (message?.termination_type) {
+
+      const isComplete = message.auth_percent_complete === 100;
+
+      if (message?.termination_type || data?.type === 'error' || isComplete) {
         if (failedStatus.includes(message.termination_type)) {
           this.updateState({
             message,
@@ -206,7 +209,9 @@ export default class AccountLinkCore {
 
     const pendingHandler = (data: any) => {
       const pending = data;
-      this.fields = this.uniqueBy(pending.account_link, 'key_name').map(
+      const message = data.message || data.error_message;
+
+      this.fields = this.uniqueBy(pending.account_link || [], 'key_name').map(
         (item: any) => ({
           name: item.key_name,
           value: '',
@@ -216,6 +221,7 @@ export default class AccountLinkCore {
         })
       );
       this.updateState({
+        message,
         pending,
         linking: false,
         submitting: false,
@@ -225,6 +231,13 @@ export default class AccountLinkCore {
 
     query.addListener(job.id, statusHandler, 'job_status');
     query.addListener(job.id, pendingHandler, 'pending');
+
+    query.addListener(job.id, (data: any) => {
+      if (data.message?.status?.includes('PENDING')) {
+        console.log('===', data);
+        pendingHandler(data);
+      }
+    });
 
     this.query = query;
   }
