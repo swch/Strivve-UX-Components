@@ -232,13 +232,6 @@ export default class AccountLinkCore {
     query.addListener(job.id, statusHandler, 'job_status');
     query.addListener(job.id, pendingHandler, 'pending');
 
-    query.addListener(job.id, (data: any) => {
-      if (data.message?.status?.includes('PENDING')) {
-        console.log('===', data);
-        pendingHandler(data);
-      }
-    });
-
     this.query = query;
   }
 

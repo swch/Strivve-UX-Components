@@ -584,6 +584,7 @@ export class CardholderQuery {
         this.creds_callbacks[message.job_id],
         'job_status'
       );
+      this.stopProbe();
       delete this.creds_callbacks[message.job_id];
     }
   }
@@ -622,6 +623,7 @@ export class CardholderQuery {
     type?: string
   ): void {
     this.event_emitter.remove(`${job_id}:${type ?? ''}`, handler);
+
     if (Object.keys(this.event_emitter.callbacks).length === 0) {
       this.stopProbe();
     }
@@ -649,6 +651,7 @@ export class CardholderQuery {
         const messages = await this.session.getCardholderMessages(
           this.cardholder_id
         );
+
         // if there's an error, we should say so, stop the probe, and send a status message that says the message channel is no longer available.
         tries = 0;
         if (messages.body) {
