@@ -42,10 +42,7 @@ export function AccountLinkView({
     }
   }
 
-  let percent = state?.message?.auth_percent_complete || 0;
-  if (typeof state?.message?.auth_percent_complete === 'undefined') {
-    percent = state?.message?.percent_complete || 0;
-  }
+  const percent = state?.percent || 0;
 
   const dynamicBarStyle = useMemo(() => {
     const style: any = {};

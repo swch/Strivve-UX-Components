@@ -37,6 +37,7 @@ export interface AccountLinkState {
   pending?: any;
   errors?: ErrorField[];
   fields: Field[];
+  percent: number;
 }
 
 export const initialStateAccountLink = {
@@ -48,6 +49,7 @@ export const initialStateAccountLink = {
   failed: false,
   submitting: false,
   fields: [],
+  percent: 0
 };
 
 export const failedStatus = [
@@ -65,6 +67,7 @@ export default class AccountLinkCore {
   private onSubmit: Function;
   private onMessage?: (id: string, values: any) => void;
   private subscriber: Function = () => {};
+  private intervalPercent?: ReturnType<typeof setInterval>;
 
   constructor({
     site_id,
@@ -142,16 +145,16 @@ export default class AccountLinkCore {
         });
         this.updateState({ pending: null, linking: true });
       } else {
-        this.updateState({ submitting: true });
+        this.updateState({ submitting: true, percent: 0 });
         const job = await this.onSubmit(this.state.values, { site: this.site });
         this.updateState({
           job,
           submitting: false,
           linking: true,
           values: {},
-          loading: true,
         });
         this.createQuery(job);
+        this.createIntervalPercent();
       }
     } catch (error: any) {
       const err = error.response?.body[0]?._errors || [
@@ -159,6 +162,21 @@ export default class AccountLinkCore {
       ];
       this.updateState({ errors: err, submitting: false });
     }
+  }
+
+  createIntervalPercent() {
+    this.intervalPercent = setInterval(() => {
+      if (!this.state.pending) {
+        const percent = this.state.percent + 1;
+        if (percent >= 95) {
+          if (this.intervalPercent) {
+            clearInterval(this.intervalPercent);
+          }
+        } else {
+          this.updateState({ percent });
+        }
+      }
+    }, 1000);
   }
 
   uniqueBy(arr: any, prop: string) {
@@ -178,10 +196,12 @@ export default class AccountLinkCore {
       this.onMessage?.(data.job_id, message);
 
       const isComplete = message.auth_percent_complete === 100;
+      const percent = this.state.percent > message.auth_percent_complete ? this.state.percent : message.auth_percent_complete;
 
       if (message?.termination_type || data?.type === 'error' || isComplete) {
         if (failedStatus.includes(message.termination_type)) {
           this.updateState({
+            percent,
             message,
             linking: false,
             failed: true,
@@ -190,6 +210,7 @@ export default class AccountLinkCore {
           });
         } else {
           this.updateState({
+            percent,
             message,
             linking: false,
             success: true,
@@ -197,8 +218,13 @@ export default class AccountLinkCore {
             loading: false,
           });
         }
+
+        if (this.intervalPercent) {
+          clearInterval(this.intervalPercent);
+        }
       } else {
         this.updateState({
+          percent,
           message,
           linking: true,
           submitting: false,

@@ -370,6 +370,7 @@ const defaultAppearance: Appearance = {
       margin: '14px',
       textAlign: 'center',
       fontSize: '14px',
+      minHeight: '20px',
     },
     accountLinkProgressFooter: {
       display: 'flex',
