@@ -49,7 +49,7 @@ export const initialStateAccountLink = {
   failed: false,
   submitting: false,
   fields: [],
-  percent: 0
+  percent: 0,
 };
 
 export const failedStatus = [
@@ -196,7 +196,10 @@ export default class AccountLinkCore {
       this.onMessage?.(data.job_id, message);
 
       const isComplete = message.auth_percent_complete === 100;
-      const percent = this.state.percent > message.auth_percent_complete ? this.state.percent : message.auth_percent_complete;
+      const percent =
+        this.state.percent > message.auth_percent_complete
+          ? this.state.percent
+          : message.auth_percent_complete;
 
       if (message?.termination_type || data?.type === 'error' || isComplete) {
         if (failedStatus.includes(message.termination_type)) {

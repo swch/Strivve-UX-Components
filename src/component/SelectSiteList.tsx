@@ -29,6 +29,8 @@ function SelectSiteList({
   const { appearance } = useBase();
   const [openStatus, setOpenStatus] = useState<MerchantSite | null>(null);
 
+  const isError = errorStatus.includes(openStatus?.job?.termination_type || '');
+
   return (
     <>
       <div
@@ -43,7 +45,8 @@ function SelectSiteList({
           const isError = errorStatus.includes(
             item.job?.termination_type || ''
           );
-          const isSuccess = item?.job?.status === 'SUCCESSFUL';
+          const isSuccess =
+            !isError && item?.job?.auth_percent_complete === 100;
           return (
             <div
               key={(id || '') + item.id}
@@ -98,16 +101,20 @@ function SelectSiteList({
                   </div>
                 )}
               </div>
-              {item.job?.status === 'SUCCESSFUL' && <SuccessIcon />}
+              {isSuccess && <SuccessIcon />}
               {isError && <ErrorIcon />}
             </div>
           );
         })}
       </div>
       <StatusModal
-        variant={openStatus?.job?.status === 'SUCCESSFUL' ? 'success' : 'error'}
-        description={openStatus?.job?.status_message || ''}
-        title={openStatus?.job?.status === 'SUCCESSFUL' ? 'Success!' : 'Error!'}
+        variant={!isError ? 'success' : 'error'}
+        description={
+          !isError
+            ? 'Your card details were successfully placed on this site.'
+            : openStatus?.job?.status_message || ''
+        }
+        title={!isError ? 'Success!' : 'Error!'}
         buttonText="Close"
         open={Boolean(openStatus)}
         onClickClose={() => setOpenStatus(null)}

@@ -20,6 +20,7 @@ export interface Job {
   last_updated_on: string;
   site?: MerchantSite;
   site_id?: string;
+  auth_percent_complete?: number;
 }
 
 export interface Cardholder {

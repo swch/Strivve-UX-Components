@@ -31,6 +31,7 @@ export interface mountLinkingJourneyStrivve {
   Service?: StrivveServiceClass;
   account_link?: mountAccountLinkViewOptions;
   select_site?: mountSelectSiteViewOptions;
+  reset?: boolean;
 }
 
 export default class Strivve {
@@ -60,6 +61,7 @@ export default class Strivve {
     select_site,
     account_link,
     financial_institution,
+    reset,
   }: mountLinkingJourneyStrivve) {
     const createService = Service
       ? new Service({ api_instance, grant, financial_institution })
@@ -69,6 +71,7 @@ export default class Strivve {
       service: createService,
       card,
       card_id,
+      reset,
     });
 
     const createComponent = Component

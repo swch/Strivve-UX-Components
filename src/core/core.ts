@@ -6,6 +6,7 @@ export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
   card_id?: string;
   card?: any;
+  reset?: boolean;
 }
 
 export type CreateAccountLinkOptions = Omit<
@@ -37,11 +38,15 @@ export default class StrivveCore {
     mount: StrivveCoreMount.SELECT_SITE,
   };
 
-  constructor({ service, card_id, card }: StrivveCoreOptions) {
+  constructor({ service, card_id, card, reset }: StrivveCoreOptions) {
     this.service = service;
 
     this.card_id = card_id;
     this.card = card;
+
+    if (reset) {
+      localStorage.clear();
+    }
 
     this.getJobs();
   }
@@ -83,9 +88,7 @@ export default class StrivveCore {
     const local = localStorage.getItem('jobs');
     if (local) {
       try {
-        const newJobs = JSON.parse(local)?.filter(
-          (item: Job) => item?.termination_type
-        );
+        const newJobs = JSON.parse(local);
         this.jobs = newJobs;
 
         return newJobs;
