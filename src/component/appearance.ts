@@ -329,7 +329,7 @@ const defaultAppearance: Appearance = {
       marginTop: '70px',
     },
     accountLinkFooter: {
-      marginTop: '20px',
+      marginTop: '40px',
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
       gridGap: '12px',
@@ -378,6 +378,10 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       marginTop: '20px',
       gap: '20px',
+    },
+    accountLinkForgotLink: {
+      textDecoration: 'none',
+      color: '#008BD9',
     },
   },
 };

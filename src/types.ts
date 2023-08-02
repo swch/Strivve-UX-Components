@@ -8,7 +8,7 @@ export type APIFilter = {
 } | null;
 
 export interface Job {
-  id: number;
+  id: number | string;
   status: string;
   status_message: string;
   termination_type: string;
@@ -267,6 +267,7 @@ export type Appearance = {
     accountLinkFooter?: Interpolation<Theme>;
     accountLinkView?: Interpolation<Theme>;
     accountLinkForm?: Interpolation<Theme>;
+    accountLinkForgotLink?: Interpolation<Theme>;
     accountLinkProgress?: Interpolation<Theme>;
     accountLinkProgressCard?: Interpolation<Theme>;
     accountLinkProgressBar?: Interpolation<Theme>;

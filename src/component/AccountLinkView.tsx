@@ -177,6 +177,7 @@ export function AccountLinkView({
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
           onCancel={options.onCancel}
+          forgotLink={accountLinkCore?.site?.forgot_password_page}
         />
       </AccountLinkContainer>
     </div>

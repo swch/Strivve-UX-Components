@@ -33,6 +33,11 @@ export function SelectSiteView({
   };
 
   const isHaveJob = core.jobs?.length > 0;
+  const jobIds = (core.jobs || []).map((item) => item.site_id);
+
+  const sites = (state?.sites || []).filter(
+    (item) => !jobIds.includes(item.id)
+  );
 
   if (state?.loading) {
     return (
@@ -133,10 +138,8 @@ export function SelectSiteView({
         <div style={{ width: '100%' }}>
           <SelectSiteCarousel
             sites={
-              state?.sites
-                ? state.sites.filter((site) =>
-                    state.filter?.top_hosts.includes(site.host)
-                  )
+              sites
+                ? sites.filter((site) => site.tags.includes('top_notify'))
                 : []
             }
             selected={state?.selected || []}
@@ -190,7 +193,7 @@ export function SelectSiteView({
           ) : (
             <SelectSiteList
               key="sites"
-              sites={state?.sites || []}
+              sites={sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {
                 if (options?.multiple) {

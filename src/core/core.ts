@@ -45,7 +45,7 @@ export default class StrivveCore {
     this.card = card;
 
     if (reset) {
-      localStorage.clear();
+      sessionStorage.clear();
     }
 
     this.getJobs();
@@ -85,7 +85,7 @@ export default class StrivveCore {
   }
 
   getJobs(): Job[] {
-    const local = localStorage.getItem('jobs');
+    const local = sessionStorage.getItem('jobs');
     if (local) {
       try {
         const newJobs = JSON.parse(local);
@@ -100,7 +100,7 @@ export default class StrivveCore {
 
   private updateJobs(jobs: any) {
     this.jobs = jobs;
-    localStorage.setItem('jobs', JSON.stringify(jobs));
+    sessionStorage.setItem('jobs', JSON.stringify(jobs));
   }
 
   private onMessage(id: string, message: any) {

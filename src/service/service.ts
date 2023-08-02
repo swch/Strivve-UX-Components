@@ -76,7 +76,7 @@ class StrivveService implements StrivveServiceInterface {
     } catch (error: any) {
       this.is_error = true;
       if (window !== undefined) {
-        localStorage.clear();
+        sessionStorage.clear();
       }
       throw new Error(error.message);
     }

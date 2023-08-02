@@ -19,33 +19,13 @@ export interface SelectSiteState {
   message?: string;
   step: number;
   tab: number;
-  filter: { top_hosts: string[]; tags: string[] };
+  filter: { top_hosts: string; tags: string };
 }
 
 const defaultFilter = {
-  tags: ['prod', 'synthetic', 'disabled'],
-  top_hosts: [
-    'amazon.com',
-    'apple.com',
-    'audible.com',
-    'hulu.com',
-    'ebay.com',
-    'netflix.com',
-    'hbomax.com',
-    'spotify.com',
-    'target.com',
-    'uber.com',
-    'venmo.com',
-    'walgreens.com',
-    'walmart.com',
-    'nike.com',
-    'trivago.com',
-    'tripadvisor.com',
-    'subway.com',
-    'dominos.com',
-    'starbucks.com',
-    'dribbble.com',
-  ],
+  tags: 'prod,synthetic,disabled',
+  top_hosts:
+    'amazon.comapple.comaudible.comhulu.comebay.comnetflix.comhbomax.comspotify.comtarget.comuber.comvenmo.comwalgreens.comwalmart.comnike.comtrivago.comtripadvisor.comsubway.comdominos.comstarbucks.comdribbble.com',
 };
 
 export const initialStateSelectSite = {
@@ -96,8 +76,8 @@ export default class SelectSiteCore {
         this.state.filter.top_hosts;
       const merchantFilter: any = {
         ...(filter || {}),
-        tags: Array.isArray(tags) ? tags.join(',') : tags,
-        top_hosts: Array.isArray(top_hosts) ? top_hosts.join(',') : top_hosts,
+        tags,
+        top_hosts,
       };
 
       const res = await this.service.getMerchantSites(merchantFilter);

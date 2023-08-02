@@ -12,6 +12,7 @@ export interface AccountLinkFormProps {
   disabled?: boolean;
   values?: { [key: string]: any };
   onCancel?: () => void;
+  forgotLink?: string;
 }
 
 function AccountLinkForm({
@@ -21,6 +22,7 @@ function AccountLinkForm({
   disabled,
   values,
   onCancel,
+  forgotLink,
 }: AccountLinkFormProps) {
   const { appearance } = useBase();
 
@@ -51,6 +53,18 @@ function AccountLinkForm({
           />
         );
       })}
+
+      {forgotLink && (
+        <a
+          target="_blank"
+          className="accountLinkForgotLink"
+          css={appearance.elements?.accountLinkForgotLink}
+          href={forgotLink}
+          rel="noreferrer"
+        >
+          Forgot your sign-in? Let’s go find it.
+        </a>
+      )}
       <div
         css={appearance.elements?.accountLinkFooter}
         className="accountLinkFooter"
