@@ -5,6 +5,7 @@ export interface SelectSiteCoreOptions {
   filter?: APIFilter;
   multiple?: boolean;
   onSubmit?: Function;
+  sendEvent?: (action: string, data: any) => void;
   step?: number;
   tab?: number;
   view?: 'list' | 'carousel';
@@ -19,13 +20,11 @@ export interface SelectSiteState {
   message?: string;
   step: number;
   tab: number;
-  filter: { top_hosts: string; tags: string };
+  filter: { top_hosts?: string; tags?: string };
 }
 
 const defaultFilter = {
   tags: 'prod,synthetic,disabled',
-  top_hosts:
-    'amazon.comapple.comaudible.comhulu.comebay.comnetflix.comhbomax.comspotify.comtarget.comuber.comvenmo.comwalgreens.comwalmart.comnike.comtrivago.comtripadvisor.comsubway.comdominos.comstarbucks.comdribbble.com',
 };
 
 export const initialStateSelectSite = {
@@ -46,6 +45,7 @@ export default class SelectSiteCore {
   private sites: MerchantSite[] = [];
   multiple?: boolean;
   private onSubmit?: Function;
+  sendEvent?: (action: string, data: any) => void;
 
   constructor({
     service,
@@ -54,10 +54,12 @@ export default class SelectSiteCore {
     onSubmit,
     step,
     tab,
+    sendEvent,
   }: SelectSiteCoreOptions) {
     this.service = service;
     this.multiple = multiple;
     this.onSubmit = onSubmit;
+    this.sendEvent = sendEvent;
     this.setState({ step: step || 1, tab: tab || 1 });
     this.getSites(filter);
   }

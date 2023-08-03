@@ -69,7 +69,10 @@ export function SelectSiteView({
                 ? appearance.elements?.tabItemActive
                 : appearance.elements?.tabItem
             }
-            onClick={() => selectSiteCore?.setTab(2)}
+            onClick={() => {
+              selectSiteCore?.setTab(2);
+              core.sendEvent('click_your_sites');
+            }}
           >
             Your Sites
           </button>
@@ -79,7 +82,10 @@ export function SelectSiteView({
                 ? appearance.elements?.tabItemActive
                 : appearance.elements?.tabItem
             }
-            onClick={() => selectSiteCore?.setTab(1)}
+            onClick={() => {
+              selectSiteCore?.setTab(1);
+              core.sendEvent('click_more_sites');
+            }}
           >
             More Sites
           </button>
@@ -144,6 +150,7 @@ export function SelectSiteView({
             }
             selected={state?.selected || []}
             onSelectItem={(item: any) => {
+              core.sendEvent('select_site', item);
               if (options?.multiple) {
                 selectSiteCore?.selectItem(item);
               } else {
@@ -158,6 +165,7 @@ export function SelectSiteView({
               onClick={() => {
                 selectSiteCore?.setStep(2);
                 selectSiteCore?.setTab(1);
+                core.sendEvent('click_browse_all_sites');
               }}
               variant="outlined"
             />
@@ -166,6 +174,7 @@ export function SelectSiteView({
                 onClick={() => {
                   selectSiteCore?.setStep(2);
                   selectSiteCore?.setTab(2);
+                  core.sendEvent('click_my_sites');
                 }}
                 title="My Sites"
                 variant="text"
@@ -196,6 +205,8 @@ export function SelectSiteView({
               sites={sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {
+                core.sendEvent('select_site', item);
+
                 if (options?.multiple) {
                   selectSiteCore?.selectItem(item);
                 } else {
@@ -215,6 +226,7 @@ export function SelectSiteView({
               variant="text"
               onClick={() => {
                 selectSiteCore?.setStep(1);
+                core.sendEvent('click_back_to_carousel');
               }}
             />
           </div>

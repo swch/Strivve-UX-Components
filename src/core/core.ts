@@ -7,6 +7,7 @@ export interface StrivveCoreOptions {
   card_id?: string;
   card?: any;
   reset?: boolean;
+  eventHandler?: (action: string, data?: any) => void;
 }
 
 export type CreateAccountLinkOptions = Omit<
@@ -37,8 +38,15 @@ export default class StrivveCore {
   public state: StrivveCoreState = {
     mount: StrivveCoreMount.SELECT_SITE,
   };
+  private eventHandler?: (action: string, data?: any) => void;
 
-  constructor({ service, card_id, card, reset }: StrivveCoreOptions) {
+  constructor({
+    service,
+    card_id,
+    card,
+    reset,
+    eventHandler,
+  }: StrivveCoreOptions) {
     this.service = service;
 
     this.card_id = card_id;
@@ -48,12 +56,18 @@ export default class StrivveCore {
       sessionStorage.clear();
     }
 
+    this.eventHandler = eventHandler;
+
     this.getJobs();
   }
 
   public subscribe(func: Function) {
     this.subscriber = func;
     this.notifyState();
+  }
+
+  public sendEvent(action: string, data?: any) {
+    this.eventHandler?.(action, data);
   }
 
   public setState(value: Partial<StrivveCoreState>) {

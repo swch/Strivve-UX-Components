@@ -36,11 +36,18 @@ export function AccountLinkView({
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
     if (options.onSubmit) {
+      core.sendEvent('submit_form_account_link');
       options.onSubmit(state?.values);
     } else {
+      core.sendEvent('submit_verify_account_link');
       accountLinkCore?.submit();
     }
   }
+
+  const handleClickCancel = () => {
+    core.sendEvent('click_cancel_account_link');
+    options.onCancel?.();
+  };
 
   const percent = state?.percent || 0;
 
@@ -111,7 +118,7 @@ export function AccountLinkView({
           className="accountLinkProgressFooter"
           css={appearance.elements?.accountLinkProgressFooter}
         >
-          <Button variant="text" onClick={options.onCancel} title="Cancel" />
+          <Button variant="text" onClick={handleClickCancel} title="Cancel" />
         </div>
         <StatusModal
           open={state?.success}
@@ -120,8 +127,11 @@ export function AccountLinkView({
             'Your card details were successfully placed on this site.'
           }
           buttonText="Browse More Sites"
-          onClickButton={options.onCancel}
-          onClickClose={options.onCancel}
+          onClickButton={() => {
+            options.onCancel?.();
+            core.sendEvent('click_browse_more_site');
+          }}
+          onClickClose={handleClickCancel}
         />
         <StatusModal
           open={state?.failed}
@@ -129,15 +139,18 @@ export function AccountLinkView({
           title="Error!"
           description={state?.message?.status_message}
           buttonText="Try a Different Site"
-          onClickButton={options.onCancel}
-          onClickClose={options.onCancel}
+          onClickButton={() => {
+            options.onCancel?.();
+            core.sendEvent('click_try_different_site');
+          }}
+          onClickClose={handleClickCancel}
         />
         <PendingModal
           open={Boolean(state?.pending)}
           title={pendingMessage[state?.pending?.status] || ''}
           description={state?.message?.status_message}
           buttonText="Verify"
-          onClickClose={options.onCancel}
+          onClickClose={handleClickCancel}
           fields={accountLinkCore?.fields || []}
           disabled={state?.submitting}
           submit={handleSubmit}
@@ -178,6 +191,7 @@ export function AccountLinkView({
           values={state?.values}
           onCancel={options.onCancel}
           forgotLink={accountLinkCore?.site?.forgot_password_page}
+          core={core}
         />
       </AccountLinkContainer>
     </div>

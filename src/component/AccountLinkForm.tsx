@@ -4,6 +4,7 @@ import { Field } from '../core/accountLink';
 import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
+import StrivveCore from '../core/core';
 
 export interface AccountLinkFormProps {
   fields: Field[];
@@ -13,6 +14,7 @@ export interface AccountLinkFormProps {
   values?: { [key: string]: any };
   onCancel?: () => void;
   forgotLink?: string;
+  core?: StrivveCore;
 }
 
 function AccountLinkForm({
@@ -23,6 +25,7 @@ function AccountLinkForm({
   values,
   onCancel,
   forgotLink,
+  core,
 }: AccountLinkFormProps) {
   const { appearance } = useBase();
 
@@ -61,6 +64,9 @@ function AccountLinkForm({
           css={appearance.elements?.accountLinkForgotLink}
           href={forgotLink}
           rel="noreferrer"
+          onClick={() => {
+            core?.sendEvent('click_forgot_password');
+          }}
         >
           Forgot your sign-in? Let’s go find it.
         </a>
@@ -71,7 +77,10 @@ function AccountLinkForm({
       >
         {onCancel && (
           <Button
-            onClick={onCancel}
+            onClick={() => {
+              onCancel();
+              core?.sendEvent('click_cancel_account_link');
+            }}
             type="button"
             title={'Cancel'}
             variant="outlined"

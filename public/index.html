@@ -65,6 +65,9 @@
           tags: 'prod,synthetic,disabled',
         },
       },
+      eventHandler: (action, data) => {
+        console.log(action, data);
+      },
     });
 
     // const service = Strivve.createService({ api_instance: 'customer-dev' });
