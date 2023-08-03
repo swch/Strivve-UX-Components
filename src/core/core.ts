@@ -6,6 +6,7 @@ export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
   card_id?: string;
   card?: any;
+  address?: any;
   reset?: boolean;
   eventHandler?: (action: string, data?: any) => void;
 }
@@ -189,9 +190,14 @@ export default class StrivveCore {
       }
 
       if (!card?.id) {
+        const address = card.address;
+        if (address) {
+          address.cardholder_id = cardholder.id;
+        }
         const createCardResponse = await this.service.createCard({
           ...card,
           cardholder_id: cardholder.id,
+          address,
         });
 
         card = createCardResponse.body;
@@ -221,6 +227,7 @@ export default class StrivveCore {
       this.updateJobs(newJobs);
       return job;
     } catch (error: any) {
+      console.log('===', error.response);
       throw error;
     }
   }

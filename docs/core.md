@@ -12,7 +12,35 @@ const core = Strivve.createCore({ service, card_id });
 | ------- | ------------------------------ | ----------- |
 | service | [service instance](service.md) | required    |
 | card_id | string                         | optional    |
-| card    | card                           | optional    |
+| card    | Card                           | optional    |
+
+## Card
+
+| name             | params | description                                                                                                                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| pan              | string | Unique Personal Account Reference number for this card, to be used for card lookup. Generated automatically from PAN, expiration date, and username if using the SDK. |
+| cvv              | string | -                                                                                                                                                                     |
+| expiration_month | string | -                                                                                                                                                                     |
+| expiration_year  | string | -                                                                                                                                                                     |
+| name_on_card     | string | -                                                                                                                                                                     |
+| address     | Address | optional                                                                                                                                                                     |
+
+## Address
+
+| name             | params | description                                                                                                                                                           |
+| ---------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                      |
+| city     | string | required  |
+| postal_code     | string | required  |
+| first_name     | string | required  |
+| last_name     | string | required  |
+| email     | string | required  |
+| phone_number     | string | required  |
+| address1     | string | required  |
+| state     | string | required  |
+| subnational     | string | required  |
+| is_primary     | boolean | required  |
+
+
 
 ## Function
 

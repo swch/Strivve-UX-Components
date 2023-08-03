@@ -289,6 +289,7 @@ export type CardBody = {
   expiration_year: number;
   name_on_card: string;
   nickname?: string;
+  address?: any;
 };
 
 export interface JobBody {

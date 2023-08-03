@@ -248,8 +248,11 @@ export class CardsavrHelper {
         headers
       );
 
+      console.log(card_response);
+
       return card_response.body;
     } catch (err) {
+      console.log(err);
       this.handleError(err);
     }
     return null;
