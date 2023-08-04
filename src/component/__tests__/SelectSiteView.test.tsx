@@ -115,8 +115,8 @@ describe('SelectSiteView', () => {
       card: {
         pan: '4111111111111111',
         cvv: '321',
-        expiration_month: '02',
-        expiration_year: '24',
+        expiration_month: 2,
+        expiration_year: 24,
         name_on_card: 'Mvick',
       },
     });

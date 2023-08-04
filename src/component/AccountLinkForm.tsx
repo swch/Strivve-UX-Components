@@ -46,6 +46,7 @@ function AccountLinkForm({
             name={item.name}
             autocomplete="off"
             type={item.type}
+            secret={item.secret}
             placeholder={item.label}
             required={item.required ? 'true' : 'false'}
             onChange={(e) => {

@@ -1,11 +1,11 @@
-import { Job, StrivveServiceInterface } from '../types';
+import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
 import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
 import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
 
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
   card_id?: string;
-  card?: any;
+  card?: CardBody;
   address?: any;
   reset?: boolean;
   eventHandler?: (action: string, data?: any) => void;
@@ -30,7 +30,7 @@ export type StrivveCoreState = {
 export default class StrivveCore {
   public service: StrivveServiceInterface;
   private cardholder: any;
-  private card: any;
+  private card?: CardBody | Card | any;
   private card_id?: string;
   public jobs: any[] = [];
   public selectSiteCore?: SelectSiteCore;
@@ -141,6 +141,7 @@ export default class StrivveCore {
     this.accountLinkCore = new AccountLinkCore({
       ...options,
       job,
+      cvv: this.card?.cvv,
       onMessage: (id, messageg) => this.onMessage(id, messageg),
       onSubmit: (v: any, meta: any) => this.startJob(v, meta),
       service: this.service,
@@ -161,7 +162,10 @@ export default class StrivveCore {
     return this.selectSiteCore;
   }
 
-  async startJob(creds: { [key: string]: any }, meta?: { site: any }) {
+  async startJob(
+    creds: { [key: string]: any },
+    meta?: { site: any; cvv?: number }
+  ) {
     try {
       let cardholder = this.cardholder;
       let card = this.card;
@@ -190,12 +194,13 @@ export default class StrivveCore {
       }
 
       if (!card?.id) {
-        const address = card.address;
+        const address = card?.address;
         if (address) {
           address.cardholder_id = cardholder.id;
         }
         const createCardResponse = await this.service.createCard({
           ...card,
+          cvv: meta?.cvv,
           cardholder_id: cardholder.id,
           address,
         });

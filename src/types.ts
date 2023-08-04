@@ -78,7 +78,7 @@ export interface MerchantSite {
   job?: Job;
 }
 
-interface Card {
+export interface Card {
   address_id?: number;
   bin_id?: number;
   cardholder_id: number;
@@ -278,13 +278,14 @@ export type Appearance = {
 };
 
 export type CardBody = {
-  cardholder_id: number;
+  id?: number;
+  cardholder_id?: number;
   address_id?: number;
   bin_id?: number;
   par?: string;
-  customer_key: string;
+  customer_key?: string;
   pan: string;
-  cvv: string;
+  cvv?: string;
   expiration_month: number;
   expiration_year: number;
   name_on_card: string;

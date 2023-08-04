@@ -36,6 +36,10 @@ function PendingModal({
 
   const image = site?.images?.find((item: any) => item.width === 128);
 
+  function isNumber(value: string) {
+    return /^[0-9]+$/.test(value);
+  }
+
   if (!open) {
     return null;
   }
@@ -107,10 +111,18 @@ function PendingModal({
                 key={item.name}
                 name={item.name}
                 autocomplete="off"
-                type={item.secret ? 'password' : item.type}
+                type={item.type}
+                secret={item.secret}
                 placeholder={item.label}
                 required={item.required ? 'true' : 'false'}
-                onChange={(e) => change?.(item.name, e.target.value)}
+                onChange={(e) => {
+                  if (item.type === 'number') {
+                    if (isNumber(e.target.value)) {
+                      change?.(item.name, e.target.value);
+                    }
+                  } else {
+                  }
+                }}
                 value={values?.[item.name] || ''}
                 autoFocus={index === 0}
               />

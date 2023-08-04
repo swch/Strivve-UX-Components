@@ -7,6 +7,7 @@ export interface AccountLinkCoreOption {
   service: StrivveServiceInterface;
   quick_start?: boolean;
   job?: Job;
+  cvv?: string;
   onMessage?: (id: string, values: any) => void;
 }
 
@@ -38,6 +39,7 @@ export interface AccountLinkState {
   errors?: ErrorField[];
   fields: Field[];
   percent: number;
+  cvv?: string;
 }
 
 export const initialStateAccountLink = {
@@ -75,12 +77,15 @@ export default class AccountLinkCore {
     onSubmit,
     onMessage,
     service,
+    cvv,
     job,
   }: AccountLinkCoreOption) {
     this.service = service;
+    this.state.cvv = cvv;
     if (job) {
       this.createQuery(job);
       this.updateState({
+        cvv,
         job,
         linking: true,
         loading: false,
@@ -132,7 +137,15 @@ export default class AccountLinkCore {
     this.notifyForm();
   }
 
+  public async submitCvv() {
+    this.updateState({ cvv: this.state.values.cvv });
+    delete this.state.values.cvv;
+
+    return this.submit();
+  }
+
   public async submit() {
+    console.log('===========');
     const job = this.state.job;
     const pending = this.state.pending;
     try {
@@ -146,7 +159,10 @@ export default class AccountLinkCore {
         this.updateState({ pending: null, linking: true });
       } else {
         this.updateState({ submitting: true, percent: 0 });
-        const job = await this.onSubmit(this.state.values, { site: this.site });
+        const job = await this.onSubmit(this.state.values, {
+          site: this.site,
+          cvv: this.state.cvv,
+        });
         this.updateState({
           job,
           submitting: false,

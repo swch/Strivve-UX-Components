@@ -25,10 +25,11 @@ interface AccountInputProps {
   masked?: string;
   wrap?: boolean;
   autoFocus?: boolean;
+  secret?: boolean;
 }
 
 const AccountInput = (props: AccountInputProps): JSX.Element => {
-  const [type, setType] = useState(props.type);
+  const [type, setType] = useState(props.secret ? 'password' : props.type);
 
   function shouldShow(e: React.MouseEvent): void {
     e.preventDefault();
@@ -76,7 +77,7 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
           css={appearance.elements?.input}
           className="input"
         />
-        {props.type === 'password' ? (
+        {props.secret ? (
           <button
             style={{
               height: '100%',

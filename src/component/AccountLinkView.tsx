@@ -18,13 +18,14 @@ export function AccountLinkView({
 }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
-  const [cvcModal, setCvcModal] = useState<boolean>(false);
+  const [cvvModal, setCvvModal] = useState<boolean>(false);
 
   const pendingMessage: any = {
     PENDING_NEWCREDS: 'Enter valid credentials',
     PENDING_TFA: 'Enter One-Time Passcode',
   };
 
+  console.log(state);
   useEffect(() => {
     const accountLink = core.createAccountLink(options);
     accountLink.subscribe((state: AccountLinkState) => {
@@ -36,11 +37,18 @@ export function AccountLinkView({
 
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
-    if (options.onSubmit) {
+    console.log('===========', cvvModal);
+
+    if (cvvModal) {
+      accountLinkCore?.submitCvv();
+      setCvvModal(false);
+    } else if (!state?.cvv) {
+      setCvvModal(true);
+    } else if (options.onSubmit) {
       core.sendEvent('submit_form_account_link');
       options.onSubmit(state?.values);
     } else {
-      core.sendEvent('submit_verify_account_link');
+      core.sendEvent('submit_form_account_link');
       accountLinkCore?.submit();
     }
   }
@@ -83,7 +91,7 @@ export function AccountLinkView({
     );
   }
 
-  if (state?.linking || state?.success || state?.failed || state?.pending || cvcModal) {
+  if (state?.linking || state?.success || state?.failed || state?.pending) {
     return (
       <AccountLinkContainer hide_title site={accountLinkCore?.site}>
         <div
@@ -159,26 +167,6 @@ export function AccountLinkView({
           values={state?.values}
           site={accountLinkCore?.site}
         />
-        <PendingModal
-          open={cvcModal}
-          title={'Enter the CVC'}
-          description={'To help keep your card secure, enter the CVC on the back of your card'}
-          buttonText="Confirm"
-          onClickClose={handleClickCancel}
-          fields={[
-            {
-              name: 'cvc',
-              label: 'CVC',
-              required: true,
-              secret: true
-            }
-          ]}
-          disabled={state?.submitting}
-          submit={handleSubmit}
-          change={(name, value) => accountLinkCore?.change(name, value)}
-          values={state?.values}
-          site={accountLinkCore?.site}
-        />
       </AccountLinkContainer>
     );
   }
@@ -215,6 +203,29 @@ export function AccountLinkView({
           core={core}
         />
       </AccountLinkContainer>
+      <PendingModal
+        open={cvvModal}
+        title={'Enter the CVV'}
+        description={
+          'To help keep your card secure, enter the CVV on the back of your card'
+        }
+        buttonText="Confirm"
+        onClickClose={handleClickCancel}
+        fields={[
+          {
+            name: 'cvv',
+            label: 'CVV',
+            required: true,
+            secret: true,
+            type: 'number',
+          },
+        ]}
+        disabled={state?.submitting}
+        submit={handleSubmit}
+        change={(name, value) => accountLinkCore?.change(name, value)}
+        values={state?.values}
+        site={accountLinkCore?.site}
+      />
     </div>
   );
 }
