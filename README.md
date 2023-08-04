@@ -28,7 +28,7 @@ Varying levels of customizable Javascript Components which easily drop into desk
       cvv: '321',
       expiration_month: '02',
       expiration_year: '24',
-      name_on_card: 'Mvick',
+      name_on_card: 'Jane',
     },
   });
 </script>
@@ -53,7 +53,20 @@ Strivve.mountLinkingJourney({
     cvv: '321',
     expiration_month: '02',
     expiration_year: '24',
-    name_on_card: 'Mvick',
+    name_on_card: 'Jane',
+    address: {
+      city: 'Seattle',
+      postal_code: '98177',
+      country: 'USA',
+      first_name: 'Jane',
+      last_name: 'Smith',
+      email: 'jane@test.com',
+      phone_number: '2065555555',
+      address1: 'test',
+      state: 'test',
+      subnational: 'WA',
+      is_primary: true,
+    },
   },
 });
 ```
@@ -81,6 +94,28 @@ Strivve.mountLinkingJourney({
 | expiration_month | string | -                                                                                                                                                                     |
 | expiration_year  | string | -                                                                                                                                                                     |
 | name_on_card     | string | -                                                                                                                                                                     |
+| address     | Address | optional                                                                                                                                                                     |
+
+## Address
+
+| name             | params | description                                                                                                                                                           |
+| ---------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                      |
+| city     | string | required  |
+| postal_code     | string | required  |
+| first_name     | string | required  |
+| last_name     | string | required  |
+| email     | string | required  |
+| phone_number     | string | required  |
+| address1     | string | required  |
+| address2     | string | optional  |
+| state     | string | required  |
+| subnational     | string | required  |
+| is_primary     | boolean | required  |
+| country     | string | optional  |
+| postal_other     | string | optional  |
+
+
+
 
 ## Service, Core and Component
 
@@ -100,7 +135,7 @@ const core = Strivve.createCore({
     cvv: '321',
     expiration_month: '02',
     expiration_year: '24',
-    name_on_card: 'Mvick',
+    name_on_card: 'Jane',
   },
 });
 

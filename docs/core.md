@@ -6,6 +6,33 @@ Orchestration interface for processing job status, submitting credentials, funct
 const core = Strivve.createCore({ service, card_id });
 ```
 
+
+```js
+const core = Strivve.createCore({
+  service,
+  card: {
+    pan: '4111111111111111',
+    cvv: '321',
+    expiration_month: '02',
+    expiration_year: '24',
+    name_on_card: 'Jane',
+    address: {
+      city: 'Seattle',
+      postal_code: '98177',
+      country: 'USA',
+      first_name: 'Jane',
+      last_name: 'Smith',
+      email: 'jane@test.com',
+      phone_number: '2065555555',
+      address1: 'test',
+      state: 'test',
+      subnational: 'WA',
+      is_primary: true,
+    },
+  },  
+});
+```
+
 ## Params
 
 | name    | params                         | description |
@@ -39,7 +66,8 @@ const core = Strivve.createCore({ service, card_id });
 | state     | string | required  |
 | subnational     | string | required  |
 | is_primary     | boolean | required  |
-
+| country     | string | optional  |
+| postal_other     | string | optional  |
 
 
 ## Function
