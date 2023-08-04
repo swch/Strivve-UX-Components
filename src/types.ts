@@ -286,8 +286,8 @@ export type CardBody = {
   customer_key?: string;
   pan: string;
   cvv?: string;
-  expiration_month: number;
-  expiration_year: number;
+  expiration_month: string;
+  expiration_year: string;
   name_on_card: string;
   nickname?: string;
   address?: any;
