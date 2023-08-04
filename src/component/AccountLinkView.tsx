@@ -18,6 +18,7 @@ export function AccountLinkView({
 }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
+  const [cvcModal, setCvcModal] = useState<boolean>(false);
 
   const pendingMessage: any = {
     PENDING_NEWCREDS: 'Enter valid credentials',
@@ -82,7 +83,7 @@ export function AccountLinkView({
     );
   }
 
-  if (state?.linking || state?.success || state?.failed || state?.pending) {
+  if (state?.linking || state?.success || state?.failed || state?.pending || cvcModal) {
     return (
       <AccountLinkContainer hide_title site={accountLinkCore?.site}>
         <div
@@ -152,6 +153,26 @@ export function AccountLinkView({
           buttonText="Verify"
           onClickClose={handleClickCancel}
           fields={accountLinkCore?.fields || []}
+          disabled={state?.submitting}
+          submit={handleSubmit}
+          change={(name, value) => accountLinkCore?.change(name, value)}
+          values={state?.values}
+          site={accountLinkCore?.site}
+        />
+        <PendingModal
+          open={cvcModal}
+          title={'Enter the CVC'}
+          description={'To help keep your card secure, enter the CVC on the back of your card'}
+          buttonText="Confirm"
+          onClickClose={handleClickCancel}
+          fields={[
+            {
+              name: 'cvc',
+              label: 'CVC',
+              required: true,
+              secret: true
+            }
+          ]}
           disabled={state?.submitting}
           submit={handleSubmit}
           change={(name, value) => accountLinkCore?.change(name, value)}

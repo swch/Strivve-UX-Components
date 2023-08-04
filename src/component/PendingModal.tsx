@@ -107,7 +107,7 @@ function PendingModal({
                 key={item.name}
                 name={item.name}
                 autocomplete="off"
-                type={item.type}
+                type={item.secret ? 'password' : item.type}
                 placeholder={item.label}
                 required={item.required ? 'true' : 'false'}
                 onChange={(e) => change?.(item.name, e.target.value)}
