@@ -121,6 +121,7 @@ function PendingModal({
                       change?.(item.name, e.target.value);
                     }
                   } else {
+                    change?.(item.name, e.target.value);
                   }
                 }}
                 value={values?.[item.name] || ''}

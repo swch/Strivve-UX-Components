@@ -25,7 +25,6 @@ export function AccountLinkView({
     PENDING_TFA: 'Enter One-Time Passcode',
   };
 
-  console.log(state);
   useEffect(() => {
     const accountLink = core.createAccountLink(options);
     accountLink.subscribe((state: AccountLinkState) => {
@@ -37,7 +36,6 @@ export function AccountLinkView({
 
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
-    console.log('===========', cvvModal);
 
     if (cvvModal) {
       accountLinkCore?.submitCvv();
@@ -224,7 +222,6 @@ export function AccountLinkView({
         submit={handleSubmit}
         change={(name, value) => accountLinkCore?.change(name, value)}
         values={state?.values}
-        site={accountLinkCore?.site}
       />
     </div>
   );

@@ -1,0 +1,28 @@
+# Event
+
+- select_site_carousel - n/a - view
+- select_site_carousel - n/a - swipe
+- select_site_carousel - amazon.com - select
+- select_site_list - n/a - view
+- select_site_list - n/a - scroll
+- select_site_list - n/a - back
+- select_site_list - amazon.com - select
+- select_site_search - n/a - view
+- select_site_search - n/a - scroll
+- select_site_search - n/a - close
+- select_site_search - amazon.com - select
+- browse_all_button - n/a - click
+- my_sites_button - n/a - click
+- more_sites_button - n/a - click
+- your_sites_button - n/a - click
+- account_link_form - amazon.com - view
+- account_link_form - amazon.com - submit
+- account_link_form - amazon.com - cancel
+- cvv_form_modal - amazon.com - view
+- cvv_form_modal - amazon.com - submit
+- cvv_form_modal - amazon.com - cancel
+- account_link_progress - amazon.com - view
+- account_link_progress - amazon.com - cancel
+- pending_form_modal - amazon.com - view
+- pending_form_modal - amazon.com - submit
+- pending_form_modal - amazon.com - cancel

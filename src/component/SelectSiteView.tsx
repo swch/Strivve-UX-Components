@@ -71,7 +71,7 @@ export function SelectSiteView({
             }
             onClick={() => {
               selectSiteCore?.setTab(2);
-              core.sendEvent('click_your_sites');
+              core.sendEvent('your_sites_button - n/a - click');
             }}
           >
             Your Sites
@@ -84,7 +84,7 @@ export function SelectSiteView({
             }
             onClick={() => {
               selectSiteCore?.setTab(1);
-              core.sendEvent('click_more_sites');
+              core.sendEvent('more_sites_button - n/a - click');
             }}
           >
             More Sites
@@ -150,7 +150,7 @@ export function SelectSiteView({
             }
             selected={state?.selected || []}
             onSelectItem={(item: any) => {
-              core.sendEvent('select_site', item);
+              core.sendEvent(`select_site_carousel - ${item.host} - select`);
               if (options?.multiple) {
                 selectSiteCore?.selectItem(item);
               } else {
@@ -165,7 +165,7 @@ export function SelectSiteView({
               onClick={() => {
                 selectSiteCore?.setStep(2);
                 selectSiteCore?.setTab(1);
-                core.sendEvent('click_browse_all_sites');
+                core.sendEvent('browse_all_button - n/a - click');
               }}
               variant="outlined"
             />
@@ -174,7 +174,7 @@ export function SelectSiteView({
                 onClick={() => {
                   selectSiteCore?.setStep(2);
                   selectSiteCore?.setTab(2);
-                  core.sendEvent('click_my_sites');
+                  core.sendEvent('my_sites_button - n/a - click');
                 }}
                 title="My Sites"
                 variant="text"
@@ -205,7 +205,7 @@ export function SelectSiteView({
               sites={sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {
-                core.sendEvent('select_site', item);
+                core.sendEvent(`select_site_list - ${item.host} - select`);
 
                 if (options?.multiple) {
                   selectSiteCore?.selectItem(item);
