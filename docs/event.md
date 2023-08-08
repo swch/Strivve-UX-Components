@@ -21,8 +21,10 @@
 - cvv_form_modal - amazon.com - view
 - cvv_form_modal - amazon.com - submit
 - cvv_form_modal - amazon.com - cancel
-- account_link_progress - amazon.com - view
-- account_link_progress - amazon.com - cancel
 - pending_form_modal - amazon.com - view
 - pending_form_modal - amazon.com - submit
 - pending_form_modal - amazon.com - cancel
+- account_link_progress - amazon.com - view
+- account_link_progress - amazon.com - cancel
+- status_modal - amazon.com - view
+- status_modal - amazon.com - cancel

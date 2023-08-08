@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Field } from '../core/accountLink';
 import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
 import StrivveCore from '../core/core';
+import { MerchantSite } from '../types';
 
 export interface AccountLinkFormProps {
   fields: Field[];
@@ -15,6 +16,7 @@ export interface AccountLinkFormProps {
   onCancel?: () => void;
   forgotLink?: string;
   core?: StrivveCore;
+  site?: MerchantSite;
 }
 
 function AccountLinkForm({
@@ -26,8 +28,17 @@ function AccountLinkForm({
   onCancel,
   forgotLink,
   core,
+  site,
 }: AccountLinkFormProps) {
   const { appearance } = useBase();
+
+  const host = site?.host || '';
+
+  useEffect(() => {
+    if (host) {
+      core?.sendEvent(`account_link_form - ${host} - view`);
+    }
+  }, [host]);
 
   return (
     <form
@@ -36,6 +47,7 @@ function AccountLinkForm({
       onSubmit={(e) => {
         e.preventDefault();
         submit(e);
+        core?.sendEvent(`account_link_form - ${host} - submit`);
       }}
     >
       {fields?.map((item, index) => {
@@ -66,7 +78,7 @@ function AccountLinkForm({
           href={forgotLink}
           rel="noreferrer"
           onClick={() => {
-            core?.sendEvent('click_forgot_password');
+            core?.sendEvent(`account_link_form - ${host} - forgot_password`);
           }}
         >
           Forgot your sign-in? Let’s go find it.
@@ -80,7 +92,7 @@ function AccountLinkForm({
           <Button
             onClick={() => {
               onCancel();
-              core?.sendEvent('click_cancel_account_link');
+              core?.sendEvent(`account_link_form - ${host} - cancel`);
             }}
             type="button"
             title={'Cancel'}

@@ -102,7 +102,10 @@ export function SelectSiteView({
               <button
                 className="iconButton"
                 css={appearance.elements?.iconButton}
-                onClick={() => setOpenSearch(true)}
+                onClick={() => {
+                  setOpenSearch(true);
+                  core.sendEvent(`select_site_search - n/a - view`);
+                }}
               >
                 <svg
                   width="18"
@@ -158,6 +161,7 @@ export function SelectSiteView({
                 handleSubmit();
               }
             }}
+            sendEvent={(a) => core.sendEvent(a)}
           />
           <div css={appearance.elements?.selectSiteCarouselFooter}>
             <Button
@@ -214,6 +218,7 @@ export function SelectSiteView({
                   handleSubmit();
                 }
               }}
+              sendEvent={(a) => core.sendEvent(a)}
             />
           )}
 
@@ -238,6 +243,7 @@ export function SelectSiteView({
             ...options,
             onClose() {
               setOpenSearch(false);
+              core.sendEvent(`select_site_search - n/a - cancel`);
             },
           }}
           appearance={appearance}

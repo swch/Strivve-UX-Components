@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
 import SuccessIcon from './SuccessIcon';
@@ -18,6 +18,7 @@ export interface SelectSiteListProps {
   sites: MerchantSite[];
   selected: MerchantSite[];
   onSelectItem: Function;
+  sendEvent?: (action: string) => void;
 }
 
 function SelectSiteList({
@@ -25,11 +26,17 @@ function SelectSiteList({
   sites,
   selected,
   onSelectItem,
+  sendEvent,
 }: SelectSiteListProps) {
   const { appearance } = useBase();
   const [openStatus, setOpenStatus] = useState<MerchantSite | null>(null);
+  const [scroll, setScroll] = useState<boolean | null>(null);
 
   const isError = errorStatus.includes(openStatus?.job?.termination_type || '');
+
+  useEffect(() => {
+    sendEvent?.('select_site_list - n/a - view');
+  }, []);
 
   return (
     <>
@@ -38,6 +45,12 @@ function SelectSiteList({
         id="selectSiteList"
         className="selectSiteList"
         css={appearance.elements?.selectSiteList}
+        onScroll={() => {
+          if (!scroll) {
+            sendEvent?.('select_site_list - n/a - scroll');
+            setScroll(true);
+          }
+        }}
       >
         {sites?.map((item) => {
           const image = item.images?.find((image: any) => image.width === 128);

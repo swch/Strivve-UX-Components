@@ -20,6 +20,8 @@ export function AccountLinkView({
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
   const [cvvModal, setCvvModal] = useState<boolean>(false);
 
+  const showProgress =
+    state?.linking || state?.success || state?.failed || state?.pending;
   const pendingMessage: any = {
     PENDING_NEWCREDS: 'Enter valid credentials',
     PENDING_TFA: 'Enter One-Time Passcode',
@@ -34,6 +36,24 @@ export function AccountLinkView({
     setAccountLinkCore(accountLink);
   }, []);
 
+  useEffect(() => {
+    if (state?.pending) {
+      core?.sendEvent(`pending_form_modal - ${host} - view`);
+    }
+  }, [state?.pending]);
+
+  useEffect(() => {
+    if (state?.success || state?.failed) {
+      core?.sendEvent(`status_modal - ${host} - view`);
+    }
+  }, [state?.success, state?.failed]);
+
+  useEffect(() => {
+    if (showProgress) {
+      core?.sendEvent(`account_link_progress - ${host} - view`);
+    }
+  }, [showProgress]);
+
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
 
@@ -42,11 +62,10 @@ export function AccountLinkView({
       setCvvModal(false);
     } else if (!state?.cvv) {
       setCvvModal(true);
+      core?.sendEvent(`cvv_form_modal - ${host} - view`);
     } else if (options.onSubmit) {
-      core.sendEvent('submit_form_account_link');
       options.onSubmit(state?.values);
     } else {
-      core.sendEvent('submit_form_account_link');
       accountLinkCore?.submit();
     }
   }
@@ -57,6 +76,7 @@ export function AccountLinkView({
   };
 
   const percent = state?.percent || 0;
+  const host = accountLinkCore?.site?.host || '';
 
   const dynamicBarStyle = useMemo(() => {
     const style: any = {};
@@ -89,7 +109,7 @@ export function AccountLinkView({
     );
   }
 
-  if (state?.linking || state?.success || state?.failed || state?.pending) {
+  if (showProgress) {
     return (
       <AccountLinkContainer hide_title site={accountLinkCore?.site}>
         <div
@@ -125,7 +145,14 @@ export function AccountLinkView({
           className="accountLinkProgressFooter"
           css={appearance.elements?.accountLinkProgressFooter}
         >
-          <Button variant="text" onClick={handleClickCancel} title="Cancel" />
+          <Button
+            variant="text"
+            onClick={() => {
+              handleClickCancel();
+              core?.sendEvent(`account_link_progress - ${host} - cancel`);
+            }}
+            title="Cancel"
+          />
         </div>
         <StatusModal
           open={state?.success}
@@ -136,9 +163,12 @@ export function AccountLinkView({
           buttonText="Browse More Sites"
           onClickButton={() => {
             options.onCancel?.();
-            core.sendEvent('click_browse_more_site');
+            core?.sendEvent(`status_modal - ${host} - submit`);
           }}
-          onClickClose={handleClickCancel}
+          onClickClose={() => {
+            handleClickCancel();
+            core?.sendEvent(`status_modal - ${host} - cancel`);
+          }}
         />
         <StatusModal
           open={state?.failed}
@@ -148,19 +178,27 @@ export function AccountLinkView({
           buttonText="Try a Different Site"
           onClickButton={() => {
             options.onCancel?.();
-            core.sendEvent('click_try_different_site');
+            core?.sendEvent(`status_modal - ${host} - submit`);
           }}
-          onClickClose={handleClickCancel}
+          onClickClose={() => {
+            handleClickCancel();
+            core?.sendEvent(`status_modal - ${host} - cancel`);
+          }}
         />
         <PendingModal
           open={Boolean(state?.pending)}
           title={pendingMessage[state?.pending?.status] || ''}
           description={state?.message?.status_message}
           buttonText="Verify"
-          onClickClose={handleClickCancel}
+          onClickClose={() => {
+            core?.sendEvent(`pending_form_modal - ${host} - cancel`);
+          }}
           fields={accountLinkCore?.fields || []}
           disabled={state?.submitting}
-          submit={handleSubmit}
+          submit={(e) => {
+            handleSubmit(e);
+            core?.sendEvent(`pending_form_modal - ${host} - submit`);
+          }}
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
           site={accountLinkCore?.site}
@@ -199,6 +237,7 @@ export function AccountLinkView({
           onCancel={options.onCancel}
           forgotLink={accountLinkCore?.site?.forgot_password_page}
           core={core}
+          site={accountLinkCore?.site}
         />
       </AccountLinkContainer>
       <PendingModal
@@ -208,7 +247,10 @@ export function AccountLinkView({
           'To help keep your card secure, enter the CVV on the back of your card'
         }
         buttonText="Confirm"
-        onClickClose={handleClickCancel}
+        onClickClose={() => {
+          handleClickCancel();
+          core?.sendEvent(`cvv_form_modal - ${host} - cancel`);
+        }}
         fields={[
           {
             name: 'cvv',
@@ -219,7 +261,10 @@ export function AccountLinkView({
           },
         ]}
         disabled={state?.submitting}
-        submit={handleSubmit}
+        submit={(e) => {
+          handleSubmit(e);
+          core?.sendEvent(`cvv_form_modal - ${host} - submit`);
+        }}
         change={(name, value) => accountLinkCore?.change(name, value)}
         values={state?.values}
       />

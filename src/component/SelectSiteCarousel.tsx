@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
 import Slider from 'react-slick';
@@ -8,16 +8,22 @@ export interface SelectSiteCarouselProps {
   sites: MerchantSite[];
   selected: MerchantSite[];
   onSelectItem: Function;
+  sendEvent?: (action: string) => void;
 }
 
 function SelectSiteCarousel({
   sites,
   selected,
   onSelectItem,
+  sendEvent,
 }: SelectSiteCarouselProps) {
   const { appearance } = useBase();
   const [slide, setSlide] = useState(0);
   const sliderRef = useRef<Slider>(null);
+
+  useEffect(() => {
+    sendEvent?.('select_site_carousel - n/a - view');
+  }, []);
 
   const settings = {
     dots: true,
@@ -82,6 +88,9 @@ function SelectSiteCarousel({
           }
           beforeChange={(current, index) => {
             setSlide(index);
+          }}
+          onSwipe={() => {
+            sendEvent?.('select_site_carousel - n/a - swipe');
           }}
         >
           {sites?.map((item) => {

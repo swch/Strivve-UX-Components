@@ -117,7 +117,7 @@ function PendingModal({
                 required={item.required ? 'true' : 'false'}
                 onChange={(e) => {
                   if (item.type === 'number') {
-                    if (isNumber(e.target.value)) {
+                    if (isNumber(e.target.value) || e.target.value === '') {
                       change?.(item.name, e.target.value);
                     }
                   } else {
