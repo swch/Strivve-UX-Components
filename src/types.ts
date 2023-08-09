@@ -240,6 +240,7 @@ export type Appearance = {
     selectSiteItemError?: Interpolation<Theme>;
     selectSiteItemSuccess?: Interpolation<Theme>;
     selectSiteTitle?: Interpolation<Theme>;
+    selectSiteTitleLink?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;
     selectSiteItemSelected?: Interpolation<Theme>;
     selectSiteItemImage?: Interpolation<Theme>;

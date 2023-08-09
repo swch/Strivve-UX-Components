@@ -197,6 +197,11 @@ const defaultAppearance: Appearance = {
       marginBottom: '0px',
       marginTop: '0px',
     },
+    selectSiteTitleLink: {
+      textDecoration: 'underline',
+      color: '#008BD9',
+      cursor: 'pointer',
+    },
     selectSiteList: {
       display: 'grid',
       gridTemplateColumns: '1fr',

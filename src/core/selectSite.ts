@@ -6,9 +6,7 @@ export interface SelectSiteCoreOptions {
   multiple?: boolean;
   onSubmit?: Function;
   sendEvent?: (action: string, data: any) => void;
-  step?: number;
-  tab?: number;
-  view?: 'list' | 'carousel';
+  view?: 'list' | 'carousel' | 'linked';
 }
 
 export interface SelectSiteState {
@@ -18,8 +16,7 @@ export interface SelectSiteState {
   search: string;
   error?: boolean;
   message?: string;
-  step: number;
-  tab: number;
+  view?: 'list' | 'carousel' | 'linked';
   filter: { top_hosts?: string; tags?: string };
 }
 
@@ -33,8 +30,6 @@ export const initialStateSelectSite = {
   loading: false,
   search: '',
   error: false,
-  step: 1,
-  tab: 1,
   filter: defaultFilter,
 };
 
@@ -52,15 +47,14 @@ export default class SelectSiteCore {
     filter,
     multiple,
     onSubmit,
-    step,
-    tab,
+    view,
     sendEvent,
   }: SelectSiteCoreOptions) {
     this.service = service;
     this.multiple = multiple;
     this.onSubmit = onSubmit;
     this.sendEvent = sendEvent;
-    this.setState({ step: step || 1, tab: tab || 1 });
+    this.setState({ view });
     this.getSites(filter);
   }
 
@@ -138,12 +132,8 @@ export default class SelectSiteCore {
     }
   }
 
-  setStep(step: number) {
-    this.setState({ step });
-  }
-
-  setTab(tab: number) {
-    this.setState({ tab });
+  setView(view: 'list' | 'carousel' | 'linked') {
+    this.setState({ view });
   }
 
   public setState(value: Partial<SelectSiteState>) {

@@ -33,7 +33,10 @@ export function SelectSiteView({
   };
 
   const isHaveJob = core.jobs?.length > 0;
-  const jobIds = (core.jobs || []).map((item) => item.site_id);
+  const jobIds = (core.jobs || [])
+    .filter((item) => item.status === 'SUCCESSFUL')
+    .map((item) => item.site_id);
+  const totalSuccessJob = jobIds.length || 0;
 
   const sites = (state?.sites || []).filter(
     (item) => !jobIds.includes(item.id)
@@ -61,80 +64,60 @@ export function SelectSiteView({
       className="selectSiteView"
       css={appearance.elements?.selectSiteView}
     >
-      {isHaveJob && state?.step === 2 ? (
-        <div css={appearance.elements?.tabContainer}>
-          <button
-            css={
-              state?.tab === 2
-                ? appearance.elements?.tabItemActive
-                : appearance.elements?.tabItem
-            }
-            onClick={() => {
-              selectSiteCore?.setTab(2);
-              core.sendEvent('your_sites_button - n/a - click');
-            }}
-          >
-            Your Sites
-          </button>
-          <button
-            css={
-              state?.tab === 1
-                ? appearance.elements?.tabItemActive
-                : appearance.elements?.tabItem
-            }
-            onClick={() => {
-              selectSiteCore?.setTab(1);
-              core.sendEvent('more_sites_button - n/a - click');
-            }}
-          >
-            More Sites
-          </button>
-        </div>
-      ) : (
-        <div css={appearance.elements?.selectSiteHeader}>
-          <p css={appearance.elements?.selectSiteTitle}>
-            {isHaveJob
-              ? localization?.selectSiteTitleHaveJob
-              : localization?.selectSiteTitle}
-          </p>
-          <div>
-            {state?.step === 2 && (
-              <button
-                className="iconButton"
-                css={appearance.elements?.iconButton}
-                onClick={() => {
-                  setOpenSearch(true);
-                  core.sendEvent(`select_site_search - n/a - view`);
-                }}
+      <div css={appearance.elements?.selectSiteHeader}>
+        <p css={appearance.elements?.selectSiteTitle}>
+          {isHaveJob ? (
+            <>
+              {localization?.selectSiteTitleHaveJob}{' '}
+              <a
+                onClick={() => selectSiteCore?.setView('linked')}
+                css={appearance.elements?.selectSiteTitleLink}
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 23 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="13.5"
-                    cy="9.5"
-                    r="8"
-                    stroke="#6BBF00"
-                    strokeWidth="3"
-                  />
-                  <line
-                    x1="8.06066"
-                    y1="16.0607"
-                    x2="1.06066"
-                    y2="23.0607"
-                    stroke="#6BBF00"
-                    strokeWidth="3"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
+                {totalSuccessJob} sites
+              </a>
+              , keep going!
+            </>
+          ) : (
+            localization?.selectSiteTitle
+          )}
+        </p>
+        <div>
+          {state?.view === 'list' && (
+            <button
+              className="iconButton"
+              css={appearance.elements?.iconButton}
+              onClick={() => {
+                setOpenSearch(true);
+                core.sendEvent(`select_site_search - n/a - view`);
+              }}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 23 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="13.5"
+                  cy="9.5"
+                  r="8"
+                  stroke="#6BBF00"
+                  strokeWidth="3"
+                />
+                <line
+                  x1="8.06066"
+                  y1="16.0607"
+                  x2="1.06066"
+                  y2="23.0607"
+                  stroke="#6BBF00"
+                  strokeWidth="3"
+                />
+              </svg>
+            </button>
+          )}
         </div>
-      )}
+      </div>
       {state?.error && (
         <p
           data-testid="selectSiteErrorMessage"
@@ -143,7 +126,7 @@ export function SelectSiteView({
           {state.message}
         </p>
       )}
-      {options?.view !== 'list' && state?.step === 1 && (
+      {state?.view === 'carousel' && (
         <div style={{ width: '100%' }}>
           <SelectSiteCarousel
             sites={
@@ -167,30 +150,18 @@ export function SelectSiteView({
             <Button
               title="Browse all sites"
               onClick={() => {
-                selectSiteCore?.setStep(2);
-                selectSiteCore?.setTab(1);
+                selectSiteCore?.setView('list');
                 core.sendEvent('browse_all_button - n/a - click');
               }}
               variant="outlined"
             />
-            {isHaveJob && (
-              <Button
-                onClick={() => {
-                  selectSiteCore?.setStep(2);
-                  selectSiteCore?.setTab(2);
-                  core.sendEvent('my_sites_button - n/a - click');
-                }}
-                title="My Sites"
-                variant="text"
-              />
-            )}
           </div>
         </div>
       )}
 
-      {(options?.view === 'list' || state?.step === 2) && (
+      {(state?.view === 'list' || state?.view === 'linked') && (
         <>
-          {state?.tab === 2 ? (
+          {state?.view === 'linked' ? (
             <SelectSiteList
               key="my-sites"
               id="my-site"
@@ -230,8 +201,8 @@ export function SelectSiteView({
               title="Back"
               variant="text"
               onClick={() => {
-                selectSiteCore?.setStep(1);
-                core.sendEvent('click_back_to_carousel');
+                selectSiteCore?.setView('carousel');
+                core.sendEvent(`select_site_list - n/a - back`);
               }}
             />
           </div>

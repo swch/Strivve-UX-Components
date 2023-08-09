@@ -93,8 +93,11 @@ export default class StrivveCore {
     if (this.state.mount === StrivveCoreMount.ACCOUNT_LINK) {
       this.setMount(StrivveCoreMount.SELECT_SITE);
       return true;
-    } else if (this.selectSiteCore?.state.step === 2) {
-      this.selectSiteCore?.setStep(1);
+    } else if (
+      this.selectSiteCore?.state.view &&
+      ['list', 'linked'].includes(this.selectSiteCore?.state.view)
+    ) {
+      this.selectSiteCore?.setView('carousel');
       return true;
     } else {
       return false;
@@ -158,8 +161,7 @@ export default class StrivveCore {
     this.selectSiteCore = new SelectSiteCore({
       ...options,
       service: this.service,
-      step: isFirst ? 0 : 2,
-      tab: isFirst ? 0 : 2,
+      view: isFirst ? 'carousel' : 'list',
     });
     return this.selectSiteCore;
   }
