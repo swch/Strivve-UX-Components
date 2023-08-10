@@ -32,11 +32,12 @@ export function SelectSiteView({
     selectSiteCore?.submit?.();
   };
 
-  const isHaveJob = core.jobs?.length > 0;
-  const jobIds = (core.jobs || [])
-    .filter((item) => item.status === 'SUCCESSFUL')
+  const jobIds = (state?.jobs || [])
+    .filter((item) => item.status === 'SUCCESSFUL' || item.status === 'UPDATING')
     .map((item) => item.site_id);
+
   const totalSuccessJob = jobIds.length || 0;
+  const isHaveJob = jobIds.length > 0;
 
   const sites = (state?.sites || []).filter(
     (item) => !jobIds.includes(item.id)

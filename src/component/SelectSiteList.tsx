@@ -6,6 +6,7 @@ import { useBase } from './withBase';
 import SuccessIcon from './SuccessIcon';
 import ErrorIcon from './ErrorIcon';
 import StatusModal from './StatusModal';
+import timeAgo from './timeAgo';
 
 const errorStatus = [
   'PROCESS_FAILURE',
@@ -59,24 +60,26 @@ function SelectSiteList({
             item.job?.termination_type || ''
           );
           const isSuccess =
-            !isError && item?.job?.auth_percent_complete === 100;
+            !isError && item?.job?.status === 'SUCCESSFUL';
+
+          const isUpdating = item.job?.status === 'UPDATING';
+
           return (
             <div
               key={(id || '') + item.id}
               id={`selectSiteItem-${id || ''}${item.id}`}
               data-testid={`selectSiteItem-${item.id}`}
               aria-selected={active ? 'true' : 'false'}
-              className={`selectSiteItem ${
-                active ? 'selectSiteItemSelected' : ''
-              }`}
+              className={`selectSiteItem ${active ? 'selectSiteItemSelected' : ''
+                }`}
               css={
                 isSuccess
                   ? appearance.elements?.selectSiteItemSuccess
                   : isError
-                  ? appearance.elements?.selectSiteItemError
-                  : active
-                  ? appearance.elements?.selectSiteItemSelected
-                  : appearance.elements?.selectSiteItem
+                    ? appearance.elements?.selectSiteItemError
+                    : active
+                      ? appearance.elements?.selectSiteItemSelected
+                      : appearance.elements?.selectSiteItem
               }
               onClick={() => {
                 if (isSuccess) {
@@ -99,6 +102,16 @@ function SelectSiteList({
                 css={appearance.elements?.selectSiteItemName}
               >
                 {item.name}
+                {
+                  (isError || isSuccess) && (
+                    <div
+                      css={appearance.elements?.selectSiteItemDescription}
+                      className='selectSiteItemDescription'
+                    >
+                      {timeAgo(item.job?.last_updated_on)}
+                    </div>
+                  )
+                }
                 {isError && (
                   <div
                     className="errorText"
@@ -116,6 +129,14 @@ function SelectSiteList({
               </div>
               {isSuccess && <SuccessIcon />}
               {isError && <ErrorIcon />}
+              {isUpdating && (
+                <span
+                  css={appearance.elements?.selectSiteItemDescription}
+                  className='selectSiteItemDescription'
+                >
+                  In progress
+                </span>
+              )}
             </div>
           );
         })}

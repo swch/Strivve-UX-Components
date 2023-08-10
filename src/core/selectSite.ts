@@ -11,6 +11,7 @@ export interface SelectSiteCoreOptions {
 
 export interface SelectSiteState {
   sites: any[];
+  jobs: any[];
   selected: any[];
   loading: boolean;
   search: string;
@@ -27,6 +28,7 @@ const defaultFilter = {
 export const initialStateSelectSite = {
   sites: [],
   selected: [],
+  jobs: [],
   loading: false,
   search: '',
   error: false,

@@ -121,6 +121,7 @@ export default class StrivveCore {
   private updateJobs(jobs: any) {
     this.jobs = jobs;
     sessionStorage.setItem('jobs', JSON.stringify(jobs));
+    this.selectSiteCore?.setState({ jobs });
   }
 
   private onMessage(id: string, message: any) {
@@ -163,6 +164,7 @@ export default class StrivveCore {
       service: this.service,
       view: isFirst ? 'carousel' : 'list',
     });
+    this.selectSiteCore.setState({ jobs });
     return this.selectSiteCore;
   }
 

@@ -261,6 +261,9 @@ const defaultAppearance: Appearance = {
       marginTop: '0.75rem',
       flex: 1,
     },
+    selectSiteItemDescription: {
+      fontSize: '12px',
+    },
     selectSiteItemImage: {
       width: '25px',
       marginRight: '12px',
