@@ -59,10 +59,9 @@ function SelectSiteList({
           const isError = errorStatus.includes(
             item.job?.termination_type || ''
           );
-          const isSuccess =
-            !isError && item?.job?.status === 'SUCCESSFUL';
-
+          const isSuccess = !isError && item?.job?.status === 'SUCCESSFUL';
           const isUpdating = item.job?.status === 'UPDATING';
+          const isDisabled = item.tags?.includes('disabled');
 
           return (
             <div
@@ -70,19 +69,23 @@ function SelectSiteList({
               id={`selectSiteItem-${id || ''}${item.id}`}
               data-testid={`selectSiteItem-${item.id}`}
               aria-selected={active ? 'true' : 'false'}
-              className={`selectSiteItem ${active ? 'selectSiteItemSelected' : ''
-                }`}
+              className={`selectSiteItem ${
+                active ? 'selectSiteItemSelected' : ''
+              }`}
               css={
-                isSuccess
+                isDisabled
+                  ? appearance.elements?.selectSiteItemDisabled
+                  : isSuccess
                   ? appearance.elements?.selectSiteItemSuccess
                   : isError
-                    ? appearance.elements?.selectSiteItemError
-                    : active
-                      ? appearance.elements?.selectSiteItemSelected
-                      : appearance.elements?.selectSiteItem
+                  ? appearance.elements?.selectSiteItemError
+                  : active
+                  ? appearance.elements?.selectSiteItemSelected
+                  : appearance.elements?.selectSiteItem
               }
               onClick={() => {
-                if (isSuccess) {
+                if (isDisabled) {
+                } else if (isSuccess) {
                   setOpenStatus(item);
                 } else {
                   onSelectItem(item);
@@ -102,16 +105,14 @@ function SelectSiteList({
                 css={appearance.elements?.selectSiteItemName}
               >
                 {item.name}
-                {
-                  (isError || isSuccess) && (
-                    <div
-                      css={appearance.elements?.selectSiteItemDescription}
-                      className='selectSiteItemDescription'
-                    >
-                      {timeAgo(item.job?.last_updated_on)}
-                    </div>
-                  )
-                }
+                {(isError || isSuccess) && (
+                  <div
+                    css={appearance.elements?.selectSiteItemDescription}
+                    className="selectSiteItemDescription"
+                  >
+                    {timeAgo(item.job?.last_updated_on)}
+                  </div>
+                )}
                 {isError && (
                   <div
                     className="errorText"
@@ -132,9 +133,19 @@ function SelectSiteList({
               {isUpdating && (
                 <span
                   css={appearance.elements?.selectSiteItemDescription}
-                  className='selectSiteItemDescription'
+                  className="selectSiteItemDescription"
                 >
                   In progress
+                </span>
+              )}
+              {isDisabled && (
+                <span
+                  css={appearance.elements?.errorText}
+                  className="errorText"
+                >
+                  Temporarily
+                  <br />
+                  Unavailable
                 </span>
               )}
             </div>

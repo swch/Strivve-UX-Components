@@ -145,7 +145,6 @@ export default class AccountLinkCore {
   }
 
   public async submit() {
-    console.log('===========');
     const job = this.state.job;
     const pending = this.state.pending;
     try {

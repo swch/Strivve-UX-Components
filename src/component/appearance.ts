@@ -227,6 +227,19 @@ const defaultAppearance: Appearance = {
       padding: '3px 12px',
       backgroundColor: 'white',
     },
+    selectSiteItemDisabled: {
+      cursor: 'not-allowed',
+      border: '1px solid #D9D9D9',
+      background: 'white',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '3px 12px',
+      backgroundColor: 'white',
+      '&:hover': {
+        opacity: '0.5',
+      },
+    },
     selectSiteItemError: {
       border: '1px solid #D9D9D9',
       background: 'white',

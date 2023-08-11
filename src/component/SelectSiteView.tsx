@@ -33,7 +33,9 @@ export function SelectSiteView({
   };
 
   const jobIds = (state?.jobs || [])
-    .filter((item) => item.status === 'SUCCESSFUL' || item.status === 'UPDATING')
+    .filter(
+      (item) => item.status === 'SUCCESSFUL' || item.status === 'UPDATING'
+    )
     .map((item) => item.site_id);
 
   const totalSuccessJob = jobIds.length || 0;

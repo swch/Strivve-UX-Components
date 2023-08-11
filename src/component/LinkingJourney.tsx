@@ -14,7 +14,6 @@ export function LinkingJourney({
   localization,
 }: BaseProps & mountLinkingJourneyOptions) {
   const [sites, setSites] = useState<MerchantSite[]>([]);
-
   const [state, setState] = useState<StrivveCoreState>();
 
   useEffect(() => {

@@ -20,6 +20,8 @@ export function AccountLinkView({
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
   const [cvvModal, setCvvModal] = useState<boolean>(false);
 
+  console.log(core, state);
+
   const showProgress =
     state?.linking || state?.success || state?.failed || state?.pending;
   const pendingMessage: any = {

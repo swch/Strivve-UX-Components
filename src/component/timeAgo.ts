@@ -1,9 +1,23 @@
 const MONTH_NAMES: string[] = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
-function getFormattedDate(date: Date, prefomattedDate = '', hideYear = false): string {
+function getFormattedDate(
+  date: Date,
+  prefomattedDate = '',
+  hideYear = false
+): string {
   const day = date.getDate();
   const month = MONTH_NAMES[date.getMonth()];
   const year = date.getFullYear();
@@ -30,12 +44,15 @@ function getFormattedDate(date: Date, prefomattedDate = '', hideYear = false): s
   return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
 }
 
-export default function timeAgo(dateParam?: Date | string | number): string | null {
+export default function timeAgo(
+  dateParam?: Date | string | number
+): string | null {
   if (!dateParam) {
     return null;
   }
 
-  const date: Date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
+  const date: Date =
+    typeof dateParam === 'object' ? dateParam : new Date(dateParam);
   const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
   const HOUR_IN_MS = 3600000; // 60 * 60 * 1000
   const today = new Date();

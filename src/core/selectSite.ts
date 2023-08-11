@@ -25,7 +25,7 @@ const defaultFilter = {
   tags: 'prod,synthetic,disabled',
 };
 
-export const initialStateSelectSite = {
+export const initialStateSelectSite: SelectSiteState = {
   sites: [],
   selected: [],
   jobs: [],
@@ -33,6 +33,7 @@ export const initialStateSelectSite = {
   search: '',
   error: false,
   filter: defaultFilter,
+  view: 'carousel',
 };
 
 export default class SelectSiteCore {
@@ -56,7 +57,9 @@ export default class SelectSiteCore {
     this.multiple = multiple;
     this.onSubmit = onSubmit;
     this.sendEvent = sendEvent;
-    this.setState({ view });
+    if (view) {
+      this.setState({ view });
+    }
     this.getSites(filter);
   }
 
@@ -72,11 +75,18 @@ export default class SelectSiteCore {
         filter?.top_hosts ||
         this.service.fi_detail?.config?.config?.top_sites ||
         this.state.filter.top_hosts;
+
       const merchantFilter: any = {
         ...(filter || {}),
-        tags,
-        top_hosts,
       };
+
+      if (merchantFilter.tags) {
+        merchantFilter.tags = tags;
+      }
+
+      if (merchantFilter.top_hosts) {
+        merchantFilter.top_hosts = top_hosts;
+      }
 
       const res = await this.service.getMerchantSites(merchantFilter);
       const sites = res.filter((site) => {

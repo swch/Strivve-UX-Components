@@ -158,11 +158,9 @@ export default class StrivveCore {
 
   createSelectSite(options?: CreateSelectSiteOptions): SelectSiteCore {
     const jobs = this.getJobs();
-    const isFirst = jobs.length === 0;
     this.selectSiteCore = new SelectSiteCore({
       ...options,
       service: this.service,
-      view: isFirst ? 'carousel' : 'list',
     });
     this.selectSiteCore.setState({ jobs });
     return this.selectSiteCore;
@@ -214,6 +212,10 @@ export default class StrivveCore {
         card = createCardResponse.body;
       }
       this.card = card;
+
+      if (meta?.cvv) {
+        this.card.cvv = meta?.cvv;
+      }
 
       const jobs = [
         {
