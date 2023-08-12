@@ -19,7 +19,7 @@ export interface SelectSiteListProps {
   sites: MerchantSite[];
   selected: MerchantSite[];
   onSelectItem: Function;
-  sendEvent?: (action: string) => void;
+  sendEvent?: (action: any) => void;
 }
 
 function SelectSiteList({
@@ -36,7 +36,10 @@ function SelectSiteList({
   const isError = errorStatus.includes(openStatus?.job?.termination_type || '');
 
   useEffect(() => {
-    sendEvent?.('select_site_list - n/a - view');
+    sendEvent?.({
+      component: 'select_site_list',
+      action: 'view',
+    });
   }, []);
 
   return (
@@ -48,7 +51,10 @@ function SelectSiteList({
         css={appearance.elements?.selectSiteList}
         onScroll={() => {
           if (!scroll) {
-            sendEvent?.('select_site_list - n/a - scroll');
+            sendEvent?.({
+              component: 'select_site_list',
+              action: 'scroll',
+            });
             setScroll(true);
           }
         }}

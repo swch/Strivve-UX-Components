@@ -20,8 +20,6 @@ export function AccountLinkView({
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
   const [cvvModal, setCvvModal] = useState<boolean>(false);
 
-  console.log(core, state);
-
   const showProgress =
     state?.linking || state?.success || state?.failed || state?.pending;
   const pendingMessage: any = {
@@ -40,19 +38,31 @@ export function AccountLinkView({
 
   useEffect(() => {
     if (state?.pending) {
-      core?.sendEvent(`pending_form_modal - ${host} - view`);
+      core?.sendEvent({
+        component: 'pending_form_modal',
+        action: 'view',
+        site: host,
+      });
     }
   }, [state?.pending]);
 
   useEffect(() => {
     if (state?.success || state?.failed) {
-      core?.sendEvent(`status_modal - ${host} - view`);
+      core?.sendEvent({
+        component: 'status_modal',
+        action: 'view',
+        site: host,
+      });
     }
   }, [state?.success, state?.failed]);
 
   useEffect(() => {
     if (showProgress) {
-      core?.sendEvent(`account_link_progress - ${host} - view`);
+      core?.sendEvent({
+        component: 'account_link_progress',
+        action: 'view',
+        site: host,
+      });
     }
   }, [showProgress]);
 
@@ -64,7 +74,11 @@ export function AccountLinkView({
       setCvvModal(false);
     } else if (!state?.cvv) {
       setCvvModal(true);
-      core?.sendEvent(`cvv_form_modal - ${host} - view`);
+      core?.sendEvent({
+        component: 'cvv_form_modal',
+        action: 'view',
+        site: host,
+      });
     } else if (options.onSubmit) {
       options.onSubmit(state?.values);
     } else {
@@ -73,7 +87,6 @@ export function AccountLinkView({
   }
 
   const handleClickCancel = () => {
-    core.sendEvent('click_cancel_account_link');
     options.onCancel?.();
   };
 
@@ -151,7 +164,11 @@ export function AccountLinkView({
             variant="text"
             onClick={() => {
               handleClickCancel();
-              core?.sendEvent(`account_link_progress - ${host} - cancel`);
+              core?.sendEvent({
+                component: 'account_link_progress',
+                action: 'close',
+                site: host,
+              });
             }}
             title="Cancel"
           />
@@ -165,11 +182,19 @@ export function AccountLinkView({
           buttonText="Browse More Sites"
           onClickButton={() => {
             options.onCancel?.();
-            core?.sendEvent(`status_modal - ${host} - submit`);
+            core?.sendEvent({
+              component: 'status_modal',
+              action: 'submit',
+              site: host,
+            });
           }}
           onClickClose={() => {
             handleClickCancel();
-            core?.sendEvent(`status_modal - ${host} - cancel`);
+            core?.sendEvent({
+              component: 'status_modal',
+              action: 'close',
+              site: host,
+            });
           }}
         />
         <StatusModal
@@ -180,11 +205,19 @@ export function AccountLinkView({
           buttonText="Try a Different Site"
           onClickButton={() => {
             options.onCancel?.();
-            core?.sendEvent(`status_modal - ${host} - submit`);
+            core?.sendEvent({
+              component: 'status_modal',
+              action: 'submit',
+              site: host,
+            });
           }}
           onClickClose={() => {
             handleClickCancel();
-            core?.sendEvent(`status_modal - ${host} - cancel`);
+            core?.sendEvent({
+              component: 'status_modal',
+              action: 'close',
+              site: host,
+            });
           }}
         />
         <PendingModal
@@ -193,13 +226,21 @@ export function AccountLinkView({
           description={state?.message?.status_message}
           buttonText="Verify"
           onClickClose={() => {
-            core?.sendEvent(`pending_form_modal - ${host} - cancel`);
+            core?.sendEvent({
+              component: 'pending_form_modal',
+              action: 'close',
+              site: host,
+            });
           }}
           fields={accountLinkCore?.fields || []}
           disabled={state?.submitting}
           submit={(e) => {
             handleSubmit(e);
-            core?.sendEvent(`pending_form_modal - ${host} - submit`);
+            core?.sendEvent({
+              component: 'pending_form_modal',
+              action: 'submit',
+              site: host,
+            });
           }}
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
@@ -251,7 +292,11 @@ export function AccountLinkView({
         buttonText="Confirm"
         onClickClose={() => {
           handleClickCancel();
-          core?.sendEvent(`cvv_form_modal - ${host} - cancel`);
+          core?.sendEvent({
+            component: 'cvv_form_modal',
+            action: 'close',
+            site: host,
+          });
         }}
         fields={[
           {
@@ -265,7 +310,11 @@ export function AccountLinkView({
         disabled={state?.submitting}
         submit={(e) => {
           handleSubmit(e);
-          core?.sendEvent(`cvv_form_modal - ${host} - submit`);
+          core?.sendEvent({
+            component: 'cvv_form_modal',
+            action: 'submit',
+            site: host,
+          });
         }}
         change={(name, value) => accountLinkCore?.change(name, value)}
         values={state?.values}

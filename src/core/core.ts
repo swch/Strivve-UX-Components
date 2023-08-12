@@ -8,7 +8,7 @@ export interface StrivveCoreOptions {
   card?: CardBody;
   address?: any;
   reset?: boolean;
-  eventHandler?: (action: string) => void;
+  eventHandler?: (action: any) => void;
 }
 
 export type CreateAccountLinkOptions = Omit<
@@ -39,7 +39,7 @@ export default class StrivveCore {
   public state: StrivveCoreState = {
     mount: StrivveCoreMount.SELECT_SITE,
   };
-  public eventHandler?: (action: string) => void = () => {};
+  public eventHandler?: (action: any) => void = () => {};
 
   constructor({
     service,
@@ -67,7 +67,7 @@ export default class StrivveCore {
     this.notifyState();
   }
 
-  public sendEvent(action: string) {
+  public sendEvent(action: any) {
     if (this.eventHandler) {
       this.eventHandler(action);
     }
@@ -240,7 +240,7 @@ export default class StrivveCore {
       this.updateJobs(newJobs);
       return job;
     } catch (error: any) {
-      console.log('===', error.response);
+      console.error(error.response);
       throw error;
     }
   }

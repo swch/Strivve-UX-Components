@@ -91,7 +91,10 @@ export function SelectSiteView({
               css={appearance.elements?.iconButton}
               onClick={() => {
                 setOpenSearch(true);
-                core.sendEvent(`select_site_search - n/a - view`);
+                core.sendEvent({
+                  component: 'select_site_search',
+                  action: 'view',
+                });
               }}
             >
               <svg
@@ -139,7 +142,11 @@ export function SelectSiteView({
             }
             selected={state?.selected || []}
             onSelectItem={(item: any) => {
-              core.sendEvent(`select_site_carousel - ${item.host} - select`);
+              core.sendEvent({
+                component: 'select_site_carousel',
+                action: 'select',
+                site: item.host,
+              });
               if (options?.multiple) {
                 selectSiteCore?.selectItem(item);
               } else {
@@ -154,7 +161,10 @@ export function SelectSiteView({
               title="Browse all sites"
               onClick={() => {
                 selectSiteCore?.setView('list');
-                core.sendEvent('browse_all_button - n/a - click');
+                core.sendEvent({
+                  component: 'select_site_carousel',
+                  action: 'browse_all',
+                });
               }}
               variant="outlined"
             />
@@ -183,7 +193,11 @@ export function SelectSiteView({
               sites={sites || []}
               selected={state?.selected || []}
               onSelectItem={(item: any) => {
-                core.sendEvent(`select_site_list - ${item.host} - select`);
+                core.sendEvent({
+                  component: 'select_site_list',
+                  action: 'select',
+                  site: item.host,
+                });
 
                 if (options?.multiple) {
                   selectSiteCore?.selectItem(item);
@@ -205,7 +219,10 @@ export function SelectSiteView({
               variant="text"
               onClick={() => {
                 selectSiteCore?.setView('carousel');
-                core.sendEvent(`select_site_list - n/a - back`);
+                core.sendEvent({
+                  component: 'select_site_list',
+                  action: 'back',
+                });
               }}
             />
           </div>
@@ -217,7 +234,10 @@ export function SelectSiteView({
             ...options,
             onClose() {
               setOpenSearch(false);
-              core.sendEvent(`select_site_search - n/a - cancel`);
+              core.sendEvent({
+                component: 'select_site_search',
+                action: 'close',
+              });
             },
           }}
           appearance={appearance}

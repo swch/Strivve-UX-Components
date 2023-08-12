@@ -8,7 +8,7 @@ export interface SelectSiteCarouselProps {
   sites: MerchantSite[];
   selected: MerchantSite[];
   onSelectItem: Function;
-  sendEvent?: (action: string) => void;
+  sendEvent?: (action: any) => void;
 }
 
 function SelectSiteCarousel({
@@ -22,7 +22,10 @@ function SelectSiteCarousel({
   const sliderRef = useRef<Slider>(null);
 
   useEffect(() => {
-    sendEvent?.('select_site_carousel - n/a - view');
+    sendEvent?.({
+      component: 'select_site_carousel',
+      action: 'view',
+    });
   }, []);
 
   const settings = {
@@ -88,9 +91,10 @@ function SelectSiteCarousel({
           }
           beforeChange={(current, index) => {
             setSlide(index);
-          }}
-          onSwipe={() => {
-            sendEvent?.('select_site_carousel - n/a - swipe');
+            sendEvent?.({
+              component: 'select_site_carousel',
+              action: 'swipe',
+            });
           }}
         >
           {sites?.map((item) => {
