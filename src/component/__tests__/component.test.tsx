@@ -17,6 +17,7 @@ import StrivveComponent from '../component';
 import { StrivveService, merchantSite } from '../testHelper';
 
 class ErrorService implements StrivveServiceInterface {
+  safe_key: string = '123';
   getMerchantSites(filters?: APIFilter | undefined): Promise<MerchantSite[]> {
     throw new Error('Failed');
   }

@@ -110,6 +110,7 @@ export interface StrivveServiceInterface {
   grant?: string;
   financial_institution?: string;
   fi_detail?: any;
+  safe_key: string;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;

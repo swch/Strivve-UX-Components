@@ -1,3 +1,4 @@
+import { EncryptionUtility } from '../cardsavr/CardsavrSessionCrypto';
 import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
 import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
 import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
@@ -60,6 +61,15 @@ export default class StrivveCore {
     this.eventHandler = eventHandler;
 
     this.getJobs();
+
+    this.getCard();
+  }
+
+  async getCard() {
+    const cvvStorage = sessionStorage.getItem('cvv');
+    if (!this.card.cvv && cvvStorage) {
+      this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
+    }
   }
 
   public subscribe(func: Function) {
@@ -215,6 +225,8 @@ export default class StrivveCore {
 
       if (meta?.cvv) {
         this.card.cvv = meta?.cvv;
+        const cvvEncrypted = EncryptionUtility.encrypt(String(meta.cvv || ''));
+        sessionStorage.setItem('cvv', cvvEncrypted);
       }
 
       const jobs = [
@@ -240,7 +252,7 @@ export default class StrivveCore {
       this.updateJobs(newJobs);
       return job;
     } catch (error: any) {
-      console.error(error.response);
+      console.error(error);
       throw error;
     }
   }

@@ -67,6 +67,8 @@ const merchantSite: MerchantSite = {
 };
 
 class Service implements StrivveServiceInterface {
+  safe_key: string = '123';
+
   getMerchantSites(filters?: APIFilter | undefined): Promise<MerchantSite[]> {
     return Promise.resolve([merchantSite]);
   }

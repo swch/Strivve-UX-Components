@@ -64,6 +64,7 @@ export const merchantSite: MerchantSite = {
 
 export class StrivveService implements StrivveServiceInterface {
   constructor(options: StrivveServiceOptions) {}
+  safe_key: string = '';
 
   async getMerchantSites(
     filters?: APIFilter | undefined

@@ -17,7 +17,7 @@ class StrivveService implements StrivveServiceInterface {
   api_instance: string = 'strivve';
   is_login: boolean = false;
   is_error: boolean = false;
-  safe_key: string = 'strivve';
+  public safe_key: string = 'strivve';
   pending: Function[] = [];
   grant?: string;
   financial_institution?: string;
