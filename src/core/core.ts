@@ -171,8 +171,8 @@ export default class StrivveCore {
     this.selectSiteCore = new SelectSiteCore({
       ...options,
       service: this.service,
+      jobs,
     });
-    this.selectSiteCore.setState({ jobs });
     return this.selectSiteCore;
   }
 

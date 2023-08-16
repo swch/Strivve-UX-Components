@@ -8,6 +8,7 @@ import { mountSelectSiteViewProps } from '../types';
 import SelectSiteCarousel from './SelectSiteCarousel';
 import Button from './Button';
 import SearchSiteView from './SearchSiteView';
+import MySiteList from './MySiteList';
 
 export function SelectSiteView({
   options,
@@ -175,7 +176,7 @@ export function SelectSiteView({
       {(state?.view === 'list' || state?.view === 'linked') && (
         <>
           {state?.view === 'linked' ? (
-            <SelectSiteList
+            <MySiteList
               key="my-sites"
               id="my-site"
               sites={

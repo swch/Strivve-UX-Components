@@ -254,6 +254,9 @@ export type Appearance = {
     selectSiteCarouselItemImage?: Interpolation<Theme>;
     selectSiteCarouselItemName?: Interpolation<Theme>;
 
+    mySiteTitle?: Interpolation<Theme>;
+    mySiteDescription?: Interpolation<Theme>;
+
     searchSiteView?: Interpolation<Theme>;
     searchSiteHeader?: Interpolation<Theme>;
     modal?: Interpolation<Theme>;

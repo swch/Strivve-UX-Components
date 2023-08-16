@@ -183,6 +183,15 @@ const defaultAppearance: Appearance = {
       position: 'relative',
       borderBottom: '1px solid #A4A4A4',
     },
+    mySiteTitle: {
+      fontSize: '16px',
+      marginBottom: '8px',
+    },
+    mySiteDescription: {
+      marginTop: '0px',
+      fontSize: '14px',
+      color: 'var(--textColorSecondary)',
+    },
     selectSiteView: {
       maxWidth: '400px',
       margin: 'auto',
@@ -205,7 +214,6 @@ const defaultAppearance: Appearance = {
     selectSiteList: {
       display: 'grid',
       gridTemplateColumns: '1fr',
-      gridGap: '6px',
       overflow: 'auto',
       maxHeight: '400px',
       padding: '16px',
@@ -226,6 +234,7 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       padding: '3px 12px',
       backgroundColor: 'white',
+      marginBottom: '6px',
     },
     selectSiteItemDisabled: {
       cursor: 'not-allowed',
@@ -239,6 +248,7 @@ const defaultAppearance: Appearance = {
       '&:hover': {
         opacity: '0.5',
       },
+      marginBottom: '6px',
     },
     selectSiteItemError: {
       border: '1px solid #D9D9D9',
@@ -248,6 +258,7 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       padding: '3px 12px',
       backgroundColor: 'white',
+      marginBottom: '6px',
     },
     selectSiteItemSuccess: {
       border: '1px solid #D9D9D9',
@@ -257,6 +268,7 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       padding: '3px 12px',
       backgroundColor: 'white',
+      marginBottom: '6px',
     },
     selectSiteItemSelected: {
       cursor: 'pointer',

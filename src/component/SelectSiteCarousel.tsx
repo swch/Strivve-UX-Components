@@ -31,7 +31,7 @@ function SelectSiteCarousel({
   const settings = {
     dots: true,
     infinite: true,
-    arrows: false,
+    arrows: true,
     rows: 2,
     slidesPerRow: 1,
     slidesToShow: 2,
@@ -46,7 +46,7 @@ function SelectSiteCarousel({
 
   return (
     <>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: 'calc(100% - 20px)', margin: 'auto' }}>
         <Slider
           {...settings}
           ref={sliderRef}
@@ -195,10 +195,9 @@ function SelectSiteCarousel({
 
 .slick-next:before,
 .slick-prev:before {
-  font-size: 20px;
-  line-height: 1;
+  font-size: 50px;
   opacity: 0.75;
-  color: #fff;
+  color: var(--secondaryColor);
 }
 
 .slick-prev {
@@ -210,13 +209,10 @@ function SelectSiteCarousel({
   left: auto;
 }
 
-.slick-prev:before {
-  content: '←';
-}
 
 .slick-next:before,
 [dir=rtl] .slick-prev:before {
-  content: '→';
+  content: '›';
 }
 
 .slick-next {
@@ -228,8 +224,9 @@ function SelectSiteCarousel({
   left: -25px;
 }
 
+.slick-prev:before,
 [dir=rtl] .slick-next:before {
-  content: '←';
+  content: '‹';
 }
 
 .slick-dotted.slick-slider {

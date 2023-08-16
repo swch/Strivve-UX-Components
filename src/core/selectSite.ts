@@ -7,6 +7,7 @@ export interface SelectSiteCoreOptions {
   onSubmit?: Function;
   sendEvent?: (action: string, data: any) => void;
   view?: 'list' | 'carousel' | 'linked';
+  jobs?: any[];
 }
 
 export interface SelectSiteState {
@@ -51,6 +52,7 @@ export default class SelectSiteCore {
     multiple,
     onSubmit,
     view,
+    jobs,
     sendEvent,
   }: SelectSiteCoreOptions) {
     this.service = service;
@@ -59,6 +61,10 @@ export default class SelectSiteCore {
     this.sendEvent = sendEvent;
     if (view) {
       this.setState({ view });
+    }
+
+    if (jobs) {
+      this.setState({ jobs });
     }
     this.getSites(filter);
   }
