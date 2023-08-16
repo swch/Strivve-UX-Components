@@ -36,7 +36,11 @@ function AccountLinkForm({
 
   useEffect(() => {
     if (host) {
-      core?.sendEvent(`account_link_form - ${host} - view`);
+      core?.sendEvent({
+        component: 'account_link_form',
+        action: 'view',
+        site: host,
+      });
     }
   }, [host]);
 
@@ -47,7 +51,11 @@ function AccountLinkForm({
       onSubmit={(e) => {
         e.preventDefault();
         submit(e);
-        core?.sendEvent(`account_link_form - ${host} - submit`);
+        core?.sendEvent({
+          component: 'account_link_form',
+          action: 'submit',
+          site: host,
+        });
       }}
     >
       {fields?.map((item, index) => {
@@ -78,7 +86,11 @@ function AccountLinkForm({
           href={forgotLink}
           rel="noreferrer"
           onClick={() => {
-            core?.sendEvent(`account_link_form - ${host} - forgot_password`);
+            core?.sendEvent({
+              component: 'account_link_form',
+              action: 'forgot_password',
+              site: host,
+            });
           }}
         >
           Forgot your sign-in? Let’s go find it.
@@ -92,7 +104,11 @@ function AccountLinkForm({
           <Button
             onClick={() => {
               onCancel();
-              core?.sendEvent(`account_link_form - ${host} - cancel`);
+              core?.sendEvent({
+                component: 'account_link_form',
+                action: 'cancel',
+                site: host,
+              });
             }}
             type="button"
             title={'Cancel'}
