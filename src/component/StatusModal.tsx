@@ -2,6 +2,7 @@
 import React from 'react';
 import { useBase } from './withBase';
 import Button from './Button';
+import PendingIcon from './icons/PendingIcon';
 
 type StatusModalProps = {
   open?: boolean;
@@ -10,7 +11,7 @@ type StatusModalProps = {
   buttonText: string;
   onClickButton?: () => void;
   onClickClose?: () => void;
-  variant?: 'success' | 'error';
+  variant?: 'success' | 'error' | 'pending';
 };
 
 function StatusModal({
@@ -105,6 +106,7 @@ function StatusModal({
             <circle cx="18.0297" cy="17.2416" r="16.7416" stroke="#FF0000" />
           </svg>
         )}
+        {variant === 'pending' && <PendingIcon />}
         <h3 className="modalTitle" css={appearance.elements?.modalTitle}>
           {title}
         </h3>

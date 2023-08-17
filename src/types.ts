@@ -261,6 +261,7 @@ export type Appearance = {
     searchSiteHeader?: Interpolation<Theme>;
     modal?: Interpolation<Theme>;
     modalStatus?: Interpolation<Theme>;
+    modalWarning?: Interpolation<Theme>;
     modalTitle?: Interpolation<Theme>;
     modalDescription?: Interpolation<Theme>;
 

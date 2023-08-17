@@ -3,7 +3,7 @@ import { Appearance } from '../types';
 const defaultAppearance: Appearance = {
   layout: {
     logoImageUrl:
-      'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
+      'https://d1t7g1oas7m24a.cloudfront.net/tiles/dynamic-synthetic?width=128',
     appName: 'Strivve',
   },
   variables: {
@@ -162,6 +162,22 @@ const defaultAppearance: Appearance = {
       borderRadius: '5px',
       padding: '30px',
       position: 'relative',
+      maxWidth: '300px',
+      '@media (max-width: 600px)': {
+        margin: '20px',
+      },
+    },
+    modalWarning: {
+      background: 'white',
+      textAlign: 'center',
+      margin: '20px auto',
+      height: 'calc(100vh - 100px)',
+      borderRadius: '5px',
+      padding: '30px',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
       maxWidth: '300px',
       '@media (max-width: 600px)': {
         margin: '20px',
@@ -350,13 +366,17 @@ const defaultAppearance: Appearance = {
       fontWeight: 400,
     },
     accountLinkHeaderImage: {
-      height: '36px',
-      maxWidth: '100px',
+      maxWidth: '70px',
     },
     accountLinkHeaderImageWrapper: {
       width: '100px',
+      height: '100px',
       display: 'flex',
       justifyContent: 'center',
+      backgroundColor: 'white',
+      borderRadius: '50px',
+      border: '1px solid var(--borderColor)',
+      alignItems: 'center',
     },
     accountLinkBody: {
       marginTop: '70px',

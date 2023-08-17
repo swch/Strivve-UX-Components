@@ -10,6 +10,7 @@ import SecurityIcon from './SecurityIcon';
 import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
 import Button from './Button';
+import WarningModal from './WarningModal';
 
 export function AccountLinkView({
   options,
@@ -19,6 +20,7 @@ export function AccountLinkView({
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
   const [cvvModal, setCvvModal] = useState<boolean>(false);
+  const [openWarning, setOpenWarning] = useState<boolean>(false);
 
   const showProgress =
     state?.linking || state?.success || state?.failed || state?.pending;
@@ -163,7 +165,7 @@ export function AccountLinkView({
           <Button
             variant="text"
             onClick={() => {
-              handleClickCancel();
+              setOpenWarning(true);
               core?.sendEvent({
                 component: 'account_link_progress',
                 action: 'close',
@@ -175,9 +177,10 @@ export function AccountLinkView({
         </div>
         <StatusModal
           open={state?.success}
-          title="Success!"
+          variant="pending"
+          title="We’re Still Finishing Up"
           description={
-            'Your card details were successfully placed on this site.'
+            'This might take a minute. Select another site to update while you wait.'
           }
           buttonText="Browse More Sites"
           onClickButton={() => {
@@ -189,7 +192,7 @@ export function AccountLinkView({
             });
           }}
           onClickClose={() => {
-            handleClickCancel();
+            setOpenWarning(true);
             core?.sendEvent({
               component: 'status_modal',
               action: 'close',
@@ -246,6 +249,12 @@ export function AccountLinkView({
           values={state?.values}
           site={accountLinkCore?.site}
         />
+        <WarningModal
+          open={openWarning}
+          site={accountLinkCore?.site}
+          onClickLeave={options.onCancel}
+          onClickStay={() => setOpenWarning(false)}
+        />
       </AccountLinkContainer>
     );
   }
@@ -291,7 +300,7 @@ export function AccountLinkView({
         }
         buttonText="Confirm"
         onClickClose={() => {
-          handleClickCancel();
+          setOpenWarning(true);
           core?.sendEvent({
             component: 'cvv_form_modal',
             action: 'close',
