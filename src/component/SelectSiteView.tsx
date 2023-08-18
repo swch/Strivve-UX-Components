@@ -77,9 +77,8 @@ export function SelectSiteView({
                 onClick={() => selectSiteCore?.setView('linked')}
                 css={appearance.elements?.selectSiteTitleLink}
               >
-                {totalSuccessJob} sites
+                {totalSuccessJob} sites.
               </a>
-              , keep going!
             </>
           ) : (
             localization?.selectSiteTitle

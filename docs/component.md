@@ -63,7 +63,7 @@ Interface representing localization options.
 
 ```js
       filter: {
-        tags: 'prod,synthetic,disabled',
+        tags: 'prod,synthetic',
         top_hosts: 'apple.com,amazon.com,netflix.com,spotify.com,target.com,uber.com,venmo.com,walgreens.com,walmart.com',
         image_widths: '128,32'
       }

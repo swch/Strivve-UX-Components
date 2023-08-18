@@ -176,6 +176,21 @@ export default class StrivveCore {
     return this.selectSiteCore;
   }
 
+  uniqueByProperty<T>(arr: T[], property: keyof T): T[] {
+    const uniqueArray: T[] = [];
+
+    arr.forEach((item) => {
+      const existingIndex = uniqueArray.findIndex(
+        (uItem) => uItem[property] === item[property]
+      );
+      if (existingIndex === -1) {
+        uniqueArray.push(item);
+      }
+    });
+
+    return uniqueArray;
+  }
+
   async startJob(
     creds: { [key: string]: any },
     meta?: { site: any; cvv?: number }
@@ -248,7 +263,13 @@ export default class StrivveCore {
       job.site_id = site.id;
       job.site = site;
       const newJobs = [...this.jobs];
-      newJobs.push(job);
+      const findIndex = newJobs.findIndex((item) => item.site_id === site.id);
+      console.log('===', newJobs, site, findIndex);
+      if (findIndex >= 0) {
+        newJobs[findIndex] = job;
+      } else {
+        newJobs.push(job);
+      }
       this.updateJobs(newJobs);
       return job;
     } catch (error: any) {

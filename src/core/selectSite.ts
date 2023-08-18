@@ -19,11 +19,11 @@ export interface SelectSiteState {
   error?: boolean;
   message?: string;
   view?: 'list' | 'carousel' | 'linked';
-  filter: { top_hosts?: string; tags?: string };
+  filter: { top_hosts?: string[] | string; tags?: string[] | string };
 }
 
 const defaultFilter = {
-  tags: 'prod,synthetic,disabled',
+  tags: ['prod,synthetic'],
 };
 
 export const initialStateSelectSite: SelectSiteState = {
@@ -86,11 +86,11 @@ export default class SelectSiteCore {
         ...(filter || {}),
       };
 
-      if (merchantFilter.tags) {
+      if (tags) {
         merchantFilter.tags = tags;
       }
 
-      if (merchantFilter.top_hosts) {
+      if (top_hosts) {
         merchantFilter.top_hosts = top_hosts;
       }
 
