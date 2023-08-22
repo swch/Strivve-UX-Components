@@ -264,7 +264,6 @@ export default class StrivveCore {
       job.site = site;
       const newJobs = [...this.jobs];
       const findIndex = newJobs.findIndex((item) => item.site_id === site.id);
-      console.log('===', newJobs, site, findIndex);
       if (findIndex >= 0) {
         newJobs[findIndex] = job;
       } else {

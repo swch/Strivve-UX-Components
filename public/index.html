@@ -72,6 +72,9 @@
           is_primary: true,
         },
       },
+      account_link: {
+        messages: [{ label: 'Hello world' }, { label: 'Test' }],
+      },
       // reset: true,
     });
 
@@ -88,10 +91,16 @@
     //   },
     // });
 
-    // const component = Strivve.createComponent({ core });
+    // const component = Strivve.createComponent({
+    //   core,
+    // });
 
     // component.mountAccountLinkView('account-link', {
     //   site_id: '1',
+    //   messages: [
+    //       { label: 'Hello world' },
+    //       { label: 'Test' },
+    //     ]
     // });
   </script>
 </html>

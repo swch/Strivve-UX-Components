@@ -1,4 +1,4 @@
-import { Interpolation, Theme } from '@emotion/react';
+import { Interpolation, SerializedStyles, Theme } from '@emotion/react';
 import { AccountLinkState } from './core/accountLink';
 import StrivveCore from './core/core';
 import { SelectSiteState } from './core/selectSite';
@@ -21,6 +21,7 @@ export interface Job {
   site?: MerchantSite;
   site_id?: string;
   auth_percent_complete?: number;
+  percent_complete?: number;
 }
 
 export interface Cardholder {
@@ -178,6 +179,7 @@ export interface mountAccountLinkViewOptions {
   subscribe?: (state: AccountLinkState) => void;
   onSubmit?: (values: any) => void;
   onCancel?: () => void;
+  messages?: Message[];
 }
 
 export interface mountAccountLinkViewProps {
@@ -242,6 +244,7 @@ export type Appearance = {
     selectSiteItemDescription?: Interpolation<Theme>;
     selectSiteItemError?: Interpolation<Theme>;
     selectSiteItemSuccess?: Interpolation<Theme>;
+    selectSiteItemCard?: Interpolation<Theme>;
     selectSiteTitle?: Interpolation<Theme>;
     selectSiteTitleLink?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;
@@ -282,6 +285,9 @@ export type Appearance = {
     accountLinkProgressTitle?: Interpolation<Theme>;
     accountLinkProgressDescription?: Interpolation<Theme>;
     accountLinkProgressFooter?: Interpolation<Theme>;
+
+    accountLinkLoading?: Interpolation<Theme> | SerializedStyles;
+    accountLinkLoadingBackground?: Interpolation<Theme> | SerializedStyles;
   };
 };
 
@@ -330,4 +336,8 @@ export interface PostCredsBody {
   account_link: { [k: string]: string };
   job_id: string | number;
   envelope_id: string;
+}
+
+export interface Message {
+  label: string;
 }

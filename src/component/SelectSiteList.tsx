@@ -81,12 +81,6 @@ function SelectSiteList({
               css={
                 isDisabled
                   ? appearance.elements?.selectSiteItemDisabled
-                  : isSuccess
-                  ? appearance.elements?.selectSiteItemSuccess
-                  : isError
-                  ? appearance.elements?.selectSiteItemError
-                  : active
-                  ? appearance.elements?.selectSiteItemSelected
                   : appearance.elements?.selectSiteItem
               }
               onClick={() => {

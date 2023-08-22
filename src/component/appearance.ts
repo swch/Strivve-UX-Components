@@ -1,4 +1,14 @@
 import { Appearance } from '../types';
+import { keyframes } from '@emotion/react';
+
+const MOVE_BG = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(46px);
+  }
+`;
 
 const defaultAppearance: Appearance = {
   layout: {
@@ -250,7 +260,21 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       padding: '3px 12px',
       backgroundColor: 'white',
+      position: 'relative',
+      zIndex: 2,
+      flex: 1,
       marginBottom: '6px',
+    },
+    selectSiteItemCard: {
+      cursor: 'pointer',
+      background: 'white',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '3px 12px',
+      backgroundColor: 'white',
+      position: 'relative',
+      zIndex: 2,
+      flex: 1,
     },
     selectSiteItemDisabled: {
       cursor: 'not-allowed',
@@ -265,27 +289,9 @@ const defaultAppearance: Appearance = {
         opacity: '0.5',
       },
       marginBottom: '6px',
+      position: 'relative',
     },
-    selectSiteItemError: {
-      border: '1px solid #D9D9D9',
-      background: 'white',
-      borderRadius: '4px',
-      display: 'flex',
-      alignItems: 'center',
-      padding: '3px 12px',
-      backgroundColor: 'white',
-      marginBottom: '6px',
-    },
-    selectSiteItemSuccess: {
-      border: '1px solid #D9D9D9',
-      background: 'white',
-      borderRadius: '4px',
-      display: 'flex',
-      alignItems: 'center',
-      padding: '3px 12px',
-      backgroundColor: 'white',
-      marginBottom: '6px',
-    },
+
     selectSiteItemSelected: {
       cursor: 'pointer',
       border: '1px solid black',
@@ -295,6 +301,7 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       padding: '3px 12px',
       backgroundColor: 'white',
+      position: 'relative',
     },
     selectSiteItemName: {
       fontSize: '14px',
@@ -392,6 +399,8 @@ const defaultAppearance: Appearance = {
       padding: '8px',
       maxWidth: '280px',
       margin: 'auto',
+      border: '1px solid var(--borderColor)',
+      background: 'white',
     },
     accountLinkProgressCard: {
       background: 'white',
@@ -412,6 +421,7 @@ const defaultAppearance: Appearance = {
       background: 'var(--secondaryColor)',
       zIndex: 1,
       transitionDuration: '0.5s',
+      overflow: 'hidden',
     },
     accountLinkProgressTitle: {
       margin: '20px',
@@ -435,6 +445,26 @@ const defaultAppearance: Appearance = {
     accountLinkForgotLink: {
       textDecoration: 'none',
       color: '#008BD9',
+    },
+    accountLinkLoadingBackground: {
+      position: 'absolute',
+      left: '-46px',
+      right: 0,
+      top: 0,
+      bottom: 0,
+      zIndex: -1,
+      background: `repeating-linear-gradient(
+        -55deg,
+        #6bbf00 1px,
+        #4b8600 2px,
+        #4b8600 11px,
+        #6bbf00 12px,
+        #6bbf00 20px
+      )`,
+      animationName: MOVE_BG,
+      animationDuration: '0.6s',
+      animationTimingFunction: 'linear',
+      animationIterationCount: 'infinite',
     },
   },
 };

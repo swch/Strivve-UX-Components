@@ -45,7 +45,8 @@ Interface representing localization options.
 | `quick_start` | `boolean` (optional)                           | A boolean value indicating whether to enable quick start mode.                                                                |
 | `subscribe`   | `(state: AccountLinkState) => void` (optional) | A callback function that subscribes to changes in the state of the account link view. It receives the updated state as input. |
 | `onSubmit`    | `(values: any) => void` (optional)             | A callback function to be executed when the account link is submitted. It receives the entered values as input.               |
-| `onCancel`    | `() => void` (optional)                        | A callback function to be executed when the account link view is canceled.                                                    |
+| `onCancel`    | `() => void` (optional)                        | A callback function to be executed when the account link view is canceled.   
+| `messages`    | `[{ label: 'Hello' }]` (optional)                        | The content that appears during the linking process.                              |
 
 ## mountSelectSiteViewOptions <a href="#mountSelectSiteViewOptions" id="mountSelectSiteViewOptions"></a>
 

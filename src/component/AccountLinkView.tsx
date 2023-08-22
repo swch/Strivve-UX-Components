@@ -11,6 +11,7 @@ import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
 import Button from './Button';
 import WarningModal from './WarningModal';
+import AccountLinkCarousel from './AccountLinkCarousel';
 
 export function AccountLinkView({
   options,
@@ -134,29 +135,35 @@ export function AccountLinkView({
           className="accountLinkProgress"
           css={appearance.elements?.accountLinkProgress}
         >
-          <div
-            className="accountLinkProgressCard"
-            css={appearance.elements?.accountLinkProgressCard}
-          >
-            <p
-              className="accountLinkProgressTitle"
-              css={appearance.elements?.accountLinkProgressTitle}
+          {(options.messages?.length || 0) > 1 ? (
+            <AccountLinkCarousel messages={options.messages} />
+          ) : (
+            <div
+              className="accountLinkProgressCard"
+              css={appearance.elements?.accountLinkProgressCard}
             >
-              {'Logging in...'}
-            </p>
-            <SecurityIcon />
-            <p
-              className="accountLinkProgressDescription"
-              css={appearance.elements?.accountLinkProgressDescription}
-            >
-              {state?.message?.status_message}
-            </p>
-          </div>
+              <p
+                className="accountLinkProgressTitle"
+                css={appearance.elements?.accountLinkProgressTitle}
+              >
+                {'Logging in...'}
+              </p>
+              <SecurityIcon />
+              <p
+                className="accountLinkProgressDescription"
+                css={appearance.elements?.accountLinkProgressDescription}
+              >
+                {state?.message?.status_message}
+              </p>
+            </div>
+          )}
           <div
             style={dynamicBarStyle}
             className="accountLinkProgressBar"
             css={appearance.elements?.accountLinkProgressBar}
-          />
+          >
+            <div css={appearance.elements?.accountLinkLoadingBackground} />
+          </div>
         </div>
         <div
           className="accountLinkProgressFooter"

@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 
-//browserCrypto will be false for both node AND IE11 AND Advancial because they are destroying window.crypto contents
+//browserCrypto will be false for both node AND IE11 AND Advancial because they are destroying window.crypto messages
 const browserCrypto =
   typeof window === 'undefined' || !window.crypto?.subtle
     ? false
