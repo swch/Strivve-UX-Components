@@ -20,6 +20,7 @@ export type CreateAccountLinkOptions = Omit<
 export enum StrivveCoreMount {
   ACCOUNT_LINK = 'account_link',
   SELECT_SITE = 'select_site',
+  INTRO = 'intro',
 }
 
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>;

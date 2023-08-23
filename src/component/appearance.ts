@@ -466,6 +466,64 @@ const defaultAppearance: Appearance = {
       animationTimingFunction: 'linear',
       animationIterationCount: 'infinite',
     },
+
+    introView: {
+      maxWidth: '400px',
+      margin: '20px auto',
+    },
+    introTitle: {
+      fontSize: '20px',
+      color: 'var(--secondaryColor)',
+    },
+    introIconWrapper: {
+      display: 'flex',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      alignItems: 'center',
+      gap: '6px',
+      '& svg': {
+        width: '22px',
+      },
+      '& p': {
+        marginBottom: 0,
+        marginTop: 0,
+        color: 'var(--textColorSecondary)',
+      },
+      borderBottom: '1px solid var(--borderColor)',
+      paddingBottom: '30px',
+    },
+    introStepTitle: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    introStepWrapper: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gridGap: '20px',
+      textAlign: 'center',
+    },
+    introStepIconWrapper: {
+      display: 'flex',
+      fontSize: '16px',
+      justifyContent: 'center',
+      fontWeight: 'bold',
+      alignItems: 'center',
+      gap: '6px',
+      color: 'var(--secondaryColor)',
+      '& svg': {
+        marginLeft: '-22px',
+      },
+    },
+    introStepDescription: {
+      marginTop: '6px',
+      color: 'var(--textColorSecondary)',
+    },
+    introStepButtonWrapper: {
+      width: '200px',
+      margin: 'auto',
+      marginTop: '40px',
+    },
   },
 };
 

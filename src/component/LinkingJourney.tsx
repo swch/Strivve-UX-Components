@@ -5,6 +5,7 @@ import { MerchantSite, mountLinkingJourneyOptions } from '../types';
 import SelectSiteView from './SelectSiteView';
 import AccountLinkView from './AccountLinkView';
 import { StrivveCoreMount, StrivveCoreState } from '../core/core';
+import IntroView from './IntroView';
 
 export function LinkingJourney({
   selectSiteOptions,
@@ -24,6 +25,13 @@ export function LinkingJourney({
 
   return (
     <div data-testid="linkingJourney" className="linkingJourney">
+      {state?.mount === StrivveCoreMount.INTRO && (
+        <IntroView
+          core={core}
+          appearance={appearance}
+          localization={localization}
+        />
+      )}
       {state?.mount === StrivveCoreMount.SELECT_SITE && (
         <SelectSiteView
           core={core}

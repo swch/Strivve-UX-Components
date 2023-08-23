@@ -137,6 +137,18 @@ export interface Localization {
 
   accountLinkTitle?: string;
   accountLinkDescription?: string;
+
+  introTitle?: string;
+  introIconText?: string;
+
+  introStepTitle?: string;
+  introStepOne?: string;
+  introStepOneDescription?: string;
+
+  introStepTwo?: string;
+  introStepTwoDescription?: string;
+
+  introButtonText?: string;
 }
 
 export interface StrivveComponentInterface {
@@ -288,6 +300,18 @@ export type Appearance = {
 
     accountLinkLoading?: Interpolation<Theme> | SerializedStyles;
     accountLinkLoadingBackground?: Interpolation<Theme> | SerializedStyles;
+
+    introView?: Interpolation<Theme>;
+    introTitle?: Interpolation<Theme>;
+    introIconWrapper?: Interpolation<Theme>;
+
+    introStepTitle?: Interpolation<Theme>;
+    introStepWrapper?: Interpolation<Theme>;
+
+    introStepIconWrapper?: Interpolation<Theme>;
+    introStepDescription?: Interpolation<Theme>;
+
+    introStepButtonWrapper?: Interpolation<Theme>;
   };
 };
 
