@@ -502,6 +502,7 @@ const defaultAppearance: Appearance = {
       gridTemplateColumns: '1fr 1fr',
       gridGap: '20px',
       textAlign: 'center',
+      marginBottom: '20px',
     },
     introStepIconWrapper: {
       display: 'flex',
@@ -522,7 +523,10 @@ const defaultAppearance: Appearance = {
     introStepButtonWrapper: {
       width: '200px',
       margin: 'auto',
-      marginTop: '40px',
+      marginTop: '20px',
+    },
+    introStepBanner: {
+      width: '100%',
     },
   },
 };

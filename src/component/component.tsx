@@ -131,7 +131,11 @@ export default class StrivveComponent implements StrivveComponentInterface {
 
   mountLinkingJourney(
     id: string,
-    { selectSiteOptions, accountLinkOptions }: mountLinkingJourneyOptions
+    {
+      selectSiteOptions,
+      accountLinkOptions,
+      introOptions,
+    }: mountLinkingJourneyOptions
   ) {
     const root = this.linkingJourney
       ? this.linkingJourney
@@ -144,6 +148,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
         core={this.core}
         selectSiteOptions={selectSiteOptions}
         accountLinkOptions={accountLinkOptions}
+        introOptions={introOptions}
       />
     );
     this.linkingJourney = root;

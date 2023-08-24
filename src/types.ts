@@ -194,6 +194,12 @@ export interface mountAccountLinkViewOptions {
   messages?: Message[];
 }
 
+export interface mountIntroViewOptions {
+  banner?: string;
+  onClickBanner?: (values: any) => void;
+  onClickButton?: () => void;
+}
+
 export interface mountAccountLinkViewProps {
   options: mountAccountLinkViewOptions;
 }
@@ -211,9 +217,14 @@ export interface mountSelectSiteViewProps {
   options?: mountSelectSiteViewOptions;
 }
 
+export interface mountIntroViewProps {
+  options?: mountIntroViewOptions;
+}
+
 export type mountLinkingJourneyOptions = {
   accountLinkOptions?: mountAccountLinkViewOptions;
   selectSiteOptions?: mountSelectSiteViewOptions;
+  introOptions?: mountIntroViewOptions;
 };
 
 export type Appearance = {
@@ -311,6 +322,7 @@ export type Appearance = {
     introStepIconWrapper?: Interpolation<Theme>;
     introStepDescription?: Interpolation<Theme>;
 
+    introStepBanner?: Interpolation<Theme>;
     introStepButtonWrapper?: Interpolation<Theme>;
   };
 };

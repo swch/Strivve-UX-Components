@@ -10,6 +10,7 @@ import IntroView from './IntroView';
 export function LinkingJourney({
   selectSiteOptions,
   accountLinkOptions,
+  introOptions,
   core,
   appearance,
   localization,
@@ -30,6 +31,12 @@ export function LinkingJourney({
           core={core}
           appearance={appearance}
           localization={localization}
+          options={{
+            ...(introOptions || {}),
+            onClickButton: () => {
+              core.setState({ mount: StrivveCoreMount.SELECT_SITE });
+            },
+          }}
         />
       )}
       {state?.mount === StrivveCoreMount.SELECT_SITE && (

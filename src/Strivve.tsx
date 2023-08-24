@@ -1,5 +1,5 @@
 import StrivveService from './service/service';
-import StrivveCore, { StrivveCoreOptions } from './core/core';
+import StrivveCore, { StrivveCoreMount, StrivveCoreOptions } from './core/core';
 import StrivveComponent from './component/component';
 import {
   Appearance,
@@ -9,6 +9,7 @@ import {
   StrivveServiceClass,
   StrivveServiceOptions,
   mountAccountLinkViewOptions,
+  mountIntroViewOptions,
   mountSelectSiteViewOptions,
 } from './types';
 
@@ -31,7 +32,9 @@ export interface mountLinkingJourneyStrivve {
   Service?: StrivveServiceClass;
   account_link?: mountAccountLinkViewOptions;
   select_site?: mountSelectSiteViewOptions;
+  intro?: mountIntroViewOptions;
   reset?: boolean;
+  mount?: StrivveCoreMount;
   eventHandler?: (action: string, data?: any) => void;
 }
 
@@ -63,6 +66,8 @@ export default class Strivve {
     account_link,
     financial_institution,
     reset,
+    mount,
+    intro,
     eventHandler,
   }: mountLinkingJourneyStrivve) {
     const createService = Service
@@ -74,6 +79,7 @@ export default class Strivve {
       card,
       card_id,
       reset,
+      mount,
       eventHandler,
     });
 
@@ -84,6 +90,7 @@ export default class Strivve {
     createComponent.mountLinkingJourney(element_id, {
       selectSiteOptions: select_site,
       accountLinkOptions: account_link,
+      introOptions: intro,
     });
 
     return this;

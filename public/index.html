@@ -52,6 +52,7 @@
     const stv = Strivve.mountLinkingJourney({
       element_id: 'full',
       api_instance: 'customer-dev',
+      mount: 'intro',
       card: {
         pan: '4111111111111111',
         cvv: '321',
@@ -75,7 +76,9 @@
       account_link: {
         messages: [{ label: 'Hello world' }, { label: 'Test' }],
       },
-      // reset: true,
+      intro: {
+        banner: 'https://swch.github.io/Strivve-UX-Components/banner.png',
+      },
     });
 
     // const service = Strivve.createService({ api_instance: 'customer-dev' });

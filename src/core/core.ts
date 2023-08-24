@@ -10,6 +10,7 @@ export interface StrivveCoreOptions {
   address?: any;
   reset?: boolean;
   eventHandler?: (action: any) => void;
+  mount?: StrivveCoreMount;
 }
 
 export type CreateAccountLinkOptions = Omit<
@@ -49,11 +50,13 @@ export default class StrivveCore {
     card,
     reset,
     eventHandler,
+    mount,
   }: StrivveCoreOptions) {
     this.service = service;
 
     this.card_id = card_id;
     this.card = card;
+    this.state.mount = mount || StrivveCoreMount.SELECT_SITE;
 
     if (reset) {
       sessionStorage.clear();

@@ -6,14 +6,14 @@ import TimeIcon from './icons/TimeIcon';
 import StepOneIcon from './icons/StepOneIcon';
 import StepTwoIcon from './icons/StepTwoIcon';
 import { StrivveCoreMount } from '../core/core';
-
-interface IntroViewProps {}
+import { mountIntroViewProps } from '../types';
 
 function IntroView({
   localization,
   appearance,
   core,
-}: IntroViewProps & BaseProps) {
+  options,
+}: mountIntroViewProps & BaseProps) {
   return (
     <div css={appearance.elements?.introView} className="introView">
       <p css={appearance.elements?.introTitle} className="introTitle">
@@ -64,15 +64,23 @@ function IntroView({
             </div>
           </div>
         </div>
+        {options?.banner && (
+          <div>
+            <img
+              alt="banner"
+              src={options.banner}
+              css={appearance.elements?.introStepBanner}
+              className="introStepBanner"
+            />
+          </div>
+        )}
         <div
           css={appearance.elements?.introStepButtonWrapper}
           className="introStepButtonWrapper"
         >
           <Button
             title={localization.introButtonText}
-            onClick={() =>
-              core.setState({ mount: StrivveCoreMount.SELECT_SITE })
-            }
+            onClick={options?.onClickButton}
           />
         </div>
       </div>
