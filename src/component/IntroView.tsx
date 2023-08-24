@@ -65,7 +65,9 @@ function IntroView({
           </div>
         </div>
         {options?.banner && (
-          <div>
+          <div
+            onClick={options.onClickBanner}
+          >
             <img
               alt="banner"
               src={options.banner}

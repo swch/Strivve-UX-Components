@@ -527,6 +527,7 @@ const defaultAppearance: Appearance = {
     },
     introStepBanner: {
       width: '100%',
+      cursor: 'pointer'
     },
   },
 };

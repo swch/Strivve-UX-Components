@@ -52,7 +52,6 @@
     const stv = Strivve.mountLinkingJourney({
       element_id: 'full',
       api_instance: 'customer-dev',
-      mount: 'intro',
       card: {
         pan: '4111111111111111',
         cvv: '321',
@@ -76,9 +75,16 @@
       account_link: {
         messages: [{ label: 'Hello world' }, { label: 'Test' }],
       },
-      intro: {
-        banner: 'https://swch.github.io/Strivve-UX-Components/banner.png',
-      },
+      // mount: 'intro',
+      // intro: {
+      //   banner: 'https://swch.github.io/Strivve-UX-Components/banner.png',
+      //   onClickBanner: () => {
+      //     alert('open banner')
+      //   }
+      // },
+      // localization: {
+      //   introTitle: 'Hello word'
+      // }
     });
 
     // const service = Strivve.createService({ api_instance: 'customer-dev' });
