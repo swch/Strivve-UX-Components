@@ -7,6 +7,7 @@ import StepOneIcon from './icons/StepOneIcon';
 import StepTwoIcon from './icons/StepTwoIcon';
 import { StrivveCoreMount } from '../core/core';
 import { mountIntroViewProps } from '../types';
+import Header from './Header';
 
 function IntroView({
   localization,
@@ -16,6 +17,7 @@ function IntroView({
 }: mountIntroViewProps & BaseProps) {
   return (
     <div css={appearance.elements?.introView} className="introView">
+      <Header />
       <p css={appearance.elements?.introTitle} className="introTitle">
         {localization.introTitle}
       </p>
@@ -65,9 +67,7 @@ function IntroView({
           </div>
         </div>
         {options?.banner && (
-          <div
-            onClick={options.onClickBanner}
-          >
+          <div onClick={options.onClickBanner}>
             <img
               alt="banner"
               src={options.banner}

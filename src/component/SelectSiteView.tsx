@@ -9,6 +9,7 @@ import SelectSiteCarousel from './SelectSiteCarousel';
 import Button from './Button';
 import SearchSiteView from './SearchSiteView';
 import MySiteList from './MySiteList';
+import Header from './Header';
 
 export function SelectSiteView({
   options,
@@ -68,6 +69,7 @@ export function SelectSiteView({
       className="selectSiteView"
       css={appearance.elements?.selectSiteView}
     >
+      <Header />
       <div css={appearance.elements?.selectSiteHeader}>
         <p css={appearance.elements?.selectSiteTitle}>
           {isHaveJob ? (

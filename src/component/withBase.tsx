@@ -1,14 +1,18 @@
 import React, { createContext, useContext } from 'react';
-import { Appearance, Localization } from '../types';
+import { Appearance, Localization, mountHeaderOptions } from '../types';
 import StrivveCore from '../core/core';
 import { getColors } from './utils';
 
 export const BaseContext = createContext<{
+  core: StrivveCore;
   appearance: Appearance;
   localization: Localization;
+  headerOptions?: mountHeaderOptions;
 }>({
+  core: {} as StrivveCore,
   appearance: {} as Appearance,
   localization: {} as Localization,
+  headerOptions: undefined,
 });
 export const useBase = () => useContext(BaseContext);
 
@@ -16,6 +20,7 @@ export interface BaseProps {
   core: StrivveCore;
   appearance: Appearance;
   localization: Localization;
+  headerOptions?: mountHeaderOptions;
 }
 
 export interface WithBaseProps {
@@ -26,7 +31,7 @@ export interface WithBaseProps {
 
 const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
   return function WithBase(props: P) {
-    const { appearance, localization } = props;
+    const { appearance, localization, headerOptions, core } = props;
     const variables = appearance?.variables || ({} as any);
     const generateVariables: { [key: string]: string } = {};
 
@@ -48,7 +53,9 @@ const withBase = <P extends BaseProps>(Component: React.ComponentType<P>) => {
           fontSize: variables.fontSize,
         }}
       >
-        <BaseContext.Provider value={{ appearance, localization }}>
+        <BaseContext.Provider
+          value={{ appearance, localization, headerOptions, core }}
+        >
           <Component {...props} />
         </BaseContext.Provider>
       </div>

@@ -226,6 +226,7 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
+      marginTop: '16px',
       gap: '16px',
     },
     selectSiteTitle: {
@@ -462,14 +463,14 @@ const defaultAppearance: Appearance = {
         #6bbf00 20px
       )`,
       animationName: MOVE_BG,
-      animationDuration: '0.6s',
+      animationDuration: '2s',
       animationTimingFunction: 'linear',
       animationIterationCount: 'infinite',
     },
 
     introView: {
       maxWidth: '400px',
-      margin: '20px auto',
+      margin: 'auto',
     },
     introTitle: {
       fontSize: '20px',
@@ -527,7 +528,25 @@ const defaultAppearance: Appearance = {
     },
     introStepBanner: {
       width: '100%',
-      cursor: 'pointer'
+      cursor: 'pointer',
+    },
+
+    headerWrapper: {
+      maxWidth: '400px',
+      margin: 'auto',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      '& svg': {
+        cursor: 'pointer',
+      },
+      borderBottom: '1px solid var(--borderColor)',
+      padding: '12px 12px',
+    },
+    headerTitle: {
+      fontSize: '18px',
+      marginTop: '0px',
+      marginBottom: '0px',
     },
   },
 };

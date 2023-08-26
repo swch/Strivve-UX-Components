@@ -213,6 +213,11 @@ export interface mountSelectSiteViewOptions {
   subscribe?: (state: SelectSiteState) => void;
 }
 
+export interface mountHeaderOptions {
+  title?: string;
+  onClose?: () => void;
+}
+
 export interface mountSelectSiteViewProps {
   options?: mountSelectSiteViewOptions;
 }
@@ -225,6 +230,7 @@ export type mountLinkingJourneyOptions = {
   accountLinkOptions?: mountAccountLinkViewOptions;
   selectSiteOptions?: mountSelectSiteViewOptions;
   introOptions?: mountIntroViewOptions;
+  headerOptions?: mountHeaderOptions;
 };
 
 export type Appearance = {
@@ -318,12 +324,13 @@ export type Appearance = {
 
     introStepTitle?: Interpolation<Theme>;
     introStepWrapper?: Interpolation<Theme>;
-
     introStepIconWrapper?: Interpolation<Theme>;
     introStepDescription?: Interpolation<Theme>;
-
     introStepBanner?: Interpolation<Theme>;
     introStepButtonWrapper?: Interpolation<Theme>;
+
+    headerWrapper?: Interpolation<Theme>;
+    headerTitle?: Interpolation<Theme>;
   };
 };
 

@@ -27,7 +27,7 @@
     <title>Strivve Component</title>
   </head>
 
-  <body style="background-color: rgba(255, 248, 234, 0.4)">
+  <body style="background-color: rgba(255, 248, 234, 0.4); margin: 0px">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div style="margin: auto" id="full"></div>
 
@@ -48,9 +48,10 @@
 
   <script src="./static/js/bundle.js"></script>
   <script>
+    const id = 'full';
     // mount journey
     const stv = Strivve.mountLinkingJourney({
-      element_id: 'full',
+      element_id: id,
       api_instance: 'customer-dev',
       card: {
         pan: '4111111111111111',
@@ -75,13 +76,20 @@
       account_link: {
         messages: [{ label: 'Hello world' }, { label: 'Test' }],
       },
-      // mount: 'intro',
-      // intro: {
-      //   banner: 'https://swch.github.io/Strivve-UX-Components/banner.png',
-      //   onClickBanner: () => {
-      //     alert('open banner')
-      //   }
-      // },
+      mount: 'intro',
+      intro: {
+        banner: 'https://swch.github.io/Strivve-UX-Components/banner.png',
+        onClickBanner: () => {
+          alert('open banner');
+        },
+      },
+      header: {
+        title: 'Product',
+        onClose: () => {
+          console.log(stv);
+          stv.component.unmountLinkingJourney(id);
+        },
+      },
       // localization: {
       //   introTitle: 'Hello word'
       // }

@@ -14,6 +14,7 @@ export function LinkingJourney({
   core,
   appearance,
   localization,
+  headerOptions,
 }: BaseProps & mountLinkingJourneyOptions) {
   const [sites, setSites] = useState<MerchantSite[]>([]);
   const [state, setState] = useState<StrivveCoreState>();
@@ -31,6 +32,7 @@ export function LinkingJourney({
           core={core}
           appearance={appearance}
           localization={localization}
+          headerOptions={headerOptions}
           options={{
             ...(introOptions || {}),
             onClickButton: () => {
@@ -44,6 +46,7 @@ export function LinkingJourney({
           core={core}
           appearance={appearance}
           localization={localization}
+          headerOptions={headerOptions}
           options={{
             ...selectSiteOptions,
             onSubmit: (sites) => {
@@ -63,6 +66,7 @@ export function LinkingJourney({
             appearance={appearance}
             localization={localization}
             core={core}
+            headerOptions={headerOptions}
             options={{
               ...accountLinkOptions,
               site_id: sites[0]?.id,

@@ -12,6 +12,7 @@ import PendingModal from './PendingModal';
 import Button from './Button';
 import WarningModal from './WarningModal';
 import AccountLinkCarousel from './AccountLinkCarousel';
+import Header from './Header';
 
 export function AccountLinkView({
   options,
@@ -129,140 +130,143 @@ export function AccountLinkView({
 
   if (showProgress) {
     return (
-      <AccountLinkContainer hide_title site={accountLinkCore?.site}>
-        <div
-          data-testid="accountLinkProgress"
-          className="accountLinkProgress"
-          css={appearance.elements?.accountLinkProgress}
-        >
-          {(options.messages?.length || 0) > 1 ? (
-            <AccountLinkCarousel messages={options.messages} />
-          ) : (
-            <div
-              className="accountLinkProgressCard"
-              css={appearance.elements?.accountLinkProgressCard}
-            >
-              <p
-                className="accountLinkProgressTitle"
-                css={appearance.elements?.accountLinkProgressTitle}
-              >
-                {'Logging in...'}
-              </p>
-              <SecurityIcon />
-              <p
-                className="accountLinkProgressDescription"
-                css={appearance.elements?.accountLinkProgressDescription}
-              >
-                {state?.message?.status_message}
-              </p>
-            </div>
-          )}
+      <>
+        <Header />
+        <AccountLinkContainer hide_title site={accountLinkCore?.site}>
           <div
-            style={dynamicBarStyle}
-            className="accountLinkProgressBar"
-            css={appearance.elements?.accountLinkProgressBar}
+            data-testid="accountLinkProgress"
+            className="accountLinkProgress"
+            css={appearance.elements?.accountLinkProgress}
           >
-            <div css={appearance.elements?.accountLinkLoadingBackground} />
+            {(options.messages?.length || 0) > 1 ? (
+              <AccountLinkCarousel messages={options.messages} />
+            ) : (
+              <div
+                className="accountLinkProgressCard"
+                css={appearance.elements?.accountLinkProgressCard}
+              >
+                <p
+                  className="accountLinkProgressTitle"
+                  css={appearance.elements?.accountLinkProgressTitle}
+                >
+                  {'Logging in...'}
+                </p>
+                <SecurityIcon />
+                <p
+                  className="accountLinkProgressDescription"
+                  css={appearance.elements?.accountLinkProgressDescription}
+                >
+                  {state?.message?.status_message}
+                </p>
+              </div>
+            )}
+            <div
+              style={dynamicBarStyle}
+              className="accountLinkProgressBar"
+              css={appearance.elements?.accountLinkProgressBar}
+            >
+              <div css={appearance.elements?.accountLinkLoadingBackground} />
+            </div>
           </div>
-        </div>
-        <div
-          className="accountLinkProgressFooter"
-          css={appearance.elements?.accountLinkProgressFooter}
-        >
-          <Button
-            variant="text"
-            onClick={() => {
+          <div
+            className="accountLinkProgressFooter"
+            css={appearance.elements?.accountLinkProgressFooter}
+          >
+            <Button
+              variant="text"
+              onClick={() => {
+                setOpenWarning(true);
+                core?.sendEvent({
+                  component: 'account_link_progress',
+                  action: 'close',
+                  site: host,
+                });
+              }}
+              title="Cancel"
+            />
+          </div>
+          <StatusModal
+            open={state?.success}
+            variant="pending"
+            title="We’re Still Finishing Up"
+            description={
+              'This might take a minute. Select another site to update while you wait.'
+            }
+            buttonText="Browse More Sites"
+            onClickButton={() => {
+              options.onCancel?.();
+              core?.sendEvent({
+                component: 'status_modal',
+                action: 'submit',
+                site: host,
+              });
+            }}
+            onClickClose={() => {
               setOpenWarning(true);
               core?.sendEvent({
-                component: 'account_link_progress',
+                component: 'status_modal',
                 action: 'close',
                 site: host,
               });
             }}
-            title="Cancel"
           />
-        </div>
-        <StatusModal
-          open={state?.success}
-          variant="pending"
-          title="We’re Still Finishing Up"
-          description={
-            'This might take a minute. Select another site to update while you wait.'
-          }
-          buttonText="Browse More Sites"
-          onClickButton={() => {
-            options.onCancel?.();
-            core?.sendEvent({
-              component: 'status_modal',
-              action: 'submit',
-              site: host,
-            });
-          }}
-          onClickClose={() => {
-            setOpenWarning(true);
-            core?.sendEvent({
-              component: 'status_modal',
-              action: 'close',
-              site: host,
-            });
-          }}
-        />
-        <StatusModal
-          open={state?.failed}
-          variant="error"
-          title="Error!"
-          description={state?.message?.status_message}
-          buttonText="Try a Different Site"
-          onClickButton={() => {
-            options.onCancel?.();
-            core?.sendEvent({
-              component: 'status_modal',
-              action: 'submit',
-              site: host,
-            });
-          }}
-          onClickClose={() => {
-            handleClickCancel();
-            core?.sendEvent({
-              component: 'status_modal',
-              action: 'close',
-              site: host,
-            });
-          }}
-        />
-        <PendingModal
-          open={Boolean(state?.pending)}
-          title={pendingMessage[state?.pending?.status] || ''}
-          description={state?.message?.status_message}
-          buttonText="Verify"
-          onClickClose={() => {
-            core?.sendEvent({
-              component: 'pending_form_modal',
-              action: 'close',
-              site: host,
-            });
-          }}
-          fields={accountLinkCore?.fields || []}
-          disabled={state?.submitting}
-          submit={(e) => {
-            handleSubmit(e);
-            core?.sendEvent({
-              component: 'pending_form_modal',
-              action: 'submit',
-              site: host,
-            });
-          }}
-          change={(name, value) => accountLinkCore?.change(name, value)}
-          values={state?.values}
-          site={accountLinkCore?.site}
-        />
-        <WarningModal
-          open={openWarning}
-          site={accountLinkCore?.site}
-          onClickLeave={options.onCancel}
-          onClickStay={() => setOpenWarning(false)}
-        />
-      </AccountLinkContainer>
+          <StatusModal
+            open={state?.failed}
+            variant="error"
+            title="Error!"
+            description={state?.message?.status_message}
+            buttonText="Try a Different Site"
+            onClickButton={() => {
+              options.onCancel?.();
+              core?.sendEvent({
+                component: 'status_modal',
+                action: 'submit',
+                site: host,
+              });
+            }}
+            onClickClose={() => {
+              handleClickCancel();
+              core?.sendEvent({
+                component: 'status_modal',
+                action: 'close',
+                site: host,
+              });
+            }}
+          />
+          <PendingModal
+            open={Boolean(state?.pending)}
+            title={pendingMessage[state?.pending?.status] || ''}
+            description={state?.message?.status_message}
+            buttonText="Verify"
+            onClickClose={() => {
+              core?.sendEvent({
+                component: 'pending_form_modal',
+                action: 'close',
+                site: host,
+              });
+            }}
+            fields={accountLinkCore?.fields || []}
+            disabled={state?.submitting}
+            submit={(e) => {
+              handleSubmit(e);
+              core?.sendEvent({
+                component: 'pending_form_modal',
+                action: 'submit',
+                site: host,
+              });
+            }}
+            change={(name, value) => accountLinkCore?.change(name, value)}
+            values={state?.values}
+            site={accountLinkCore?.site}
+          />
+          <WarningModal
+            open={openWarning}
+            site={accountLinkCore?.site}
+            onClickLeave={options.onCancel}
+            onClickStay={() => setOpenWarning(false)}
+          />
+        </AccountLinkContainer>
+      </>
     );
   }
 
@@ -272,6 +276,7 @@ export function AccountLinkView({
       className="accountLinkView"
       css={appearance.elements?.accountLinkView}
     >
+      <Header />
       <AccountLinkContainer site={accountLinkCore?.site}>
         {state?.message?.status_message && (
           <p className="accountLinkStatusMessage">

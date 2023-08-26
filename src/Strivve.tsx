@@ -5,10 +5,12 @@ import {
   Appearance,
   Localization,
   StrivveComponentClass,
+  StrivveComponentInterface,
   StrivveComponentOptions,
   StrivveServiceClass,
   StrivveServiceOptions,
   mountAccountLinkViewOptions,
+  mountHeaderOptions,
   mountIntroViewOptions,
   mountSelectSiteViewOptions,
 } from './types';
@@ -32,6 +34,7 @@ export interface mountLinkingJourneyStrivve {
   Service?: StrivveServiceClass;
   account_link?: mountAccountLinkViewOptions;
   select_site?: mountSelectSiteViewOptions;
+  header?: mountHeaderOptions;
   intro?: mountIntroViewOptions;
   reset?: boolean;
   mount?: StrivveCoreMount;
@@ -40,6 +43,7 @@ export interface mountLinkingJourneyStrivve {
 
 export default class Strivve {
   public core?: StrivveCore;
+  public component?: StrivveComponentInterface;
 
   createCore(options: StrivveCoreOptions): StrivveCore {
     this.core = new StrivveCore(options);
@@ -68,6 +72,7 @@ export default class Strivve {
     reset,
     mount,
     intro,
+    header,
     eventHandler,
   }: mountLinkingJourneyStrivve) {
     const createService = Service
@@ -91,7 +96,10 @@ export default class Strivve {
       selectSiteOptions: select_site,
       accountLinkOptions: account_link,
       introOptions: intro,
+      headerOptions: header,
     });
+
+    this.component = createComponent;
 
     return this;
   }
