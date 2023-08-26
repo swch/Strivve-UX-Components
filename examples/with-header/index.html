@@ -37,6 +37,13 @@
         alert('open banner');
       },
     },
+    header: {
+      title: 'Product',
+      onClose: () => {
+        console.log(stv);
+        stv.component.unmountLinkingJourney(id);
+      },
+    },
   });
 </script>
 

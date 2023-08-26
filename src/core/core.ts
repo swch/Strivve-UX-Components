@@ -114,6 +114,7 @@ export default class StrivveCore {
       this.selectSiteCore?.setView('carousel');
       return true;
     } else {
+      this.setMount(StrivveCoreMount.INTRO);
       return false;
     }
   }
