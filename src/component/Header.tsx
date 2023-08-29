@@ -4,9 +4,13 @@ import { useBase } from './withBase';
 import BackIcon from './icons/BackIcon';
 import CloseIcon from './icons/CloseIcon';
 import { StrivveCoreMount } from '../core/core';
+import SiteItem from './SiteItem';
 
-function Header() {
+function Header({ hideJob }: { hideJob?: boolean }) {
   const { appearance, headerOptions, core } = useBase();
+
+  const jobs = core?.jobs;
+  const item = core.jobs?.[jobs.length - 1];
 
   return headerOptions ? (
     <div className="headerWrapper" css={appearance.elements?.headerWrapper}>
@@ -17,9 +21,18 @@ function Header() {
           </div>
         )}
       </div>
-      <p className="headerTitle" css={appearance.elements?.headerTitle}>
-        {headerOptions?.title}
-      </p>
+      {item && core.state.mount === StrivveCoreMount.SELECT_SITE && !hideJob ? (
+        <SiteItem
+          item={{
+            ...(item.site || {}),
+            job: item,
+          }}
+        />
+      ) : (
+        <p className="headerTitle" css={appearance.elements?.headerTitle}>
+          {headerOptions?.title}
+        </p>
+      )}
       <div onClick={headerOptions?.onClose}>
         <CloseIcon />
       </div>

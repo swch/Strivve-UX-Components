@@ -266,6 +266,21 @@ const defaultAppearance: Appearance = {
       flex: 1,
       marginBottom: '6px',
     },
+    selectSiteItemHeader: {
+      cursor: 'pointer',
+      border: '1px solid #D9D9D9',
+      background: 'white',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '3px 12px',
+      backgroundColor: 'white',
+      position: 'relative',
+      zIndex: 2,
+      flex: 1,
+      margin: '4px',
+      overflow: 'hidden',
+    },
     selectSiteItemCard: {
       cursor: 'pointer',
       background: 'white',
@@ -349,6 +364,7 @@ const defaultAppearance: Appearance = {
     accountLinkContainer: {
       maxWidth: '400px',
       margin: 'auto',
+      marginTop: '12px',
     },
     accountLinkView: {},
     accountLinkHeader: {
@@ -541,7 +557,9 @@ const defaultAppearance: Appearance = {
         cursor: 'pointer',
       },
       borderBottom: '1px solid var(--borderColor)',
-      padding: '12px 12px',
+      padding: '2px',
+      gap: '12px',
+      height: '50px',
     },
     headerTitle: {
       fontSize: '18px',

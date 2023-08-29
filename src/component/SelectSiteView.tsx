@@ -69,7 +69,7 @@ export function SelectSiteView({
       className="selectSiteView"
       css={appearance.elements?.selectSiteView}
     >
-      <Header />
+      <Header hideJob={state?.view === 'linked'} />
       <div css={appearance.elements?.selectSiteHeader}>
         <p css={appearance.elements?.selectSiteTitle}>
           {isHaveJob ? (

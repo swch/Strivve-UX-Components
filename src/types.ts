@@ -274,6 +274,7 @@ export type Appearance = {
     selectSiteItemError?: Interpolation<Theme>;
     selectSiteItemSuccess?: Interpolation<Theme>;
     selectSiteItemCard?: Interpolation<Theme>;
+    selectSiteItemHeader?: Interpolation<Theme>;
     selectSiteTitle?: Interpolation<Theme>;
     selectSiteTitleLink?: Interpolation<Theme>;
     selectSiteHeader?: Interpolation<Theme>;
