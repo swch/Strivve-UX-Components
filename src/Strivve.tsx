@@ -84,7 +84,7 @@ export default class Strivve {
       card,
       card_id,
       reset,
-      mount,
+      mount: intro ? StrivveCoreMount.INTRO : StrivveCoreMount.SELECT_SITE,
       eventHandler,
     });
 
