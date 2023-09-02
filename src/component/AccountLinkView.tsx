@@ -244,6 +244,7 @@ export function AccountLinkView({
                 action: 'close',
                 site: host,
               });
+              setOpenWarning(true);
             }}
             fields={accountLinkCore?.fields || []}
             disabled={state?.submitting}

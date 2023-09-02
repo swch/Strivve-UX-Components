@@ -70,62 +70,64 @@ export function SelectSiteView({
       css={appearance.elements?.selectSiteView}
     >
       <Header hideJob={state?.view === 'linked'} />
-      <div css={appearance.elements?.selectSiteHeader}>
-        <p css={appearance.elements?.selectSiteTitle}>
-          {isHaveJob ? (
-            <>
-              {localization?.selectSiteTitleHaveJob}{' '}
-              <a
-                onClick={() => selectSiteCore?.setView('linked')}
-                css={appearance.elements?.selectSiteTitleLink}
+      {state?.view === 'linked' ? null : (
+        <div css={appearance.elements?.selectSiteHeader}>
+          <p css={appearance.elements?.selectSiteTitle}>
+            {isHaveJob ? (
+              <>
+                {localization?.selectSiteTitleHaveJob}{' '}
+                <a
+                  onClick={() => selectSiteCore?.setView('linked')}
+                  css={appearance.elements?.selectSiteTitleLink}
+                >
+                  {totalSuccessJob} sites.
+                </a>
+              </>
+            ) : (
+              localization?.selectSiteTitle
+            )}
+          </p>
+          <div>
+            {state?.view === 'list' && (
+              <button
+                className="iconButton"
+                css={appearance.elements?.iconButton}
+                onClick={() => {
+                  setOpenSearch(true);
+                  core.sendEvent({
+                    component: 'select_site_search',
+                    action: 'view',
+                  });
+                }}
               >
-                {totalSuccessJob} sites.
-              </a>
-            </>
-          ) : (
-            localization?.selectSiteTitle
-          )}
-        </p>
-        <div>
-          {state?.view === 'list' && (
-            <button
-              className="iconButton"
-              css={appearance.elements?.iconButton}
-              onClick={() => {
-                setOpenSearch(true);
-                core.sendEvent({
-                  component: 'select_site_search',
-                  action: 'view',
-                });
-              }}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 23 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="13.5"
-                  cy="9.5"
-                  r="8"
-                  stroke="#6BBF00"
-                  strokeWidth="3"
-                />
-                <line
-                  x1="8.06066"
-                  y1="16.0607"
-                  x2="1.06066"
-                  y2="23.0607"
-                  stroke="#6BBF00"
-                  strokeWidth="3"
-                />
-              </svg>
-            </button>
-          )}
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 23 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="13.5"
+                    cy="9.5"
+                    r="8"
+                    stroke="#6BBF00"
+                    strokeWidth="3"
+                  />
+                  <line
+                    x1="8.06066"
+                    y1="16.0607"
+                    x2="1.06066"
+                    y2="23.0607"
+                    stroke="#6BBF00"
+                    strokeWidth="3"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       {state?.error && (
         <p
           data-testid="selectSiteErrorMessage"

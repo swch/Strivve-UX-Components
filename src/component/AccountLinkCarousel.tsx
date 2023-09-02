@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import { useBase } from './withBase';
 import SecurityIcon from './SecurityIcon';
 import { Message } from '../types';
+import MagicSliderDots from './Dots';
 
 interface AccountLinkCarouselProps {
   messages?: Message[];
@@ -19,6 +20,9 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
+    appendDots: (dots: any) => {
+      return <MagicSliderDots dots={dots} numDotsToShow={5} dotWidth={20} />;
+    },
   };
 
   const { appearance } = useBase();
@@ -144,54 +148,108 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   content: '‹';
 }
 
+.slick-next:before,
+.slick-prev:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: 0.75;
+    color: #fff;
+}
+
+.slick-prev {
+    left: -25px;
+}
+
+[dir=rtl] .slick-prev {
+    right: -25px;
+    left: auto;
+}
+
+.slick-prev:before {
+    content: '←';
+}
+
+.slick-next:before,
+[dir=rtl] .slick-prev:before {
+    content: '→';
+}
+
+.slick-next {
+    right: -25px;
+}
+
+[dir=rtl] .slick-next {
+    right: auto;
+    left: -25px;
+}
+
+[dir=rtl] .slick-next:before {
+    content: '←';
+}
+
 .slick-dotted.slick-slider {
-  margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .slick-dots {
-  bottom: -25px;
-  width: 100%;
-  margin: 0;
-  list-style: none;
-  text-align: center;
+    bottom: -25px;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    text-align: center;
 }
 
 .slick-dots li {
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
 }
 
 .slick-dots li button {
-  color: transparent;
-  transition-duration: 0.2s;
-  display: block;
-  width: 10px;
-  height: 10px;
-  margin: 6px;
-  cursor: pointer;
-  border: 1px solid #A4A4A4E5;
-  padding: 0;
-  outline: 0;
-  background: #D9D9D9;
-  border-radius: 5px;
-}
-
-.slick-active button {
-  background: var(--primaryColor) !important;
-  width: 10px !important;
-  height: 10px !important;
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: 0;
+    background: 0 0;
 }
 
 .slick-dots li button:focus,
 .slick-dots li button:hover {
-  outline: 0;
+    outline: 0;
 }
 
-.slick-dots li button:hover {
-  background: var(--primaryColor);
+.slick-dots li button:focus:before,
+.slick-dots li button:hover:before {
+    opacity: 1;
+}
+
+.slick-dots li button:before {
+    font-size: 6px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: '•';
+    text-align: center;
+    opacity: 0.25;
+    color: var(--primaryColor);
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: 0.75;
+    color: var(--primaryColor);
 }
 
 .slick-list,
@@ -296,7 +354,6 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   display: none;
 }
 
-/*# sourceMappingURL=slick.min.css.map */
 
 .slick-list {
   margin: -10px;
@@ -305,6 +362,27 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   padding: 10px;
 }
 
+
+.magic-dots.slick-dots ul {
+  padding: 0;
+  display: flex;
+  transition: all .2s;
+  position: relative;
+  margin: 0px; }
+
+.magic-dots.slick-dots li.slick-active button::before {
+    color: var(--primaryColor);
+}
+
+.magic-dots.slick-dots li button::before {
+  transition: font-size .35s;    
+  font-size: 34px;
+  content: '•';
+}
+
+.magic-dots.slick-dots li.small button::before {
+  font-size: 22px;
+  line-height: 22px; }
       `}</style>
     </div>
   );

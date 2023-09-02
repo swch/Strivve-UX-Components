@@ -9,8 +9,8 @@ interface MagicSliderDotsProps {
   prevNextDotClassName?: string;
 }
 
-export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
-// init
+class MagicSliderDots extends Component<MagicSliderDotsProps> {
+  // init
   previousActiveIndex = 0;
   hasAnimated = false;
   minIndex = 0;
@@ -26,14 +26,18 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
     //moving from more dots to less dots
     if (prevDots && currentDots && prevDots.length > currentDots.length) {
       //edge case - last dot was active
-      if (prevDots[prevDots.length - 1].props.className === activeDotClassName) {
+      if (
+        prevDots[prevDots.length - 1].props.className === activeDotClassName
+      ) {
         this.breakPointActiveIndex = currentDots.length - 1;
         this.previousActiveIndex = this.breakPointActiveIndex - 1;
         this.addActiveClassToLastDot = true;
       }
 
       //edge case - last active index is at end of current dots or exceeds current dot length
-      const lastActiveDot = prevDots.find((dot: any) => dot.props.className === activeDotClassName);
+      const lastActiveDot = prevDots.find(
+        (dot: any) => dot.props.className === activeDotClassName
+      );
       let lastActiveIndex = parseInt(lastActiveDot.key);
 
       if (lastActiveIndex > currentDots.length - 1) {
@@ -54,9 +58,15 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
       }
 
       this.forceUpdate();
-    } else if (prevDots && currentDots && prevDots.length < currentDots.length) {
+    } else if (
+      prevDots &&
+      currentDots &&
+      prevDots.length < currentDots.length
+    ) {
       //edge case - adjust minIndex and maxIndex if active dot will be out of the View determined by min/max index
-      const currentActiveDot = currentDots.find(dot => dot.props.className === activeDotClassName);
+      const currentActiveDot = currentDots.find(
+        (dot) => dot.props.className === activeDotClassName
+      );
       let currentActiveIndex = parseInt(currentActiveDot?.key as any);
 
       if (currentActiveIndex >= this.maxIndex) {
@@ -81,19 +91,24 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
       dotWidth,
       dotContainerClassName,
       activeDotClassName,
-      prevNextDotClassName
+      prevNextDotClassName,
     } = this.props;
 
-    const active = dots.find(dot => dot.props.className === activeDotClassName);
+    const active = dots.find(
+      (dot) => dot.props.className === activeDotClassName
+    );
     let adjustedDots = [...dots];
     //if no current activeIndex, then due to react-slick breakpoint - use generated breakPointActiveIndex
-    let activeIndex = active ? parseInt(active.key as string) : this.breakPointActiveIndex;
+    let activeIndex = active
+      ? parseInt(active.key as string)
+      : this.breakPointActiveIndex;
     //consider '>=' as moving forward to support react-slick breakpoint use case
     const isMovingForward = activeIndex >= this.previousActiveIndex;
 
     // need to subtract 2 from numDotsToShow since array index are zero-based
     if (
-      (activeIndex > numDotsToShow - 2 && adjustedDots.length > numDotsToShow) ||
+      (activeIndex > numDotsToShow - 2 &&
+        adjustedDots.length > numDotsToShow) ||
       this.hasAnimated
     ) {
       if (isMovingForward) {
@@ -146,7 +161,11 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
       //outside of bounds check - can be caused when using react-slick breakpoints
       //return null and dots will correctly re-render once componentDidUpdate lifecycle recalculates indexes
       if (!firstViewableDot || !lastViewableDot) {
-        console.log('rendering null - outside of bounds', firstViewableDot, lastViewableDot);
+        console.log(
+          'rendering null - outside of bounds',
+          firstViewableDot,
+          lastViewableDot
+        );
         return null;
       }
 
@@ -155,40 +174,49 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
         adjustedDots = [
           ...adjustedDots.slice(0, firstViewableDotIndex),
           React.cloneElement(firstViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(firstViewableDotIndex + 1, lastViewableDotIndex),
+          ...adjustedDots.slice(
+            firstViewableDotIndex + 1,
+            lastViewableDotIndex
+          ),
           React.cloneElement(lastViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(lastViewableDotIndex + 1)
+          ...adjustedDots.slice(lastViewableDotIndex + 1),
         ];
       } else if (lastViewableDotIndex === adjustedDots.length - 1) {
         // moving foward or backward - last dot visible - should appear not small
         adjustedDots = [
           ...adjustedDots.slice(0, firstViewableDotIndex),
           React.cloneElement(firstViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(firstViewableDotIndex + 1, lastViewableDotIndex),
+          ...adjustedDots.slice(
+            firstViewableDotIndex + 1,
+            lastViewableDotIndex
+          ),
           this.addActiveClassToLastDot || activeIndex === lastViewableDotIndex
             ? React.cloneElement(lastViewableDot, {
-                className: this.props.activeDotClassName
+                className: this.props.activeDotClassName,
               })
-            : lastViewableDot
+            : lastViewableDot,
         ];
       } else if (activeIndex > 1 && !isMovingForward) {
         // moving backwards the left
         adjustedDots = [
           ...adjustedDots.slice(0, firstViewableDotIndex),
           React.cloneElement(firstViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(firstViewableDotIndex + 1, lastViewableDotIndex),
+          ...adjustedDots.slice(
+            firstViewableDotIndex + 1,
+            lastViewableDotIndex
+          ),
           React.cloneElement(lastViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(lastViewableDotIndex + 1)
+          ...adjustedDots.slice(lastViewableDotIndex + 1),
         ];
       } else {
         this.hasAnimated = false;
@@ -197,9 +225,9 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
         adjustedDots = [
           ...adjustedDots.slice(0, lastViewableDotIndex),
           React.cloneElement(lastViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(lastViewableDotIndex + 1)
+          ...adjustedDots.slice(lastViewableDotIndex + 1),
         ];
       }
     }
@@ -215,9 +243,9 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
         adjustedDots = [
           ...adjustedDots.slice(0, lastViewableDotIndex),
           React.cloneElement(lastViewableDot, {
-            className: prevNextDotClassName
+            className: prevNextDotClassName,
           }),
-          ...adjustedDots.slice(lastViewableDotIndex + 1)
+          ...adjustedDots.slice(lastViewableDotIndex + 1),
         ];
       }
     }
@@ -227,7 +255,9 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
     this.addActiveClassToLastDot = false;
     // calculate container width
     const containerWidth =
-      dots.length < numDotsToShow ? dots.length * dotWidth : numDotsToShow * dotWidth;
+      dots.length < numDotsToShow
+        ? dots.length * dotWidth
+        : numDotsToShow * dotWidth;
 
     const midIndex = (this.minIndex + this.maxIndex) / 2;
 
@@ -244,11 +274,22 @@ export default class MagicSliderDots extends Component<MagicSliderDotsProps> {
           position: 'relative',
           overflow: 'hidden',
           margin: 'auto',
-          width: containerWidth + 'px'
+          width: containerWidth + 'px',
         }}
       >
-        <ul style={{ transform: `translateX(${leftOffset}px)` }}> {adjustedDots} </ul>
+        <ul style={{ transform: `translateX(${leftOffset}px)` }}>
+          {' '}
+          {adjustedDots}{' '}
+        </ul>
       </div>
     );
   }
 }
+
+(MagicSliderDots as unknown as any).defaultProps = {
+  dotContainerClassName: 'magic-dots slick-dots',
+  activeDotClassName: 'slick-active',
+  prevNextDotClassName: 'small',
+};
+
+export default MagicSliderDots;

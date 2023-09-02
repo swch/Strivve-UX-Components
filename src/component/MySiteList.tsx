@@ -184,7 +184,7 @@ function MySiteList({
         )}
         {successful.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>Successful Logins</p>
+            <p css={appearance.elements?.mySiteTitle}>Successful placement</p>
             <p css={appearance.elements?.mySiteDescription}>
               Your card details were successfully placed on the following sites.
             </p>
