@@ -218,17 +218,19 @@ export function SelectSiteView({
             className="selectSiteListFooter"
             css={appearance.elements?.selectSiteListFooter}
           >
-            <Button
-              title="Back"
-              variant="text"
-              onClick={() => {
-                selectSiteCore?.setView('carousel');
-                core.sendEvent({
-                  component: 'select_site_list',
-                  action: 'back',
-                });
-              }}
-            />
+            {appearance.layout?.hideBackButton ? null : (
+              <Button
+                title="Back"
+                variant="text"
+                onClick={() => {
+                  selectSiteCore?.setView('carousel');
+                  core.sendEvent({
+                    component: 'select_site_list',
+                    action: 'back',
+                  });
+                }}
+              />
+            )}
           </div>
         </>
       )}

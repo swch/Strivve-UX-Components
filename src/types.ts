@@ -238,6 +238,7 @@ export type Appearance = {
     logoImageUrl?: string;
     appName?: string;
     unstyled?: boolean;
+    hideBackButton?: boolean;
   };
   variables?: {
     primaryColor?: string;

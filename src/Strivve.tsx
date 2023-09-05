@@ -37,7 +37,6 @@ export interface mountLinkingJourneyStrivve {
   header?: mountHeaderOptions;
   intro?: mountIntroViewOptions;
   reset?: boolean;
-  mount?: StrivveCoreMount;
   eventHandler?: (action: string, data?: any) => void;
 }
 
@@ -70,7 +69,6 @@ export default class Strivve {
     account_link,
     financial_institution,
     reset,
-    mount,
     intro,
     header,
     eventHandler,

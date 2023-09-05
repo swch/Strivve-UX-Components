@@ -7,6 +7,7 @@ The `Appearance` type is an interface that specifies the appearance options for 
   layout: {
     logoImageUrl: 'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
     appName: 'Strivve',
+    hideBackButton: false,
   },
   variables: {
     primaryColor: '#008BD9',
@@ -62,6 +63,7 @@ The `Appearance` type has the following properties:
   - `logoImageUrl` (optional): string
   - `appName` (optional): string
   - `unstyled` (optional): boolean
+  - `hideBackButton` (optional): boolean
 
 - `variables`
 

@@ -5,12 +5,14 @@ import BackIcon from './icons/BackIcon';
 import CloseIcon from './icons/CloseIcon';
 import { StrivveCoreMount } from '../core/core';
 import SiteItem from './SiteItem';
+import { errorStatus } from '../constans';
 
 function Header({ hideJob }: { hideJob?: boolean }) {
   const { appearance, headerOptions, core } = useBase();
 
   const jobs = core?.jobs;
   const item = core.jobs?.[jobs.length - 1];
+  const isError = errorStatus.includes(item?.termination_type || '');
 
   return headerOptions ? (
     <div className="headerWrapper" css={appearance.elements?.headerWrapper}>
@@ -21,7 +23,10 @@ function Header({ hideJob }: { hideJob?: boolean }) {
           </div>
         )}
       </div>
-      {item && core.state.mount === StrivveCoreMount.SELECT_SITE && !hideJob ? (
+      {item &&
+      core.state.mount === StrivveCoreMount.SELECT_SITE &&
+      !hideJob &&
+      !isError ? (
         <SiteItem
           item={{
             ...(item.site || {}),

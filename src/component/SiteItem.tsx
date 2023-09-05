@@ -6,6 +6,7 @@ import { useBase } from './withBase';
 import SuccessIcon from './SuccessIcon';
 import ErrorIcon from './ErrorIcon';
 import StatusModal from './StatusModal';
+import { errorStatus } from '../constans';
 
 interface SiteItemProps {
   id?: string;
@@ -13,12 +14,6 @@ interface SiteItemProps {
   selected?: MerchantSite[];
   onSelectItem?: (data: MerchantSite) => void;
 }
-
-const errorStatus = [
-  'PROCESS_FAILURE',
-  'SITE_INTERACTION_FAILURE',
-  'USER_DATA_FAILURE',
-];
 
 function SiteItem({ id, item, selected, onSelectItem }: SiteItemProps) {
   const { appearance } = useBase();
