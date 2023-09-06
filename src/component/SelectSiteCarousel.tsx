@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MerchantSite } from '../types';
 import { useBase } from './withBase';
 import Slider from 'react-slick';
-import MagicSliderDots from './Dots';
+import MagicSliderDots from './CarouselDots';
 
 export interface SelectSiteCarouselProps {
   sites: MerchantSite[];

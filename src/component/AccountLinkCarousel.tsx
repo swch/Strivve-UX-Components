@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import { useBase } from './withBase';
 import SecurityIcon from './SecurityIcon';
 import { Message } from '../types';
-import MagicSliderDots from './Dots';
+import MagicSliderDots from './CarouselDots';
 
 interface AccountLinkCarouselProps {
   messages?: Message[];

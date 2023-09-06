@@ -13,6 +13,7 @@ function Header({ hideJob }: { hideJob?: boolean }) {
   const jobs = core?.jobs;
   const item = core.jobs?.[jobs.length - 1];
   const isError = errorStatus.includes(item?.termination_type || '');
+  const isSuccess = !isError && item?.status === 'SUCCESSFUL';
 
   return headerOptions ? (
     <div className="headerWrapper" css={appearance.elements?.headerWrapper}>
@@ -26,7 +27,8 @@ function Header({ hideJob }: { hideJob?: boolean }) {
       {item &&
       core.state.mount === StrivveCoreMount.SELECT_SITE &&
       !hideJob &&
-      !isError ? (
+      !isError &&
+      !isSuccess ? (
         <SiteItem
           item={{
             ...(item.site || {}),

@@ -1,6 +1,6 @@
 import React, { Component, ReactElement } from 'react';
 
-interface MagicSliderDotsProps {
+interface CarouselDotsProps {
   dots: ReactElement[];
   numDotsToShow: number;
   dotWidth: number;
@@ -9,7 +9,7 @@ interface MagicSliderDotsProps {
   prevNextDotClassName?: string;
 }
 
-class MagicSliderDots extends Component<MagicSliderDotsProps> {
+class CarouselDots extends Component<CarouselDotsProps> {
   // init
   previousActiveIndex = 0;
   hasAnimated = false;
@@ -286,10 +286,10 @@ class MagicSliderDots extends Component<MagicSliderDotsProps> {
   }
 }
 
-(MagicSliderDots as unknown as any).defaultProps = {
+(CarouselDots as unknown as any).defaultProps = {
   dotContainerClassName: 'magic-dots slick-dots',
   activeDotClassName: 'slick-active',
   prevNextDotClassName: 'small',
 };
 
-export default MagicSliderDots;
+export default CarouselDots;

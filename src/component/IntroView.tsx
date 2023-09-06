@@ -5,7 +5,6 @@ import Button from './Button';
 import TimeIcon from './icons/TimeIcon';
 import StepOneIcon from './icons/StepOneIcon';
 import StepTwoIcon from './icons/StepTwoIcon';
-import { StrivveCoreMount } from '../core/core';
 import { mountIntroViewProps } from '../types';
 import Header from './Header';
 
