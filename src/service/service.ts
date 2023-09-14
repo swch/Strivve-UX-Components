@@ -194,6 +194,14 @@ class StrivveService implements StrivveServiceInterface {
     } as any);
   }
 
+  cancelJob(job_id: number) {
+    return this.ch.cancelJob({
+      username: this.username,
+      safe_key: this.safe_key,
+      job_id,
+    } as any);
+  }
+
   async getFinancialInstitution(lookup_key: string) {
     const session = this.ch.getSession(this.username);
     const filters = { lookup_key };

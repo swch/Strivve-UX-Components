@@ -36,12 +36,12 @@ export function LinkingJourney({
           options={{
             ...(introOptions || {}),
             onClickButton: () => {
-              core.setState({ mount: StrivveCoreMount.SELECT_SITE });
+              core.push(StrivveCoreMount.SELECT_SITE_CAROUSEL);
             },
           }}
         />
       )}
-      {state?.mount === StrivveCoreMount.SELECT_SITE && (
+      {state?.mount.includes('select_site') && (
         <SelectSiteView
           core={core}
           appearance={appearance}
@@ -50,7 +50,7 @@ export function LinkingJourney({
           options={{
             ...selectSiteOptions,
             onSubmit: (sites) => {
-              core.setMount(StrivveCoreMount.ACCOUNT_LINK);
+              core.push(StrivveCoreMount.ACCOUNT_LINK);
               setSites(sites);
             },
             view: appearance?.layout?.unstyled
@@ -71,7 +71,7 @@ export function LinkingJourney({
               ...accountLinkOptions,
               site_id: sites[0]?.id,
               onCancel: () => {
-                core.setMount(StrivveCoreMount.SELECT_SITE);
+                core.resetRoute();
               },
             }}
           />

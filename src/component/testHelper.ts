@@ -102,6 +102,10 @@ export class StrivveService implements StrivveServiceInterface {
     return Promise.resolve();
   }
 
+  cancelJob(id: number): Promise<any> {
+    return Promise.resolve();
+  }
+
   authorizeCardholder(data: any): Promise<any> {
     return Promise.resolve();
   }

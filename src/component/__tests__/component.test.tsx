@@ -30,6 +30,10 @@ class ErrorService implements StrivveServiceInterface {
     return Promise.resolve(true);
   }
 
+  cancelJob(id: number): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
   createJobs(data: JobBody[]): Promise<any> {
     return Promise.resolve();
   }

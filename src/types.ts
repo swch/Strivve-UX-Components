@@ -125,6 +125,7 @@ export interface StrivveServiceInterface {
   createCardholderQuery(id: string): any;
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
+  cancelJob(job_id: number): any;
   init(): Promise<boolean>;
 }
 

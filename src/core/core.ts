@@ -20,7 +20,9 @@ export type CreateAccountLinkOptions = Omit<
 
 export enum StrivveCoreMount {
   ACCOUNT_LINK = 'account_link',
-  SELECT_SITE = 'select_site',
+  SELECT_SITE_LIST = 'select_site_list',
+  SELECT_SITE_CAROUSEL = 'select_site_carousel',
+  SELECT_SITE_LINKED = 'select_site_linked',
   INTRO = 'intro',
 }
 
@@ -35,12 +37,14 @@ export default class StrivveCore {
   private cardholder: any;
   private card?: CardBody | Card | any;
   private card_id?: string;
+  private initialMount?: StrivveCoreMount;
   public jobs: any[] = [];
+  public history: string[] = [];
   public selectSiteCore?: SelectSiteCore;
   public accountLinkCore?: AccountLinkCore;
-  private subscriber: Function = () => {};
+  private subscriber: Function[] = [];
   public state: StrivveCoreState = {
-    mount: StrivveCoreMount.SELECT_SITE,
+    mount: StrivveCoreMount.SELECT_SITE_CAROUSEL,
   };
   public eventHandler?: (action: any) => void = () => {};
 
@@ -56,7 +60,11 @@ export default class StrivveCore {
 
     this.card_id = card_id;
     this.card = card;
-    this.state.mount = mount || StrivveCoreMount.SELECT_SITE;
+    this.state.mount = mount || StrivveCoreMount.SELECT_SITE_CAROUSEL;
+
+    this.history = [this.state.mount];
+
+    this.initialMount = this.state.mount;
 
     if (reset) {
       sessionStorage.clear();
@@ -77,7 +85,7 @@ export default class StrivveCore {
   }
 
   public subscribe(func: Function) {
-    this.subscriber = func;
+    this.subscriber.push(func);
     this.notifyState();
   }
 
@@ -96,25 +104,33 @@ export default class StrivveCore {
   }
 
   private notifyState() {
-    this.subscriber(this.state);
+    this.subscriber.forEach((item) => item(this.state));
   }
 
   setMount(mount: StrivveCoreMount) {
     this.setState({ mount });
   }
 
+  push(mount: StrivveCoreMount) {
+    this.history.push(mount);
+    this.setState({ mount });
+  }
+
+  resetRoute() {
+    this.history =
+      this.initialMount === StrivveCoreMount.INTRO
+        ? [StrivveCoreMount.INTRO]
+        : [StrivveCoreMount.INTRO, StrivveCoreMount.SELECT_SITE_CAROUSEL];
+    this.setState({ mount: this.initialMount });
+  }
+
   goBack(): boolean {
-    if (this.state.mount === StrivveCoreMount.ACCOUNT_LINK) {
-      this.setMount(StrivveCoreMount.SELECT_SITE);
-      return true;
-    } else if (
-      this.selectSiteCore?.state.view &&
-      ['list', 'linked'].includes(this.selectSiteCore?.state.view)
-    ) {
-      this.selectSiteCore?.setView('carousel');
+    this.history.pop();
+    const path = this.history[this.history.length - 1];
+    if (path) {
+      this.setMount(path as any);
       return true;
     } else {
-      this.setMount(StrivveCoreMount.INTRO);
       return false;
     }
   }
@@ -194,6 +210,20 @@ export default class StrivveCore {
     });
 
     return uniqueArray;
+  }
+
+  async cancelJob() {
+    const jobs = this?.jobs || [];
+    const item = this.jobs?.[jobs.length - 1];
+
+    if (!item.termination_type) {
+      this.service.cancelJob(item.id);
+      this.onMessage(item.id, {
+        status: 'CANCELLED',
+        termination_type: 'CANCELLED',
+      });
+      this.accountLinkCore?.query?.removeListeners(item.id);
+    }
   }
 
   async startJob(

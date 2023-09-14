@@ -25,7 +25,7 @@ function Header({ hideJob }: { hideJob?: boolean }) {
         )}
       </div>
       {item &&
-      core.state.mount === StrivveCoreMount.SELECT_SITE &&
+      core.state.mount.includes('select_site') &&
       !hideJob &&
       !isError &&
       !isSuccess ? (

@@ -263,7 +263,10 @@ export function AccountLinkView({
           <WarningModal
             open={openWarning}
             site={accountLinkCore?.site}
-            onClickLeave={options.onCancel}
+            onClickLeave={() => {
+              options.onCancel?.();
+              core.cancelJob();
+            }}
             onClickStay={() => setOpenWarning(false)}
           />
         </AccountLinkContainer>
@@ -299,7 +302,14 @@ export function AccountLinkView({
           submit={handleSubmit}
           change={(name, value) => accountLinkCore?.change(name, value)}
           values={state?.values}
-          onCancel={options.onCancel}
+          onCancel={() => {
+            setOpenWarning(true);
+            core?.sendEvent({
+              component: 'cvv_form_modal',
+              action: 'close',
+              site: host,
+            });
+          }}
           forgotLink={accountLinkCore?.site?.forgot_password_page}
           core={core}
           site={accountLinkCore?.site}
@@ -340,6 +350,15 @@ export function AccountLinkView({
         }}
         change={(name, value) => accountLinkCore?.change(name, value)}
         values={state?.values}
+      />
+      <WarningModal
+        open={openWarning}
+        site={accountLinkCore?.site}
+        onClickLeave={() => {
+          options.onCancel?.();
+          core.cancelJob();
+        }}
+        onClickStay={() => setOpenWarning(false)}
       />
     </div>
   );

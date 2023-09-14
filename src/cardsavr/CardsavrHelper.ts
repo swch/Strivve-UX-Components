@@ -491,6 +491,32 @@ export class CardsavrHelper {
     }
   }
 
+  public async cancelJob({
+    username,
+    job_id,
+    safe_key,
+    envelope_id,
+  }: {
+    username: string;
+    job_id: number;
+    safe_key: string;
+    envelope_id?: string;
+  }): Promise<void> {
+    try {
+      const session = this.getSession(username);
+      const res = await session.updateSingleSiteJob(
+        job_id,
+        { status: 'CANCELLED' },
+        safe_key,
+        envelope_id ? { 'x-cardsavr-envelope-id': envelope_id } : undefined
+      );
+
+      return res;
+    } catch (err) {
+      this.handleError(err);
+    }
+  }
+
   public async deleteAccount(
     agent_username: string,
     cardholder_id: number

@@ -10,6 +10,7 @@ import Button from './Button';
 import SearchSiteView from './SearchSiteView';
 import MySiteList from './MySiteList';
 import Header from './Header';
+import { StrivveCoreMount, StrivveCoreState } from '../core/core';
 
 export function SelectSiteView({
   options,
@@ -20,6 +21,7 @@ export function SelectSiteView({
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
   const [openSearch, setOpenSearch] = useState<boolean>(false);
+  const [coreState, setCoreState] = useState<StrivveCoreState>();
 
   useEffect(() => {
     const selectSite = core.createSelectSite(options);
@@ -28,6 +30,10 @@ export function SelectSiteView({
       options?.subscribe?.(state);
     });
     setSelectSiteCore(selectSite);
+
+    core.subscribe((state: StrivveCoreState) => {
+      setCoreState(state);
+    });
   }, []);
 
   const handleSubmit = () => {
@@ -35,9 +41,7 @@ export function SelectSiteView({
   };
 
   const jobIds = (state?.jobs || [])
-    .filter(
-      (item) => item.status === 'SUCCESSFUL' || item.status === 'UPDATING'
-    )
+    .filter((item) => item.status === 'SUCCESSFUL')
     .map((item) => item.site_id);
 
   const totalSuccessJob = jobIds.length || 0;
@@ -69,15 +73,19 @@ export function SelectSiteView({
       className="selectSiteView"
       css={appearance.elements?.selectSiteView}
     >
-      <Header hideJob={state?.view === 'linked'} />
-      {state?.view === 'linked' ? null : (
+      <Header
+        hideJob={coreState?.mount === StrivveCoreMount.SELECT_SITE_LINKED}
+      />
+      {coreState?.mount === StrivveCoreMount.SELECT_SITE_LINKED ? null : (
         <div css={appearance.elements?.selectSiteHeader}>
           <p css={appearance.elements?.selectSiteTitle}>
             {isHaveJob ? (
               <>
                 {localization?.selectSiteTitleHaveJob}{' '}
                 <a
-                  onClick={() => selectSiteCore?.setView('linked')}
+                  onClick={() => {
+                    core.push(StrivveCoreMount.SELECT_SITE_LINKED);
+                  }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
                   {totalSuccessJob} sites.
@@ -88,7 +96,7 @@ export function SelectSiteView({
             )}
           </p>
           <div>
-            {state?.view === 'list' && (
+            {coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST && (
               <button
                 className="iconButton"
                 css={appearance.elements?.iconButton}
@@ -136,7 +144,7 @@ export function SelectSiteView({
           {state.message}
         </p>
       )}
-      {state?.view === 'carousel' && (
+      {coreState?.mount === StrivveCoreMount.SELECT_SITE_CAROUSEL && (
         <div style={{ width: '100%' }}>
           <SelectSiteCarousel
             sites={
@@ -164,7 +172,7 @@ export function SelectSiteView({
             <Button
               title="Browse all sites"
               onClick={() => {
-                selectSiteCore?.setView('list');
+                core.push(StrivveCoreMount.SELECT_SITE_LIST);
                 core.sendEvent({
                   component: 'select_site_carousel',
                   action: 'browse_all',
@@ -176,9 +184,10 @@ export function SelectSiteView({
         </div>
       )}
 
-      {(state?.view === 'list' || state?.view === 'linked') && (
+      {(coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ||
+        coreState?.mount === StrivveCoreMount.SELECT_SITE_LINKED) && (
         <>
-          {state?.view === 'linked' ? (
+          {coreState?.mount === StrivveCoreMount.SELECT_SITE_LINKED ? (
             <MySiteList
               key="my-sites"
               id="my-site"
@@ -223,7 +232,7 @@ export function SelectSiteView({
                 title="Back"
                 variant="text"
                 onClick={() => {
-                  selectSiteCore?.setView('carousel');
+                  core.push(StrivveCoreMount.SELECT_SITE_CAROUSEL);
                   core.sendEvent({
                     component: 'select_site_list',
                     action: 'back',
