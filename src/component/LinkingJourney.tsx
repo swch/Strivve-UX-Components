@@ -71,7 +71,7 @@ export function LinkingJourney({
               ...accountLinkOptions,
               site_id: sites[0]?.id,
               onCancel: () => {
-                core.resetRoute();
+                core.goBack();
               },
             }}
           />

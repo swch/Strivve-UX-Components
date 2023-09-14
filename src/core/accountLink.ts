@@ -207,7 +207,6 @@ export default class AccountLinkCore {
     const query = this.service.createCardholderQuery(job.cardholder_id);
 
     const statusHandler = (data: any) => {
-      console.log('===============', data);
       const message = data.message || data.error_message;
       this.onMessage?.(data.job_id, message);
 
