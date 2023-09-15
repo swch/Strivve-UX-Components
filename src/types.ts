@@ -249,6 +249,7 @@ export type Appearance = {
     borderColor?: string;
     textColor?: string;
     textColorSecondary?: string;
+    height?: string;
   };
   elements?: {
     loader?: Interpolation<Theme>;

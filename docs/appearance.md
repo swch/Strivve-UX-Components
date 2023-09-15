@@ -16,6 +16,7 @@ The `Appearance` type is an interface that specifies the appearance options for 
     textColor: '#000000',
     textColorSecondary: '#565656',
     borderColor: 'lightgray',
+    height: '100vh',
   },
   variables: {
     primaryColor: '#008BD9',
@@ -73,6 +74,7 @@ The `Appearance` type has the following properties:
   - `borderColor` (optional): string
   - `textColor` (optional): string
   - `textColorSecondary` (optional): string
+  - `height` (optional): string
 
 - `elements`
   - `loader` (optional): [Object Styles](https://emotion.sh/docs/object-styles)

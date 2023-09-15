@@ -24,6 +24,7 @@ const defaultAppearance: Appearance = {
     textColor: '#000000',
     textColorSecondary: '#565656',
     borderColor: 'lightgray',
+    height: '100vh',
   },
   elements: {
     loader: {
@@ -220,7 +221,10 @@ const defaultAppearance: Appearance = {
     },
     selectSiteView: {
       maxWidth: '400px',
-      margin: 'auto',
+      margin: '0 auto',
+      minHeight: 'var(--height)',
+      display: 'flex',
+      flexDirection: 'column',
     },
     selectSiteHeader: {
       display: 'flex',
@@ -242,7 +246,7 @@ const defaultAppearance: Appearance = {
       display: 'grid',
       gridTemplateColumns: '1fr',
       overflow: 'auto',
-      maxHeight: '400px',
+      maxHeight: 'calc(var(--height) - 200px)',
       padding: '16px',
       borderTop: '1px solid var(--borderColor)',
     },
@@ -251,6 +255,9 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      justifyContent: 'flex-end',
+      flex: 1,
+      marginBottom: '10px',
     },
     selectSiteItem: {
       cursor: 'pointer',
@@ -336,6 +343,9 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      justifyContent: 'flex-end',
+      flex: 1,
+      marginBottom: '10px',
     },
     selectSiteCarouselItem: {
       cursor: 'pointer',
@@ -365,8 +375,13 @@ const defaultAppearance: Appearance = {
       maxWidth: '400px',
       margin: 'auto',
       marginTop: '12px',
+      flex: 1,
     },
-    accountLinkView: {},
+    accountLinkView: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'var(--height)',
+    },
     accountLinkHeader: {
       display: 'flex',
       justifyContent: 'center',
@@ -457,7 +472,10 @@ const defaultAppearance: Appearance = {
       flexDirection: 'column',
       alignItems: 'center',
       marginTop: '20px',
+      marginBottom: '10px',
       gap: '20px',
+      flex: 1,
+      justifyContent: 'end',
     },
     accountLinkForgotLink: {
       textDecoration: 'none',
@@ -487,6 +505,10 @@ const defaultAppearance: Appearance = {
     introView: {
       maxWidth: '400px',
       margin: 'auto',
+      height: 'var(--height)',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     introTitle: {
       fontSize: '20px',
@@ -539,8 +561,9 @@ const defaultAppearance: Appearance = {
     },
     introStepButtonWrapper: {
       width: '200px',
-      margin: 'auto',
+      margin: '0 auto',
       marginTop: '20px',
+      marginBottom: '10px',
     },
     introStepBanner: {
       width: '100%',
@@ -548,6 +571,7 @@ const defaultAppearance: Appearance = {
     },
 
     headerWrapper: {
+      width: '100%',
       maxWidth: '400px',
       margin: 'auto',
       display: 'flex',

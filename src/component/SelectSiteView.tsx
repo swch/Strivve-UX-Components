@@ -145,7 +145,7 @@ export function SelectSiteView({
         </p>
       )}
       {coreState?.mount === StrivveCoreMount.SELECT_SITE_CAROUSEL && (
-        <div style={{ width: '100%' }}>
+        <>
           <SelectSiteCarousel
             sites={
               sites
@@ -181,7 +181,7 @@ export function SelectSiteView({
               variant="outlined"
             />
           </div>
-        </div>
+        </>
       )}
 
       {(coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ||

@@ -130,7 +130,11 @@ export function AccountLinkView({
 
   if (showProgress) {
     return (
-      <>
+      <div
+        data-testid="accountLinkView"
+        className="accountLinkView"
+        css={appearance.elements?.accountLinkView}
+      >
         <Header />
         <AccountLinkContainer hide_title site={accountLinkCore?.site}>
           <div
@@ -167,23 +171,6 @@ export function AccountLinkView({
             >
               <div css={appearance.elements?.accountLinkLoadingBackground} />
             </div>
-          </div>
-          <div
-            className="accountLinkProgressFooter"
-            css={appearance.elements?.accountLinkProgressFooter}
-          >
-            <Button
-              variant="text"
-              onClick={() => {
-                setOpenWarning(true);
-                core?.sendEvent({
-                  component: 'account_link_progress',
-                  action: 'close',
-                  site: host,
-                });
-              }}
-              title="Cancel"
-            />
           </div>
           <StatusModal
             open={state?.success}
@@ -270,7 +257,24 @@ export function AccountLinkView({
             onClickStay={() => setOpenWarning(false)}
           />
         </AccountLinkContainer>
-      </>
+        <div
+          className="accountLinkProgressFooter"
+          css={appearance.elements?.accountLinkProgressFooter}
+        >
+          <Button
+            variant="text"
+            onClick={() => {
+              setOpenWarning(true);
+              core?.sendEvent({
+                component: 'account_link_progress',
+                action: 'close',
+                site: host,
+              });
+            }}
+            title="Cancel"
+          />
+        </div>
+      </div>
     );
   }
 

@@ -44,7 +44,7 @@ function SelectSiteCarousel({
 
   return (
     <>
-      <div style={{ width: 'calc(100% - 20px)', margin: 'auto' }}>
+      <div style={{ width: 'calc(100% - 20px)', margin: '0 auto' }}>
         <Slider
           {...settings}
           ref={sliderRef}
@@ -188,44 +188,6 @@ function SelectSiteCarousel({
   content: '‹';
 }
 
-.slick-next:before,
-.slick-prev:before {
-    font-size: 20px;
-    line-height: 1;
-    opacity: 0.75;
-    color: #fff;
-}
-
-.slick-prev {
-    left: -25px;
-}
-
-[dir=rtl] .slick-prev {
-    right: -25px;
-    left: auto;
-}
-
-.slick-prev:before {
-    content: '←';
-}
-
-.slick-next:before,
-[dir=rtl] .slick-prev:before {
-    content: '→';
-}
-
-.slick-next {
-    right: -25px;
-}
-
-[dir=rtl] .slick-next {
-    right: auto;
-    left: -25px;
-}
-
-[dir=rtl] .slick-next:before {
-    content: '←';
-}
 
 .slick-dotted.slick-slider {
     margin-bottom: 30px;
