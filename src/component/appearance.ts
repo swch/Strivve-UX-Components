@@ -174,7 +174,7 @@ const defaultAppearance: Appearance = {
       padding: '30px',
       position: 'relative',
       maxWidth: '300px',
-      '@media (max-width: 600px)': {
+      '@media (max-width: 400px)': {
         margin: '20px',
       },
     },
@@ -190,7 +190,7 @@ const defaultAppearance: Appearance = {
       flexDirection: 'column',
       justifyContent: 'space-between',
       maxWidth: '300px',
-      '@media (max-width: 600px)': {
+      '@media (max-width: 400px)': {
         margin: '20px',
       },
     },
@@ -222,6 +222,8 @@ const defaultAppearance: Appearance = {
     selectSiteView: {
       maxWidth: '400px',
       margin: '0 auto',
+      overflowX: 'hidden',
+      padding: '0 12px',
       minHeight: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
@@ -379,6 +381,7 @@ const defaultAppearance: Appearance = {
     },
     accountLinkView: {
       display: 'flex',
+      padding: '0 12px',
       flexDirection: 'column',
       height: 'var(--height)',
     },
@@ -505,6 +508,7 @@ const defaultAppearance: Appearance = {
     introView: {
       maxWidth: '400px',
       margin: 'auto',
+      padding: '0 12px',
       height: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',

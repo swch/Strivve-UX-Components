@@ -15,7 +15,7 @@ function CloseIcon() {
         x2="25.0616"
         y2="25.2792"
         stroke="#6BBF00"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <line
         x1="25.0616"
@@ -23,7 +23,7 @@ function CloseIcon() {
         x2="1.08894"
         y2="26.6934"
         stroke="#6BBF00"
-        stroke-width="2"
+        strokeWidth="2"
       />
     </svg>
   );

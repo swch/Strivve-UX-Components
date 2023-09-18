@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const card_data = {
       pan: '4111111111111111',
       cvv: '321',
-      expiration_month: '2',
+      expiration_month: '12',
       expiration_year: '24',
       name_on_card: 'Test',
       cardholder : {
@@ -43,7 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     
     const card_response = await ch.createCard({ agent_username: config.username, card: card_data });
 
-    res.status(200).json({ grant : card_response.cardholder.grant, card_id : card_response.id });
+    res.status(200).json({ grant : card_response?.cardholder?.grant, card_id : card_response?.id });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

@@ -79,7 +79,7 @@ export default class StrivveCore {
 
   async getCard() {
     const cvvStorage = sessionStorage.getItem('cvv');
-    if (!this.card?.cvv && cvvStorage) {
+    if (!this.card?.cvv && cvvStorage && this.card) {
       this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
     }
   }
@@ -273,7 +273,7 @@ export default class StrivveCore {
       }
       this.card = card;
 
-      if (meta?.cvv) {
+      if (meta?.cvv && this.card) {
         this.card.cvv = meta?.cvv;
         const cvvEncrypted = EncryptionUtility.encrypt(String(meta.cvv || ''));
         sessionStorage.setItem('cvv', cvvEncrypted);
