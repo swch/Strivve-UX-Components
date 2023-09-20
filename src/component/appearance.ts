@@ -512,17 +512,19 @@ const defaultAppearance: Appearance = {
       height: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
     },
     introTitle: {
       fontSize: '20px',
       color: 'var(--secondaryColor)',
+      margin: '12px 16px',
+      paddingTop: '6px',
     },
     introIconWrapper: {
       display: 'flex',
       fontSize: '16px',
       fontWeight: 'bold',
       alignItems: 'center',
+      margin: '12px 16px',
       gap: '6px',
       '& svg': {
         width: '22px',
@@ -545,6 +547,7 @@ const defaultAppearance: Appearance = {
       gridTemplateColumns: '1fr 1fr',
       gridGap: '20px',
       textAlign: 'center',
+      margin: '12px 16px',
       marginBottom: '20px',
     },
     introStepIconWrapper: {
@@ -560,18 +563,22 @@ const defaultAppearance: Appearance = {
       },
     },
     introStepDescription: {
-      marginTop: '6px',
       color: 'var(--textColorSecondary)',
+      maxWidth: '100px',
+      margin: 'auto',
+      marginTop: '6px',
     },
     introStepButtonWrapper: {
       width: '200px',
       margin: '0 auto',
-      marginTop: '20px',
+      marginTop: '30px',
       marginBottom: '10px',
+      fontSize: '16px',
     },
     introStepBanner: {
-      width: '100%',
+      width: 'calc(100% - 32px)',
       cursor: 'pointer',
+      margin: '0px 16px',
     },
 
     headerWrapper: {
@@ -590,7 +597,7 @@ const defaultAppearance: Appearance = {
       height: '50px',
     },
     headerTitle: {
-      fontSize: '18px',
+      fontSize: '22px',
       marginTop: '0px',
       marginBottom: '0px',
     },

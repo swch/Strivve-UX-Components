@@ -3,8 +3,8 @@ import React from 'react';
 function CloseIcon() {
   return (
     <svg
-      width="20"
-      height="22"
+      width="23"
+      height="23"
       viewBox="0 0 26 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

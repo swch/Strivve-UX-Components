@@ -50,6 +50,11 @@ export function SelectSiteView({
   const sites = (state?.sites || []).filter(
     (item) => !jobIds.includes(item.id)
   );
+  const top_hosts = state?.filter.top_hosts
+    ? typeof state.filter.top_hosts === 'string'
+      ? state.filter.top_hosts.split(',')
+      : []
+    : [];
 
   if (state?.loading) {
     return (
@@ -148,7 +153,9 @@ export function SelectSiteView({
         <>
           <SelectSiteCarousel
             sites={
-              sites
+              top_hosts.length > 0
+                ? sites.filter((item) => top_hosts.includes(item.host))
+                : sites
                 ? sites.filter((site) => site.tags.includes('top_notify'))
                 : []
             }
