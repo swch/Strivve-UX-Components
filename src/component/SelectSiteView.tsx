@@ -114,8 +114,8 @@ export function SelectSiteView({
                 }}
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="22"
+                  height="22"
                   viewBox="0 0 23 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ export function SelectSiteView({
           />
           <div css={appearance.elements?.selectSiteCarouselFooter}>
             <Button
-              title="Browse all sites"
+              title="View all sites"
               onClick={() => {
                 core.push(StrivveCoreMount.SELECT_SITE_LIST);
                 core.sendEvent({
@@ -234,7 +234,7 @@ export function SelectSiteView({
             className="selectSiteListFooter"
             css={appearance.elements?.selectSiteListFooter}
           >
-            {appearance.layout?.hideBackButton ? null : (
+            {!appearance.layout?.showBackButton ? null : (
               <Button
                 title="Back"
                 variant="text"

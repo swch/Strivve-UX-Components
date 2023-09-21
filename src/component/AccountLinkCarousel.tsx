@@ -14,7 +14,7 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   const settings = {
     dots: true,
     infinite: true,
-    arrows: false,
+    arrows: true,
     rows: 1,
     slidesPerRow: 1,
     slidesToShow: 1,
@@ -382,8 +382,11 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
 
 .magic-dots.slick-dots li.small button::before {
   font-size: 22px;
-  line-height: 22px; }
-      `}</style>
+  line-height: 22px; 
+}
+
+     
+`}</style>
     </div>
   );
 }

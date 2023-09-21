@@ -239,7 +239,7 @@ export type Appearance = {
     logoImageUrl?: string;
     appName?: string;
     unstyled?: boolean;
-    hideBackButton?: boolean;
+    showBackButton?: boolean;
   };
   variables?: {
     primaryColor?: string;
@@ -250,6 +250,7 @@ export type Appearance = {
     textColor?: string;
     textColorSecondary?: string;
     height?: string;
+    backgroundColor?: string;
   };
   elements?: {
     loader?: Interpolation<Theme>;

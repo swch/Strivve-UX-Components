@@ -38,13 +38,13 @@ function SelectSiteCarousel({
     slidesToShow: 2,
     slidesToScroll: 2,
     appendDots: (dots: any) => {
-      return <MagicSliderDots dots={dots} numDotsToShow={5} dotWidth={20} />;
+      return <MagicSliderDots dots={dots} numDotsToShow={5} dotWidth={24} />;
     },
   };
 
   return (
     <>
-      <div style={{ width: 'calc(100% - 20px)', margin: '0 auto' }}>
+      <div style={{ width: 'calc(100% - 60px)', margin: '0 auto' }}>
         <Slider
           {...settings}
           ref={sliderRef}
@@ -154,7 +154,7 @@ function SelectSiteCarousel({
 
 .slick-next:before,
 .slick-prev:before {
-  font-size: 50px;
+  font-size: 40px;
   opacity: 0.75;
   color: var(--secondaryColor);
 }
@@ -204,8 +204,8 @@ function SelectSiteCarousel({
 .slick-dots li {
     position: relative;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin: 0;
     padding: 0;
     cursor: pointer;
@@ -215,8 +215,8 @@ function SelectSiteCarousel({
     font-size: 0;
     line-height: 0;
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     padding: 5px;
     cursor: pointer;
     color: transparent;
@@ -378,13 +378,22 @@ function SelectSiteCarousel({
 
 .magic-dots.slick-dots li button::before {
   transition: font-size .35s;    
-  font-size: 34px;
+  font-size: 43px;
   content: '•';
 }
 
 .magic-dots.slick-dots li.small button::before {
   font-size: 22px;
-  line-height: 22px; }
+  line-height: 22px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 400px) {
+  .slick-arrow {
+    display: none !important;
+  }
+}
+ 
       `}</style>
     </>
   );

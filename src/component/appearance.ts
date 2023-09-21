@@ -20,11 +20,12 @@ const defaultAppearance: Appearance = {
     primaryColor: '#008BD9',
     secondaryColor: '#6BBF00',
     fontFamily: 'sans-serif',
-    fontSize: '14px',
+    fontSize: '16px',
     textColor: '#000000',
     textColorSecondary: '#565656',
     borderColor: 'lightgray',
     height: '100vh',
+    backgroundColor: 'rgba(255, 248, 234, 0.4)',
   },
   elements: {
     loader: {
@@ -227,17 +228,20 @@ const defaultAppearance: Appearance = {
       minHeight: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
+      backgroundColor: 'var(--backgroundColor)',
     },
     selectSiteHeader: {
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
-      marginTop: '16px',
       gap: '16px',
+      margin: '12px 16px',
+      marginTop: '20px',
     },
     selectSiteTitle: {
       marginBottom: '0px',
       marginTop: '0px',
+      fontSize: '20px',
     },
     selectSiteTitleLink: {
       textDecoration: 'underline',
@@ -249,15 +253,28 @@ const defaultAppearance: Appearance = {
       gridTemplateColumns: '1fr',
       overflow: 'auto',
       maxHeight: 'calc(var(--height) - 200px)',
-      padding: '16px',
+      padding: '4px 16px',
       borderTop: '1px solid var(--borderColor)',
+      '&::-webkit-scrollbar': {
+        width: '6px',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(217, 217, 217, 1)',
+        borderRadius: '2px'
+      },
+      '&:hover::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(217, 217, 217, 1)',
+      },
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: '#f1f1f1',
+      },
     },
     selectSiteListFooter: {
       marginTop: '8px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       flex: 1,
       marginBottom: '10px',
     },
@@ -329,23 +346,23 @@ const defaultAppearance: Appearance = {
       position: 'relative',
     },
     selectSiteItemName: {
-      fontSize: '14px',
+      fontSize: '16px',
       marginBottom: '0.75rem',
       marginTop: '0.75rem',
       flex: 1,
     },
     selectSiteItemDescription: {
-      fontSize: '12px',
+      fontSize: '14px',
     },
     selectSiteItemImage: {
-      width: '25px',
+      width: '29px',
       marginRight: '12px',
     },
     selectSiteCarouselFooter: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       flex: 1,
       marginBottom: '10px',
     },
@@ -384,6 +401,7 @@ const defaultAppearance: Appearance = {
       padding: '0 12px',
       flexDirection: 'column',
       height: 'var(--height)',
+      backgroundColor: 'var(--backgroundColor)',
     },
     accountLinkHeader: {
       display: 'flex',
@@ -512,6 +530,7 @@ const defaultAppearance: Appearance = {
       height: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
+      backgroundColor: 'var(--backgroundColor)',
     },
     introTitle: {
       fontSize: '20px',
