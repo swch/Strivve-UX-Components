@@ -39,10 +39,16 @@ function SelectSiteView({
           className="searchSiteHeader"
           css={appearance?.elements?.searchSiteHeader}
         >
+          <p
+            className="searchSiteTitle"
+            css={appearance?.elements?.searchSiteTitle}
+          >
+            Search site
+          </p>
           <AccountInput
-            label="Search site"
             name="search"
             onChange={(e) => selectSiteCore?.changeSearch(e.target.value)}
+            placeholder="Enter a site or brand name"
           />
           <div
             style={{

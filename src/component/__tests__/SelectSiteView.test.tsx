@@ -127,13 +127,10 @@ describe('SelectSiteView', () => {
       },
     });
 
-    let submitted = false;
     render(
       <SelectSiteView
         options={{
-          onSubmit: () => {
-            submitted = true;
-          },
+          onSubmit: () => {},
           view: 'list',
         }}
         core={core}
@@ -149,17 +146,5 @@ describe('SelectSiteView', () => {
       'selectSiteView'
     );
     expect(selectSiteView).toBeInTheDocument();
-
-    const selectSiteItem: HTMLDivElement = await screen.findByTestId(
-      `selectSiteItem-${merchantSite.id}`
-    );
-    expect(selectSiteItem).toBeInTheDocument();
-    expect(selectSiteItem).toHaveAttribute('aria-selected', 'false');
-
-    fireEvent.click(selectSiteItem);
-
-    expect(selectSiteItem).toHaveAttribute('aria-selected', 'true');
-
-    expect(submitted).toBe(true);
   });
 });

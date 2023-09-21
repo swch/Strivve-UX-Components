@@ -296,6 +296,8 @@ export type Appearance = {
 
     searchSiteView?: Interpolation<Theme>;
     searchSiteHeader?: Interpolation<Theme>;
+    searchSiteTitle?: Interpolation<Theme>;
+    searchSiteClose?: Interpolation<Theme>;
     modal?: Interpolation<Theme>;
     modalStatus?: Interpolation<Theme>;
     modalWarning?: Interpolation<Theme>;

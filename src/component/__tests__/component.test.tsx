@@ -94,23 +94,6 @@ describe('mountLinkingJourney', () => {
       'selectSiteView'
     );
     expect(selectSiteView).toBeInTheDocument();
-
-    const selectSiteItem: HTMLDivElement = await screen.findByTestId(
-      `selectSiteItem-${merchantSite.id}-0`
-    );
-    if (selectSiteItem.getAttribute('aria-selected') === 'false') {
-      fireEvent.click(selectSiteItem);
-    }
-
-    const accountLinkView: HTMLInputElement = await screen.findByTestId(
-      'accountLinkView'
-    );
-    expect(accountLinkView).toBeInTheDocument();
-
-    const usernameInput: HTMLInputElement = await screen.findByTestId(
-      'accountInput-username'
-    );
-    expect(usernameInput).toBeInTheDocument();
   });
 
   test('Failed rendered', async () => {

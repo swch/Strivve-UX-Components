@@ -39,6 +39,7 @@ const defaultAppearance: Appearance = {
       animation: 'rotation 1s linear infinite',
     },
     input: {
+      fontSize: '16px',
       padding: '12px',
       border: '1px solid var(--borderColor)',
       borderRadius: '5px',
@@ -191,7 +192,7 @@ const defaultAppearance: Appearance = {
       flexDirection: 'column',
       justifyContent: 'space-between',
       maxWidth: '300px',
-      '@media (max-width: 400px)': {
+      '@media (max-width: 440px)': {
         margin: '20px',
       },
     },
@@ -205,11 +206,26 @@ const defaultAppearance: Appearance = {
       overflow: 'hidden',
       maxWidth: '400px',
       margin: '20px auto',
+      '@media (max-width: 440px)': {
+        margin: '20px',
+      },
     },
     searchSiteHeader: {
       padding: '16px 16px 0 16px',
       position: 'relative',
       borderBottom: '1px solid #A4A4A4',
+    },
+    searchSiteTitle: {
+      fontSize: '20px',
+      marginBottom: '16px',
+      marginTop: '12px',
+    },
+    searchSiteClose: {
+      position: 'absolute',
+      top: 10,
+      right: 10,
+      cursor: 'pointer',
+      color: 'rgba(0, 139, 217, 1)',
     },
     mySiteTitle: {
       fontSize: '16px',
@@ -260,7 +276,7 @@ const defaultAppearance: Appearance = {
       },
       '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'rgba(217, 217, 217, 1)',
-        borderRadius: '2px'
+        borderRadius: '2px',
       },
       '&:hover::-webkit-scrollbar-thumb': {
         backgroundColor: 'rgba(217, 217, 217, 1)',
