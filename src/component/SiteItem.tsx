@@ -31,6 +31,7 @@ function SiteItem({ id, item, selected, onSelectItem }: SiteItemProps) {
   return (
     <>
       <div
+        className='selectSiteItemHeader'
         css={appearance.elements?.selectSiteItemHeader}
         style={{ position: 'relative', padding: 4 }}
       >
@@ -39,7 +40,7 @@ function SiteItem({ id, item, selected, onSelectItem }: SiteItemProps) {
           id={`selectSiteItem-${id || ''}${item.id}`}
           data-testid={`selectSiteItem-${item.id}`}
           aria-selected={active ? 'true' : 'false'}
-          className={`selectSiteItem ${active ? 'selectSiteItemSelected' : ''}`}
+          className={`selectSiteItemCard ${active ? 'selectSiteItemSelected' : ''}`}
           css={appearance.elements?.selectSiteItemCard}
           onClick={() => {
             if (isDisabled) {

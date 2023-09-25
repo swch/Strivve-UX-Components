@@ -245,6 +245,7 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: 'var(--backgroundColor)',
+      color: 'var(--textColor)',
     },
     selectSiteHeader: {
       display: 'flex',
@@ -417,8 +418,9 @@ const defaultAppearance: Appearance = {
       display: 'flex',
       padding: '0 12px',
       flexDirection: 'column',
-      height: 'var(--height)',
+      minHeight: 'var(--height)',
       backgroundColor: 'var(--backgroundColor)',
+      color: 'var(--textColor)',
     },
     accountLinkHeader: {
       display: 'flex',
@@ -544,10 +546,11 @@ const defaultAppearance: Appearance = {
       maxWidth: '400px',
       margin: 'auto',
       padding: '0 12px',
-      height: 'var(--height)',
+      minHeight: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: 'var(--backgroundColor)',
+      color: 'var(--textColor)',
     },
     introTitle: {
       fontSize: '20px',
