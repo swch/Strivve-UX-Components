@@ -409,8 +409,9 @@ const defaultAppearance: Appearance = {
     accountLinkContainer: {
       maxWidth: '400px',
       margin: 'auto',
-      marginTop: '12px',
+      marginTop: '20px',
       flex: 1,
+      padding: '16px'
     },
     accountLinkView: {
       display: 'flex',
@@ -425,7 +426,7 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
       height: '36px',
       gap: '4px',
-      marginTop: '40px',
+      marginTop: '68px',
     },
     accountLinkHeaderTitle: {
       margin: 0,
@@ -438,7 +439,7 @@ const defaultAppearance: Appearance = {
       color: 'var(--textColorSecondary)',
       fontSize: '16px',
       marginTop: '6px',
-      marginBottom: '80px',
+      marginBottom: '12px',
       fontWeight: 400,
     },
     accountLinkHeaderImage: {
@@ -455,13 +456,13 @@ const defaultAppearance: Appearance = {
       alignItems: 'center',
     },
     accountLinkBody: {
-      marginTop: '70px',
+      marginTop: '90px',
     },
     accountLinkFooter: {
       marginTop: '40px',
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      gridGap: '12px',
+      gridGap: '17px',
     },
     accountLinkProgress: {
       position: 'relative',
@@ -499,7 +500,7 @@ const defaultAppearance: Appearance = {
       fontWeight: 'bold',
     },
     accountLinkProgressDescription: {
-      margin: '14px',
+      margin: '16px',
       textAlign: 'center',
       fontSize: '14px',
       minHeight: '20px',
@@ -629,7 +630,7 @@ const defaultAppearance: Appearance = {
       borderBottom: '1px solid var(--borderColor)',
       padding: '2px',
       gap: '12px',
-      height: '50px',
+      minHeight: '50px',
     },
     headerTitle: {
       fontSize: '22px',

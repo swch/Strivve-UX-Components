@@ -58,6 +58,12 @@ function AccountLinkForm({
         });
       }}
     >
+      <p
+        className="accountLinkHeaderDescription"
+        css={appearance.elements?.accountLinkHeaderDescription}
+      >
+        Log into {site?.name}
+      </p>
       {fields?.map((item, index) => {
         return (
           <AccountInput
