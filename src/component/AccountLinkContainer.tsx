@@ -20,7 +20,7 @@ function AccountLinkContainer({
 
   return (
     <div
-      className={hide_title ? "" : "accountLinkContainer"}
+      className={hide_title ? '' : 'accountLinkContainer'}
       css={hide_title ? null : appearance.elements?.accountLinkContainer}
     >
       {!hide_title && (

@@ -196,9 +196,15 @@ const defaultAppearance: Appearance = {
         margin: '20px',
       },
     },
+    modalTitle: {
+      fontSize: '20px',
+      fontWeight: 'normal',
+    },
     modalDescription: {
       marginTop: '12px',
       marginBottom: '20px',
+      fontSize: '16px',
+      color: 'var(--textColorSecondary)',
     },
     searchSiteView: {
       background: '#FFFFFF',
@@ -240,7 +246,6 @@ const defaultAppearance: Appearance = {
       maxWidth: '400px',
       margin: '0 auto',
       overflowX: 'hidden',
-      padding: '0 12px',
       minHeight: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
@@ -412,11 +417,10 @@ const defaultAppearance: Appearance = {
       margin: 'auto',
       marginTop: '20px',
       flex: 1,
-      padding: '16px'
+      padding: '16px',
     },
     accountLinkView: {
       display: 'flex',
-      padding: '0 12px',
       flexDirection: 'column',
       minHeight: 'var(--height)',
       backgroundColor: 'var(--backgroundColor)',
@@ -498,14 +502,14 @@ const defaultAppearance: Appearance = {
     accountLinkProgressTitle: {
       margin: '20px',
       textAlign: 'center',
-      fontSize: '16px',
-      fontWeight: 'bold',
+      fontSize: '20px',
     },
     accountLinkProgressDescription: {
       margin: '16px',
       textAlign: 'center',
-      fontSize: '14px',
+      fontSize: '16px',
       minHeight: '20px',
+      color: 'var(--textColorSecondary)',
     },
     accountLinkProgressFooter: {
       display: 'flex',
@@ -545,7 +549,6 @@ const defaultAppearance: Appearance = {
     introView: {
       maxWidth: '400px',
       margin: 'auto',
-      padding: '0 12px',
       minHeight: 'var(--height)',
       display: 'flex',
       flexDirection: 'column',
@@ -621,7 +624,7 @@ const defaultAppearance: Appearance = {
     },
 
     headerWrapper: {
-      width: '100%',
+      width: 'calc(100% - 16px)',
       maxWidth: '400px',
       margin: 'auto',
       display: 'flex',
@@ -631,7 +634,7 @@ const defaultAppearance: Appearance = {
         cursor: 'pointer',
       },
       borderBottom: '1px solid var(--borderColor)',
-      padding: '2px',
+      padding: '0 8px',
       gap: '12px',
       minHeight: '50px',
     },
