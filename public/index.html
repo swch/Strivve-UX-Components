@@ -48,78 +48,7 @@
 <script src="./static/js/bundle.js"></script>
 <script>
   const id = 'full';
-
-  const appearance = {
-    layout: {
-      logoImageUrl: 'https://unsplash.com/photos/CoNsEK5iHug/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjg5MjE2MTEwfA&force=true&w=640',
-      appName: 'My Application',
-    },
-    variables: {
-      primaryColor: '#0048e5',
-      secondaryColor: '#141E46',
-      borderColor: '#0048e5',
-      backgroundColor: 'white',
-      textColor: '#000000',
-      fontFamily: 'Poppins'
-    },
-    elements: {
-      selectSiteList: {
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gridGap: '12px',
-        borderTop: 'none',
-        paddingTop: '12px',
-      },
-      selectSiteTitle: {
-        fontSize: '18px',
-        fontWeight: '500',
-      },
-      selectSiteItemCard: {
-        backgroundColor: 'white'
-      },
-      selectSiteItem: {
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-        border: 'none',
-        borderRadius: '8px',
-        transitionDuration: '0.2s',
-        '&:hover': {
-          boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
-        },
-        backgroundColor: 'white'
-      },
-      selectSiteCarouselItem: {
-        backgroundColor: 'white'
-      },
-      selectSiteItemImage: {
-        height: '80px',
-        width: 'auto',
-      },
-      input: {
-        borderRadius: '0px',
-      },
-      button: {
-        borderRadius: '0px',
-        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-        '&:hover': {
-          boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
-        },
-      },
-      outlinedButton: {
-        borderRadius: '0px',
-        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-        '&:hover': {
-          boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 2px',
-        },
-      },
-      accountLinkHeaderTitle: {
-        fontSize: '20px',
-        fontWeight: 'bold',
-      },
-    },
-  };
-
+  
   // mount journey
   const stv = Strivve.mountLinkingJourney({
     element_id: id,
