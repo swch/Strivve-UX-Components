@@ -14,7 +14,7 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   const settings = {
     dots: true,
     infinite: true,
-    arrows: true,
+    arrows: false,
     rows: 1,
     slidesPerRow: 1,
     slidesToShow: 1,

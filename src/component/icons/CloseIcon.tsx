@@ -1,6 +1,8 @@
 import React from 'react';
+import { useBase } from '../withBase';
 
 function CloseIcon() {
+  const { appearance } = useBase();
   return (
     <svg
       width="23"
@@ -14,7 +16,7 @@ function CloseIcon() {
         y1="1.30657"
         x2="25.0616"
         y2="25.2792"
-        stroke="#6BBF00"
+        stroke={appearance.variables?.iconColor}
         strokeWidth="2"
       />
       <line
@@ -22,7 +24,7 @@ function CloseIcon() {
         y1="2.72078"
         x2="1.08894"
         y2="26.6934"
-        stroke="#6BBF00"
+        stroke={appearance.variables?.iconColor}
         strokeWidth="2"
       />
     </svg>

@@ -19,6 +19,7 @@ const defaultAppearance: Appearance = {
   variables: {
     primaryColor: '#008BD9',
     secondaryColor: '#6BBF00',
+    iconColor: '#6BBF00',
     fontFamily: 'sans-serif',
     fontSize: '16px',
     textColor: '#000000',

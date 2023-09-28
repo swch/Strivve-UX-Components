@@ -124,7 +124,7 @@ export function SelectSiteView({
                     cx="13.5"
                     cy="9.5"
                     r="8"
-                    stroke="#6BBF00"
+                    stroke={appearance.variables?.iconColor}
                     strokeWidth="3"
                   />
                   <line
@@ -132,7 +132,7 @@ export function SelectSiteView({
                     y1="16.0607"
                     x2="1.06066"
                     y2="23.0607"
-                    stroke="#6BBF00"
+                    stroke={appearance.variables?.iconColor}
                     strokeWidth="3"
                   />
                 </svg>

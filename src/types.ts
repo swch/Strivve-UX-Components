@@ -244,6 +244,7 @@ export type Appearance = {
   variables?: {
     primaryColor?: string;
     secondaryColor?: string;
+    iconColor?: string;
     fontFamily?: string;
     fontSize?: string;
     borderColor?: string;

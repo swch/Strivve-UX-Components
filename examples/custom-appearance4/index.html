@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strivve Component</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div style="max-width: 500px; margin: auto;">
+    <div id="account-link"></div>
+  </div>
+</body>
+
+<script src="https://swch.github.io/Strivve-UX-Components/main.js"></script>
+<script>
+
+  // Documentation: https://swch.github.io/Strivve-UX-Components/?path=/docs/component--documentation#appearance
+  const appearance = {
+    layout: {
+      logoImageUrl: 'https://unsplash.com/photos/CoNsEK5iHug/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjg5MjE2MTEwfA&force=true&w=640',
+      appName: 'My Application',
+    },
+    variables: {
+      primaryColor: '#008080',
+      secondaryColor: '#008080',
+      iconColor: 'black',
+      borderColor: 'gray',
+      backgroundColor: '#C0C0C0',
+      textColor: '#000000',
+      fontFamily: 'Jost',
+    },
+    elements: {
+      button: {
+        borderRadius: '0px',
+        border: 'none',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      secondaryButton: {
+        borderRadius: '0px',
+        border: 'none',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      outlinedButton: {
+        borderRadius: '0px',
+        border: 'none',
+        color: 'white',
+        backgroundColor: '#008080',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      selectSiteCarouselItem: {
+        borderRadius: '0px',
+        color: 'white',
+        backgroundColor: '#008080',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      selectSiteItem: {
+        borderRadius: '0px',
+        color: 'white',
+        backgroundColor: '#008080',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      selectSiteItemDisabled: {
+        borderRadius: '0px',
+        color: 'white',
+        backgroundColor: '#008080',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      selectSiteItemCard: {
+        color: 'black',
+      },
+      input: {
+        borderRadius: '0px',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      accountLinkHeaderImageWrapper: {
+        borderRadius: '0px',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      iconButton: {
+        borderRadius: '0px',
+        boxShadow: "inset -1px -1px 0px #000000, inset 1px 1px 0px #FFFFFF, inset -2px -2px 0px #808080, inset 2px 2px 0px #DBDBDB",
+      },
+      modalStatus: {
+        borderRadius: '0px',
+      },
+      modalWarning: {
+        borderRadius: '0px',
+      },
+    }
+  };
+  
+  Strivve.mountLinkingJourney({
+    element_id: 'account-link',
+    api_instance: 'customer-dev',
+    card: {
+      pan: '4111111111111111',
+      cvv: '321',
+      expiration_month: '2',
+      expiration_year: '24',
+      name_on_card: 'Mvick',
+    },
+    appearance,
+  });
+</script>
+
+</html>
