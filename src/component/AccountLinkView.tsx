@@ -18,6 +18,7 @@ export function AccountLinkView({
   options,
   core,
   appearance,
+  localization,
 }: mountAccountLinkViewProps & BaseProps) {
   const [state, setState] = useState<AccountLinkState>();
   const [accountLinkCore, setAccountLinkCore] = useState<AccountLinkCore>();
@@ -153,7 +154,7 @@ export function AccountLinkView({
                   className="accountLinkProgressTitle"
                   css={appearance.elements?.accountLinkProgressTitle}
                 >
-                  {'Logging in...'}
+                  {localization.accountLinkProgressTitle}
                 </p>
                 <SecurityIcon />
                 <p

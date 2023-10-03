@@ -35,8 +35,6 @@ function MySiteList({
 
   const isError = errorStatus.includes(openStatus?.job?.termination_type || '');
 
-  console.log('===', sites);
-
   useEffect(() => {
     sendEvent?.({
       component: 'my_site_list',

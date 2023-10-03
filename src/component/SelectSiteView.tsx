@@ -11,6 +11,7 @@ import SearchSiteView from './SearchSiteView';
 import MySiteList from './MySiteList';
 import Header from './Header';
 import { StrivveCoreMount, StrivveCoreState } from '../core/core';
+import { errorStatus } from '../constans';
 
 export function SelectSiteView({
   options,
@@ -56,6 +57,10 @@ export function SelectSiteView({
       : []
     : [];
 
+  const failedJobs = (state?.jobs || []).filter((item) =>
+    errorStatus.includes(item.termination_type)
+  );
+
   if (state?.loading) {
     return (
       <div
@@ -84,7 +89,21 @@ export function SelectSiteView({
       {coreState?.mount === StrivveCoreMount.SELECT_SITE_LINKED ? null : (
         <div css={appearance.elements?.selectSiteHeader}>
           <p css={appearance.elements?.selectSiteTitle}>
-            {isHaveJob ? (
+            {failedJobs.length > 0 &&
+            failedJobs.length === state?.jobs.length ? (
+              <>
+                See you recent{' '}
+                <a
+                  onClick={() => {
+                    core.push(StrivveCoreMount.SELECT_SITE_LINKED);
+                  }}
+                  css={appearance.elements?.selectSiteTitleLink}
+                >
+                  {failedJobs.length} site(s)
+                </a>{' '}
+                that failed.
+              </>
+            ) : isHaveJob ? (
               <>
                 {localization?.selectSiteTitleHaveJob}{' '}
                 <a

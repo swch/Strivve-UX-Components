@@ -161,11 +161,6 @@ class CarouselDots extends Component<CarouselDotsProps> {
       //outside of bounds check - can be caused when using react-slick breakpoints
       //return null and dots will correctly re-render once componentDidUpdate lifecycle recalculates indexes
       if (!firstViewableDot || !lastViewableDot) {
-        console.log(
-          'rendering null - outside of bounds',
-          firstViewableDot,
-          lastViewableDot
-        );
         return null;
       }
 

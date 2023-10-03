@@ -7,6 +7,8 @@ const defaultLocalization: Localization = {
   accountLinkDescription:
     'Rest easy. {appName} does not store your login credentials.',
 
+  accountLinkProgressTitle: 'Logging in...',
+
   introTitle: 'Update your card info everywhere you pay, the easier way!',
   introIconText: 'Save time. Log in. We’ll do the rest.',
   introStepTitle: 'Here’s how:',

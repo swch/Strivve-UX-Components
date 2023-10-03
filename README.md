@@ -94,7 +94,7 @@ Strivve.mountLinkingJourney({
 | expiration_month | string | -                                                                                                                                                                     |
 | expiration_year  | string | -                                                                                                                                                                     |
 | name_on_card     | string | -                                                                                                                                                                     |
-| address     | Address | optional                                                                                                                                                                     |
+| address     | Address | required                                                                                                                                                                     |
 
 ## Address
 

@@ -110,7 +110,7 @@ function PendingModal({
                 id={`accountInput-${item.name}`}
                 key={item.name}
                 name={item.name}
-                autocomplete="off"
+                autocomplete={item.name === 'tfa' ? 'one-time-code' : item.name}
                 type={item.type}
                 secret={item.secret}
                 placeholder={item.label}

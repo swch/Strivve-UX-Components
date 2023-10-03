@@ -139,6 +139,8 @@ export interface Localization {
   accountLinkTitle?: string;
   accountLinkDescription?: string;
 
+  accountLinkProgressTitle?: string;
+
   introTitle?: string;
   introIconText?: string;
 

@@ -70,7 +70,7 @@ function AccountLinkForm({
             id={`accountInput-${item.name}`}
             key={item.name}
             name={item.name}
-            autocomplete="off"
+            autocomplete={item.name}
             type={item.type}
             secret={item.secret}
             placeholder={item.label}
