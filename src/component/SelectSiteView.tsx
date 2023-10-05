@@ -58,8 +58,9 @@ export function SelectSiteView({
     : [];
 
   const failedJobs = (state?.jobs || []).filter((item) =>
-    errorStatus.includes(item.termination_type)
+    errorStatus.includes(item?.termination_type)
   );
+
 
   if (state?.loading) {
     return (
@@ -92,14 +93,14 @@ export function SelectSiteView({
             {failedJobs.length > 0 &&
             failedJobs.length === state?.jobs.length ? (
               <>
-                See you recent{' '}
+                See your recent{' '}
                 <a
                   onClick={() => {
                     core.push(StrivveCoreMount.SELECT_SITE_LINKED);
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {failedJobs.length} site(s)
+                  {failedJobs.length} site(s).
                 </a>{' '}
                 that failed.
               </>
@@ -112,7 +113,7 @@ export function SelectSiteView({
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {totalSuccessJob} sites.
+                  {totalSuccessJob} site(s).
                 </a>
               </>
             ) : (

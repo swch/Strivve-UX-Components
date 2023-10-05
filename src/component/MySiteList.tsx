@@ -74,6 +74,8 @@ function MySiteList({
             if (isDisabled) {
             } else if (isSuccess) {
               setOpenStatus(item);
+            } else if (isError)  {
+              setOpenStatus(item);
             } else {
               onSelectItem(item);
             }
@@ -106,17 +108,6 @@ function MySiteList({
                 className="selectSiteItemDescription"
               >
                 {timeAgo(item.job?.last_updated_on)}
-              </div>
-            )}
-            {isError && (
-              <div className="errorText" css={appearance.elements?.errorText}>
-                Problem logging in.{' '}
-                <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => setOpenStatus(item)}
-                >
-                  See details
-                </a>
               </div>
             )}
           </div>
@@ -163,10 +154,9 @@ function MySiteList({
       >
         {errors.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>Errors</p>
+            <p css={appearance.elements?.mySiteTitle}>Failures</p>
             <p css={appearance.elements?.mySiteDescription}>
-              The following site encountered a login error. Click for more
-              details.
+            We were unable to place your card on the following sites.
             </p>
             {errors?.map(renderitem)}
           </div>
@@ -182,7 +172,7 @@ function MySiteList({
         )}
         {successful.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>Successful placement</p>
+            <p css={appearance.elements?.mySiteTitle}>Successful placements</p>
             <p css={appearance.elements?.mySiteDescription}>
               Your card details were successfully placed on the following sites.
             </p>

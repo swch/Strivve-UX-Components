@@ -7,7 +7,7 @@ import PendingIcon from './icons/PendingIcon';
 type StatusModalProps = {
   open?: boolean;
   title: string;
-  description: string;
+  description?: string;
   buttonText: string;
   onClickButton?: () => void;
   onClickClose?: () => void;

@@ -217,7 +217,7 @@ export default class AccountLinkCore {
           : message.auth_percent_complete;
 
       if (message?.termination_type || data?.type === 'error' || isComplete) {
-        if (failedStatus.includes(message.termination_type)) {
+        if (failedStatus.includes(message?.termination_type)) {
           this.updateState({
             percent,
             message,

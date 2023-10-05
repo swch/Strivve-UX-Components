@@ -216,7 +216,7 @@ export default class StrivveCore {
     const jobs = this?.jobs || [];
     const item = this.jobs?.[jobs.length - 1];
 
-    if (!item.termination_type) {
+    if (!item?.termination_type) {
       this.service.cancelJob(item.id);
       this.onMessage(item.id, {
         status: 'CANCELLED',
