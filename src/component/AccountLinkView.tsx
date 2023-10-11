@@ -35,6 +35,8 @@ export function AccountLinkView({
   const isSuccessJob = state?.message?.termination_type === 'BILLABLE'
   const isFailedJob = failedStatus.includes(state?.message?.termination_type);
 
+  console.log('===', state);
+
   useEffect(() => {
     const accountLink = core.createAccountLink(options);
     accountLink.subscribe((state: AccountLinkState) => {
@@ -157,7 +159,7 @@ export function AccountLinkView({
                   className="accountLinkProgressTitle"
                   css={appearance.elements?.accountLinkProgressTitle}
                 >
-                  {localization.accountLinkProgressTitle}
+                  {state?.message?.status?.replaceAll('_', ' ')?.toLowerCase() || localization.logon_progress_title}
                 </p>
                 <SecurityIcon />
                 <p
@@ -180,10 +182,10 @@ export function AccountLinkView({
             open={state?.success}
             variant={isFailedJob ? "error" : isSuccessJob ? "success" : "pending"}
             title={isFailedJob ? "Error!" : isSuccessJob ? "Success!" : "We’re Still Finishing Up"}
-            description={ isFailedJob ? state.message?.status_message : isSuccessJob ? "Your card details were successfully placed on this site." :
-              'This might take a minute. Select another site to update while you wait.'
+            description={ isFailedJob ? state.message?.status_message : isSuccessJob ? localization.logon_card_placement_success_background :
+              localization.logon_link_success_text
             }
-            buttonText="Browse More Sites"
+            buttonText={localization.logon_link_success_btn_browse}
             onClickButton={() => {
               options.onCancel?.();
               core?.sendEvent({
@@ -204,9 +206,9 @@ export function AccountLinkView({
           <StatusModal
             open={state?.failed}
             variant="error"
-            title="Error!"
+            title={localization.placement_error_details_title}
             description={state?.message?.status_message}
-            buttonText="Try a Different Site"
+            buttonText={localization.logon_link_error_btn}
             onClickButton={() => {
               options.onCancel?.();
               core?.sendEvent({
@@ -228,7 +230,7 @@ export function AccountLinkView({
             open={Boolean(state?.pending)}
             title={pendingMessage[state?.pending?.status] || ''}
             description={state?.message?.status_message}
-            buttonText="Verify"
+            buttonText={localization.logon_otp_btn_verify || ''}
             onClickClose={() => {
               core?.sendEvent({
                 component: 'pending_form_modal',
@@ -275,7 +277,7 @@ export function AccountLinkView({
                 site: host,
               });
             }}
-            title="Cancel"
+            title={localization.logon_otp_cancel}
           />
         </div>
       </div>

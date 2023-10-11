@@ -20,20 +20,20 @@ function IntroView({
         <div>
           <Header />
           <p css={appearance.elements?.introTitle} className="introTitle">
-            {localization.introTitle}
+            {localization.intro_title}
           </p>
           <div
             css={appearance.elements?.introIconWrapper}
             className="introIconWrapper"
           >
             <TimeIcon />
-            <p>{localization.introIconText}</p>
+            <p>{localization.intro_icon_text}</p>
           </div>
           <p
             css={appearance.elements?.introStepTitle}
             className="introStepTitle"
           >
-            {localization.introStepTitle}
+            {localization.intro_step_title}
           </p>
           <div
             css={appearance.elements?.introStepWrapper}
@@ -44,13 +44,13 @@ function IntroView({
                 css={appearance.elements?.introStepIconWrapper}
                 className="introStepIconWrapper"
               >
-                <StepOneIcon /> {localization.introStepOne}
+                <StepOneIcon /> {localization.intro_step_one}
               </div>
               <div
                 css={appearance.elements?.introStepDescription}
                 className="introStepDescription"
               >
-                {localization.introStepOneDescription}
+                {localization.intro_step_one_description}
               </div>
             </div>
             <div>
@@ -58,13 +58,13 @@ function IntroView({
                 css={appearance.elements?.introStepIconWrapper}
                 className="introStepIconWrapper"
               >
-                <StepTwoIcon /> {localization.introStepTwo}
+                <StepTwoIcon /> {localization.intro_step_two}
               </div>
               <div
                 css={appearance.elements?.introStepDescription}
                 className="introStepDescription"
               >
-                {localization.introStepTwoDescription}
+                {localization.intro_step_two_description}
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ function IntroView({
           className="introStepButtonWrapper"
         >
           <Button
-            title={localization.introButtonText}
+            title={localization.intro_btn}
             onClick={options?.onClickButton}
           />
         </div>

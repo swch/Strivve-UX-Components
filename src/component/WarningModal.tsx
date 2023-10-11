@@ -18,7 +18,7 @@ function WarningModal({
   onClickLeave,
   onClickStay,
 }: WarningModalProps) {
-  const { appearance } = useBase();
+  const { appearance, localization } = useBase();
 
   if (!open) {
     return null;
@@ -32,13 +32,13 @@ function WarningModal({
         </AccountLinkContainer>
         <div style={{ flex: 1 }}>
           <h3 className="modalTitle" css={appearance.elements?.modalTitle}>
-            We’re still trying to connect!
+            {localization.logon_cancel_title}
           </h3>
           <p
             className="modalDescription"
             css={appearance.elements?.modalDescription}
           >
-            We may not be able to. Do you want to stick around and find out?
+            {localization.logon_cancel_text}
           </p>
         </div>
         <div
@@ -47,11 +47,11 @@ function WarningModal({
         >
           <Button
             type="button"
-            title={'Leave'}
+            title={localization.logon_cancel_btn_leave}
             variant="outlined"
             onClick={onClickLeave}
           />
-          <Button type="button" title="Stay" onClick={onClickStay} />
+          <Button type="button" title={localization.logon_cancel_btn_stay} onClick={onClickStay} />
         </div>
       </div>
     </div>

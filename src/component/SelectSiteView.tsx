@@ -93,31 +93,29 @@ export function SelectSiteView({
             {failedJobs.length > 0 &&
             failedJobs.length === state?.jobs.length ? (
               <>
-                See your recent{' '}
                 <a
                   onClick={() => {
                     core.push(StrivveCoreMount.SELECT_SITE_LINKED);
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {failedJobs.length} site(s).
+                  {localization?.all_sites_failure_text?.replace('<n>', totalSuccessJob.toString())}
                 </a>{' '}
-                that failed.
               </>
             ) : isHaveJob ? (
               <>
-                {localization?.selectSiteTitleHaveJob}{' '}
+                {}{' '}
                 <a
                   onClick={() => {
                     core.push(StrivveCoreMount.SELECT_SITE_LINKED);
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {totalSuccessJob} site(s).
+                  {localization?.all_sites_success_text?.replace('<n>', totalSuccessJob.toString())}
                 </a>
               </>
             ) : (
-              localization?.selectSiteTitle
+              coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ? localization?.all_sites_title : localization?.site_selection_title
             )}
           </p>
           <div>
@@ -197,7 +195,7 @@ export function SelectSiteView({
           />
           <div css={appearance.elements?.selectSiteCarouselFooter}>
             <Button
-              title="View all sites"
+              title={localization.site_selection_btn_all_sites}
               onClick={() => {
                 core.push(StrivveCoreMount.SELECT_SITE_LIST);
                 core.sendEvent({

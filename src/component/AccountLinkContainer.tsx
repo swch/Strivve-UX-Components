@@ -29,13 +29,13 @@ function AccountLinkContainer({
             className="accountLinkHeaderTitle"
             css={appearance.elements?.accountLinkHeaderTitle}
           >
-            {localization.accountLinkTitle}
+            {localization.logon_title}
           </h3>
           <p
             className="accountLinkHeaderDescription"
             css={appearance.elements?.accountLinkHeaderDescription}
           >
-            {localization.accountLinkDescription?.replace('{appName}', appName)}
+            {localization.logon_text?.replace('<appName>', appName)}
           </p>
         </>
       )}

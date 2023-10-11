@@ -29,7 +29,7 @@ function MySiteList({
   onSelectItem,
   sendEvent,
 }: MySiteListProps) {
-  const { appearance } = useBase();
+  const { appearance, localization } = useBase();
   const [openStatus, setOpenStatus] = useState<MerchantSite | null>(null);
   const [scroll, setScroll] = useState<boolean | null>(null);
 
@@ -154,9 +154,9 @@ function MySiteList({
       >
         {errors.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>Failures</p>
+            <p css={appearance.elements?.mySiteTitle}>{localization.my_sites_error_title}</p>
             <p css={appearance.elements?.mySiteDescription}>
-            We were unable to place your card on the following sites.
+              {localization.my_sites_error_text}
             </p>
             {errors?.map(renderitem)}
           </div>
@@ -172,9 +172,9 @@ function MySiteList({
         )}
         {successful.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>Successful placements</p>
+            <p css={appearance.elements?.mySiteTitle}>{localization.my_sites_error_title}</p>
             <p css={appearance.elements?.mySiteDescription}>
-              Your card details were successfully placed on the following sites.
+              {localization.my_sites_error_text}
             </p>
             {successful?.map(renderitem)}
           </div>
@@ -184,11 +184,11 @@ function MySiteList({
         variant={!isError ? 'success' : 'error'}
         description={
           !isError
-            ? 'Your card details were successfully placed on this site.'
+            ? localization.placement_success_details_text
             : openStatus?.job?.status_message || ''
         }
-        title={!isError ? 'Success!' : 'Error!'}
-        buttonText="Close"
+        title={!isError ? localization.placement_success_details_title : localization.placement_error_details_title}
+        buttonText={isError ? localization.placement_error_details_btn_close : localization.placement_success_details_btn_close}
         open={Boolean(openStatus)}
         onClickClose={() => setOpenStatus(null)}
         onClickButton={() => setOpenStatus(null)}

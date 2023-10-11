@@ -130,28 +130,73 @@ export interface StrivveServiceInterface {
 }
 
 export interface StrivveServiceClass {
-  new (options: StrivveServiceOptions): StrivveServiceInterface;
+  new(options: StrivveServiceOptions): StrivveServiceInterface;
 }
 export interface Localization {
-  selectSiteTitle?: string;
-  selectSiteTitleHaveJob?: string;
+  intro_title?: string;
+  intro_icon_text?: string;
+  intro_step_title?: string;
+  intro_step_one?: string;
+  intro_step_one_description?: string;
+  intro_step_two?: string;
+  intro_step_two_description?: string;
+  intro_btn?: string;
 
-  accountLinkTitle?: string;
-  accountLinkDescription?: string;
+  site_selection_title_have_job?: string;
 
-  accountLinkProgressTitle?: string;
+  logon_forgot_signin?: string;
+  site_selection_btn_all_sites?: string;
+  logon_btn_cancel?: string;
+  logon_btn_link?: string;
+  logon_progress_cancel?: string;
+  logon_link_success_btn_browse?: string;
+  logon_unpw_btn_verify?: string;
+  logon_unpw_cancel?: string;
+  logon_cancel_btn_leave?: string;
+  logon_cancel_btn_stay?: string;
+  logon_otp_btn_verify?: string;
+  logon_otp_cancel?: string;
+  logon_otp_retry_btn_verify?: string;
+  logon_otp_retry_cancel?: string;
+  logon_password_btn_verify?: string;
+  logon_password_cancel?: string;
+  logon_link_error_btn?: string;
 
-  introTitle?: string;
-  introIconText?: string;
-
-  introStepTitle?: string;
-  introStepOne?: string;
-  introStepOneDescription?: string;
-
-  introStepTwo?: string;
-  introStepTwoDescription?: string;
-
-  introButtonText?: string;
+  placement_success_details_btn_close?: string;
+  placement_error_details_btn_close?: string;
+  logon_title?: string;
+  logon_link_success_title?: string;
+  logon_card_placement_success_title?: string;
+  placement_success_details_title?: string;
+  placement_error_details_title?: string;
+  all_sites_search_default?: string;
+  logon_username_default?: string;
+  logon_password_default?: string;
+  site_selection_title?: string;
+  all_sites_title?: string;
+  all_sites_search_site_title?: string;
+  all_sites_success_text?: string;
+  all_sites_failure_text?: string;
+  logon_text?: string;
+  logon_progress_title?: string;
+  logon_progress_status?: string;
+  logon_link_success_text?: string;
+  logon_card_placement_success_background?: string;
+  logon_unpw_retry?: string;
+  long_username_retry?: string;
+  logon_cancel_title?: string;
+  logon_cancel_text?: string;
+  logon_otp_text?: string;
+  logon_otp_default?: string;
+  logon_otp_retry_text?: string;
+  logon_otp_retry_default?: string;
+  logon_password_text?: string;
+  my_sites_error_title?: string;
+  my_sites_error_text?: string;
+  my_sites_success_title?: string;
+  my_sites_success_text?: string;
+  placement_success_details_text?: string;
+  placement_error_details_text?: string;
 }
 
 export interface StrivveComponentInterface {
@@ -173,7 +218,7 @@ export interface StrivveComponentInterface {
 }
 
 export interface StrivveComponentClass {
-  new (options: StrivveComponentOptions): StrivveComponentInterface;
+  new(options: StrivveComponentOptions): StrivveComponentInterface;
 }
 
 export interface StrivveComponentOptions {

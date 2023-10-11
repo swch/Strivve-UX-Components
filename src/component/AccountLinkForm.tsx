@@ -30,7 +30,7 @@ function AccountLinkForm({
   core,
   site,
 }: AccountLinkFormProps) {
-  const { appearance } = useBase();
+  const { appearance, localization } = useBase();
 
   const host = site?.host || '';
 
@@ -99,7 +99,7 @@ function AccountLinkForm({
             });
           }}
         >
-          Forgot your sign-in? Let’s go find it.
+          {localization.logon_forgot_signin}
         </a>
       )}
       <div
@@ -117,11 +117,11 @@ function AccountLinkForm({
               });
             }}
             type="button"
-            title={'Cancel'}
+            title={localization.logon_btn_cancel}
             variant="outlined"
           />
         )}
-        <Button type="submit" title={'Link Account'} disabled={disabled} />
+        <Button type="submit" title={localization.logon_btn_link} disabled={disabled} />
       </div>
     </form>
   );

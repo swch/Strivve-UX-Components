@@ -11,6 +11,7 @@ function SelectSiteView({
   options,
   core,
   appearance,
+  localization
 }: BaseProps & mountSelectSiteViewProps) {
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();
@@ -43,12 +44,12 @@ function SelectSiteView({
             className="searchSiteTitle"
             css={appearance?.elements?.searchSiteTitle}
           >
-            Search site
+            {localization.all_sites_search_site_title}
           </p>
           <AccountInput
             name="search"
             onChange={(e) => selectSiteCore?.changeSearch(e.target.value)}
-            placeholder="Enter a site or brand name"
+            placeholder={localization.all_sites_search_default}
           />
           <div
             style={{
