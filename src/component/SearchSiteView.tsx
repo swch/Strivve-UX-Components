@@ -11,7 +11,7 @@ function SelectSiteView({
   options,
   core,
   appearance,
-  localization
+  localization,
 }: BaseProps & mountSelectSiteViewProps) {
   const [state, setState] = useState<SelectSiteState>();
   const [selectSiteCore, setSelectSiteCore] = useState<SelectSiteCore>();

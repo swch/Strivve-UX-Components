@@ -61,7 +61,6 @@ export function SelectSiteView({
     errorStatus.includes(item?.termination_type)
   );
 
-
   if (state?.loading) {
     return (
       <div
@@ -99,7 +98,10 @@ export function SelectSiteView({
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {localization?.all_sites_failure_text?.replace('<n>', totalSuccessJob.toString())}
+                  {localization?.all_sites_failure_text?.replace(
+                    '<n>',
+                    totalSuccessJob.toString()
+                  )}
                 </a>{' '}
               </>
             ) : isHaveJob ? (
@@ -111,11 +113,16 @@ export function SelectSiteView({
                   }}
                   css={appearance.elements?.selectSiteTitleLink}
                 >
-                  {localization?.all_sites_success_text?.replace('<n>', totalSuccessJob.toString())}
+                  {localization?.all_sites_success_text?.replace(
+                    '<n>',
+                    totalSuccessJob.toString()
+                  )}
                 </a>
               </>
+            ) : coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ? (
+              localization?.all_sites_title
             ) : (
-              coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ? localization?.all_sites_title : localization?.site_selection_title
+              localization?.site_selection_title
             )}
           </p>
           <div>

@@ -121,7 +121,11 @@ function AccountLinkForm({
             variant="outlined"
           />
         )}
-        <Button type="submit" title={localization.logon_btn_link} disabled={disabled} />
+        <Button
+          type="submit"
+          title={localization.logon_btn_link}
+          disabled={disabled}
+        />
       </div>
     </form>
   );

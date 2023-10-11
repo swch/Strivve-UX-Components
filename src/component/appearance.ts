@@ -504,7 +504,7 @@ const defaultAppearance: Appearance = {
       margin: '20px',
       textAlign: 'center',
       fontSize: '20px',
-      textTransform: 'capitalize'
+      textTransform: 'capitalize',
     },
     accountLinkProgressDescription: {
       margin: '16px',

@@ -51,7 +51,11 @@ function WarningModal({
             variant="outlined"
             onClick={onClickLeave}
           />
-          <Button type="button" title={localization.logon_cancel_btn_stay} onClick={onClickStay} />
+          <Button
+            type="button"
+            title={localization.logon_cancel_btn_stay}
+            onClick={onClickStay}
+          />
         </div>
       </div>
     </div>

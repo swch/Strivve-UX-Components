@@ -74,7 +74,7 @@ function MySiteList({
             if (isDisabled) {
             } else if (isSuccess) {
               setOpenStatus(item);
-            } else if (isError)  {
+            } else if (isError) {
               setOpenStatus(item);
             } else {
               onSelectItem(item);
@@ -154,7 +154,9 @@ function MySiteList({
       >
         {errors.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>{localization.my_sites_error_title}</p>
+            <p css={appearance.elements?.mySiteTitle}>
+              {localization.my_sites_error_title}
+            </p>
             <p css={appearance.elements?.mySiteDescription}>
               {localization.my_sites_error_text}
             </p>
@@ -172,7 +174,9 @@ function MySiteList({
         )}
         {successful.length > 0 && (
           <div>
-            <p css={appearance.elements?.mySiteTitle}>{localization.my_sites_error_title}</p>
+            <p css={appearance.elements?.mySiteTitle}>
+              {localization.my_sites_error_title}
+            </p>
             <p css={appearance.elements?.mySiteDescription}>
               {localization.my_sites_error_text}
             </p>
@@ -187,8 +191,16 @@ function MySiteList({
             ? localization.placement_success_details_text
             : openStatus?.job?.status_message || ''
         }
-        title={!isError ? localization.placement_success_details_title : localization.placement_error_details_title}
-        buttonText={isError ? localization.placement_error_details_btn_close : localization.placement_success_details_btn_close}
+        title={
+          !isError
+            ? localization.placement_success_details_title
+            : localization.placement_error_details_title
+        }
+        buttonText={
+          isError
+            ? localization.placement_error_details_btn_close
+            : localization.placement_success_details_btn_close
+        }
         open={Boolean(openStatus)}
         onClickClose={() => setOpenStatus(null)}
         onClickButton={() => setOpenStatus(null)}

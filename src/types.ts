@@ -130,7 +130,7 @@ export interface StrivveServiceInterface {
 }
 
 export interface StrivveServiceClass {
-  new(options: StrivveServiceOptions): StrivveServiceInterface;
+  new (options: StrivveServiceOptions): StrivveServiceInterface;
 }
 export interface Localization {
   intro_title?: string;
@@ -218,7 +218,7 @@ export interface StrivveComponentInterface {
 }
 
 export interface StrivveComponentClass {
-  new(options: StrivveComponentOptions): StrivveComponentInterface;
+  new (options: StrivveComponentOptions): StrivveComponentInterface;
 }
 
 export interface StrivveComponentOptions {

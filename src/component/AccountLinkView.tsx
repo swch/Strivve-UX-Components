@@ -5,7 +5,10 @@ import AccountLinkForm from './AccountLinkForm';
 import AccountLinkContainer from './AccountLinkContainer';
 import { mountAccountLinkViewProps } from '../types';
 import withBase, { BaseProps } from './withBase';
-import AccountLinkCore, { AccountLinkState, failedStatus } from '../core/accountLink';
+import AccountLinkCore, {
+  AccountLinkState,
+  failedStatus,
+} from '../core/accountLink';
 import SecurityIcon from './SecurityIcon';
 import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
@@ -32,7 +35,7 @@ export function AccountLinkView({
     PENDING_TFA: 'Enter One-Time Passcode',
   };
 
-  const isSuccessJob = state?.message?.termination_type === 'BILLABLE'
+  const isSuccessJob = state?.message?.termination_type === 'BILLABLE';
   const isFailedJob = failedStatus.includes(state?.message?.termination_type);
 
   console.log('===', state);
@@ -159,7 +162,9 @@ export function AccountLinkView({
                   className="accountLinkProgressTitle"
                   css={appearance.elements?.accountLinkProgressTitle}
                 >
-                  {state?.message?.status?.replaceAll('_', ' ')?.toLowerCase() || localization.logon_progress_title}
+                  {state?.message?.status
+                    ?.replaceAll('_', ' ')
+                    ?.toLowerCase() || localization.logon_progress_title}
                 </p>
                 <SecurityIcon />
                 <p
@@ -180,10 +185,22 @@ export function AccountLinkView({
           </div>
           <StatusModal
             open={state?.success}
-            variant={isFailedJob ? "error" : isSuccessJob ? "success" : "pending"}
-            title={isFailedJob ? "Error!" : isSuccessJob ? "Success!" : "We’re Still Finishing Up"}
-            description={ isFailedJob ? state.message?.status_message : isSuccessJob ? localization.logon_card_placement_success_background :
-              localization.logon_link_success_text
+            variant={
+              isFailedJob ? 'error' : isSuccessJob ? 'success' : 'pending'
+            }
+            title={
+              isFailedJob
+                ? 'Error!'
+                : isSuccessJob
+                ? 'Success!'
+                : 'We’re Still Finishing Up'
+            }
+            description={
+              isFailedJob
+                ? state.message?.status_message
+                : isSuccessJob
+                ? localization.logon_card_placement_success_background
+                : localization.logon_link_success_text
             }
             buttonText={localization.logon_link_success_btn_browse}
             onClickButton={() => {
@@ -320,7 +337,10 @@ export function AccountLinkView({
               site: host,
             });
           }}
-          forgotLink={accountLinkCore?.site?.forgot_password_page || accountLinkCore?.site?.login_page}
+          forgotLink={
+            accountLinkCore?.site?.forgot_password_page ||
+            accountLinkCore?.site?.login_page
+          }
           core={core}
           site={accountLinkCore?.site}
         />
