@@ -38,8 +38,6 @@ export function AccountLinkView({
   const isSuccessJob = state?.message?.termination_type === 'BILLABLE';
   const isFailedJob = failedStatus.includes(state?.message?.termination_type);
 
-  console.log('===', state);
-
   useEffect(() => {
     const accountLink = core.createAccountLink(options);
     accountLink.subscribe((state: AccountLinkState) => {

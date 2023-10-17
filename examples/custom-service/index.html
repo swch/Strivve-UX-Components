@@ -1,17 +1,23 @@
-/* eslint-disable @typescript-eslint/no-useless-constructor */
-import StrivveCore from '../core/core';
-import {
-  APIFilter,
-  CardBody,
-  CardholderBody,
-  JobBody,
-  MerchantSite,
-  PostCredsBody,
-  StrivveServiceInterface,
-  StrivveServiceOptions,
-} from '../types';
+<!DOCTYPE html>
+<html lang="en">
 
-export const merchantSite: MerchantSite = {
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strivve Component</title>
+</head>
+
+<body>
+  <div style="max-width: 500px; margin: auto;">
+    <div id="account-link"></div>
+  </div>
+</body>
+
+<script src="https://swch.github.io/Strivve-UX-Components/main.js"></script>
+<script>
+
+const merchantSite = {
   id: '123456789',
   name: 'Merchant',
   note: 'This is a mock merchant site',
@@ -62,50 +68,48 @@ export const merchantSite: MerchantSite = {
   tier: 2,
 };
 
-export class StrivveService implements StrivveServiceInterface {
-  constructor(options: StrivveServiceOptions) {}
-  safe_key: string = '';
+class StrivveService {
+  constructor(options) {
+    this.safe_key = '';
+  }
 
-  async getMerchantSites(
-    filters?: APIFilter | undefined
-  ): Promise<MerchantSite[]> {
+  async getMerchantSites(filters) {
     const items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return items.map((item, index) => ({
       ...merchantSite,
       id: `${merchantSite.id}-${index}`,
       name: `${merchantSite.name} ${index}`,
-      tags: ['top_notify']
+      tags: ['top_notify'],
     }));
   }
 
-  init(): Promise<boolean> {
+  init() {
     return Promise.resolve(true);
   }
 
-  async getMerchantSite(id: string): Promise<MerchantSite | undefined> {
+  async getMerchantSite(id) {
     const data = await this.getMerchantSites();
     return data[0];
   }
 
-  createJobs(data: JobBody[]): Promise<any> {
+  createJobs(data) {
     return Promise.resolve({ body: [{ job_id: '1' }] });
   }
 
-  createCardholder(body: CardholderBody): Promise<any> {
-    
+  createCardholder(body) {
     return Promise.resolve({
       body: {
         id: 1,
-      }
+      },
     });
   }
 
-  createCardholderQuery(id: string):any {
-    const query: any = {
+  createCardholderQuery(id) {
+    const query = {
       callbacks: {},
-      addListener:(id: string, func: any, status: string) => {
+      addListener: (id, func, status) => {
         query.callbacks[status] = func;
-      }
+      },
     };
 
     let count = 10;
@@ -116,8 +120,8 @@ export class StrivveService implements StrivveServiceInterface {
           auth_percent_complete: count,
           percent_complete: count,
           status: 'AUTH',
-        }
-      })
+        },
+      });
       count += 10;
       if (count >= 100) {
         query.callbacks['job_status']?.({
@@ -126,42 +130,61 @@ export class StrivveService implements StrivveServiceInterface {
             auth_percent_complete: count,
             percent_complete: count,
             status: 'SUCCESSFUL',
-          }
-        })
+          },
+        });
         clearInterval(interval);
       }
     }, 1000);
     return query;
   }
 
-  createCard(data: CardBody): Promise<any> {
+  createCard(data) {
     return Promise.resolve({ body: { id: 1 } });
   }
 
-  cancelJob(id: number): Promise<any> {
+  cancelJob(id) {
     return Promise.resolve({ body: { id: 1 } });
   }
 
-  authorizeCardholder(data: any): Promise<any> {
-    return Promise.resolve({ body: { id:  1} });
+  authorizeCardholder(data) {
+    return Promise.resolve({ body: { id: 1 } });
   }
 
-  setSafeKey(key: string): void {}
+  setSafeKey(key) {}
 
-  postCreds(body: PostCredsBody): Promise<any> {
+  postCreds(body) {
     return Promise.resolve({ body: { id: 1 } });
   }
 }
 
-export const serviceTest = new StrivveService({ api_instance: 'test' });
+  Strivve.mountLinkingJourney({
+    Service: StrivveService,
+    element_id: 'account-link',
+    api_instance: 'customer-dev',
+    card: {
+      pan: '4111111111111111',
+      cvv: '321',
+      expiration_month: '2',
+      expiration_year: '24',
+      name_on_card: 'Mvick',
+      address: {
+        city: 'Seattle',
+        postal_code: '98177',
+        country: 'USA',
+        first_name: 'Jane',
+        last_name: 'Smith',
+        email: 'jane@test.com',
+        phone_number: '2065555555',
+        address1: 'test',
+        state: 'test',
+        subnational: 'WA',
+        is_primary: true,
+      },
+    },
+    account_link: {
+      messages: [{ label: 'Hello world' }, { label: 'Test' }],
+    },
+  });
+</script>
 
-export const coreTest = new StrivveCore({
-  service: serviceTest,
-  card: {
-    pan: '4111111111111111',
-    cvv: '321',
-    expiration_month: '2',
-    expiration_year: '24',
-    name_on_card: 'Mvick',
-  },
-});
+</html>

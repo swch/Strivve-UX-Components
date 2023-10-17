@@ -57,71 +57,8 @@
   <script>
     const id = 'full';
 
-    const appearance = {
-      layout: {
-        logoImageUrl:
-          'https://unsplash.com/photos/CoNsEK5iHug/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjg5MjE2MTEwfA&force=true&w=640',
-        appName: 'My Application',
-      },
-      variables: {
-        primaryColor: '#6C47FF',
-        secondaryColor: '#6C47FF',
-        iconColor: 'white',
-        borderColor: 'gray',
-        backgroundColor: '#000000',
-        textColor: 'white',
-        fontFamily: 'Jost',
-      },
-      elements: {
-        button: {
-          borderRadius: '0px',
-          border: 'none',
-        },
-        secondaryButton: {
-          borderRadius: '0px',
-          border: 'none',
-        },
-        outlinedButton: {
-          borderRadius: '0px',
-          border: 'none',
-        },
-        selectSiteCarouselItem: {
-          borderRadius: '0px',
-          color: 'white',
-          backgroundColor: '#000000',
-        },
-        selectSiteItem: {
-          borderRadius: '0px',
-          color: 'white',
-          backgroundColor: '#000000',
-        },
-        selectSiteItemDisabled: {
-          borderRadius: '0px',
-          color: 'white',
-          backgroundColor: '#000000',
-        },
-        selectSiteItemCard: {
-          color: 'black',
-        },
-        input: {
-          borderRadius: '0px',
-        },
-        iconButton: {
-          borderRadius: '0px',
-          backgroundColor: 'var(--primaryColor)',
-        },
-        modalStatus: {
-          borderRadius: '0px',
-        },
-        modalWarning: {
-          borderRadius: '0px',
-        },
-      },
-    };
-
     // mount journey
     const stv = Strivve.mountLinkingJourney({
-      // appearance,
       element_id: id,
       api_instance: 'customer-dev',
       card: {

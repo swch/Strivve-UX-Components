@@ -60,5 +60,8 @@ export const Component: Story = {
     appearance: defaultAppearance,
     localization: defaultLocalization,
     core: coreTest,
+    headerOptions: {
+      title: 'Product'
+    }
   },
 };

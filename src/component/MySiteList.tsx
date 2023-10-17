@@ -48,6 +48,7 @@ function MySiteList({
   const successful = sites.filter((item) => item.job?.status === 'SUCCESSFUL');
   const pendings = sites.filter((item) => item.job?.status === 'UPDATING');
 
+
   const renderitem = (item: MerchantSite) => {
     const image = item.images?.find((image: any) => image.width === 128);
     const active = Boolean(selected?.find((m) => m.id === item.id));
@@ -175,10 +176,10 @@ function MySiteList({
         {successful.length > 0 && (
           <div>
             <p css={appearance.elements?.mySiteTitle}>
-              {localization.my_sites_error_title}
+              {localization.my_sites_success_title}
             </p>
             <p css={appearance.elements?.mySiteDescription}>
-              {localization.my_sites_error_text}
+              {localization.my_sites_success_text}
             </p>
             {successful?.map(renderitem)}
           </div>
