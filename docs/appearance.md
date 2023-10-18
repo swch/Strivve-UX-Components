@@ -12,18 +12,14 @@ The `Appearance` type is an interface that specifies the appearance options for 
   variables: {
     primaryColor: '#008BD9',
     secondaryColor: '#6BBF00',
+    iconColor: '#6BBF00',
     fontFamily: 'sans-serif',
+    fontSize: '16px',
     textColor: '#000000',
     textColorSecondary: '#565656',
     borderColor: 'lightgray',
     height: '100vh',
-  },
-  variables: {
-    primaryColor: '#008BD9',
-    secondaryColor: '#6BBF00',
-    fontFamily: 'sans-serif',
-    textColor: '#000000',
-    textColorSecondary: '#565656',
+    backgroundColor: 'rgba(255, 248, 234, 0.4)',
   },
   elements: {
     input: {
