@@ -74,7 +74,7 @@ export class StrivveService implements StrivveServiceInterface {
       ...merchantSite,
       id: `${merchantSite.id}-${index}`,
       name: `${merchantSite.name} ${index}`,
-      tags: ['top_notify']
+      tags: ['top_notify'],
     }));
   }
 
@@ -92,20 +92,19 @@ export class StrivveService implements StrivveServiceInterface {
   }
 
   createCardholder(body: CardholderBody): Promise<any> {
-    
     return Promise.resolve({
       body: {
         id: 1,
-      }
+      },
     });
   }
 
-  createCardholderQuery(id: string):any {
+  createCardholderQuery(id: string): any {
     const query: any = {
       callbacks: {},
-      addListener:(id: string, func: any, status: string) => {
+      addListener: (id: string, func: any, status: string) => {
         query.callbacks[status] = func;
-      }
+      },
     };
 
     let count = 10;
@@ -116,8 +115,8 @@ export class StrivveService implements StrivveServiceInterface {
           auth_percent_complete: count,
           percent_complete: count,
           status: 'AUTH',
-        }
-      })
+        },
+      });
       count += 10;
       if (count >= 100) {
         query.callbacks['job_status']?.({
@@ -126,8 +125,8 @@ export class StrivveService implements StrivveServiceInterface {
             auth_percent_complete: count,
             percent_complete: count,
             status: 'SUCCESSFUL',
-          }
-        })
+          },
+        });
         clearInterval(interval);
       }
     }, 1000);
@@ -143,7 +142,7 @@ export class StrivveService implements StrivveServiceInterface {
   }
 
   authorizeCardholder(data: any): Promise<any> {
-    return Promise.resolve({ body: { id:  1} });
+    return Promise.resolve({ body: { id: 1 } });
   }
 
   setSafeKey(key: string): void {}

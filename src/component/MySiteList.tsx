@@ -48,7 +48,6 @@ function MySiteList({
   const successful = sites.filter((item) => item.job?.status === 'SUCCESSFUL');
   const pendings = sites.filter((item) => item.job?.status === 'UPDATING');
 
-
   const renderitem = (item: MerchantSite) => {
     const image = item.images?.find((image: any) => image.width === 128);
     const active = Boolean(selected?.find((m) => m.id === item.id));

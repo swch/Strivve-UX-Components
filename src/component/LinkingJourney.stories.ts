@@ -61,7 +61,7 @@ export const Component: Story = {
     localization: defaultLocalization,
     core: coreTest,
     headerOptions: {
-      title: 'Product'
-    }
+      title: 'Product',
+    },
   },
 };
