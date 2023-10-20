@@ -34,12 +34,6 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
         css={appearance.elements?.accountLinkProgressCard}
       >
         <div style={{ width: '100%', textAlign: 'center' }}>
-          <p
-            className="accountLinkProgressTitle"
-            css={appearance.elements?.accountLinkProgressTitle}
-          >
-            {'Logging in...'}
-          </p>
 
           <Slider {...settings}>
             {messages?.map((item) => (
@@ -275,7 +269,7 @@ function AccountLinkCarousel({ messages }: AccountLinkCarouselProps) {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .slick-list {

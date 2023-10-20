@@ -485,7 +485,7 @@ const defaultAppearance: Appearance = {
       flexDirection: 'column',
       alignItems: 'center',
       paddingBottom: '20px',
-      paddingTop: '20px',
+      paddingTop: '30px',
       position: 'relative',
       zIndex: 2,
     },

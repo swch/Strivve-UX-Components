@@ -104,6 +104,8 @@ export function AccountLinkView({
   const percent = state?.percent || 0;
   const host = accountLinkCore?.site?.host || '';
 
+  console.log('===', accountLinkCore?.site);
+
   const dynamicBarStyle = useMemo(() => {
     const style: any = {};
     const barStyle: any = appearance.elements?.accountLinkProgressBar || {};
@@ -156,14 +158,6 @@ export function AccountLinkView({
                 className="accountLinkProgressCard"
                 css={appearance.elements?.accountLinkProgressCard}
               >
-                <p
-                  className="accountLinkProgressTitle"
-                  css={appearance.elements?.accountLinkProgressTitle}
-                >
-                  {state?.message?.status
-                    ?.replaceAll('_', ' ')
-                    ?.toLowerCase() || localization.logon_progress_title}
-                </p>
                 <SecurityIcon />
                 <p
                   className="accountLinkProgressDescription"
