@@ -1,7 +1,7 @@
 {
-  "name": "@strivve/component",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@strivve/strivve-cx",
+  "version": "0.1.1",
+  "private": false,
   "main": "dist/main.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -88,5 +88,20 @@
     "https": false,
     "url": false,
     "assert": false
-  }
+  },
+  "description": "Varying levels of customizable Javascript Components which easily drop into desktop and mobile web applications as well as native applications as reqired.",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swch/Strivve-UX-Components.git"
+  },
+  "author": "Strivve Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swch/Strivve-UX-Components/issues"
+  },
+  "homepage": "https://github.com/swch/Strivve-UX-Components#readme"
 }
