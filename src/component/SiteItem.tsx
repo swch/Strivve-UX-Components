@@ -122,7 +122,7 @@ function SiteItem({ id, item, selected, onSelectItem }: SiteItemProps) {
         variant={!isError ? 'success' : 'error'}
         description={
           !isError
-            ? 'Your card details were successfully placed on this site.'
+            ? 'Your card details were successfully placed on this site'
             : openStatus?.job?.status_message || ''
         }
         title={!isError ? 'Success!' : 'Error!'}
