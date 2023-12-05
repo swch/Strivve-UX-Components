@@ -58,7 +58,7 @@ Interface representing localization options.
     all_sites_title: "Select a site to update your card",
     all_sites_search_site_title: "Search site",
     all_sites_success_text: "You've placed your card on <n> sites",
-    all_sites_failure_text: "See your recent <n> site(s) that failed",
+    all_sites_failure_text: "See your recent <n> site(s)",
     logon_text: "Rest easy. Acme does not store your logon credentials.",
     logon_link_success_text: "This might take a minute. Select another site to update while you wait.",
     logon_card_placement_success_background: "Your card was placed successfully",
