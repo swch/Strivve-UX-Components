@@ -13,7 +13,7 @@ const defaultLocalization: Localization = {
   intro_btn: 'Get Started',
 
   logon_forgot_signin: "Forgot your sign-in? Let's go find it.",
-  site_selection_btn_all_sites: 'View all sites',
+  site_selection_btn_all_sites: 'View All Sites',
   logon_btn_cancel: 'Cancel',
   logon_btn_link: 'Link Account',
   logon_progress_cancel: 'Cancel',
@@ -32,35 +32,25 @@ const defaultLocalization: Localization = {
   placement_success_details_btn_close: 'Close',
   placement_error_details_btn_close: 'Close',
   logon_title: 'Securely link your account',
-  logon_link_success_title: "We're Still Finishing Up",
-  logon_card_placement_success_title: '',
+  logon_link_success_title: "We're still finishing up",
+  logon_card_placement_success_title: 'Your card was placed successfully',
   placement_success_details_title: 'Success!',
   placement_error_details_title: 'Error!',
   all_sites_search_default: 'Enter a site or brand name',
-  logon_username_default: 'Email/Username',
-  logon_password_default: 'Password',
-  site_selection_title: 'Select a site for us to push your updated card to.',
-  all_sites_title: 'Select a site for us to push your updated card to.',
+  site_selection_title: 'Select a site to update your card',
+  all_sites_title: 'Select a site to update your card',
   all_sites_search_site_title: 'Search site',
-  all_sites_success_text: "You've placed your card at <n> sites.",
+  all_sites_success_text: "You've placed your card on <n> sites",
   all_sites_failure_text: 'See your recent <n> site(s) that failed',
-  logon_text: 'Rest Easy. Acme does not store your logon credentials',
-  logon_progress_title: 'Logging In....',
+  logon_text: 'Rest easy. Acme does not store your logon credentials.',
   logon_progress_status: '<api>',
   logon_link_success_text:
     'This might take a minute. Select another site to update while you wait.',
   logon_card_placement_success_background: 'Your card was placed successfully',
-  logon_unpw_retry: 'The initial credentials you have provided are incorrect.',
-  long_username_retry:
-    'The initial credentials you have provided are incorrect.',
   logon_cancel_title: "We're still trying to connect",
   logon_cancel_text:
     'We may not be able to. Do you want to stick around and find out?',
-  logon_otp_text: 'The site is requiring additional information.',
-  logon_otp_default: 'Enter the one-time passcode sent to you.......',
-  logon_otp_retry_text: 'The site is requiring additional information.',
   logon_otp_retry_default: '',
-  logon_password_text: 'This site is requiring additional information',
   my_sites_error_title: 'Errors',
   my_sites_error_text:
     'The following site encountered a logon error. Click more for details.',
@@ -68,7 +58,7 @@ const defaultLocalization: Localization = {
   my_sites_success_text:
     'Your card details were successfully placed on the following sites',
   placement_success_details_text:
-    'Your card details were successfully placed on this site.',
+    'Your card details were successfully placed on this site',
   placement_error_details_text: '<api>',
 };
 
