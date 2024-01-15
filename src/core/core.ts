@@ -1,4 +1,4 @@
-import { EncryptionUtility } from '../cardsavr/CardsavrSessionCrypto';
+import { EncryptionUtility } from './EncryptionUtility';
 import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
 import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
 import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
