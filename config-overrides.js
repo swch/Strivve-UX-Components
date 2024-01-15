@@ -10,6 +10,8 @@ module.exports = function override(config) {
     assert: require.resolve('assert'),
     os: require.resolve('os-browserify'),
     url: require.resolve('url'),
+    https: require.resolve('https-browserify'),
+    http: require.resolve('stream-http')
   });
   config.resolve.fallback = fallback;
   config.plugins = (config.plugins || []).concat([

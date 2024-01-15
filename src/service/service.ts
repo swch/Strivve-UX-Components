@@ -1,5 +1,5 @@
-import { Encryption } from '../cardsavr/CardsavrSessionCrypto';
-import { CardholderQuery, CardsavrHelper } from '../cardsavr/CardsavrHelper';
+import { Encryption } from "@strivve/strivve-sdk/lib/cardsavr/CardsavrSessionCrypto";
+import { CardholderQuery, CardsavrHelper } from '@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper';
 import {
   MerchantSite,
   StrivveServiceInterface,
@@ -194,12 +194,16 @@ class StrivveService implements StrivveServiceInterface {
     } as any);
   }
 
-  cancelJob(job_id: number) {
-    return this.ch.cancelJob({
-      username: this.username,
-      safe_key: this.safe_key,
-      job_id,
-    } as any);
+  async cancelJob(job_id: number) {
+    try {
+      const session= await this.getSession();
+      return await session.updateSingleSiteJob(
+        job_id,
+        { status: 'CANCEL_REQUESTED' }
+      );
+    } catch (err) {
+      console.error(err);   // TODO: This is a problem. How to propagate this error ?
+    }
   }
 
   async getFinancialInstitution(lookup_key: string) {

@@ -1,4 +1,4 @@
-import { CardholderQuery } from '../cardsavr/CardsavrHelper';
+import { CardholderQuery } from '@strivve/strivve-sdk/lib/cardsavr/CardsavrHelper';
 import { Job, MerchantSite, StrivveServiceInterface } from '../types';
 
 export interface AccountLinkCoreOption {
