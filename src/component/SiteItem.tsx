@@ -6,7 +6,7 @@ import { useBase } from './withBase';
 import SuccessIcon from './SuccessIcon';
 import ErrorIcon from './ErrorIcon';
 import StatusModal from './StatusModal';
-import { errorStatus } from '../constans';
+import { errorStatus } from '../constants';
 
 interface SiteItemProps {
   id?: string;

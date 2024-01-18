@@ -1,12 +1,12 @@
 {
   "name": "@strivve/strivve-cx",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "private": false,
-  "main": "main.js",
-  "module": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/main.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
-    "@strivve/strivve-sdk": "^2.12.6",
+    "@strivve/strivve-sdk": "^3.0.3",
     "@emotion/react": "^11.10.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "rm -rv -f ./dist && tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js && cp build/static/js/main*.js public/main.js && cp README.md dist/README.md",
+    "build": "rm -rv -f ./dist && tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js && cp build/static/js/main*.js public/main.js && cp README.md dist/README.md && cp package.json dist/package.json",
     "test": "react-scripts test",
     "eject": "react-app-rewired eject",
     "format": "prettier --write .",

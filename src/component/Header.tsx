@@ -5,7 +5,7 @@ import BackIcon from './icons/BackIcon';
 import CloseIcon from './icons/CloseIcon';
 import { StrivveCoreMount } from '../core/core';
 import SiteItem from './SiteItem';
-import { errorStatus } from '../constans';
+import { errorStatus } from '../constants';
 
 function Header({ hideJob }: { hideJob?: boolean }) {
   const { appearance, headerOptions, core } = useBase();

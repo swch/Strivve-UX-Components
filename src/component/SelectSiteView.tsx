@@ -11,7 +11,7 @@ import SearchSiteView from './SearchSiteView';
 import MySiteList from './MySiteList';
 import Header from './Header';
 import { StrivveCoreMount, StrivveCoreState } from '../core/core';
-import { errorStatus } from '../constans';
+import { errorStatus } from '../constants';
 
 export function SelectSiteView({
   options,
