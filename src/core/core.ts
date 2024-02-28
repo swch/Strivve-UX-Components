@@ -2,6 +2,7 @@ import { EncryptionUtility } from './EncryptionUtility';
 import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
 import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
 import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
+import CardDataCore, {CardDataCoreOptions} from "./cardData";
 
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
@@ -27,6 +28,7 @@ export enum StrivveCoreMount {
 }
 
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>;
+export type CreateCardDataOptions = Omit<CardDataCoreOptions, 'service'>;
 
 export type StrivveCoreState = {
   mount: StrivveCoreMount;
@@ -42,6 +44,7 @@ export default class StrivveCore {
   public history: string[] = [];
   public selectSiteCore?: SelectSiteCore;
   public accountLinkCore?: AccountLinkCore;
+  public cardDataCore?: CardDataCore;
   private subscriber: Function[] = [];
   public state: StrivveCoreState = {
     mount: StrivveCoreMount.SELECT_SITE_CAROUSEL,
@@ -195,6 +198,11 @@ export default class StrivveCore {
       jobs,
     });
     return this.selectSiteCore;
+  }
+
+  createCardData(options?: CreateCardDataOptions): CardDataCore {
+    this.cardDataCore = new CardDataCore({...options, service: this.service});
+    return this.cardDataCore;
   }
 
   uniqueByProperty<T>(arr: T[], property: keyof T): T[] {

@@ -252,6 +252,15 @@ export interface mountSelectSiteViewOptions {
   subscribe?: (state: SelectSiteState) => void;
 }
 
+export interface mountCardDataViewOptions {
+  onSubmit?: (values: any) => void;
+  onCancel?: () => void;
+}
+
+export interface mountCardDataViewProps {
+  options: mountCardDataViewOptions
+}
+
 export interface mountHeaderOptions {
   title?: string;
   onClose?: () => void;
@@ -377,6 +386,11 @@ export type Appearance = {
 
     headerWrapper?: Interpolation<Theme>;
     headerTitle?: Interpolation<Theme>;
+
+    cardDataForm?: Interpolation<Theme>;
+    cardDataHeaderDescription?: Interpolation<Theme>;
+    cardDataTitle?: Interpolation<Theme>;
+    cardDataFooter?: Interpolation<Theme>;
   };
 };
 
