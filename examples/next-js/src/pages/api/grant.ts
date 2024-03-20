@@ -37,7 +37,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         country : "USA",
         phone_number : "5555555555",
         first_name : "Test",
-        last_name : "User"
+        last_name : "User",
+        email: 'receives_email_updates@jobcompletion.com'
       }
     }
     
