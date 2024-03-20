@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AccountLinkView from './AccountLinkView';
 import SelectSiteView from './SelectSiteView';
+import {CardDataView} from './CardDataView';
+
 import {
   Appearance,
   Localization,
   mountAccountLinkViewOptions,
   mountLinkingJourneyOptions,
   mountSelectSiteViewOptions,
+  mountCardDataViewOptions,
   StrivveComponentInterface,
   StrivveComponentOptions,
 } from '../types';
@@ -25,6 +28,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private selectSite?: ReactDOM.Root;
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
+  private cardData?: ReactDOM.Root;
 
   constructor({ core, appearance, localization }: StrivveComponentOptions) {
     this.core = core;
@@ -158,5 +162,25 @@ export default class StrivveComponent implements StrivveComponentInterface {
 
   unmountLinkingJourney(id: string) {
     this.linkingJourney?.unmount();
+  }
+
+  mountCardDataView(id: string, options?: mountCardDataViewOptions) {
+    const root = this.cardData
+      ? this.cardData
+      : ReactDOM.createRoot(document.getElementById(id) as HTMLElement);
+
+    root.render(
+      <CardDataView
+        appearance={this.appearance}
+        localization={this.localization}
+        core={this.core}
+        options={options}
+      />
+    );
+    this.selectSite = root;
+  }
+
+  unmountCardDataView(id: string) {
+    this.cardData?.unmount();
   }
 }

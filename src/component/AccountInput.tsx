@@ -40,7 +40,7 @@ const AccountInput = (props: AccountInputProps): JSX.Element => {
     }
   }
 
-  const required = props.required == null ? false : true;
+  const required = props.required != null;
 
   const { appearance } = useBase();
 

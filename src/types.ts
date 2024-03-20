@@ -258,7 +258,7 @@ export interface mountCardDataViewOptions {
 }
 
 export interface mountCardDataViewProps {
-  options: mountCardDataViewOptions
+  options?: mountCardDataViewOptions
 }
 
 export interface mountHeaderOptions {

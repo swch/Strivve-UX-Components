@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
@@ -71,7 +72,6 @@
     "@storybook/react-webpack5": "^7.6.17",
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/react-slick": "^0.23.10",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "assert": "^2.0.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "buffer": "^6.0.3",
