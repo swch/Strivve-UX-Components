@@ -179,6 +179,8 @@ export default class StrivveCore {
       ...options,
       job,
       cvv: this.card?.cvv,
+      phone_number: this.card?.address?.phone_number,
+      email: this.card?.address?.email,
       onMessage: (id, messageg) => this.onMessage(id, messageg),
       onSubmit: (v: any, meta: any) => this.startJob(v, meta),
       service: this.service,

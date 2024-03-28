@@ -12,7 +12,7 @@ type PendingModalProps = {
   description: string;
   buttonText: string;
   onClickClose?: () => void;
-  fields: Field[];
+  fields?: Field[];
   values?: { [key: string]: any };
   disabled?: boolean;
   change: (name: string, value: any) => void;

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import { MerchantSite } from '../types';

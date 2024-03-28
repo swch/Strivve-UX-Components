@@ -7,7 +7,7 @@ import { mountAccountLinkViewProps } from '../types';
 import withBase, { BaseProps } from './withBase';
 import AccountLinkCore, {
   AccountLinkState,
-  failedStatus,
+  failedStatus, Field,
 } from '../core/accountLink';
 import SecurityIcon from './SecurityIcon';
 import StatusModal from './StatusModal';
@@ -80,10 +80,53 @@ export function AccountLinkView({
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
 
+    console.log(`handleSubmit state ->`);
+    console.log(state);
+
     if (cvvModal) {
       accountLinkCore?.submitCvv();
       setCvvModal(false);
-    } else if (!state?.cvv) {
+    } else if (!state?.cvv || !state?.phone_number || !state?.email) {
+      // const sparse_fields = [];
+      // if ( !state?.cvv ) {
+      //
+      //   sparse_fields?.push(
+      //     {
+      //       name: 'cvv',
+      //       label: 'CVV',
+      //       required: true,
+      //       secret: true,
+      //       type: 'number',
+      //     }
+      //   )
+      // }
+      // if ( !state?.phone_number) {
+      //   sparse_fields?.push(
+      //     {
+      //       name: 'phone_number',
+      //       label: 'Phone number',
+      //       required: true,
+      //       secret: false,
+      //       type: 'number',
+      //     },
+      //   )
+      // }
+      // if ( !state?.email) {
+      //   sparse_fields?.push(
+      //     {
+      //       name: 'email',
+      //       label: 'Email',
+      //       required: true,
+      //       secret: false,
+      //       type: 'string',
+      //     }
+      //   )
+      // }
+      //
+      // if ( state ){
+      //   state.sparse_data_fields = sparse_fields;
+      // }
+
       setCvvModal(true);
       core?.sendEvent({
         component: 'cvv_form_modal',
@@ -101,10 +144,56 @@ export function AccountLinkView({
     options.onCancel?.();
   };
 
+  const getSparseFields = () : Field[] => {
+    const sparse_fields : Field[] = [];
+
+    console.log("getSparseFields state -> ");
+    console.log(state);
+
+    if ( !state?.cvv ) {
+      sparse_fields?.push(
+        {
+          name: 'cvv',
+          label: 'CVV',
+          required: true,
+          secret: true,
+          type: 'number',
+        }
+      )
+    }
+    if ( !state?.phone_number) {
+      sparse_fields?.push(
+        {
+          name: 'phone_number',
+          label: 'Phone number',
+          required: true,
+          secret: false,
+          type: 'number',
+        },
+      )
+    }
+    if ( !state?.email) {
+      sparse_fields?.push(
+        {
+          name: 'email',
+          label: 'Email',
+          required: true,
+          secret: false,
+          type: 'string',
+        }
+      )
+    }
+
+    console.log("Sparse fields -> ");
+    console.log(sparse_fields);
+
+    return sparse_fields;
+  }
+
   const percent = state?.percent || 0;
   const host = accountLinkCore?.site?.host || '';
 
-  console.log('===', accountLinkCore?.site);
+  // console.log('===', accountLinkCore?.site);
 
   const dynamicBarStyle = useMemo(() => {
     const style: any = {};
@@ -352,15 +441,7 @@ export function AccountLinkView({
             site: host,
           });
         }}
-        fields={[
-          {
-            name: 'cvv',
-            label: 'CVV',
-            required: true,
-            secret: true,
-            type: 'number',
-          },
-        ]}
+        fields={getSparseFields()}
         disabled={state?.submitting}
         submit={(e) => {
           handleSubmit(e);
