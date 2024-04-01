@@ -77,15 +77,19 @@ export default class StrivveCore {
     this.getCard();
   }
 
-  async getCard() {
+  getCard() {
     const cvvStorage = sessionStorage.getItem('cvv');
     const phoneNumberStorage = sessionStorage.getItem('phone_number');
     const emailStorage = sessionStorage.getItem('email');
 
-    if (!this.card?.cvv && cvvStorage && this.card) {
-      this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
-    }
-    if ( this.card && this.card.address ) {
+    if ( this.card ) {
+      if ( !this.card?.cvv && cvvStorage ) {
+        this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
+      }
+      if ( !this.card.address ) {
+        this.card.address = {}
+      }
+
       if ( !this.card.address.phone_number && phoneNumberStorage ) {
         this.card.address.phone_number = phoneNumberStorage;
       }
@@ -93,8 +97,6 @@ export default class StrivveCore {
         this.card.address.email = emailStorage;
       }
     }
-
-    console.log(this.card);
   }
 
   public subscribe(func: Function) {
@@ -185,11 +187,13 @@ export default class StrivveCore {
   }
 
   createAccountLink(options: CreateAccountLinkOptions): AccountLinkCore {
-    console.log("Inside createAccountLink");
-
     const job = this.jobs.find(
       (item) => item.site_id === options.site_id && !item?.termination_type
     );
+
+    // fetch card data from sessionStorage
+    this.getCard();
+
     this.accountLinkCore = new AccountLinkCore({
       ...options,
       job,
@@ -200,9 +204,6 @@ export default class StrivveCore {
       onSubmit: (v: any, meta: any) => this.startJob(v, meta),
       service: this.service,
     });
-
-    console.log("Account link core state ->");
-    console.log(this.accountLinkCore);
 
     return this.accountLinkCore;
   }

@@ -80,9 +80,6 @@ export function AccountLinkView({
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
 
-    console.log(`handleSubmit state ->`);
-    console.log(state);
-
     if (cvvModal) {
       accountLinkCore?.submitCvv();
       setCvvModal(false);
@@ -106,9 +103,6 @@ export function AccountLinkView({
 
   const getSparseFields = () : Field[] => {
     const sparse_fields : Field[] = [];
-
-    console.log("getSparseFields state -> ");
-    console.log(state);
 
     if ( !state?.cvv ) {
       sparse_fields?.push(
@@ -143,9 +137,6 @@ export function AccountLinkView({
         }
       )
     }
-
-    console.log("Sparse fields -> ");
-    console.log(sparse_fields);
 
     return sparse_fields;
   }

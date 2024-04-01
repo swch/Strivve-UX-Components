@@ -150,7 +150,6 @@ export default class AccountLinkCore {
   }
 
   public async submitCvv() {
-    console.log('submitCvv');
 
     this.updateState({
       cvv: this.state.values.cvv !== undefined ? this.state.values.cvv : this.state.cvv,
@@ -161,8 +160,6 @@ export default class AccountLinkCore {
     delete this.state.values.cvv;
     delete this.state.values.phone_number;
     delete this.state.values.email;
-
-    console.log(this.state);
 
     return this.submit();
   }
