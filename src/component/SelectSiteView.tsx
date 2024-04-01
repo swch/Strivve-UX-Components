@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import withBase, { BaseProps } from './withBase';
 import SelectSiteList from './SelectSiteList';
 import Loader from './Loader';
-import SelectSiteCore, { SelectSiteState } from '../core/selectSite';
+import SelectSiteCore, { SelectSiteState } from '../core/selectSiteCore';
 import { mountSelectSiteViewProps } from '../types';
 import SelectSiteCarousel from './SelectSiteCarousel';
 import Button from './Button';
 import SearchSiteView from './SearchSiteView';
 import MySiteList from './MySiteList';
 import Header from './Header';
-import { StrivveCoreMount, StrivveCoreState } from '../core/core';
+import { StrivveCoreMount, StrivveCoreState } from '../core/strivveCore';
 import { errorStatus } from '../constants';
 
 export function SelectSiteView({

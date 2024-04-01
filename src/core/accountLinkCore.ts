@@ -8,6 +8,8 @@ export interface AccountLinkCoreOption {
   quick_start?: boolean;
   job?: Job;
   cvv?: string;
+  phone_number?: string;
+  email?: string;
   onMessage?: (id: string, values: any) => void;
 }
 
@@ -38,8 +40,11 @@ export interface AccountLinkState {
   pending?: any;
   errors?: ErrorField[];
   fields: Field[];
+  sparse_data_fields: Field[];
   percent: number;
   cvv?: string;
+  phone_number?: string;
+  email?: string;
 }
 
 export const initialStateAccountLink = {
@@ -51,6 +56,7 @@ export const initialStateAccountLink = {
   failed: false,
   submitting: false,
   fields: [],
+  sparse_data_fields: [],
   percent: 0,
 };
 
@@ -78,14 +84,20 @@ export default class AccountLinkCore {
     onMessage,
     service,
     cvv,
+    phone_number,
+    email,
     job,
   }: AccountLinkCoreOption) {
     this.service = service;
     this.state.cvv = cvv;
+    this.state.phone_number = phone_number;
+    this.state.email = email;
     if (job) {
       this.createQuery(job);
       this.updateState({
         cvv,
+        phone_number,
+        email,
         job,
         linking: true,
         loading: false,
@@ -138,8 +150,16 @@ export default class AccountLinkCore {
   }
 
   public async submitCvv() {
-    this.updateState({ cvv: this.state.values.cvv });
+
+    this.updateState({
+      cvv: this.state.values.cvv !== undefined ? this.state.values.cvv : this.state.cvv,
+      phone_number: this.state.values.phone_number !== undefined ? this.state.values.phone_number : this.state.phone_number,
+      email: this.state.values.email !== undefined ? this.state.values.email : this.state.email
+    });
+
     delete this.state.values.cvv;
+    delete this.state.values.phone_number;
+    delete this.state.values.email;
 
     return this.submit();
   }
@@ -161,6 +181,8 @@ export default class AccountLinkCore {
         const job = await this.onSubmit(this.state.values, {
           site: this.site,
           cvv: this.state.cvv,
+          phone_number: this.state.phone_number,
+          email: this.state.email
         });
         this.updateState({
           job,

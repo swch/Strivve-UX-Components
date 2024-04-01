@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { Appearance, Localization, mountHeaderOptions } from '../types';
-import StrivveCore from '../core/core';
+import StrivveCore from '../core/strivveCore';
 import { getColors } from './utils';
 
 export const BaseContext = createContext<{

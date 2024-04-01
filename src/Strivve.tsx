@@ -1,5 +1,5 @@
 import StrivveService from './service/service';
-import StrivveCore, { StrivveCoreMount, StrivveCoreOptions } from './core/core';
+import StrivveCore, { StrivveCoreMount, StrivveCoreOptions } from './core/strivveCore';
 import StrivveComponent from './component/component';
 import {
   Appearance,

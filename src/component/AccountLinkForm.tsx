@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect } from 'react';
-import { Field } from '../core/accountLink';
+import { Field } from '../core/accountLinkCore';
 import AccountInput from './AccountInput';
 import Button from './Button';
 import { useBase } from './withBase';
-import StrivveCore from '../core/core';
+import StrivveCore from '../core/strivveCore';
 import { MerchantSite } from '../types';
 
 export interface AccountLinkFormProps {

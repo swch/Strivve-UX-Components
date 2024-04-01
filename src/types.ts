@@ -1,7 +1,7 @@
 import { Interpolation, SerializedStyles, Theme } from '@emotion/react';
-import { AccountLinkState } from './core/accountLink';
-import StrivveCore from './core/core';
-import { SelectSiteState } from './core/selectSite';
+import { AccountLinkState } from './core/accountLinkCore';
+import StrivveCore from './core/strivveCore';
+import { SelectSiteState } from './core/selectSiteCore';
 
 export type APIFilter = {
   [key: string]: string | string[];

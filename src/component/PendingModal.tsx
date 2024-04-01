@@ -2,7 +2,7 @@
 import React from 'react';
 import { useBase } from './withBase';
 import Button from './Button';
-import { Field } from '../core/accountLink';
+import { Field } from '../core/accountLinkCore';
 import AccountInput from './AccountInput';
 import { MerchantSite } from '../types';
 
@@ -12,7 +12,7 @@ type PendingModalProps = {
   description: string;
   buttonText: string;
   onClickClose?: () => void;
-  fields: Field[];
+  fields?: Field[];
   values?: { [key: string]: any };
   disabled?: boolean;
   change: (name: string, value: any) => void;
