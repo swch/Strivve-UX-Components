@@ -3,7 +3,7 @@ import React from 'react';
 import { useBase } from './withBase';
 import BackIcon from './icons/BackIcon';
 import CloseIcon from './icons/CloseIcon';
-import { StrivveCoreMount } from '../core/core';
+import { StrivveCoreMount } from '../core/strivveCore';
 import SiteItem from './SiteItem';
 import { errorStatus } from '../constants';
 

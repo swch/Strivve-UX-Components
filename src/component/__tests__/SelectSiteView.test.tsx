@@ -13,7 +13,7 @@ import {
   PostCredsBody,
   StrivveServiceInterface,
 } from '../../types';
-import StrivveCore from '../../core/core';
+import StrivveCore from '../../core/strivveCore';
 
 const merchantSite: MerchantSite = {
   id: '123456789',

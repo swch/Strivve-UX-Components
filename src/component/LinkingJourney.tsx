@@ -4,7 +4,7 @@ import withBase, { BaseProps } from './withBase';
 import { MerchantSite, mountLinkingJourneyOptions } from '../types';
 import SelectSiteView from './SelectSiteView';
 import AccountLinkView from './AccountLinkView';
-import { StrivveCoreMount, StrivveCoreState } from '../core/core';
+import { StrivveCoreMount, StrivveCoreState } from '../core/strivveCore';
 import IntroView from './IntroView';
 
 export function LinkingJourney({

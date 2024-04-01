@@ -11,7 +11,7 @@ import {
   StrivveComponentInterface,
   StrivveComponentOptions,
 } from '../types';
-import StrivveCore from '../core/core';
+import StrivveCore from '../core/strivveCore';
 import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
 import LinkingJourney from './LinkingJourney';

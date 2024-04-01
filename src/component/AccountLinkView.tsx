@@ -8,7 +8,7 @@ import withBase, { BaseProps } from './withBase';
 import AccountLinkCore, {
   AccountLinkState,
   failedStatus, Field,
-} from '../core/accountLink';
+} from '../core/accountLinkCore';
 import SecurityIcon from './SecurityIcon';
 import StatusModal from './StatusModal';
 import PendingModal from './PendingModal';
@@ -87,46 +87,6 @@ export function AccountLinkView({
       accountLinkCore?.submitCvv();
       setCvvModal(false);
     } else if (!state?.cvv || !state?.phone_number || !state?.email) {
-      // const sparse_fields = [];
-      // if ( !state?.cvv ) {
-      //
-      //   sparse_fields?.push(
-      //     {
-      //       name: 'cvv',
-      //       label: 'CVV',
-      //       required: true,
-      //       secret: true,
-      //       type: 'number',
-      //     }
-      //   )
-      // }
-      // if ( !state?.phone_number) {
-      //   sparse_fields?.push(
-      //     {
-      //       name: 'phone_number',
-      //       label: 'Phone number',
-      //       required: true,
-      //       secret: false,
-      //       type: 'number',
-      //     },
-      //   )
-      // }
-      // if ( !state?.email) {
-      //   sparse_fields?.push(
-      //     {
-      //       name: 'email',
-      //       label: 'Email',
-      //       required: true,
-      //       secret: false,
-      //       type: 'string',
-      //     }
-      //   )
-      // }
-      //
-      // if ( state ){
-      //   state.sparse_data_fields = sparse_fields;
-      // }
-
       setCvvModal(true);
       core?.sendEvent({
         component: 'cvv_form_modal',

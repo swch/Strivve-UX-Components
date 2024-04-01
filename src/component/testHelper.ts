@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-useless-constructor */
-import StrivveCore from '../core/core';
+import StrivveCore from '../core/strivveCore';
 import {
   APIFilter,
   CardBody,

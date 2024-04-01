@@ -12,7 +12,7 @@ import {
   PostCredsBody,
   StrivveServiceInterface,
 } from '../../types';
-import StrivveCore from '../../core/core';
+import StrivveCore from '../../core/strivveCore';
 import StrivveComponent from '../component';
 import { StrivveService, merchantSite } from '../testHelper';
 

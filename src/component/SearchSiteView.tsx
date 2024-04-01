@@ -4,7 +4,7 @@ import withBase, { BaseProps } from './withBase';
 import SelectSiteList from './SelectSiteList';
 import Loader from './Loader';
 import AccountInput from './AccountInput';
-import SelectSiteCore, { SelectSiteState } from '../core/selectSite';
+import SelectSiteCore, { SelectSiteState } from '../core/selectSiteCore';
 import { mountSelectSiteViewProps } from '../types';
 
 function SelectSiteView({

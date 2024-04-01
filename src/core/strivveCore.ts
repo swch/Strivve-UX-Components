@@ -1,7 +1,7 @@
 import { EncryptionUtility } from './EncryptionUtility';
 import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
-import AccountLinkCore, { AccountLinkCoreOption } from './accountLink';
-import SelectSiteCore, { SelectSiteCoreOptions } from './selectSite';
+import AccountLinkCore, { AccountLinkCoreOption } from './accountLinkCore';
+import SelectSiteCore, { SelectSiteCoreOptions } from './selectSiteCore';
 
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
@@ -79,9 +79,22 @@ export default class StrivveCore {
 
   async getCard() {
     const cvvStorage = sessionStorage.getItem('cvv');
+    const phoneNumberStorage = sessionStorage.getItem('phone_number');
+    const emailStorage = sessionStorage.getItem('email');
+
     if (!this.card?.cvv && cvvStorage && this.card) {
       this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
     }
+    if ( this.card && this.card.address ) {
+      if ( !this.card.address.phone_number && phoneNumberStorage ) {
+        this.card.address.phone_number = phoneNumberStorage;
+      }
+      if ( !this.card.address.email && emailStorage ) {
+        this.card.address.email = emailStorage;
+      }
+    }
+
+    console.log(this.card);
   }
 
   public subscribe(func: Function) {
@@ -172,6 +185,8 @@ export default class StrivveCore {
   }
 
   createAccountLink(options: CreateAccountLinkOptions): AccountLinkCore {
+    console.log("Inside createAccountLink");
+
     const job = this.jobs.find(
       (item) => item.site_id === options.site_id && !item?.termination_type
     );
@@ -181,10 +196,13 @@ export default class StrivveCore {
       cvv: this.card?.cvv,
       phone_number: this.card?.address?.phone_number,
       email: this.card?.address?.email,
-      onMessage: (id, messageg) => this.onMessage(id, messageg),
+      onMessage: (id, messages) => this.onMessage(id, messages),
       onSubmit: (v: any, meta: any) => this.startJob(v, meta),
       service: this.service,
     });
+
+    console.log("Account link core state ->");
+    console.log(this.accountLinkCore);
 
     return this.accountLinkCore;
   }
@@ -230,7 +248,7 @@ export default class StrivveCore {
 
   async startJob(
     creds: { [key: string]: any },
-    meta?: { site: any; cvv?: number }
+    meta?: { site: any; cvv?: number; phone_number?: number; email?: string }
   ) {
     try {
       let cardholder = this.cardholder;
@@ -263,6 +281,8 @@ export default class StrivveCore {
         const address = card?.address;
         if (address) {
           address.cardholder_id = cardholder.id;
+          address.phone_number = !address.phone_number ? meta?.phone_number : address.phone_number;
+          address.email = !address.email ? meta?.email : address.email;
         }
         const createCardResponse = await this.service.createCard({
           ...card,
@@ -275,10 +295,18 @@ export default class StrivveCore {
       }
       this.card = card;
 
-      if (meta?.cvv && this.card) {
-        this.card.cvv = meta?.cvv;
-        const cvvEncrypted = EncryptionUtility.encrypt(String(meta.cvv || ''));
-        sessionStorage.setItem('cvv', cvvEncrypted);
+      if ( this.card ) {
+        if ( meta?.cvv ) {
+          this.card.cvv = meta?.cvv;
+          const cvvEncrypted = EncryptionUtility.encrypt(String(meta.cvv || ''));
+          sessionStorage.setItem('cvv', cvvEncrypted);
+        }
+        if ( meta?.phone_number ) {
+          sessionStorage.setItem('phone_number', String(meta?.phone_number));
+        }
+        if ( meta?.email ) {
+          sessionStorage.setItem('email', meta?.email);
+        }
       }
 
       const jobs = [
