@@ -6,7 +6,7 @@ import AccountLinkView, {
 } from './AccountLinkView';
 import defaultAppearance from './appearance';
 import { StrivveService } from './testHelper';
-import StrivveCore from '../core/core';
+import StrivveCore from '../core/strivveCore';
 import defaultLocalization from './localization';
 
 const meta: Meta<typeof AccountLinkView> = {
