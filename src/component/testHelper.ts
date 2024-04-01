@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-useless-constructor */
+/* eslint-disable */
 import StrivveCore from '../core/strivveCore';
 import {
   APIFilter,
