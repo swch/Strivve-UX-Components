@@ -40,7 +40,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "rm -rv -f ./dist && tsc && GENERATE_SOURCEMAP=false react-app-rewired build  && cp build/static/js/main*.js dist/main.js && cp build/static/js/main*.js public/main.js && cp README.md dist/README.md && cp package.json dist/package.json",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test",
     "eject": "react-app-rewired eject",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
