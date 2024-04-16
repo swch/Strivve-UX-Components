@@ -1,3 +1,11 @@
+import { expect } from "chai";
+
+describe("strivve-cx placeholder test", () => {
+  it("is a fake test", () => {
+    expect(true).to.be.true;
+  });
+});
+
 // describe("Strivve Component Integration Tests", function () {
 //   // Configure the environment
 //   before(() => {
