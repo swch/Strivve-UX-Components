@@ -1,6 +1,6 @@
 {
   "name": "@strivve/strivve-cx",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "private": false,
   "main": "dist/main.js",
   "module": "dist/index.js",
