@@ -1,14 +1,18 @@
 <script lang="ts">
 import {defineComponent, type PropType} from 'vue'
-import {Appearance, CardBody, StrivveComponent, StrivveCore, StrivveService} from "@strivve/strivve-cx";
+import {
+  Appearance,
+  CardBody,
+  StrivveComponent,
+  StrivveCore,
+  StrivveService,
+  StrivveServiceOptions
+} from "@strivve/strivve-cx";
+import Strivve from "@strivve/strivve-cx/dist/Strivve";
 
 export default defineComponent({
   name: "LinkingJourney",
-  inject: {
-    Strivve: {
-      from: 'strivve'
-    }
-  },
+  inject: ['strivve'],
   props: {
     apiInstance: String,
     cardData: Object as PropType<CardBody>,
@@ -17,17 +21,18 @@ export default defineComponent({
   mounted() {
     console.log("Mounted");
 
-    const service : StrivveService = this.Strivve.createService({ api_instance: this.apiInstance });
-    const core : StrivveCore = this.Strivve.createCore({
+    const strv : Strivve = this.strivve as Strivve;
+    const service : StrivveService = strv.createService(<StrivveServiceOptions>{ api_instance: this.apiInstance });
+    const core : StrivveCore = strv.createCore({
       service,
       card: this.cardData,
     });
 
-    const component : StrivveComponent = this.Strivve.createComponent({ core, appearance: this.appearance });
+    const component : StrivveComponent = strv.createComponent({ core, appearance: this.appearance });
 
     component.mountLinkingJourney('linking-journey', {
       selectSiteOptions : {},
-      accountLinkOptions : {}
+      accountLinkOptions : {site_id : "1"}
     })
   }
 })

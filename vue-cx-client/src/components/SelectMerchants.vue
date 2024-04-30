@@ -4,40 +4,38 @@
 
 <script lang="ts">
 
-import {Appearance, CardBody, StrivveComponent, StrivveCore, StrivveService} from "@strivve/strivve-cx";
+import {Appearance, CardBody, StrivveComponent, StrivveCore, StrivveService, StrivveServiceOptions} from "@strivve/strivve-cx";
 import {defineComponent} from "vue";
 import type { PropType } from "vue";
+import Strivve from "@strivve/strivve-cx/dist/Strivve";
 
 export default defineComponent({
-    name: "SelectMerchants",
-    inject: {
-      Strivve: {
-        from: 'strivve'
+      name: "SelectMerchants",
+      inject: ['strivve'],
+      props: {
+        apiInstance: String,
+        cardData: Object as PropType<CardBody>,
+        appearance: Object as PropType<Appearance>
+      },
+      mounted() {
+        console.log("Mounted");
+
+        const strv : Strivve = this.strivve as Strivve;
+        const service : StrivveService = strv.createService(<StrivveServiceOptions>{ api_instance: this.apiInstance });
+        const core : StrivveCore = strv.createCore({
+          service: service,
+          card: this.cardData,
+        });
+
+        const component : StrivveComponent = strv.createComponent({ core: core, appearance: this.appearance });
+
+        component.mountSelectSiteView('select-sites', {
+          onSubmit: (selected : any) => {
+            alert(selected.map((item : any) => item.name).join(', '));
+          },
+        });
       }
-    },
-    props: {
-      apiInstance: String,
-      cardData: Object as PropType<CardBody>,
-      appearance: Object as PropType<Appearance>
-    },
-    mounted() {
-      console.log("Mounted");
-
-      const service : StrivveService = this.Strivve.createService({ api_instance: this.apiInstance });
-      const core : StrivveCore = this.Strivve.createCore({
-        service: service,
-        card: this.cardData,
-      });
-
-      const component : StrivveComponent = this.Strivve.createComponent({ core: core, appearance: this.appearance });
-
-      component.mountSelectSiteView('select-sites', {
-        submit: (selected : any) => {
-          alert(selected.map((item : any) => item.name).join(', '));
-        },
-      });
     }
-  }
 )
 
 </script>
