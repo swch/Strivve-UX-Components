@@ -1,6 +1,6 @@
 <template>
 <!--  <SelectMerchants :api-instance="instance" :card-data="card" :appearance="appearance"/>-->
-  <LinkingJourney :api-instance="instance" :card-data="card" :appearance="appearance"/>
+  <LinkingJourney :api-instance="instance" :card-data="card"/>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      instance: "customer-dev",
+      instance: "pkumar",
       card: {
         pan: '4111111111111111',
             cvv: '321',
