@@ -547,7 +547,18 @@ const defaultAppearance: Appearance = {
       animationTimingFunction: 'linear',
       animationIterationCount: 'infinite',
     },
-
+    cardDataView: {
+      maxWidth: '400px',
+      margin: '0 auto',
+      overflowX: 'hidden',
+      minHeight: 'var(--height)',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: 'var(--backgroundColor)',
+      color: 'var(--textColor)',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     introView: {
       maxWidth: '400px',
       margin: 'auto',

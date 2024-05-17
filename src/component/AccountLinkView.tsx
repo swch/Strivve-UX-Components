@@ -379,9 +379,9 @@ export function AccountLinkView({
       </AccountLinkContainer>
       <PendingModal
         open={cvvModal}
-        title={'Enter the CVV'}
+        title={'Enter missing card data'}
         description={
-          'To help keep your card secure, enter the CVV on the back of your card'
+          'To help keep your card secure, enter the following data for your card'
         }
         buttonText="Confirm"
         onClickClose={() => {

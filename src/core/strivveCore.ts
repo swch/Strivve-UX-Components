@@ -2,6 +2,7 @@ import { EncryptionUtility } from './EncryptionUtility';
 import { CardBody, Card, Job, StrivveServiceInterface } from '../types';
 import AccountLinkCore, { AccountLinkCoreOption } from './accountLinkCore';
 import SelectSiteCore, { SelectSiteCoreOptions } from './selectSiteCore';
+import CardDataCore, {CardDataCoreOptions} from "./cardDataCore";
 
 export interface StrivveCoreOptions {
   service: StrivveServiceInterface;
@@ -20,6 +21,7 @@ export type CreateAccountLinkOptions = Omit<
 
 export enum StrivveCoreMount {
   ACCOUNT_LINK = 'account_link',
+  CARD_DATA = "card_data",
   SELECT_SITE_LIST = 'select_site_list',
   SELECT_SITE_CAROUSEL = 'select_site_carousel',
   SELECT_SITE_LINKED = 'select_site_linked',
@@ -27,6 +29,7 @@ export enum StrivveCoreMount {
 }
 
 export type CreateSelectSiteOptions = Omit<SelectSiteCoreOptions, 'service'>;
+export type CreateCardDataOptions = Omit<CardDataCoreOptions, 'onSubmit'>;
 
 export type StrivveCoreState = {
   mount: StrivveCoreMount;
@@ -42,6 +45,7 @@ export default class StrivveCore {
   public history: string[] = [];
   public selectSiteCore?: SelectSiteCore;
   public accountLinkCore?: AccountLinkCore;
+  public cardDataCore?: CardDataCore;
   private subscriber: Function[] = [];
   public state: StrivveCoreState = {
     mount: StrivveCoreMount.SELECT_SITE_CAROUSEL,
@@ -78,11 +82,15 @@ export default class StrivveCore {
   }
 
   getCard() {
+    console.log('getCard called');
     const cvvStorage = sessionStorage.getItem('cvv');
     const phoneNumberStorage = sessionStorage.getItem('phone_number');
     const emailStorage = sessionStorage.getItem('email');
 
     if ( this.card ) {
+      console.log("Found card");
+      console.log(this.card);
+
       if ( !this.card?.cvv && cvvStorage ) {
         this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
       }
@@ -96,7 +104,15 @@ export default class StrivveCore {
       if ( !this.card.address.email && emailStorage ) {
         this.card.address.email = emailStorage;
       }
+
+      console.log("After attempting to fetch cvv from storage");
+      console.log(this.card);
     }
+  }
+
+  setCard(card: CardBody) {
+    console.log("setCard called");
+    this.card = card;
   }
 
   public subscribe(func: Function) {
@@ -187,6 +203,7 @@ export default class StrivveCore {
   }
 
   createAccountLink(options: CreateAccountLinkOptions): AccountLinkCore {
+    console.log('StrivveCore-> createAccountLink called');
     const job = this.jobs.find(
       (item) => item.site_id === options.site_id && !item?.termination_type
     );
@@ -216,6 +233,18 @@ export default class StrivveCore {
       jobs,
     });
     return this.selectSiteCore;
+  }
+
+  createCardData(options?: CreateCardDataOptions): CardDataCore {
+    this.cardDataCore = new CardDataCore({
+      ...options,
+      onSubmit: () => this.submitCardData()
+    });
+    return this.cardDataCore;
+  }
+
+  submitCardData() {
+    console.log("Submitting card data");
   }
 
   uniqueByProperty<T>(arr: T[], property: keyof T): T[] {
