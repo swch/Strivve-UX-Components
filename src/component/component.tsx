@@ -5,7 +5,7 @@ import SelectSiteView from './SelectSiteView';
 import {
   Appearance,
   Localization,
-  mountAccountLinkViewOptions,
+  mountAccountLinkViewOptions, mountCardDataViewOptions,
   mountLinkingJourneyOptions,
   mountSelectSiteViewOptions,
   StrivveComponentInterface,
@@ -16,6 +16,7 @@ import defaultAppearance from './appearance';
 import SearchSiteView from './SearchSiteView';
 import LinkingJourney from './LinkingJourney';
 import defaultLocalization from './localization';
+import CardDataView from "./CardDataView";
 
 export default class StrivveComponent implements StrivveComponentInterface {
   core: StrivveCore;
@@ -25,6 +26,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
   private selectSite?: ReactDOM.Root;
   private searchSite?: ReactDOM.Root;
   private linkingJourney?: ReactDOM.Root;
+  private cardData?: ReactDOM.Root;
 
   constructor({ core, appearance, localization }: StrivveComponentOptions) {
     this.core = core;
@@ -132,6 +134,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
   mountLinkingJourney(
     id: string,
     {
+      cardDataOptions,
       selectSiteOptions,
       accountLinkOptions,
       introOptions,
@@ -147,6 +150,7 @@ export default class StrivveComponent implements StrivveComponentInterface {
         appearance={this.appearance}
         localization={this.localization}
         core={this.core}
+        cardDataOptions={cardDataOptions}
         selectSiteOptions={selectSiteOptions}
         accountLinkOptions={accountLinkOptions}
         introOptions={introOptions}
@@ -158,5 +162,25 @@ export default class StrivveComponent implements StrivveComponentInterface {
 
   unmountLinkingJourney(id: string) {
     this.linkingJourney?.unmount();
+  }
+
+  mountCardDataView(id: string, options?: mountCardDataViewOptions) {
+    const root = this.cardData
+      ? this.cardData
+      : ReactDOM.createRoot(document.getElementById(id) as HTMLElement);
+
+    root.render(
+      <CardDataView
+        appearance={this.appearance}
+        localization={this.localization}
+        core={this.core}
+        options={options}
+      />
+    );
+    this.cardData = root;
+  }
+
+  unmountCardDataView(id: string) {
+    this.cardData?.unmount();
   }
 }

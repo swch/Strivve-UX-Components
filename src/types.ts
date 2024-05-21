@@ -2,6 +2,7 @@ import { Interpolation, SerializedStyles, Theme } from '@emotion/react';
 import { AccountLinkState } from './core/accountLinkCore';
 import StrivveCore from './core/strivveCore';
 import { SelectSiteState } from './core/selectSiteCore';
+import {CardDataState} from "./core/cardDataCore";
 
 export type APIFilter = {
   [key: string]: string | string[];
@@ -188,6 +189,8 @@ export interface Localization {
   my_sites_success_text?: string;
   placement_success_details_text?: string;
   placement_error_details_text?: string;
+
+  card_data_submit_btn_link?: string;
 }
 
 export interface StrivveComponentInterface {
@@ -206,6 +209,11 @@ export interface StrivveComponentInterface {
     id: string,
     options: mountLinkingJourneyOptions
   ) => void;
+  mountCardDataView: (
+    id: string,
+    options?: mountCardDataViewOptions
+  ) => void;
+  unmountCardDataView:(id: string) => void;
 }
 
 export interface StrivveComponentClass {
@@ -266,11 +274,22 @@ export interface mountIntroViewProps {
 }
 
 export type mountLinkingJourneyOptions = {
+  cardDataOptions?: mountCardDataViewOptions;
   accountLinkOptions?: mountAccountLinkViewOptions;
   selectSiteOptions?: mountSelectSiteViewOptions;
   introOptions?: mountIntroViewOptions;
   headerOptions?: mountHeaderOptions;
 };
+
+export interface mountCardDataViewOptions {
+  onSubmit?: (values: any) => void;
+  onCancel?: () => void;
+  subscribe?: (state: CardDataState) => void;
+}
+
+export interface mountCardDataViewProps {
+  options?: mountCardDataViewOptions
+}
 
 export type Appearance = {
   layout?: {
@@ -377,6 +396,12 @@ export type Appearance = {
 
     headerWrapper?: Interpolation<Theme>;
     headerTitle?: Interpolation<Theme>;
+
+    cardDataView?: Interpolation<Theme>;
+    cardDataForm?: Interpolation<Theme>;
+    cardDataHeaderDescription?: Interpolation<Theme>;
+    cardDataTitle?: Interpolation<Theme>;
+    cardDataFooter?: Interpolation<Theme>;
   };
 };
 

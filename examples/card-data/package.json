@@ -1,6 +1,6 @@
 {
-  "name": "react-js",
-  "version": "0.1.0",
+  "name": "card-data",
+  "version": "0.1.",
   "private": true,
   "dependencies": {
     "@strivve/strivve-cx": "^0.1.11",
@@ -21,7 +21,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "clean-install": "rm -rf node_modules; rm package-lock.json; npm install"
   },
   "browserslist": {
     "production": [

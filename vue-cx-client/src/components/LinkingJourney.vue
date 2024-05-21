@@ -5,6 +5,7 @@ import {
   CardBody,
   StrivveComponent,
   StrivveCore,
+  StrivveCoreMount,
   StrivveService,
   StrivveServiceOptions
 } from "@strivve/strivve-cx";
@@ -26,13 +27,22 @@ export default defineComponent({
     const core : StrivveCore = strv.createCore({
       service,
       card: this.cardData,
+      mount: StrivveCoreMount.CARD_DATA
     });
 
     const component : StrivveComponent = strv.createComponent({ core, appearance: this.appearance });
 
     component.mountLinkingJourney('linking-journey', {
+      cardDataOptions: {},
       selectSiteOptions : {},
-      accountLinkOptions : {site_id : "1"}
+      accountLinkOptions : {site_id : "1"},
+      headerOptions: {
+        title: 'My Bank',
+        onClose: () => {
+          // console.log(stv);
+          // component.unmountLinkingJourney("");
+        },
+      }
     })
   }
 })

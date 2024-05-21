@@ -60,6 +60,7 @@ const defaultLocalization: Localization = {
   placement_success_details_text:
     'Your card details were successfully placed on this site',
   placement_error_details_text: '<api>',
+  card_data_submit_btn_link: "Submit"
 };
 
 export default defaultLocalization;
