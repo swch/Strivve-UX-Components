@@ -7,6 +7,7 @@ import { useBase } from './withBase';
 import StrivveCore from '../core/strivveCore';
 
 export interface CardDataFormProps {
+  displayGrid: any[];
   fields: Field[];
   submit: React.FormEventHandler<HTMLFormElement>;
   change: (name: string, value: any) => void;
@@ -17,6 +18,7 @@ export interface CardDataFormProps {
 }
 
 function CardDataForm({
+                        displayGrid,
                         fields,
                         submit,
                         change,
@@ -46,6 +48,31 @@ function CardDataForm({
       >
         Enter your card and billing information once to update the payment method on all of the sites you've selected.
       </p>
+
+{/*
+     {displayGrid.map((row: any[], rowIndex) => { return (
+        <div key={rowIndex}>
+          { row.map((item: Field, index: number) => { return (
+            <CardDataInput
+              id={`cardDataInput-${item.name}`}
+              key={item.name}
+              name={item.name}
+              autocomplete={item.name}
+              type={item.type}
+              secret={item.secret}
+              placeholder={item.label}
+              // required={item.required ? 'true' : 'false'}
+              onChange={(e) => {
+                change?.(item.name, e.target.value);
+              }}
+              value=""
+              autoFocus={index === 0}
+            />
+            ) } )}
+        </div>
+      ) } )}
+*/}
+
       {fields?.map((item, index) => {
         return (
           <CardDataInput

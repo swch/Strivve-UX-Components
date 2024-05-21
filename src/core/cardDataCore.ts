@@ -12,6 +12,7 @@ export interface Field {
   label?: string;
   required?: boolean;
   secret?: boolean;
+  maxLength?: number;
 }
 
 export interface ErrorField {
@@ -46,6 +47,7 @@ export const initialCardDataState = {
 export default class CardDataCore {
   state: CardDataState = initialCardDataState;
   fields: Field[] = [];
+  displayGrid: any[] = [];
   private onSubmit: Function;
   private subscriber: Function = () => {};
 
@@ -57,7 +59,7 @@ export default class CardDataCore {
       name: "email",
       value: '',
       label: "Email Address",
-      type: 'text',
+      type: 'email',
       required: true,
       secret: false,
     }
@@ -65,7 +67,7 @@ export default class CardDataCore {
       name : "phone_number",
       value: '',
       label: "Phone Number",
-      type: 'text',
+      type: 'tel',
       required: true,
       secret: false,
     }
@@ -84,30 +86,32 @@ export default class CardDataCore {
       type: 'password',
       required: true,
       secret: true,
+      maxLength: 16
     }
-    const expMonthField : Field = {
-      name : "expiration_month",
+    const expDateField : Field = {
+      name : "expiration_date",
       value: '',
-      label: "Exp. Month",
+      label: "Exp. Date",
       type: 'text',
       required: true,
       secret: false,
     }
-    const expYearField : Field = {
-      name : "expiration_year",
-      value: '',
-      label: "Exp. Year",
-      type: 'text',
-      required: true,
-      secret: false,
-    }
+    // const expYearField : Field = {
+    //   name : "expiration_year",
+    //   value: '',
+    //   label: "Exp. Year",
+    //   type: 'number',
+    //   required: true,
+    //   secret: false,
+    // }
     const cvvField : Field = {
       name : "cvv",
       value: '',
       label: "CVV",
-      type: 'text',
+      type: 'number',
       required: true,
       secret: false,
+      maxLength: 4
     }
     const firstNameField : Field = {
       name : "first_name",
@@ -122,6 +126,14 @@ export default class CardDataCore {
       value: '',
       label: "Last Name",
       type: 'text',
+      required: true,
+      secret: false,
+    }
+    const billingAddressLabel: Field = {
+      name : "billing_address_label",
+      value: '',
+      label: "Billing Address",
+      type: 'label',
       required: true,
       secret: false,
     }
@@ -156,14 +168,16 @@ export default class CardDataCore {
       type: 'text',
       required: true,
       secret: false,
+      maxLength: 2
     }
     const countryField : Field = {
       name : "country",
-      value: 'USA',
+      value: 'US',
       label: "Country",
       type: 'text',
       required: true,
       secret: false,
+      maxLength: 2
     }
     const postalCodeField : Field = {
       name : "postal_code",
@@ -172,14 +186,15 @@ export default class CardDataCore {
       type: 'text',
       required: true,
       secret: false,
+      maxLength: 10
     }
 
     this.fields.push(emailField);
     this.fields.push(phoneNumField);
     this.fields.push(nameOnCardField);
     this.fields.push(cardNumberField);
-    this.fields.push(expMonthField);
-    this.fields.push(expYearField);
+    this.fields.push(expDateField);
+    // this.fields.push(expYearField);
     this.fields.push(cvvField);
     this.fields.push(firstNameField);
     this.fields.push(lastNameField);
@@ -189,6 +204,22 @@ export default class CardDataCore {
     this.fields.push(countryField);
     this.fields.push(stateField);
     this.fields.push(postalCodeField);
+
+    // create a grid array for display
+    // grid is an array of rows.
+    // Each row may have an array of multiple objects which will become columns.
+    // const grid = [];
+    // grid.push( [ countryField ] );
+    // grid.push( [ cardNumberField ] );
+    // grid.push( [ expMonthField, expYearField, cvvField ] );
+    // grid.push( [ nameOnCardField ] );
+    // grid.push( [ billingAddressLabel ] );
+    // grid.push( [ billingAddressField ] );
+    // grid.push( [ billingAddressLine2Field ] );
+    // grid.push( [ cityField ] );
+    // grid.push( [ stateField, postalCodeField ] );
+    //
+    // this.displayGrid = grid;
 
     this.onSubmit = onSubmit;
   }

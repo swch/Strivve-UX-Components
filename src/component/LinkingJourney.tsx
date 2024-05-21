@@ -52,12 +52,16 @@ export function LinkingJourney({
           options={{
             ...cardDataOptions,
             onSubmit: (values) => {
+              // split expiration date in to month and year
+              const exp_month = values.expiration_date?.split("/")[0];
+              const exp_year = values.expiration_date?.split("/")[1];
+
               // create a cardBody object
               const cardBody: CardBody = {
                 pan : values.pan,
                 cvv : values.cvv,
-                expiration_month: values.expiration_month,
-                expiration_year: values.expiration_year,
+                expiration_month: exp_month,
+                expiration_year: exp_year,
                 name_on_card: values.name_on_card,
                 address: {
                   city: values.city,

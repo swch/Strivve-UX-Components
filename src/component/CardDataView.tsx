@@ -84,6 +84,7 @@ export function CardDataView({
     >
       <Header/>
       <CardDataForm
+        displayGrid={cardDataCore?.displayGrid || []}
         fields={cardDataCore?.fields || []}
         disabled={state?.submitting}
         submit={handleSubmit}
