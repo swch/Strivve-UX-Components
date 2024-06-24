@@ -83,7 +83,7 @@ export function AccountLinkView({
     if (cvvModal) {
       accountLinkCore?.submitCvv();
       setCvvModal(false);
-    } else if (!state?.cvv || !state?.phone_number || !state?.email) {
+    } else if (!accountLinkCore?.service.grant && (!state?.cvv || !state?.phone_number || !state?.email) ) {
       setCvvModal(true);
       core?.sendEvent({
         component: 'cvv_form_modal',

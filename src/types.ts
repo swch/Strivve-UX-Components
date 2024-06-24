@@ -113,6 +113,7 @@ export interface StrivveServiceInterface {
   financial_institution?: string;
   fi_detail?: any;
   safe_key: string;
+  queue_name_override?: string;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
@@ -231,6 +232,7 @@ export interface StrivveServiceOptions {
   safe_key?: string;
   grant?: string;
   financial_institution?: string;
+  queue_name_override?: string;
 }
 export interface mountAccountLinkViewOptions {
   site_id: string;
@@ -430,7 +432,7 @@ export interface JobBody {
   card_id?: number;
   status?: string;
   type?: string;
-  queue_name?: string;
+  queue_name_override?: string;
 }
 
 export interface CardholderBody {
