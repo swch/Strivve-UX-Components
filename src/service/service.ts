@@ -22,12 +22,14 @@ class StrivveService implements StrivveServiceInterface {
   grant?: string;
   financial_institution?: string;
   public fi_detail?: any;
+  queue_name_override?: string;
 
   constructor({
     api_instance,
     safe_key,
     grant,
     financial_institution,
+    queue_name_override
   }: StrivveServiceOptions) {
     this.ch = CardsavrHelper.getInstance();
     this.api_instance = api_instance;
@@ -41,6 +43,10 @@ class StrivveService implements StrivveServiceInterface {
 
     if (financial_institution) {
       this.financial_institution = financial_institution;
+    }
+
+    if ( queue_name_override ) {
+      this.queue_name_override = queue_name_override;
     }
 
     this.login();

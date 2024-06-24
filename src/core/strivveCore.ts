@@ -82,15 +82,11 @@ export default class StrivveCore {
   }
 
   getCard() {
-    console.log('getCard called');
     const cvvStorage = sessionStorage.getItem('cvv');
     const phoneNumberStorage = sessionStorage.getItem('phone_number');
     const emailStorage = sessionStorage.getItem('email');
 
     if ( this.card ) {
-      console.log("Found card");
-      console.log(this.card);
-
       if ( !this.card?.cvv && cvvStorage ) {
         this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
       }
@@ -104,14 +100,10 @@ export default class StrivveCore {
       if ( !this.card.address.email && emailStorage ) {
         this.card.address.email = emailStorage;
       }
-
-      console.log("After attempting to fetch cvv from storage");
-      console.log(this.card);
     }
   }
 
   setCard(card: CardBody) {
-    console.log("setCard called");
     this.card = card;
   }
 
@@ -280,6 +272,7 @@ export default class StrivveCore {
     creds: { [key: string]: any },
     meta?: { site: any; cvv?: number; phone_number?: number; email?: string }
   ) {
+    console.log("In startJob");
     try {
       let cardholder = this.cardholder;
       let card = this.card;
@@ -348,8 +341,9 @@ export default class StrivveCore {
             merchant_site_id: site.id,
             cardholder_id: cardholder?.id,
             account_link: creds,
-            customer_key: `${site.id}${cardholder?.cuid}`,
+            customer_key: `${site.id}${cardholder?.cuid}`
           },
+          ...(this.service.queue_name_override) && { queue_name_override: this.service.queue_name_override }
         },
       ];
       const singleSiteJobResponse = await this.service.createJobs(jobs);
