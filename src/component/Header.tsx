@@ -41,9 +41,11 @@ function Header({ hideJob }: { hideJob?: boolean }) {
           {headerOptions?.title}
         </p>
       )}
-      <div onClick={headerOptions?.onClose}>
-        <CloseIcon />
-      </div>
+      {headerOptions?.showCloseButton ? (
+        <div onClick={headerOptions?.onClose}>
+          <CloseIcon/>
+        </div>
+      ) : <span>&nbsp;</span>}
     </div>
   ) : null;
 }

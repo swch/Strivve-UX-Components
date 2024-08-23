@@ -38,6 +38,7 @@ export default defineComponent({
       accountLinkOptions : {site_id : "1"},
       headerOptions: {
         title: 'My Bank',
+        showCloseButton: false,
         onClose: () => {
           // console.log(stv);
           // component.unmountLinkingJourney("");

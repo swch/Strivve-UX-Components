@@ -264,6 +264,7 @@ export interface mountSelectSiteViewOptions {
 
 export interface mountHeaderOptions {
   title?: string;
+  showCloseButton?: boolean;
   onClose?: () => void;
 }
 

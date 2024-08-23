@@ -655,6 +655,8 @@ const defaultAppearance: Appearance = {
       fontSize: '22px',
       marginTop: '0px',
       marginBottom: '0px',
+      marginRight: 'auto',
+      marginLeft: 'auto'
     },
   },
 };
