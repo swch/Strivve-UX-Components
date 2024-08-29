@@ -4,6 +4,7 @@ Service contains functions that are connected to API/Backend.
 
 ```js
 const service = Strivve.createService({ api_instance: 'customer-dev' });
+await service.login();
 
 const sites = await service.getMerchantSites();
 ```

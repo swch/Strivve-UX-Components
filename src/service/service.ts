@@ -48,8 +48,6 @@ class StrivveService implements StrivveServiceInterface {
     if ( queue_name_override ) {
       this.queue_name_override = queue_name_override;
     }
-
-    this.login();
   }
 
   async login() {
@@ -71,10 +69,12 @@ class StrivveService implements StrivveServiceInterface {
       );
 
       if (this.financial_institution) {
+        console.log("FI look up key = "+this.financial_institution);
         const fi = await this.getFinancialInstitution(
           this.financial_institution
         );
         this.fi_detail = fi;
+        console.log("FI Detail = "+JSON.stringify(this.fi_detail, null, 2));
       }
 
       this.is_login = true;
