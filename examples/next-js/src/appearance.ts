@@ -1,4 +1,4 @@
-import { Appearance } from '@strivve/component';
+import { Appearance } from '@strivve/strivve-cx';
 
 const appearance: Appearance = {
   elements: {

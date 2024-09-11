@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
+import Strivve from '@strivve/strivve-cx';
 
 declare global {
   const Strivve: any;
