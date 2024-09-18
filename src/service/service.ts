@@ -23,6 +23,7 @@ class StrivveService implements StrivveServiceInterface {
   financial_institution?: string;
   public fi_detail?: any;
   queue_name_override?: string;
+  public cardholder?: any;
 
   constructor({
     api_instance,
@@ -75,6 +76,15 @@ class StrivveService implements StrivveServiceInterface {
         );
         this.fi_detail = fi;
         console.log("FI Detail = "+JSON.stringify(this.fi_detail, null, 2));
+      }
+
+      // authorize
+      if (this.grant) {
+        const authorize = await this.authorizeCardholder(
+          this.grant
+        );
+        this.cardholder = authorize.body.cardholder;
+        this.setSafeKey(authorize.body.cardholder_safe_key);
       }
 
       this.is_login = true;

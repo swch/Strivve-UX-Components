@@ -114,6 +114,7 @@ export interface StrivveServiceInterface {
   fi_detail?: any;
   safe_key: string;
   queue_name_override?: string;
+  cardholder?: any;
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;

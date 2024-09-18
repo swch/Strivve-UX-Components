@@ -274,18 +274,11 @@ export default class StrivveCore {
   ) {
     console.log("In startJob");
     try {
-      let cardholder = this.cardholder;
+      let cardholder = this.service.cardholder;
       let card = this.card;
       const site = meta?.site;
+      this.service.setSafeKey(this.service.safe_key);
 
-      if (this.service.grant) {
-        const authorize = await this.service.authorizeCardholder(
-          this.service.grant
-        );
-        cardholder = authorize.body.cardholder;
-        this.cardholder = cardholder;
-        this.service.setSafeKey(authorize.body.cardholder_safe_key);
-      }
       if (!cardholder?.id) {
         const cardholderResponse = await this.service.createCardholder({
           type: 'persistent_creds',
@@ -346,6 +339,10 @@ export default class StrivveCore {
           ...(this.service.queue_name_override) && { queue_name_override: this.service.queue_name_override }
         },
       ];
+
+      console.log("Jobs ->");
+      console.log(jobs);
+
       const singleSiteJobResponse = await this.service.createJobs(jobs);
 
       const job = singleSiteJobResponse.body[0];
