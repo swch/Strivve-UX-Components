@@ -258,6 +258,13 @@ export default class AccountLinkCore {
           });
         }
 
+        if ( message?.percent_complete === 100 || message?.termination_type ) {
+          console.log("**********************************");
+          console.log("Removing listeners (statusHandler)");
+          query.removeListeners(job.id);
+          console.log("**********************************");
+        }
+
         if (this.intervalPercent) {
           clearInterval(this.intervalPercent);
         }
@@ -292,6 +299,13 @@ export default class AccountLinkCore {
         submitting: false,
         fields: this.fields,
       });
+
+      if ( message?.percent_complete === 100 || message?.termination_type ) {
+        console.log("**********************************");
+        console.log("Removing listeners");
+        query.removeListeners(job.id);
+        console.log("**********************************");
+      }
     };
 
     query.addListener(job.id, statusHandler, 'job_status');
