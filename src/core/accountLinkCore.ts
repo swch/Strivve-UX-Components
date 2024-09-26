@@ -261,8 +261,7 @@ export default class AccountLinkCore {
         if ( message?.percent_complete === 100 || message?.termination_type ) {
           console.log("**********************************");
           console.log("Removing listeners (statusHandler)");
-          query.removeListener(job.id, statusHandler, 'job_status');
-          query.removeListener(job.id, pendingHandler, 'pending');
+          query.removeListeners(job.id);
           console.log("**********************************");
         }
 
@@ -303,9 +302,8 @@ export default class AccountLinkCore {
 
       if ( message?.percent_complete === 100 || message?.termination_type ) {
         console.log("**********************************");
-        console.log("Removing listeners (pendingHandler)");
-        query.removeListener(job.id, statusHandler, 'job_status');
-        query.removeListener(job.id, pendingHandler, 'pending');
+        console.log("Removing listeners");
+        query.removeListeners(job.id);
         console.log("**********************************");
       }
     };
