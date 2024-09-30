@@ -19,21 +19,22 @@ export default defineComponent({
     cardData: Object as PropType<CardBody>,
     appearance: Object as PropType<Appearance>
   },
-  mounted() {
+  async mounted() {
     console.log("Mounted");
 
     const strv : Strivve = this.strivve as Strivve;
     const service : StrivveService = strv.createService(<StrivveServiceOptions>{ api_instance: this.apiInstance });
+    await service.login();
+
     const core : StrivveCore = strv.createCore({
       service,
       card: this.cardData,
-      mount: StrivveCoreMount.CARD_DATA
+      mount: StrivveCoreMount.SELECT_SITE_CAROUSEL
     });
 
     const component : StrivveComponent = strv.createComponent({ core, appearance: this.appearance });
 
     component.mountLinkingJourney('linking-journey', {
-      cardDataOptions: {},
       selectSiteOptions : {},
       accountLinkOptions : {site_id : "1"},
       headerOptions: {
