@@ -521,7 +521,7 @@ const defaultAppearance: Appearance = {
       marginBottom: '10px',
       gap: '20px',
       flex: 1,
-      justifyContent: 'end',
+      justifyContent: 'center',
     },
     accountLinkForgotLink: {
       textDecoration: 'none',

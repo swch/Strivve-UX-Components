@@ -14,12 +14,12 @@
     "isolatedModules": true,
     "jsx": "react",
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "crypto": ["./node_modules/crypto-browserify"],
+      "stream": ["./node_modules/stream-browserify"]
+    }
   },
   "include": ["src"],
   "exclude": ["**/*.stories.tsx", "**/*.stories.ts", "**/*.stories.mdx"],
-  "paths": {
-    "crypto": ["node_modules/crypto-browserify"],
-    "stream": ["node_modules/stream-browserify"]
-  }
 }
