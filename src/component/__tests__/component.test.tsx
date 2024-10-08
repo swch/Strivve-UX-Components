@@ -4,12 +4,12 @@ import 'matchmedia-polyfill/matchMedia.addListener';
 import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import {
-  APIFilter,
+  APIFilter, Card,
   CardBody,
   CardholderBody,
   JobBody,
   MerchantSite,
-  PostCredsBody,
+  PostCredsBody, StrivveResponse,
   StrivveServiceInterface,
 } from '../../types';
 import StrivveCore from '../../core/strivveCore';
@@ -57,6 +57,14 @@ class ErrorService implements StrivveServiceInterface {
   setSafeKey(key: string): void {}
 
   postCreds(body: PostCredsBody): Promise<any> {
+    return Promise.resolve();
+  }
+
+  updateCard(card_id: string, body: any, safeKey: string): Promise<any>{
+    return Promise.resolve();
+  }
+
+  getMissingCardDataFields(card_id: string, selected_sites: MerchantSite[]): Promise<any>{
     return Promise.resolve();
   }
 }

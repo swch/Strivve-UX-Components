@@ -120,11 +120,13 @@ export interface StrivveServiceInterface {
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
   createCardholder(body: CardholderBody): Promise<StrivveResponse<Cardholder>>;
   createCard(body: CardBody): Promise<StrivveResponse<Card>>;
+  updateCard(card_id: string, body: any, safeKey: string): Promise<StrivveResponse<Card>>;
   authorizeCardholder(
     grant: string
   ): Promise<
     StrivveResponse<{ cardholder_safe_key: string; cardholder: Cardholder }>
   >;
+  getMissingCardDataFields(card_id: string, selected_sites: MerchantSite[]): Promise<string[]>;
   createCardholderQuery(id: string): any;
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;

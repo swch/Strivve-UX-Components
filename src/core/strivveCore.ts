@@ -38,8 +38,8 @@ export type StrivveCoreState = {
 export default class StrivveCore {
   public service: StrivveServiceInterface;
   private cardholder: any;
-  private card?: CardBody | Card | any;
-  private card_id?: string;
+  public card?: CardBody | Card | any;
+  public card_id?: string;
   private initialMount?: StrivveCoreMount;
   public jobs: any[] = [];
   public history: string[] = [];
@@ -77,34 +77,14 @@ export default class StrivveCore {
     this.eventHandler = eventHandler;
 
     this.getJobs();
-
-    this.getCard();
-  }
-
-  getCard() {
-    const cvvStorage = sessionStorage.getItem('cvv');
-    const phoneNumberStorage = sessionStorage.getItem('phone_number');
-    const emailStorage = sessionStorage.getItem('email');
-
-    if ( this.card ) {
-      if ( !this.card?.cvv && cvvStorage ) {
-        this.card.cvv = EncryptionUtility.decrypt(cvvStorage);
-      }
-      if ( !this.card.address ) {
-        this.card.address = {}
-      }
-
-      if ( !this.card.address.phone_number && phoneNumberStorage ) {
-        this.card.address.phone_number = phoneNumberStorage;
-      }
-      if ( !this.card.address.email && emailStorage ) {
-        this.card.address.email = emailStorage;
-      }
-    }
   }
 
   setCard(card: CardBody) {
     this.card = card;
+  }
+
+  getCardId() {
+    return this.card_id;
   }
 
   public subscribe(func: Function) {
@@ -200,9 +180,6 @@ export default class StrivveCore {
       (item) => item.site_id === options.site_id && !item?.termination_type
     );
 
-    // fetch card data from sessionStorage
-    this.getCard();
-
     this.accountLinkCore = new AccountLinkCore({
       ...options,
       job,
@@ -272,7 +249,6 @@ export default class StrivveCore {
     creds: { [key: string]: any },
     meta?: { site: any; cvv?: number; phone_number?: number; email?: string }
   ) {
-    console.log("In startJob");
     try {
       let cardholder = this.service.cardholder;
       let card = this.card;
@@ -311,20 +287,6 @@ export default class StrivveCore {
       }
       this.card = card;
 
-      if ( this.card ) {
-        if ( meta?.cvv ) {
-          this.card.cvv = meta?.cvv;
-          const cvvEncrypted = EncryptionUtility.encrypt(String(meta.cvv || ''));
-          sessionStorage.setItem('cvv', cvvEncrypted);
-        }
-        if ( meta?.phone_number ) {
-          sessionStorage.setItem('phone_number', String(meta?.phone_number));
-        }
-        if ( meta?.email ) {
-          sessionStorage.setItem('email', meta?.email);
-        }
-      }
-
       const jobs = [
         {
           cardholder_id: cardholder?.id,
@@ -339,9 +301,6 @@ export default class StrivveCore {
           ...(this.service.queue_name_override) && { queue_name_override: this.service.queue_name_override }
         },
       ];
-
-      console.log("Jobs ->");
-      console.log(jobs);
 
       const singleSiteJobResponse = await this.service.createJobs(jobs);
 

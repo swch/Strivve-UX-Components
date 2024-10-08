@@ -41,7 +41,7 @@ export default class SelectSiteCore {
   service: StrivveServiceInterface;
   state: SelectSiteState = initialStateSelectSite;
   private subscriber: Function = () => {};
-  private sites: MerchantSite[] = [];
+  public sites: MerchantSite[] = [];
   multiple?: boolean;
   private onSubmit?: Function;
   sendEvent?: (action: string, data: any) => void;

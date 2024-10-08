@@ -80,20 +80,39 @@ export function AccountLinkView({
   async function handleSubmit(event: React.SyntheticEvent): Promise<void> {
     event?.preventDefault();
 
-    if (cvvModal) {
-      accountLinkCore?.submitCvv();
-      setCvvModal(false);
-    } else if (!accountLinkCore?.service.grant && (!state?.cvv || !state?.phone_number || !state?.email) ) {
-      setCvvModal(true);
-      core?.sendEvent({
-        component: 'cvv_form_modal',
-        action: 'view',
-        site: host,
-      });
-    } else if (options.onSubmit) {
-      options.onSubmit(state?.values);
-    } else {
-      accountLinkCore?.submit();
+    // figure out if there is any missing card data (with or without grant)
+    let card_id = core.card_id ?? core.card.id;
+    if ( card_id ) {
+      const selected_sites = core.selectSiteCore?.sites;
+      const missing_fields = await core.service.getMissingCardDataFields(card_id, selected_sites!!);
+      const sparse_data_fields = convertMissingFieldstoSparseFields(missing_fields);
+
+      // add the missing fields to the local as well as the accountLinkCore state
+      if ( state ) {
+        state.missing_fields = missing_fields;
+        state.sparse_data_fields = sparse_data_fields;
+      }
+
+      if ( accountLinkCore?.state ) {
+        accountLinkCore.state.missing_fields = missing_fields
+        accountLinkCore.state.sparse_data_fields = sparse_data_fields;
+      }
+
+      if (cvvModal) {
+        accountLinkCore?.submitCvv(card_id);
+        setCvvModal(false);
+      } else if ( accountLinkCore?.state?.missing_fields && accountLinkCore?.state?.missing_fields?.length > 0 ) {
+        setCvvModal(true);
+        core?.sendEvent({
+          component: 'cvv_form_modal',
+          action: 'view',
+          site: host,
+        });
+      } else if (options.onSubmit) {
+        options.onSubmit(state?.values);
+      } else {
+        accountLinkCore?.submit();
+      }
     }
   }
 
@@ -101,10 +120,10 @@ export function AccountLinkView({
     options.onCancel?.();
   };
 
-  const getSparseFields = () : Field[] => {
+  const convertMissingFieldstoSparseFields = (missing_fields: string[]) => {
     const sparse_fields : Field[] = [];
 
-    if ( !state?.cvv ) {
+    if ( missing_fields?.includes("cvv") ) {
       sparse_fields?.push(
         {
           name: 'cvv',
@@ -115,7 +134,7 @@ export function AccountLinkView({
         }
       )
     }
-    if ( !state?.phone_number) {
+    if ( missing_fields.includes( "phone_number" ) ) {
       sparse_fields?.push(
         {
           name: 'phone_number',
@@ -126,7 +145,7 @@ export function AccountLinkView({
         },
       )
     }
-    if ( !state?.email) {
+    if ( missing_fields.includes("email" ) ) {
       sparse_fields?.push(
         {
           name: 'email',
@@ -139,6 +158,10 @@ export function AccountLinkView({
     }
 
     return sparse_fields;
+  }
+
+  const getSparseFields = () : Field[] => {
+    return state?.sparse_data_fields!;
   }
 
   const percent = state?.percent || 0;

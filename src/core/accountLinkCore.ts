@@ -42,6 +42,7 @@ export interface AccountLinkState {
   fields: Field[];
   sparse_data_fields: Field[];
   percent: number;
+  missing_fields: string[];
   cvv?: string;
   phone_number?: string;
   email?: string;
@@ -57,6 +58,7 @@ export const initialStateAccountLink = {
   submitting: false,
   fields: [],
   sparse_data_fields: [],
+  missing_fields: [],
   percent: 0,
 };
 
@@ -149,13 +151,22 @@ export default class AccountLinkCore {
     this.notifyForm();
   }
 
-  public async submitCvv() {
-
+  public async submitCvv(card_id: string) {
     this.updateState({
       cvv: this.state.values.cvv !== undefined ? this.state.values.cvv : this.state.cvv,
       phone_number: this.state.values.phone_number !== undefined ? this.state.values.phone_number : this.state.phone_number,
       email: this.state.values.email !== undefined ? this.state.values.email : this.state.email
     });
+
+    const body : any = {};
+    this.state.missing_fields?.forEach( field => {
+      if ( field === 'cvv' ) {
+        body['cvv'] = this.state.cvv!;
+      }
+    })
+
+    const response = await this.service.updateCard(card_id, body, this.service.safe_key);
+    console.log("Update card response", response);
 
     delete this.state.values.cvv;
     delete this.state.values.phone_number;

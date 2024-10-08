@@ -8,7 +8,7 @@ import {
   JobBody,
   CardBody,
   CardholderBody,
-  PostCredsBody,
+  PostCredsBody
 } from '../types';
 
 class StrivveService implements StrivveServiceInterface {
@@ -178,6 +178,13 @@ class StrivveService implements StrivveServiceInterface {
     return res?.body || [];
   }
 
+  async getMissingCardDataFields(card_id: string, selected_sites: MerchantSite[]): Promise<string[]> {
+    const session = await this.getSession();
+    const site_ids = selected_sites.map(site => String(site.id)).join(",");
+    const req_fields =  await session.sendRequest(`/cardholders/required_fields?id=${this.cardholder.id}&card_id=${card_id}&merchant_site_ids=${site_ids}`, "get");
+    return req_fields.body;
+  }
+
   createJobs(data: JobBody[]) {
     const session = this.ch.getSession(this.username);
     return session?.createSingleSiteJobs(data, this.safe_key);
@@ -191,6 +198,11 @@ class StrivveService implements StrivveServiceInterface {
   createCard(data: CardBody) {
     const session = this.ch.getSession(this.username);
     return session?.createCard(data, this.safe_key);
+  }
+
+  async updateCard(card_id: string, body: any) {
+    const session = await this.getSession();
+    return await session.updateCard(parseInt(card_id), body, this.safe_key);
   }
 
   authorizeCardholder(grant: string) {

@@ -150,6 +150,14 @@ export class StrivveService implements StrivveServiceInterface {
   postCreds(body: PostCredsBody): Promise<any> {
     return Promise.resolve({ body: { id: 1 } });
   }
+
+  updateCard(card_id: string, body: any, safeKey: string): Promise<any>{
+    return Promise.resolve( { body: { id: 1 } } );
+  }
+
+  getMissingCardDataFields(card_id: string, selected_sites: MerchantSite[]): Promise<any>{
+    return Promise.resolve( { body: { id: 1 } } );
+  }
 }
 
 export const serviceTest = new StrivveService({ api_instance: 'test' });
