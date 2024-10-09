@@ -116,7 +116,7 @@ export function SelectSiteView({
                   {localization?.all_sites_success_text?.replace(
                     '<n>',
                     totalSuccessJob.toString()
-                  )}
+                  ).replace('<s>', totalSuccessJob > 1 ? 's' : '')}
                 </a>
               </>
             ) : coreState?.mount === StrivveCoreMount.SELECT_SITE_LIST ? (

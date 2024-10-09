@@ -40,7 +40,7 @@ const defaultLocalization: Localization = {
   site_selection_title: 'Select a site to update your card',
   all_sites_title: 'Select a site to update your card',
   all_sites_search_site_title: 'Search site',
-  all_sites_success_text: "You've placed your card on <n> sites",
+  all_sites_success_text: "You've placed your card on <n> site<s>",
   all_sites_failure_text: 'See your recent <n> site(s) that failed',
   logon_text: 'Rest easy. Acme does not store your logon credentials.',
   logon_progress_status: '<api>',
