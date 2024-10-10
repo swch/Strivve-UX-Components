@@ -13,7 +13,7 @@ const MOVE_BG = keyframes`
 const defaultAppearance: Appearance = {
   layout: {
     logoImageUrl:
-      'https://d1t7g1oas7m24a.cloudfront.net/tiles/dynamic-synthetic?width=128',
+      'https://strivve.com/wp-content/uploads/2019/09/StrivveLogoLG.png',
     appName: 'Strivve',
   },
   variables: {
