@@ -29,6 +29,14 @@ function SelectSiteView({
     selectSiteCore?.submit?.();
   };
 
+  const jobIds = (state?.jobs || [])
+    .filter((item) => item.status === 'SUCCESSFUL')
+    .map((item) => item.site_id);
+
+  const filtered_sites = (state?.sites || []).filter(
+    (item) => !jobIds.includes(item.id)
+  );
+
   return (
     <div data-testid="modal" className="modal" css={appearance.elements?.modal}>
       <div
@@ -109,7 +117,7 @@ function SelectSiteView({
 
         {state?.search && (
           <SelectSiteList
-            sites={state?.sites || []}
+            sites={filtered_sites || []}
             selected={state?.selected || []}
             onSelectItem={(item: any) => {
               if (options?.multiple) {
