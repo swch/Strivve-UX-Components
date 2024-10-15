@@ -41,7 +41,7 @@ const defaultLocalization: Localization = {
   all_sites_title: 'Select a site to update your card',
   all_sites_search_site_title: 'Search site',
   all_sites_success_text: "You've placed your card on <n> site<s>",
-  all_sites_failure_text: 'See your recent <n> site(s) that failed',
+  all_sites_failure_text: 'See your recent <n> site<s> that failed',
   logon_text: 'Rest easy. Acme does not store your logon credentials.',
   logon_progress_status: '<api>',
   logon_link_success_text:
@@ -53,7 +53,7 @@ const defaultLocalization: Localization = {
   logon_otp_retry_default: '',
   my_sites_error_title: 'Errors',
   my_sites_error_text:
-    'The following site encountered a logon error. Click more for details.',
+    'The following sites encountered a logon error. Click on the site for details.',
   my_sites_success_title: 'Successful placement',
   my_sites_success_text:
     'Your card details were successfully placed on the following sites',

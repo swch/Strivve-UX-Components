@@ -99,9 +99,8 @@ export function SelectSiteView({
                   css={appearance.elements?.selectSiteTitleLink}
                 >
                   {localization?.all_sites_failure_text?.replace(
-                    '<n>',
-                    totalSuccessJob.toString()
-                  )}
+                    '<n>', failedJobs.length > 1 ? failedJobs.length.toString() : ''
+                  ).replace('<s>', failedJobs.length > 1 ? 's' : '')}
                 </a>{' '}
               </>
             ) : isHaveJob ? (
