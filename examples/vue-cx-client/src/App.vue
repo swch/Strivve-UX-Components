@@ -15,11 +15,24 @@ export default {
     return {
       instance: "pkumar",
       card: {
-        pan: '4111111111111111',
-            cvv: '321',
-            expiration_month: '2',
-            expiration_year: '24',
-            name_on_card: 'Mvick',
+        pan: '5556710082949240',
+        cvv: '716',
+        expiration_month: '01',
+        expiration_year: '28',
+        name_on_card: 'Annemarie Marcus',
+        address: {
+          city: 'Kirkland',
+          postal_code: '98034',
+          country: 'USA',
+          first_name: 'Annemarie',
+          last_name: 'Marcus',
+          email: 'jane@test.com',
+          phone_number: '2065555555',
+          address1: '10250 NE 121st ST',
+          state: 'WA',
+          subnational: 'WA',
+          is_primary: true,
+        },
       },
       appearance: {
         layout: {
