@@ -49,6 +49,8 @@ class StrivveService implements StrivveServiceInterface {
     if ( queue_name_override ) {
       this.queue_name_override = queue_name_override;
     }
+
+    this.login();
   }
 
   async login() {
@@ -205,7 +207,7 @@ class StrivveService implements StrivveServiceInterface {
     return await session.updateCard(parseInt(card_id), body, this.safe_key);
   }
 
-  authorizeCardholder(grant: string) {
+  async authorizeCardholder(grant: string) {
     const session = this.ch.getSession(this.username);
     return session?.authorizeCardholder(grant);
   }
