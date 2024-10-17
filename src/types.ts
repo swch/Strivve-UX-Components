@@ -131,7 +131,7 @@ export interface StrivveServiceInterface {
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
   cancelJob(job_id: number): any;
-  init(): Promise<boolean>;
+  waitForLogin(): Promise<boolean>;
 }
 
 export interface StrivveServiceClass {

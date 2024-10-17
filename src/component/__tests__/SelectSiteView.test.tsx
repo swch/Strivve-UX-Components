@@ -78,7 +78,7 @@ class Service implements StrivveServiceInterface {
     return data[0];
   }
 
-  init(): Promise<boolean> {
+  waitForLogin(): Promise<boolean> {
     return Promise.resolve(true);
   }
 

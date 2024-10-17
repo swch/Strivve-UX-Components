@@ -26,7 +26,7 @@ class ErrorService implements StrivveServiceInterface {
     throw new Error('Failed');
   }
 
-  init(): Promise<boolean> {
+  waitForLogin(): Promise<boolean> {
     return Promise.resolve(true);
   }
 

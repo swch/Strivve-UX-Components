@@ -72,7 +72,7 @@ export default class SelectSiteCore {
   async getSites(filter?: APIFilter) {
     this.setState({ loading: true });
     try {
-      await this.service.init();
+      await this.service.waitForLogin();
       const tags =
         filter?.tags ||
         this.service.fi_detail?.config?.config?.merchant_site_tags ||

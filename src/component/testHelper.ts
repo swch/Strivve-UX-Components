@@ -78,7 +78,7 @@ export class StrivveService implements StrivveServiceInterface {
     }));
   }
 
-  init(): Promise<boolean> {
+  waitForLogin(): Promise<boolean> {
     return Promise.resolve(true);
   }
 

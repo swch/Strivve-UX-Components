@@ -136,7 +136,7 @@ class StrivveService implements StrivveServiceInterface {
     return null;
   }
 
-  async init(): Promise<boolean> {
+  async waitForLogin(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const intervalId = setInterval(() => {
         if (this.is_login) {
@@ -153,7 +153,7 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async getSession() {
-    await this.init();
+    await this.waitForLogin();
     const session = this.ch.getSession(this.username);
     return session;
   }
