@@ -85,22 +85,25 @@ function AccountLinkForm({
       })}
 
       {forgotLink && (
-        <a
-          target="_blank"
+        <div
           className="accountLinkForgotLink"
           css={appearance.elements?.accountLinkForgotLink}
-          href={forgotLink}
-          rel="noreferrer"
-          onClick={() => {
-            core?.sendEvent({
-              component: 'account_link_form',
-              action: 'forgot_password',
-              site: host,
-            });
-          }}
         >
-          {localization.logon_forgot_signin}
-        </a>
+          <a
+            target="_blank"
+            href={forgotLink}
+            rel="noreferrer"
+            onClick={() => {
+              core?.sendEvent({
+                component: 'account_link_form',
+                action: 'forgot_password',
+                site: host,
+              });
+            }}
+          >
+            {localization.logon_forgot_signin}
+          </a>
+        </div>
       )}
       <div
         css={appearance.elements?.accountLinkFooter}

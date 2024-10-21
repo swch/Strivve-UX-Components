@@ -172,7 +172,7 @@ const defaultAppearance: Appearance = {
     modalStatus: {
       background: 'white',
       textAlign: 'center',
-      margin: '20px auto',
+      margin: '30% auto',
       borderRadius: '5px',
       padding: '30px',
       position: 'relative',
@@ -237,11 +237,13 @@ const defaultAppearance: Appearance = {
     mySiteTitle: {
       fontSize: '16px',
       marginBottom: '8px',
+      textAlign: 'left'
     },
     mySiteDescription: {
       marginTop: '0px',
       fontSize: '14px',
       color: 'var(--textColorSecondary)',
+      textAlign: 'left'
     },
     selectSiteView: {
       maxWidth: '400px',
@@ -372,6 +374,8 @@ const defaultAppearance: Appearance = {
       fontSize: '16px',
       marginBottom: '0.75rem',
       marginTop: '0.75rem',
+      marginLeft: '0.5rem',
+      textAlign: 'left',
       flex: 1,
     },
     selectSiteItemDescription: {
@@ -440,6 +444,7 @@ const defaultAppearance: Appearance = {
       color: 'var(--textColor)',
       fontSize: '20px',
       fontWeight: 400,
+      textAlign: 'left'
     },
     accountLinkHeaderDescription: {
       margin: 0,
@@ -448,6 +453,7 @@ const defaultAppearance: Appearance = {
       marginTop: '6px',
       marginBottom: '12px',
       fontWeight: 400,
+      textAlign: 'left'
     },
     accountLinkHeaderImage: {
       maxWidth: '70px',
@@ -526,6 +532,7 @@ const defaultAppearance: Appearance = {
     accountLinkForgotLink: {
       textDecoration: 'none',
       color: '#008BD9',
+      textAlign: 'left'
     },
     accountLinkLoadingBackground: {
       position: 'absolute',
