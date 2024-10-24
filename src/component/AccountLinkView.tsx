@@ -82,6 +82,24 @@ export function AccountLinkView({
 
     // figure out if there is any missing card data (with or without grant)
     let card_id = core.card_id ?? core.card.id;
+    if ( core.card && !card_id ) {
+      // card data is present but no card ID... create a card
+      let cardholder = core.service.cardholder;
+
+      const address = core.card?.address;
+      if (address) {
+        address.cardholder_id = cardholder.id;
+      }
+
+      const createCardResponse = await core.service.createCard({
+        ...core.card,
+        cardholder_id: cardholder.id,
+        address
+      });
+
+      card_id = createCardResponse.body.id;
+    }
+
     if ( card_id ) {
       const selected_sites = core.selectSiteCore?.sites;
       const missing_fields = await core.service.getMissingCardDataFields(card_id, selected_sites!!);

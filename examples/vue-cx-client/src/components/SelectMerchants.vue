@@ -4,7 +4,7 @@
 
 <script lang="ts">
 
-import {Appearance, CardBody, StrivveComponent, StrivveCore, StrivveService, StrivveServiceOptions} from "../../../src";
+import {Appearance, CardBody, StrivveComponent, StrivveCore, StrivveService, StrivveServiceOptions} from "@strivve/strivve-cx";
 import {defineComponent} from "vue";
 import type { PropType } from "vue";
 import Strivve from "@strivve/strivve-cx/dist/Strivve";

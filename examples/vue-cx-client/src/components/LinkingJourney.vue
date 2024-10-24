@@ -24,7 +24,7 @@ export default defineComponent({
 
     const strv : Strivve = this.strivve as Strivve;
     const service : StrivveService = strv.createService(<StrivveServiceOptions>{ api_instance: this.apiInstance });
-    await service.login();
+    await service.waitForLogin();
 
     const core : StrivveCore = strv.createCore({
       service,

@@ -80,13 +80,22 @@ class StrivveService implements StrivveServiceInterface {
         console.log("FI Detail = "+JSON.stringify(this.fi_detail, null, 2));
       }
 
-      // authorize
-      if (this.grant) {
-        const authorize = await this.authorizeCardholder(
-          this.grant
-        );
-        this.cardholder = authorize.body.cardholder;
-        this.setSafeKey(authorize.body.cardholder_safe_key);
+      // if a grant is not present, create a cardholder, else authorize the grant and get the cardholder
+      let response;
+      if ( this.grant ) {
+        console.log("Grant present");
+        response = await this.authorizeCardholder(this.grant);
+      } else {
+        console.log("No grant. Creating cardholder");
+        const createCardholderResponse = await this.createCardholder({
+          type: 'persistent_creds',
+        });
+        response = await this.authorizeCardholder(createCardholderResponse.body.grant);
+      }
+
+      if ( response ) {
+        this.cardholder = response.body.cardholder;
+        this.setSafeKey( response.body.cardholder_safe_key);
       }
 
       this.is_login = true;
@@ -137,14 +146,17 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async waitForLogin(): Promise<boolean> {
+    console.log("Inside wait for login");
     return new Promise((resolve, reject) => {
       const intervalId = setInterval(() => {
         if (this.is_login) {
+          console.log("Succesfully resolved");
           clearInterval(intervalId);
           resolve(true);
         }
 
         if (this.is_error) {
+          console.log("waitForLogin rejected");
           clearInterval(intervalId);
           reject('Session expired');
         }
