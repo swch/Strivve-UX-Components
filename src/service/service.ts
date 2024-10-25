@@ -146,17 +146,14 @@ class StrivveService implements StrivveServiceInterface {
   }
 
   async waitForLogin(): Promise<boolean> {
-    console.log("Inside wait for login");
     return new Promise((resolve, reject) => {
       const intervalId = setInterval(() => {
         if (this.is_login) {
-          console.log("Succesfully resolved");
           clearInterval(intervalId);
           resolve(true);
         }
 
         if (this.is_error) {
-          console.log("waitForLogin rejected");
           clearInterval(intervalId);
           reject('Session expired');
         }

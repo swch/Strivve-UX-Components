@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@strivve/strivve-cx": "^0.1.15",
+    "@strivve/strivve-cx": "^0.1.24",
     "@strivve/strivve-sdk": "^3.3.4",
     "@types/node": "18.15.11",
     "@types/react": "18.3.5",

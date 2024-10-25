@@ -22,6 +22,8 @@ CONTRIBUTING.md
 .eslintrc
 .babelrc
 .gitignore
+*.tgz
+*.iml
 
 # test file
 __tests__
