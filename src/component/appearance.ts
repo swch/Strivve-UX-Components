@@ -172,7 +172,7 @@ const defaultAppearance: Appearance = {
     modalStatus: {
       background: 'white',
       textAlign: 'center',
-      margin: '30% auto',
+      margin: '20px auto',
       borderRadius: '5px',
       padding: '30px',
       position: 'relative',

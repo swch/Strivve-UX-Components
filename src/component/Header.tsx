@@ -19,7 +19,8 @@ function Header({ hideJob }: { hideJob?: boolean }) {
     <div className="headerWrapper" css={appearance.elements?.headerWrapper}>
       <div>
         {core.state.mount !== StrivveCoreMount.INTRO &&
-          core.state.mount !== StrivveCoreMount.ACCOUNT_LINK && (
+          core.state.mount !== StrivveCoreMount.ACCOUNT_LINK &&
+          core.state.mount !== StrivveCoreMount.SELECT_SITE_CAROUSEL && (
             <div onClick={() => core.goBack()}>
               <BackIcon />
             </div>
