@@ -58,7 +58,7 @@ export function SelectSiteView({
     : [];
 
   const failedJobs = (state?.jobs || []).filter((item) =>
-    errorStatus.includes(item?.termination_type)
+    errorStatus.includes(item?.termination_type) && !errorStatus.includes(item?.status)
   );
 
   if (state?.loading) {

@@ -238,8 +238,8 @@ export default class StrivveCore {
     if (!item?.termination_type) {
       await this.service.cancelJob(item.id);
       this.onMessage(item.id, {
-        status: 'CANCELLED',
-        termination_type: 'CANCELLED',
+        status: 'CANCELED',
+        termination_type: 'CANCELED',
       });
       this.accountLinkCore?.query?.removeListeners(item.id);
     }
