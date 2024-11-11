@@ -237,18 +237,18 @@ export default class AccountLinkCore {
   }
 
   createQuery(job: any) {
-    const query = this.service.createCardholderQuery(job.cardholder_id);
+    const query = this.service.getCardholderQuery(job.cardholder_id);
     const statusHandler = (data: any) => {
       const message = data.message || data.error_message;
       this.onMessage?.(data.job_id, message);
 
-      const isComplete = message.auth_percent_complete === 100;
+      const isAuthComplete = message.auth_percent_complete === 100;
       const percent =
         this.state.percent > message.auth_percent_complete
           ? this.state.percent
           : message.auth_percent_complete;
 
-      if (message?.termination_type || data?.type === 'error' || isComplete) {
+      if (message?.termination_type || data?.type === 'error' || isAuthComplete) {
         if (failedStatus.includes(message?.termination_type)) {
           this.updateState({
             percent,
@@ -271,7 +271,7 @@ export default class AccountLinkCore {
 
         if ( message?.percent_complete === 100 || message?.termination_type ) {
           console.log("**********************************");
-          console.log("Removing listeners (statusHandler)");
+          console.log(`Removing listeners (statusHandler) for job ID = ${job.id}`);
           query.removeListeners(job.id);
           console.log("**********************************");
         }
@@ -313,7 +313,7 @@ export default class AccountLinkCore {
 
       if ( message?.percent_complete === 100 || message?.termination_type ) {
         console.log("**********************************");
-        console.log("Removing listeners");
+        console.log(`Removing listeners (pendingHandler) for job ID = ${job.id}`);
         query.removeListeners(job.id);
         console.log("**********************************");
       }

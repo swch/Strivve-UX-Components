@@ -42,7 +42,7 @@ class ErrorService implements StrivveServiceInterface {
     return Promise.resolve();
   }
 
-  createCardholderQuery(id: string) {
+  getCardholderQuery(id: string) {
     return Promise.resolve();
   }
 

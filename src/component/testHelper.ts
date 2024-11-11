@@ -99,7 +99,7 @@ export class StrivveService implements StrivveServiceInterface {
     });
   }
 
-  createCardholderQuery(id: string): any {
+  getCardholderQuery(id: string): any {
     const query: any = {
       callbacks: {},
       addListener: (id: string, func: any, status: string) => {

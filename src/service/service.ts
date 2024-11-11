@@ -24,6 +24,7 @@ class StrivveService implements StrivveServiceInterface {
   public fi_detail?: any;
   queue_name_override?: string;
   public cardholder?: any;
+  cardholder_query?: CardholderQuery;
 
   constructor({
     api_instance,
@@ -221,8 +222,14 @@ class StrivveService implements StrivveServiceInterface {
     return session?.authorizeCardholder(grant);
   }
 
-  createCardholderQuery(job_id: string): CardholderQuery {
-    return this.ch.createCardholderQuery(this.username, Number(job_id));
+  getCardholderQuery(job_id: string): CardholderQuery {
+    if ( !this.cardholder_query ) {
+      console.log("Creating new cardholder query");
+      this.cardholder_query = this.ch.createCardholderQuery(this.username, Number(job_id));
+    } else {
+      console.log("Reusing cardholder query");
+    }
+    return this.cardholder_query;
   }
 
   postCreds(body: PostCredsBody) {

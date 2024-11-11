@@ -127,7 +127,7 @@ export interface StrivveServiceInterface {
     StrivveResponse<{ cardholder_safe_key: string; cardholder: Cardholder }>
   >;
   getMissingCardDataFields(card_id: string, selected_sites: MerchantSite[]): Promise<string[]>;
-  createCardholderQuery(id: string): any;
+  getCardholderQuery(id: string): any;
   postCreds(body: PostCredsBody): Promise<any>;
   setSafeKey(key: string): void;
   cancelJob(job_id: number): any;
