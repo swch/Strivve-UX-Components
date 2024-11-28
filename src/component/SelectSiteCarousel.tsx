@@ -44,7 +44,7 @@ function SelectSiteCarousel({
 
   return (
     <>
-      <div style={{ width: 'calc(100% - 60px)', margin: '0 auto' }}>
+      <div style={{ width: 'calc(100% - 60px)', margin: 'auto' }}>
         <Slider
           {...settings}
           ref={sliderRef}
