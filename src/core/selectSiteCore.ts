@@ -101,7 +101,7 @@ export default class SelectSiteCore {
         return normalized_site_name.indexOf(normalized_query) >= 0;
       });
       this.sites = sites;
-      this.setState({ loading: false, sites, filter: { tags, top_hosts } });
+      this.setState({ loading: false, sites, filter: merchantFilter });
       return res;
     } catch (error: any) {
       this.setState({

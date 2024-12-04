@@ -51,11 +51,14 @@ export function SelectSiteView({
   const sites = (state?.sites || []).filter(
     (item) => !jobIds.includes(item.id)
   );
-  const top_hosts = state?.filter.top_hosts
-    ? typeof state.filter.top_hosts === 'string'
-      ? state.filter.top_hosts.split(',')
-      : []
-    : [];
+  let top_hosts: string[] = [];
+  if ( state?.filter.top_hosts ) {
+    if ( typeof state.filter.top_hosts === 'string' ) {
+      top_hosts = state.filter.top_hosts.split(',')
+    } else if ( typeof state.filter.top_hosts === 'object' ) {
+      top_hosts = state.filter.top_hosts;
+    }
+  }
 
   const failedJobs = (state?.jobs || []).filter((item) =>
     errorStatus.includes(item?.termination_type) && !errorStatus.includes(item?.status)
