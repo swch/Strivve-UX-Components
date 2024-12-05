@@ -372,14 +372,14 @@ const defaultAppearance: Appearance = {
     },
     selectSiteItemName: {
       fontSize: '16px',
-      marginBottom: '0.75rem',
-      marginTop: '0.75rem',
+      marginBottom: '1.25rem',
+      marginTop: '1.0rem',
       marginLeft: '0.5rem',
       textAlign: 'left',
       flex: 1,
     },
     selectSiteItemDescription: {
-      fontSize: '14px',
+      fontSize: '14px'
     },
     selectSiteItemImage: {
       width: '29px',
