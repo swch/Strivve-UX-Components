@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@strivve/strivve-cx": "^0.1.25",
+    "@strivve/strivve-cx": "^0.1.27",
     "vue": "^3.5.12"
   },
   "devDependencies": {

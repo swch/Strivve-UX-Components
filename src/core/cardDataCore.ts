@@ -96,14 +96,6 @@ export default class CardDataCore {
       required: true,
       secret: false,
     }
-    // const expYearField : Field = {
-    //   name : "expiration_year",
-    //   value: '',
-    //   label: "Exp. Year",
-    //   type: 'number',
-    //   required: true,
-    //   secret: false,
-    // }
     const cvvField : Field = {
       name : "cvv",
       value: '',
@@ -194,7 +186,6 @@ export default class CardDataCore {
     this.fields.push(nameOnCardField);
     this.fields.push(cardNumberField);
     this.fields.push(expDateField);
-    // this.fields.push(expYearField);
     this.fields.push(cvvField);
     this.fields.push(firstNameField);
     this.fields.push(lastNameField);

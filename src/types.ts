@@ -118,6 +118,7 @@ export interface StrivveServiceInterface {
   getMerchantSite(id: string): Promise<MerchantSite | undefined>;
   getMerchantSites(filters?: APIFilter): Promise<MerchantSite[]>;
   createJobs(body: JobBody[]): Promise<StrivveResponse<Job[]>>;
+  getCardholder(id: number): Promise<StrivveResponse<Cardholder>>;
   createCardholder(body: CardholderBody): Promise<StrivveResponse<Cardholder>>;
   createCard(body: CardBody): Promise<StrivveResponse<Card>>;
   updateCard(card_id: string, body: any, safeKey: string): Promise<StrivveResponse<Card>>;

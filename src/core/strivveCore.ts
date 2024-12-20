@@ -71,12 +71,20 @@ export default class StrivveCore {
     this.initialMount = this.state.mount;
 
     if (reset) {
+      console.log("Resetting session storage");
       sessionStorage.clear();
     }
 
     this.eventHandler = eventHandler;
 
     this.getJobs();
+
+    // store card_id in session storage
+    if ( this.card_id ) {
+      sessionStorage.setItem("card_id", this.card_id);
+    }
+
+    this.resumeJobStatusUpdates();
   }
 
   setCard(card: CardBody) {
@@ -262,6 +270,11 @@ export default class StrivveCore {
         cardholder = cardholderResponse.body;
         await this.service.authorizeCardholder(cardholder.grant);
         this.cardholder = cardholder;
+
+        // store cardholder info in session storage
+        sessionStorage.setItem("cardholder_id", this.cardholder.id);
+        sessionStorage.setItem("cuid", this.cardholder.cuid);
+        sessionStorage.setItem("agent_session_id", this.cardholder.agent_session_id);
       }
 
       // card
@@ -286,6 +299,9 @@ export default class StrivveCore {
         card = createCardResponse.body;
       }
       this.card = card;
+
+      // store card_id in session storage
+      sessionStorage.setItem("card_id", this.card?.id);
 
       const jobs = [
         {
@@ -320,5 +336,15 @@ export default class StrivveCore {
       console.error(error);
       throw error;
     }
+  }
+
+  resumeJobStatusUpdates() {
+    const in_progress_jobs = this.jobs.filter( job => !job.termination_type );
+
+    console.dir(in_progress_jobs);
+
+    in_progress_jobs.forEach( job => {
+      this.createAccountLink({site_id: job.site_id, job: job});
+    })
   }
 }

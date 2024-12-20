@@ -67,9 +67,13 @@ class StrivveService implements StrivveServiceInterface {
         false
       );
       this.username = config.username;
+
+      console.log("Existing session", sessionStorage.getItem(`session_v2.3.1[${this.username}]`));
+
       const res = await this.ch.loginAndCreateSession(
         config.username,
-        config.password
+        config.password,
+        {"key":"cardupdatr_ux_user"}
       );
 
       if (this.financial_institution) {
@@ -86,22 +90,45 @@ class StrivveService implements StrivveServiceInterface {
       if ( this.grant ) {
         console.log("Grant present");
         response = await this.authorizeCardholder(this.grant);
-      } else {
-        console.log("No grant. Creating cardholder");
-        const createCardholderResponse = await this.createCardholder({
-          type: 'persistent_creds',
-        });
-        response = await this.authorizeCardholder(createCardholderResponse.body.grant);
-      }
-
-      if ( response ) {
         this.cardholder = response.body.cardholder;
         this.setSafeKey( response.body.cardholder_safe_key);
+        sessionStorage.setItem("safe_key", this.safe_key);
+      } else {
+        console.log("No grant.");
+        const ss_cardholder_id = sessionStorage.getItem("cardholder_id");
+
+        if ( ss_cardholder_id !== null ) {
+          try {
+            const getCardholderResponse = await this.getCardholder(parseInt(ss_cardholder_id));
+            this.cardholder = getCardholderResponse.body;
+          } catch(err) {
+            console.error(err);
+          }
+        } else {
+          console.log("No existing session found or session has expired. Creating new cardholder.");
+          const createCardholderResponse = await this.createCardholder({
+            type: 'persistent_creds',
+          });
+          response = await this.authorizeCardholder(createCardholderResponse.body.grant);
+          this.cardholder = response.body.cardholder;
+          this.setSafeKey( response.body.cardholder_safe_key);
+          sessionStorage.setItem("safe_key", this.safe_key);
+        }
+      }
+
+      if ( this.cardholder ) {
+        console.dir(this.cardholder);
+
+        // store cardholder info in session storage
+        sessionStorage.setItem("cardholder_id", this.cardholder.id);
+        sessionStorage.setItem("cuid", this.cardholder.cuid);
+        sessionStorage.setItem("agent_session_id", this.cardholder.agent_session_id);
       }
 
       this.is_login = true;
       return res;
     } catch (error: any) {
+      console.log(error);
       this.is_error = true;
       if (window !== undefined) {
         sessionStorage.clear();
@@ -202,6 +229,11 @@ class StrivveService implements StrivveServiceInterface {
     return session?.createSingleSiteJobs(data, this.safe_key);
   }
 
+  getCardholder(cardholder_id: number) {
+    const session = this.ch.getSession(this.username);
+    return session?.getCardholder(cardholder_id, this.safe_key);
+  }
+
   createCardholder(data: CardholderBody) {
     const session = this.ch.getSession(this.username);
     return session?.createCardholder(data, this.safe_key);
@@ -225,10 +257,20 @@ class StrivveService implements StrivveServiceInterface {
   getCardholderQuery(job_id: string): CardholderQuery {
     if ( !this.cardholder_query ) {
       console.log("Creating new cardholder query");
-      this.cardholder_query = this.ch.createCardholderQuery(this.username, Number(job_id));
+      try {
+        console.log("Inside try");
+        console.log("Username: ", this.username);
+        this.cardholder_query = this.ch.createCardholderQuery(this.username, Number(job_id));
+        console.log("Just created query", this.cardholder_query);
+        return this.cardholder_query;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
     } else {
       console.log("Reusing cardholder query");
     }
+    console.log("cardholder query", this.cardholder_query);
     return this.cardholder_query;
   }
 

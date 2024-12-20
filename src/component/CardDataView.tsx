@@ -68,7 +68,7 @@ export function CardDataView({
     if (options?.onSubmit) {
       options?.onSubmit(state?.values);
     } else {
-      cardDataCore?.submit();
+      await cardDataCore?.submit();
     }
   }
 

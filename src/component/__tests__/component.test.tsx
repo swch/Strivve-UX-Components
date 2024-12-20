@@ -38,6 +38,10 @@ class ErrorService implements StrivveServiceInterface {
     return Promise.resolve();
   }
 
+  getCardholder(id: number): Promise<any> {
+    return Promise.resolve();
+  }
+
   createCardholder(body: CardholderBody): Promise<any> {
     return Promise.resolve();
   }

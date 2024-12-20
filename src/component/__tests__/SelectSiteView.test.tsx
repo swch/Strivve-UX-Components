@@ -6,11 +6,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import SelectSiteView from '../SelectSiteView';
 import {
   APIFilter,
-  CardBody,
+  CardBody, Cardholder,
   CardholderBody,
   JobBody,
   MerchantSite,
-  PostCredsBody,
+  PostCredsBody, StrivveResponse,
   StrivveServiceInterface,
 } from '../../types';
 import StrivveCore from '../../core/strivveCore';
@@ -87,6 +87,10 @@ class Service implements StrivveServiceInterface {
   }
 
   createJobs(data: JobBody[]): Promise<any> {
+    return Promise.resolve();
+  }
+
+  getCardholder(id: number): Promise<any> {
     return Promise.resolve();
   }
 

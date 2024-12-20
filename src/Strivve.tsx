@@ -76,6 +76,9 @@ export default class Strivve {
     const createService = Service
       ? new Service({ api_instance, grant, financial_institution })
       : this.createService({ api_instance, grant, financial_institution });
+    createService.waitForLogin().then( (value) => {
+      console.log("Logged in");
+    });
 
     const core = this.createCore({
       service: createService,

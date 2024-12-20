@@ -91,6 +91,14 @@ export class StrivveService implements StrivveServiceInterface {
     return Promise.resolve({ body: [{ job_id: '1' }] });
   }
 
+  getCardholder(id: number): Promise<any> {
+    return Promise.resolve( {
+      body: {
+        id: 1
+      }
+    });
+  }
+
   createCardholder(body: CardholderBody): Promise<any> {
     return Promise.resolve({
       body: {
